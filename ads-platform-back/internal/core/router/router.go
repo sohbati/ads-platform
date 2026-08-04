@@ -72,6 +72,13 @@ func (r *Router) SetupRoutes() *gin.Engine {
 
 		}
 
+		// OTP routes
+		otp := api.Group("/otp")
+		{
+			otp.POST("/:mobile/send", r.container.Otp.OtpHandler.SendOTP)
+			otp.POST("/:mobile/verify", r.container.Otp.OtpHandler.VerifyOTP)
+		}
+
 	}
 
 	return router

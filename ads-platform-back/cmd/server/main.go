@@ -35,7 +35,7 @@ func (app *Application) Initialize() error {
 	if err != nil {
 		return err
 	}
-	container := container.NewAppContainer(app.database)
+	container := container.NewAppContainer(app.database, app.config)
 
 	app.router = router.NewRouter(container)
 	log.Println("Router configured")
