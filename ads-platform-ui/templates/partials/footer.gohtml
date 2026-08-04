@@ -1,0 +1,21 @@
+{{ define "footer" }}
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <p class="site-footer__tagline">{{ format .T.Footer.Tagline .AppName }}</p>
+    <nav class="site-footer__links" aria-label="{{ .T.Footer.NavAria }}">
+      <a href="/query-ads">{{ .T.Nav.QueryAds }}</a>
+      <a href="/category">{{ .T.Nav.Category }}</a>
+      <a href="/location">{{ .T.Nav.Location }}</a>
+      <a href="/new-ad">{{ .T.Nav.NewAd }}</a>
+      <a href="/my-info">{{ .T.Nav.MyInfo }}</a>
+    </nav>
+    <nav class="site-footer__links site-footer__links--sub" aria-label="{{ .T.Nav.MyInfo }}">
+      <a href="/my-info/user-details">{{ .T.Nav.UserDetails }}</a>
+      <a href="/my-info/user-ads">{{ .T.Nav.UserAds }}</a>
+      <a href="/my-info/marked-ads">{{ .T.Nav.MarkedAds }}</a>
+      <a href="/my-info/setting">{{ .T.Nav.Setting }}</a>
+    </nav>
+    <p class="site-footer__copy">&copy; {{ .AppName }}</p>
+  </div>
+</footer>
+{{ end }}

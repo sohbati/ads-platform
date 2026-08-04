@@ -1,0 +1,29 @@
+{{ define "category_grid" }}
+<section class="categories" aria-labelledby="categories-heading">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="categories-heading" class="section-head__title">{{ .T.Categories.Title }}</h2>
+      <p class="section-head__desc">{{ format .T.Categories.Description .CityDisplayName }}</p>
+    </div>
+
+    <ul class="category-grid">
+      {{- range .Categories }}
+      <li>
+        <a href="{{ .Href }}" class="category-card">
+          <span class="category-card__icon-wrap">
+            {{ template "category_icon" .Icon }}
+          </span>
+          <span class="category-card__body">
+            <span class="category-card__name">{{ .Name }}</span>
+            <span class="category-card__desc">{{ .Description }}</span>
+          </span>
+          <svg class="category-card__arrow icon icon--xs" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m9 6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+</section>
+{{ end }}

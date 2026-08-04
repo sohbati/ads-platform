@@ -1,0 +1,8 @@
+{{ define "search_hero" }}
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero__inner container">
+    <h1 id="hero-heading" class="hero__title">{{ format .T.Hero.Title .CityDisplayName }}</h1>
+    <p class="hero__subtitle">{{ .T.Hero.Subtitle }}</p>
+  </div>
+</section>
+{{ end }}

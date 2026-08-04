@@ -1,0 +1,13 @@
+{{ define "myinfo" }}
+{{ template "page_open" . }}
+<section class="section-stub container">
+  <h1 class="section-stub__title">{{ .T.Nav.MyInfo }}</h1>
+  <nav class="myinfo-nav" aria-label="{{ .T.Nav.MyInfo }}">
+    <a href="/my-info/user-details" class="{{ if eq .CurrentPath "/my-info/user-details" }}is-active{{ end }}">{{ .T.Nav.UserDetails }}</a>
+    <a href="/my-info/user-ads" class="{{ if eq .CurrentPath "/my-info/user-ads" }}is-active{{ end }}">{{ .T.Nav.UserAds }}</a>
+    <a href="/my-info/marked-ads" class="{{ if eq .CurrentPath "/my-info/marked-ads" }}is-active{{ end }}">{{ .T.Nav.MarkedAds }}</a>
+    <a href="/my-info/setting" class="{{ if eq .CurrentPath "/my-info/setting" }}is-active{{ end }}">{{ .T.Nav.Setting }}</a>
+  </nav>
+</section>
+{{ template "page_close" . }}
+{{ end }}

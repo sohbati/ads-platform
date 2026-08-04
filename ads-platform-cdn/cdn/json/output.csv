@@ -1,0 +1,4035 @@
+type,cities_count,id,name,slug,parent
+0,1177,715,ایران,iran,
+2,,1,تهران,tehran,904
+2,,3,مشهد,mashhad,880
+2,,2,کرج,karaj,895
+2,,6,شیراز,shiraz,898
+2,,4,اصفهان,isfahan,890
+2,,7,اهواز,ahvaz,902
+2,,5,تبریز,tabriz,891
+2,,9,کرمانشاه,kermanshah,905
+2,,8,قم,qom,892
+2,,12,رشت,rasht,889
+4,,3432,۲۰۰۰واحدی,2000-vahedi,7
+4,,3431,۲۰۰دستگاه,200-dastgah,7
+4,,3158,۲۲ بهمن,22-bahman-nishabur,318
+4,,2309,۲۲ بهمن,22-bahman,30
+4,,2537,۲۲ بهمن,22-bahman-najaf-abad,31
+4,,3445,۲۴ متری,khiaban-24-metri,7
+4,,3433,۲۵۴دستگاه,254-dastgah,7
+4,,3404,۳۰ متری,khiaban-30-metri,7
+4,,3240,۴۵ متری,45-metri,1776
+4,,2459,۹ دی,9-dey,1744
+4,,2490,A1,a1,1745
+4,,2488,A2,a2,1745
+4,,2489,A3,a3,1745
+4,,2487,A4,a4,1745
+4,,2486,A6,a6,1745
+4,,2493,B1,b1,1745
+4,,2502,B2,b2,1745
+4,,2501,B4,b4,1745
+4,,2496,B5,b5,1745
+4,,2495,B6,b6,1745
+4,,2500,B7,b7,1745
+4,,2497,B8,b8,1745
+4,,2494,B9,b9,1745
+4,,2506,C1,c1,1745
+4,,2507,C2,c2,1745
+4,,2508,C3,c3,1745
+4,,2505,C4,c4,1745
+4,,2504,C5,c5,1745
+4,,2509,C6,c6,1745
+4,,2510,C7,c7,1745
+4,,2499,C8,c8,1745
+4,,2142,آب آسیاب,abasiab,12
+2,,24,آبادان,abadan,902
+4,,1125,آبادگران,Shahrak-e-Taleqani,3
+2,,851,آباده,abadeh,898
+2,,3619,آبپخش,abpakhsh,900
+4,,1404,آب جوار,abjavar,6
+2,,3629,آبدان,abdan,900
+2,,775,آبدانان,abdanan,888
+4,,2795,آبزنگی,abzangi,6
+2,,1709,آبسرد,absard,904
+2,,3497,آبش احمد,abesh-ahmad,891
+4,,992,آبشار,abshar,1
+4,,3245,آبشار,abshar-torbat-heydariyeh,1776
+4,,1593,آبشار,abshar-isfahan,4
+4,,907,آبشار تهران (دریاچه),abshar-tehran,1
+2,,1715,آبعلی,abali,904
+4,,1176,آبکوه,abkuh,3
+2,,2947,آبکوه,abkuh-city,880
+2,,3787,آبگرم,abgarm,878
+4,,2182,آب و برق,ab-va-barq,12
+4,,1359,آبیاری,abyari,6
+2,,869,آبیک,abyek,878
+4,,3079,آپارتمان های مرتفع,aparteman-haye-mortafa,3
+4,,2192,آتشگاه,atashgah,12
+4,,4437,آتشگاه,atashgah-karaj,2
+4,,40,آجودانیه,ajoodanieh,1
+4,,2061,آخرخط,akharxat,708
+4,,4214,آدران,adran,1765
+4,,654,آذربایجان,azarbaijan,1
+4,,2090,آذربایجان,azarbayjan,708
+2,,853,آذرشهر,azarshahr,891
+4,,611,آذر (نکویی),azar,8
+4,,198,آذری,azari,1
+2,,3713,آرادان,aradan,882
+4,,87,آرارات,ararat,1
+4,,2658,آرامستان بهشت معصومه,aramestan-behesht-masoumeh-qom,8
+4,,2436,آرامستان بهشت معصومه,aramestan-behesht-masoumeh,1744
+2,,1737,آران و بیدگل,aran-va-bidgol,890
+4,,301,آرژانتین,arjantin,1
+2,,3808,آرمرده,armardeh,885
+4,,355,آریاشهر,ariyashahr,7
+4,,1543,آزادان,azadan,4
+4,,4338,آزادشهر,azadshahr-tehran,1
+2,,1691,آزادشهر,azadshahr-golestan,897
+4,,431,آزادشهر,azadshahr,3
+4,,1435,آزادگان,azadegan-isfahan,4
+4,,589,آزادگان,azadegan,2
+4,,1933,آزادگان,rasht-azadegan,12
+4,,609,آزادگان,azadegan-qom,8
+4,,527,آزادگان,fazilatblvd,6
+4,,2804,آزادی,azadi,6
+2,,1722,آسارا,asara,895
+4,,3237,آسایش,asayesh,1776
+2,,824,آستارا,astara,889
+2,,825,آستانه اشرفیه,astaneh-ashrafiyeh,889
+2,,1995,آستانه سرا,astaneh-sara,893
+4,,925,آسمان,aseman,1
+2,,3849,آسمینون,aasmenoon,877
+4,,3416,آسیاباد,asiabad,7
+4,,4401,آسیاب برجی,asiab-borji,2
+4,,2039,آسیای میانه,asiyaye-miane,708
+2,,3725,آشار,aashaar,883
+2,,3937,آشتیان,ashtian,901
+4,,951,آشتیانی,ashtiyani,1
+2,,793,آشخانه,ashkhaneh,896
+2,,3403,آغاجاری,aghajari,902
+4,,3235,آغوی,aghvi,1776
+4,,1458,آفاران,afaran,4
+2,,4025,آفتاب,aftab,904
+4,,1041,آق تپه,aq-tappeh,2
+2,,748,آق قلا,aq-qala,897
+2,,1993,آکند,akand,893
+2,,1871,آلاشت,aalasht,893
+4,,2643,آلوچو,aluchu,8
+2,,663,آمل,amol,893
+4,,2378,آموزشگاه شهید بهشتی,amoozeshgah-shahid-beheshti,4
+4,,2135,آهندان,ahandan,746
+4,,273,آهنگ,ahang,1
+4,,1456,آهنگران,shahishabad,4
+4,,970,آهنگران (سراسیاب دولاب),sarasiab-doolab,1
+2,,3726,آهوران,ahuran,883
+2,,3785,آوج,avaj,878
+4,,1210,آیت الله خامنه‌ای,ayatollah-khamenei,3
+4,,2329,آیت الله سعیدی,ayatollah-saeedi,30
+4,,3073,آیت الله کاشانی,ayatollah-kashani,3
+2,,3668,آیسک,ayask,876
+4,,291,ائمه اطهار,farah-abad,1
+4,,173,اباذر,aboozar,1
+4,,3355,ابارش,abarsh,316
+4,,1560,ابر,abr,4
+4,,4255,ابراهیم‌آباد,ebrahimabad-shahriar,1759
+4,,3343,ابراهیم ادهم,ebrahim-adham,318
+4,,3342,ابراهیمی,ebrahimi,318
+4,,3382,ابرغن,abarghon,3
+2,,4003,ابرکوه,abarkooh,886
+2,,1723,ابریشم,abrisham-isfahan,890
+4,,979,ابن بابویه,ebn-babevayh,1
+2,,802,ابهر,abhar,879
+4,,1193,ابوذر,abouzar-mashhad,3
+4,,3266,ابوذر,abuzar,1776
+4,,1020,ابوذر,abouzar,1
+4,,2834,ابوذر جنوبی,aboozar-jonoubi,1788
+4,,2827,ابوذر شمالی‎,abozar-shomali,1788
+4,,3175,ابوریحان,aborihan,316
+4,,1374,ابیوردی,abiverdi,6
+4,,1019,اتابک,atabak,1
+4,,1078,اتحاد,ettehad,2
+4,,990,اتحاد,etehad,1
+4,,4531,اتمسفر,atmosfer,2
+4,,1045,احدآباد,ahadabad,2
+4,,4461,احمد آباد,ahmadabad-nazarabad,774
+4,,440,احمدآباد,ahmadabad,3
+4,,1470,احمدآباد,ahmad-abad-isfahan,4
+4,,1310,احمدآباد,ahmad-abad,6
+2,,4037,احمدآبادمستوفی,ahmadabadmostofi,904
+2,,1852,احمدسرگوراب,ahmadsar-gourab,889
+4,,2150,احمد گوراب,ahmad-gurab,12
+2,,3950,احمدی,ahmadi-city,894
+4,,1366,احمدی,ahmadi,6
+4,,1352,احمدی جنوبی,emam-hosein,6
+4,,1049,اخترآباد,akhtarabad,2
+4,,68,اختیاریه,ekhtiyariyeh,1
+4,,1051,اخگرآباد,akhgarabad,2
+4,,3088,ادیب نیشابوری (شهرک غرب),adib-nishaburi,3
+4,,943,اراج,araj,1
+4,,4172,اراضی عباس آباد,arazi-abbas-abad,1
+4,,4539,اراضی فتح المبین (محمدیه),arazi-fatholmobin-mohammadiye,30
+2,,15,اراک,arak,901
+4,,131,ارامنه,aramaneh,1
+2,,1714,ارجمند,arjmand,904
+4,,4149,ارجمندی راد,arjamandi-rad,1
+2,,2722,ارد,ard,898
+4,,1563,ارداجی,ardaji,4
+2,,17,اردبیل,ardabil,906
+2,,2202,اردستان,ardestaan,890
+2,,846,اردکان,ardakan,886
+2,,3637,اردل,ardal,903
+4,,4487,اردهه,ardeh,1754
+4,,409,ارزنان,arzanaan,4
+2,,3836,ارزوئیه,arezouyeh,877
+2,,2725,ارژن,arzhan,898
+2,,3543,ارس,aras,881
+2,,3662,ارسک,arsak,876
+2,,2726,ارسنجان,arsanjan,898
+4,,1162,ارشاد,ershad,3
+2,,3574,ارشق,arshagh,906
+2,,1987,ارطه,arateh,893
+4,,1554,ارغوانیه,arghavanieh,4
+4,,612,ارم,haram,8
+4,,522,ارم,eram-shiraz,6
+4,,160,ارم,eram,1
+2,,3621,ارم,oram,900
+4,,3082,ارمغان,armaghan,3
+2,,3650,ارمند,armand,903
+2,,10,ارومیه,urmia,881
+4,,1247,اروند,arvand,3
+4,,3374,اروند (کشف),roostaye-arvand,3
+4,,53,ازگل,ozgol,1
+2,,3868,ازگله,azgaleh,905
+2,,870,ازنا,azna,884
+2,,2213,اژیه,ezhye,890
+2,,1812,اسالم,asalem,889
+4,,1903,استادسرا,ostad-saraa,12
+4,,195,استاد معین,ostad-moein,1
+4,,3059,استاد یوسفی (شهرک غرب),ostad-yousefi,3
+4,,2056,استادیوم,estadium,708
+4,,2824,استادیوم‎,estadium-marvdasht,1788
+4,,4399,استاندارد,standard,2
+4,,112,استخر,estakhr,1
+4,,4540,استرک,estark,30
+4,,1922,استقامت ۱,esteghamat,12
+4,,2153,استقامت ۲,esteghamat-2,12
+4,,4174,استقلال,esteghlal,1
+2,,2723,استهبان,estahban,898
+2,,2948,اسحاق آباد,es-haq-abad,880
+4,,4248,اسد‌آباد,asadabad-shahriar,1759
+4,,1042,اسدآباد,asadabad-karaj,2
+4,,2264,اسدآباد,asadabad-kashan,30
+2,,842,اسدآباد,asadabad,899
+2,,794,اسفراین,esfarayen,896
+2,,3788,اسفرورین,asfarvarin,878
+2,,3861,اسفندقه,esfandagheh,877
+4,,256,اسفندیاری,esfandyari,1
+2,,4004,اسفیچ,asfich,886
+4,,4253,اسکمان,askaman,1759
+4,,283,اسکندری,eskandari,1
+2,,3518,اسکو,osku,891
+4,,1101,اسلام‌آباد,eslamabad,2
+4,,3213,اسلام آباد,eslamabad-sabzevar,316
+2,,3575,اسلام آباد,eslamabad-city,906
+4,,3484,اسلام آباد شرقی,eslam-abad-sharghi,7
+2,,819,اسلام‌‌آباد غرب,eslamabad-gharb,905
+4,,3456,اسلام آباد غربی,eslam-abad-gharbi,7
+2,,29,اسلام‌شهر,eslamshahr,904
+2,,3658,اسلامیه,eslamiye,876
+4,,1889,اسماعیل آباد,esmaeil-abad,12
+4,,3289,اسماعیل آباد,esmaeil-abad-torbat-jam,791
+4,,3375,اسماعیل آباد,esmaeilabad,3
+4,,4568,اسماعیل آباد (سپاد),esmaeil-abad-sepad,3
+2,,3862,اسماعیلی,esmaeili,877
+4,,3406,اسماعیلیه,esmaeilieh,7
+4,,2609,اسمعیل آباد,esmaeel-aabad,8
+2,,2724,اسیر,asir,898
+2,,3906,اشترینان,ashtarinan,884
+2,,1721,اشتهارد,eshtehard,895
+4,,2481,اشکاوند,ashkavand,4
+2,,4005,اشکذر,ashkazar,886
+2,,2716,اشکنان,ashkanan,898
+2,,859,اشنویه,oshnavieh,881
+4,,2415,اصفهانک,esfahanak,4
+4,,1081,اصفهانی‌ها,esfahaniha,2
+4,,1360,اصلاح‌نژاد,eslahnejad,6
+2,,3569,اصلاندوز,aslandooz,906
+4,,4260,اصیل آباد,asil-abad,1759
+2,,2004,اطاقور,otaghvar,889
+4,,2089,اطبا,ateba,708
+4,,2386,اطشاران,atsharan,4
+2,,2717,افزر,afzar,898
+4,,4182,افسریه جنوبی,afsariye-jonubi,1
+4,,249,افسریه شمالی,afsariyeh,1
+2,,3701,افشار,afshar,879
+4,,1134,اقبال,eqbal,3
+4,,2476,اقبال لاهوری,eqbal-lahuri,1744
+2,,1795,اقبالیه,eqbaliyeh,878
+4,,4224,اقدسیه,aghadasiye,1763
+4,,48,اقدسیه,aghdasieh,1
+2,,1728,اقلید,eqlid,898
+4,,167,اکباتان,ekbatan,1
+4,,4590,اکبر آباد,akbar-abad,6
+4,,1056,اکبرآباد,akbarabad,2
+4,,4195,الارد,alard,1765
+2,,1816,الشتر,aleshtar,884
+4,,3412,الصافی,alsafi,7
+4,,2662,الغدیر,alghadir-qom,8
+4,,2345,الغدیر,alghadir,30
+2,,2010,القجر,alghajar,897
+4,,2551,الله اکبر,allah-akbar,31
+4,,2843,الماس آباد,almas-abad,1788
+4,,3298,المهدی,almahdi-torbat-jam,791
+4,,4410,المهدی,almahdii,2
+4,,143,المهدی,almahdi,1
+2,,3784,الموت,almot,878
+4,,3405,الهائی,alahayi,7
+4,,488,الهیه,elahiyehblvd,3
+4,,2450,الهیه,elahieh,1744
+4,,85,الهیه,elahiyeh,1
+4,,2387,الهیه,alahiyeh,4
+2,,872,الوند,alvand,878
+4,,2630,الوندیه و گذر صادق,alvandieh-va-gozar-sadegh,8
+4,,1490,الیادران,elyderan,4
+2,,830,الیگودرز,aligudarz,884
+4,,3313,امام,emam-torbat-jam,791
+4,,3160,امام,emam-nishabur,318
+2,,3796,امام,omam,885
+4,,953,امامت,tehran-emamat,1
+2,,3616,امام حسن,emam-hasan,900
+4,,287,امام حسین,emam-hossein,1
+4,,2468,امام حسین,emam-hossein-shahin-shahr,1744
+4,,1311,امام حسین,shahrak-imam-hossein,6
+4,,2535,امام خمینی,emam-khomeini,31
+4,,2288,امام خمینی,emam-khomeyni,30
+4,,473,امام خمینی,emamkhomeini,3
+4,,4185,امام خمینی,emam-khomeyni-tehran,1
+4,,3139,امام خمینی,emam-khomeyni-nishabur,318
+4,,3221,امام خمینی (ناوی),emam-khomeyni-navi,316
+4,,478,امام رضا,emamreza,3
+4,,490,امام رضا (ع),barqsquare,3
+4,,2072,امامزاده,emamzadeh,708
+4,,631,امامزاده ابراهیم,emamzadehebrahim,8
+4,,1468,امامزاده اسماعیل,golbahar-isfahan,4
+4,,1021,امام زاده حسن,imamzadeh-hasan,1
+4,,4132,امام زاده عبدالله,emam-zade-abdollah,1
+2,,1988,امامزاده عبدالله,emamzadeh-abdollah,893
+4,,45," امام زاده قاسم (نیاوران)",emamzade-ghasem,1
+4,,3058,امامیه (شهرک غرب),emamieh,3
+4,,338,امانیه,amaniyeh-ahvaz,7
+4,,360,امانیه,amaniyeh,1
+4,,937,امجدیه (خاقانی),tehran-khaghani,1
+2,,1688,املش,amlash,889
+2,,1779,امیدیه,omidiyeh,902
+4,,1143,امیر,kuy-e-amiralmomenin,3
+4,,1217,امیر آباد,amirabad-mashhad,3
+4,,91,امیرآباد,amir-abad,1
+4,,3338,امیرآباد,amirabad-tos,3
+4,,2546,امیرآباد,amirabad,31
+2,,3717,امیرآباد,amirabad-city,882
+4,,1190,امیر المومنین,kuy-e-amiralmonmenin,3
+4,,276,امیر بهادر,amir-bahador,1
+4,,2128,امیرشهید,amir-shahid,746
+4,,2380,امیرعرب,amir-arab,4
+4,,3190,امیر کبیر,amir-kabir-sabzevar,316
+4,,2328,امیرکبیر,amirkabir,30
+4,,2460,امیرکبیر,amir-kabir,1744
+4,,2558,امیرکبیر,amirkabir-najaf-abad,31
+2,,1703,امیرکلا,amirkala,893
+4,,3219,امیریه,amiriyeh-sabzevar,316
+4,,277,امیریه,amiriyeh,1
+4,,1130,امیریه,amiriyeh-mashhad,3
+4,,1421,امین‌آباد,amin-abad,4
+4,,4298,امین آباد,amin-abad-gharchak,1761
+4,,3340,امین آباد,aminabad,3
+4,,4232,امین آباد,aminabad-rey,1763
+4,,3123,امین اسلامی,amin-eslami,318
+4,,1886,امین الضرب,amin-zarb,12
+4,,993,امین حضور,aminhozour,1
+2,,2949,انابد,anabad,880
+2,,3824,انار,anar,877
+2,,2214,انارک,anaarak,890
+2,,1991,انبارآلوم,anbaralum,897
+4,,4414,انبار مپنا,anbar-mapna,2
+4,,4559,انبار نفت,anbar-naft-fardis,1751
+4,,4157,انبار نفت,anbar-naft,1
+4,,3019,انبارنفت,anbarnaft,3
+4,,4083,انبارهای شهید طاهری,anbarha-ye-shahid-taheri,29
+4,,4212,انجم آباد,anjam-abad,1765
+4,,524,انجیر,kolbeh,6
+4,,2773,انجیره,anjbareh,6
+4,,1570,اندوان,andevan,4
+4,,3232,اندیشه,andisheh-torbat-heydariyeh,1776
+2,,1764,اندیشه,andisheh-new-town,904
+4,,4089,اندیشه فاز ۱,andishe-faz-1,1764
+4,,4092,اندیشه فاز ۲,andishe-faz-2,1764
+4,,4097,اندیشه فاز ۳,andishe-faz-3,1764
+4,,4098,اندیشه فاز ۴,andishe-faz-4,1764
+4,,4095,اندیشه فاز ۵,andishe-faz-5,1764
+4,,4099,اندیشه فاز ۶,andishe-faz-6,1764
+2,,3397,اندیکا,andika,902
+2,,796,اندیمشک,andimeshk,902
+2,,3544,انزل,anzal,881
+4,,622,انسجام,ensejam,8
+4,,1195,انصار,ansar-mashhad,3
+4,,630,انصار‌الحسین,ansar,8
+4,,2046,انصار الحسین,ansar-alhosein,708
+4,,1890,انصاری,ansari,12
+4,,2047,انقلاب,enqelab-bandar-e-anzali,708
+4,,2125,انقلاب,enqelab-lahijan,746
+4,,1237,انقلاب,enqelab-mashhad,3
+2,,3570,انگوت,angoot,906
+2,,3702,انگوران,anguran,879
+2,,759,اهر,ahar,891
+2,,3626,اهرم,aheram,900
+4,,3494,اهواز,ahvaz-district,7
+2,,3804,اورامان,uraman,885
+2,,2715,اوز,owz,898
+4,,115,اوقاف,oghaf,1
+4,,57,اوین,evin,1
+2,,4006,ایثار,isaar,886
+4,,1200,ایثار,isar,3
+4,,1149,ایثارگران,isargaran,3
+2,,3697,ایجرود,ijrud,879
+2,,797,ایذه,izeh,902
+4,,991,ایران,tehran-iran,1
+2,,807,ایرانشهر,Iranshahr,883
+4,,298,ایرانشهر,iranshahr,1
+2,,3727,ایرندگان,irandegan,883
+4,,4060,ایرین,irin,29
+2,,2720,ایزدخواست,izadkhvast,898
+2,,1701,ایزدشهر,izadshahr,893
+4,,3357,ایزی شهر,eyzi-shahr,316
+4,,4479,ایقربلاغ,eyghrbolagh,1754
+2,,32,ایلام,ilam,888
+2,,3519,ایلخچی,ilkhchi,891
+4,,1173,ایمان,iman,3
+2,,2013,اینچه برون,inche-borun,897
+2,,776,ایوان,eyvan,888
+4,,1242,ایوان,ivan,3
+4,,927,ایوانک,eivanak,1
+2,,3718,ایوانکی,eyvanaki,882
+2,,3545,ایواوغلی,ivauqli,881
+2,,3639,بابا حیدر,baba-heydar,903
+4,,4577,باباکوهی,babakoohi,6
+4,,2393,باب الدشت,bab-aldasht,4
+2,,1978,بابکان,babakan,893
+2,,664,بابل,babol,893
+2,,710,بابلسر,babolsar,893
+4,,1428,بابوکان,babukan,4
+4,,2365,بابوکان جنوبی,babookan-jonoobi,4
+4,,1575,باتون,batoun,4
+4,,603,باجک دو,bajak,8
+4,,2653,باجک سه,bajk-se,8
+4,,2577,باجک یک,bajak-yek,8
+4,,4588,باجگاه,bajgah,6
+2,,2950,باجگیران,bajgiran,880
+2,,2951,باخزر,bakhzar,880
+2,,2215,بادرود,badrood,890
+4,,3352,بار,bar,318
+4,,4228,باروت کوبی,barut-kubi,1763
+2,,3536,باروق,baruq,881
+4,,3267,بازار,bazar-torbat-heydariyeh,1776
+4,,1362,بازار,bazaar-shiraz,6
+4,,1934,بازار,rasht-bazaar,12
+4,,93,بازار,bazaar,1
+4,,2553,بازار,bazar,31
+4,,3486,بازار آهن,bazar-ahan,7
+4,,4387,بازار آهن,bazar-ahan-karaj,2
+4,,4229,بازار آهن,bazar-ahan-rey,1763
+4,,2281,بازار کاشان,bazar-kashan,30
+4,,4234,بازار گل خاوران,bazar-gol-khavaran,1763
+4,,4412,بازار مصالح ساختمانی,bazar-masaleh-sakhtemani,2
+2,,3546,بازرگان,bazargan,881
+2,,3643,بازفت,bazfat,903
+4,,2136,بازکیاگوراب,bazkiya-gurab,746
+4,,605,باسکول,emam,8
+2,,3510,باسمنج,basmenj,891
+2,,3899,باشت,basht,887
+2,,2952,باشتین,bashtin,880
+4,,4179,باشگاه نفت,bashgah-naft,1
+4,,2623,باغ اشرافی,bagh-ashrafi,8
+2,,2216,باغ بهادران,baagh-bahadoraan,890
+4,,2644,باغ پنبه,bagh-panbeh,8
+4,,1253,باغ تخت,bagh-e-takht,6
+4,,2342,باغچه فیض,baaghche-feiz,30
+2,,3703,باغ حلی,baagh-hali,879
+4,,1022,باغ خزانه,bagh-khazaneh,1
+4,,1532,باغ دریاچه,bagh-daryacheh,4
+4,,217,باغ رضوان,baq-e-rezavan,1
+4,,3334,باغرود,baghrud,318
+4,,1589,باغ زرشک,bagh-zereshk,4
+4,,2062,باغ زمانی,bagh-zamani,708
+4,,1530,باغ زیار,bagh-ziar,4
+4,,3349,باغستان,baghestan-mashhad,3
+4,,573,باغستان,baghestan,2
+2,,4028,باغستان,baghestan-city,904
+4,,3269,باغ سلطانی,bagh-soltani,1776
+4,,3301,باغ سنگان سفلی,bagh-sangan-sofla,791
+4,,4355,باغ سیب,bagh-sib,2
+4,,2363,باغشاد,baaghshaad,1745
+4,,2602,باغ شازده,baagh-shazdeh,8
+4,,2597,باغ شریفی,baagh-sharifi,8
+4,,4492,باغشهر,baghshahr,1754
+4,,2810,باغشهر اهل بیت,baghshahr-ahl-beyt,6
+4,,4584,باغشهر بهارستان صدرا,baghshahr-baharestan-sadra,810
+4,,4583,باغشهر دادگستری قدیم,baghshahr-dadgostari-ghadim,810
+4,,2774,باغشهر قصر سبز,baghshahr-ghasr-sabz,6
+4,,4582,باغشهر گلبهار صدرا,baghshahr-golbahar-sadra,810
+4,,3450,باغ شیخ,bagh-sheykh,7
+2,,2721,باغ صفا,bagh-safa,898
+4,,1606,باغ فدک,bagh-fadak,4
+4,,3369,باغ فراگرد,bagh-faragerd,3
+4,,1539,باغ فردوس,bagh-ferdows-isfahan,4
+4,,930,باغ فردوس,bagh-ferdows,1
+4,,920,باغ فیض,bagh-feyz,1
+4,,4076,باغ فیض,bagh-feyz-eslam-shahr,29
+4,,2344,باغ فین,baagh-fin,30
+4,,2371,باغ کاران,baagh-kaaraan,4
+4,,2647,باغ کرباسی,bagh-karbasi,8
+4,,1485,باغ گلها,nourbaran,4
+4,,2357,باغ گیاهشناسی کاشان,baagh-giyahshenasi-kaashaan,30
+4,,2302,باغ ماجد,bagh-majed,30
+2,,3401,باغ ملک,bagh-malek,902
+4,,2536,باغ ملی,baagh-melli,31
+4,,3255,باغ ملی,bagh-melli,1776
+4,,1591,باغ نگاره,baagh-negaare,4
+4,,2538,باغ نو,baagh-no,31
+4,,3168,باغ نو,bagh-no,318
+2,,1804,بافت,baft,877
+2,,1829,بافق,bafq,886
+4,,4290,باقرآباد,baqeraabad,1761
+2,,1707,باقرشهر,baghershahr,904
+4,,1206,بالا خیابان,kuy-e-bala-khiaban,3
+4,,1364,بالا کفت,bala-kaft,6
+4,,2165,بالاکویه,balakuyh,12
+2,,2953,بالا ولایت,bala-velayat,880
+4,,3362,بالا ولایت,bala-velayat-torbat-heydariyeh,1776
+2,,2718,بانش,banesh,898
+4,,2454,بانک استان,bank-ostan,1744
+2,,662,بانه,baneh,885
+4,,2269,باهنر,bahonar-kashan,30
+4,,1261,باهنر,shahrak-bahonar,6
+4,,2172,باهنر,bahonar-rasht,12
+4,,3192,باهنر,bahonar-sabzevar,316
+4,,2563,باهنر,bahonar-najaf-abad,31
+2,,3728,باهوکلات,bahukalat,883
+2,,3878,باوله,bavaleh,905
+2,,3399,باوی,bavi,902
+2,,2954,بایک,bayk,880
+2,,3870,باینگان,bayengan,905
+2,,2955,بجستان,bajestan,880
+2,,39,بجنورد,bojnurd,896
+2,,2719,بختگان,bakhtagan,898
+4,,4543,بختیاردشت (شهرک پرتو),bakhtiyardasht-shahrak-parto,4
+2,,3602,بدره,badreh,888
+4,,2426,براآن شمالی,baraan-shomali,4
+2,,778,برازجان,borazjan,900
+4,,1444,برازنده,barazandeh,4
+4,,2646,براسون,barasun,8
+2,,3576,بران,baran,906
+2,,3925,بربرود,barbarud,884
+2,,2201,برخوار,barkhaar,890
+4,,2475,برخوار غرب,borkhar-gharb,1744
+2,,3622,بردخون,bardkhun,900
+2,,1735,بردسکن,bardaskan,880
+2,,1805,بردسیر,bardsir,877
+2,,2956,بررود,barrud,880
+4,,2399,برزان,barzan,4
+2,,2217,برزک,barzak,890
+4,,1105,برغان,Baraghan,2
+4,,1438,برلیان,berelian,4
+4,,2864,برمشور علیا,barmshoor-olya,6
+2,,1854,بره‌سر,barah-sar,889
+2,,26,بروجرد,borujerd,884
+4,,1023,بروجردی,shahid-borujerdi,1
+2,,785,بروجن,boroujen,903
+4,,197,بریانک,beryanak,1
+4,,1388,بریجستون,berijestoon,6
+4,,380,بزرگمهر,bozorgmehr,4
+4,,3114,بزرگمهر,bozorgmehr-nishabur,318
+2,,3729,بزمان,bazman,883
+2,,3704,بزینه رود,bazineh-rud,879
+2,,3527,بستان آباد,bostan-abad,891
+2,,3958,بستک,bastak,894
+2,,3719,بسطام,bastam,882
+4,,3285,بسیجیان,basijian,791
+2,,3789,بشاریات,bashayaat,878
+2,,3972,بشاگرد,bashagard,894
+2,,3661,بشروئیه,boshruuye,876
+4,,2038,بشمن,beshman,708
+4,,3483,بعثت,baesat,7
+4,,555,بعثت,besat,6
+2,,4007,بفروئیه,bafrooyeh,886
+4,,2595,بقیع,bqii,8
+4,,3327,بکاول,bakavel,318
+4,,2656,بکایی,bekaee,8
+2,,3547,بکتاش,bektash,881
+4,,4264,بکه,bake,1759
+4,,1180,بلال,balal,3
+2,,3811,بلبان آباد,balban-abad,885
+2,,3653,بلداجی,boldaji,903
+2,,1873,بلده,baladeh,893
+4,,608,بلوار امین و ساحلی,amin,8
+4,,208,بلوار کشاورز,bolvar-e-keshavarz,1
+4,,3117,بلوار گلها,bolvar-golha,318
+4,,1892,بلوار گیلان,gilan-blvd,12
+2,,3834,بلورد,balvard,877
+4,,1007,بلورسازی,bolursazi,1
+2,,1807,بلوک,boluk,877
+2,,815,بم,bam,877
+2,,3970,بمانی,bemani,894
+2,,3730,بم پشت,bam-posht,883
+2,,3731,بمپور,bampur,883
+2,,3646,بن,bon,903
+2,,760,بناب,bonab,891
+2,,2709,بنارویه,banaruyeh,898
+2,,3732,بنت,bent,883
+2,,798,بندر امام خمینی,bandar-Imam-khomeini,902
+2,,708,بندر انزلی,bandar-anzali,889
+2,,751,بندر ترکمن,bandar-torkaman,897
+2,,1756,بندر دیر,dayyer,900
+2,,18,بندرعباس,bandar-abbas,894
+2,,779,بندر کنگان,bandar-kangan,900
+2,,1973,بندر گز,bandar-gaz,897
+2,,780,بندر گناوه,bandar-ganaveh,900
+2,,3956,بندرلنگه,bandar-lengeh,894
+2,,37,بندر ماهشهر,mahshahr,902
+2,,3962,بند زرک,band-zarak,894
+4,,3487,بنکداری,bonakdari,7
+4,,1058,بنیاد,350-metri,2
+4,,604,بنیاد,bonyad,8
+4,,2443,بنیاد ازدواج,bonyad-ezdevaj,1744
+4,,3136,بنیاد شهید,bonyad-shahid,318
+4,,128,بنی‌هاشم,kazem-abad,1
+2,,4008,بهاباد,bahaabaad,886
+4,,1104,بهار,bahar-karaj,2
+4,,3366,بهار,bahar-mashhad,3
+2,,1828,بهار,bahar-city,899
+4,,938,بهار,bahar,1
+4,,1600,بهار آزادی,bahar-azadi,4
+4,,154,بهاران,baharan,1
+4,,1482,بهاران,baharan-isfahan,4
+4,,1139,بهاران,baharan-mashhad,3
+4,,2398,بهارانچی,baharanchi,4
+4,,334,بهارستان,baharestan-ahvaz,7
+4,,382,بهارستان,baharestan-esfahan,4
+4,,92,بهارستان,baharestan,1
+4,,2788,بهارستان,baharestan-shiraz,6
+2,,4035,بهارستان,baharestan-city,904
+4,,2841,بهارستان,baharestan-marvdasht,1788
+4,,3054,بهارستان,baharestan-arghavaan,3
+4,,2568,بهارستان (مخابرات),baharestan-esfahan-district,4
+2,,314,بهبهان,behbahan,902
+4,,297,بهجت‌آباد,behjat-abad,1
+4,,917,بهداشت,behdasht,1
+4,,1580,بهرام‌آباد,bahram-abad,4
+4,,4320,بهرام آباد,bahram-abad-eslam-shahr,29
+2,,3821,بهرمان,bahreman,877
+4,,3457,بهزاد شهر,behzad-shahr,7
+4,,3252,بهزیستی,behzisti,1776
+4,,458,بهشت,beheshti-mashhad,3
+4,,3414,بهشت آباد,behesht-abad,7
+4,,4430,بهشت سکینه,behesht-sakineh,2
+4,,3268,بهشت عسکری,behesht-askari,1776
+4,,3317,بهشت محمدیه,behesht-mohammadiyeh,791
+4,,3303,بهشت نبی,behesht-nabi,791
+4,,2279,بهشتی,beheshti-kashan,30
+2,,832,بهشهر,behshahr,893
+2,,4009,بهمن,bahman-city,886
+4,,1146,بهمن,bahman,3
+2,,2710,بهمن صغاد,bahman-soghad,898
+4,,254,بهمن یار,bahman-yar,1
+2,,1865,بهنمیر,bahnamir,893
+2,,3786,بوئین زهرا,boveyn-zahra,878
+2,,2203,بوئین و میاندشت,booyin-va-miyaandasht,890
+2,,2707,بوانات,bavanat,898
+4,,4597,بوتان گاز,butan-gaz,6
+4,,2114,بوجایه,bojaye,746
+4,,1559,بوزان,buzan,4
+2,,2957,بوژگان,bozhgan,880
+4,,1896,بوسار,bousaar,12
+2,,3900,بوستان,bostan,887
+4,,1590,بوستان آینه خانه,boostan-ayene-khane,4
+4,,3238,بوستان باغ ملی,bustan-baq-melli,1776
+4,,4128,بوستان بعثت (باغ آذری),bostan-besat-bagh-azari,1
+4,,4319,بوستان جنگلی لویزان,bustan-jangali-lavizan,1
+4,,2679,بوستان جوان,bustan-javan,8
+4,,4169,بوستان چیتگر,bostan-chitgar,1
+4,,2447,بوستان حافظ,bostan-hafez,1744
+4,,2682,بوستان خلیج فارس,bustan-khalij-e-fars,8
+4,,2491,بوستان خلیج فارس,bostan-khalij-fars,1745
+4,,1511,بوستان زاینده رود,bostan-zayandeh-rud,4
+4,,946,بوستان سرخه حصار,sorkhe-hesar,1
+4,,103,بوستان شیان,shian,1
+4,,2665,بوستان علوی,bostan-alavi,8
+4,,2405,بوستان کوهستانی صفه,bostan-kuhestani-soffe,4
+4,,1540,بوستان ناژوان,bostan-najvan,4
+4,,3305,بوستان وحدت,bostan-vahdat,791
+4,,4164,بوستان ولایت,bostan-velayat,1
+2,,3627,بوشکان,bushkan,900
+2,,25,بوشهر,bushehr,900
+2,,765,بوکان,bukan,881
+2,,3592,بولی,buli,888
+2,,1768,بومهن,bumehen,904
+2,,3981,بوموسی,jazireh-boumousi,894
+2,,3720,بیارجمند,biyarjamand,882
+4,,2671,بیانی,bayani,8
+4,,3239,بی بی حسنیه,bibi-hasniyeh,1776
+4,,2083,بی بی حوریه,bibi-hurieh,708
+4,,4227,بی‌بی شهر بانو,bibi-shahr-banoo,1763
+2,,868,بیجار,bijar,885
+4,,2194,بیجارپس,bijarpas,12
+4,,376,بیدآباد,bidabad,4
+4,,2855,بید زرد,bid-zard,6
+2,,2708,بیدشهر,bidshahr,898
+2,,3921,بیرانوند,beyranvand,884
+2,,34,بیرجند,birjand,876
+2,,3733,بیرک,birk,883
+2,,2713,بیرم,beyram,898
+4,,4572,بیزکی,bizaki,1773
+4,,2835,بیست متری بیمارستان,bist-metri-bimarestan,1788
+4,,3442,بیست متری شهدا,bist-metri-shohada,7
+4,,3411,بیست متری شهرداری,bist-metri-shahrdari,7
+4,,3296,بیست متری منبع آب,bist-metri-manbae-ab,791
+4,,2659,بیست متری ولیعصر,bist-metri-vali-asr,8
+2,,1801,بیستون,bisotun,905
+4,,1015,بیسیم,bisim,1
+4,,4389,بیسیم,bisim-karaj,2
+2,,2714,بیضا,beyza,898
+2,,3967,بیکاه,bikah,894
+4,,4445,بیلقان,beylaghan,2
+2,,3571,بیله سوار,bileh-savar,906
+2,,3876,بیلوار,biluvar,905
+4,,4594,بیمارستان اعصاب و روان محرری,bimarestan-asab-va-ravan-mehrari,6
+4,,2407,بیمارستان خانواده,bimarestan-khanevade,4
+4,,3259,بیمارستان رازی,bimarestan-razi,1776
+4,,3326,بیمارستان عطار نیشابوری,bimarestan-attar-nishaburi,318
+4,,4592,بیمارستان غدیر,bimarestan-ghadir,6
+4,,3217,بیهق شرقی,beyhaq-sharghi,316
+2,,2958,پائین جام,paeen-jam,880
+4,,3044,پائین ولایت,paayin-velaayat,1776
+4,,2254,پاپک,papak,30
+2,,3915,پاپی,papi,884
+2,,3894,پاتاوه,pataveh,887
+4,,206,پاتریس لومومبا,baqerkhan,1
+4,,325,پادادشهر,padadshahr,7
+4,,2542,پادگان,padegan,31
+4,,4143,پادگان امام حسین,padgan-emam-hossein,1
+4,,4585,پادگان بعثت,padgan-besat,6
+4,,3086,پادگان شهید برونسی,padgan-shahid-borounsi,3
+4,,2523,پادگان عاشورا,padgan-aashuraa,31
+4,,4587,پادگان نیروی هوایی بعثت,padgan-nirooye-havaii-besat,6
+4,,2856,پادگان ولیعصر,padegan-valiasr,6
+2,,2218,پادنا,paadnaa,890
+2,,2219,پادنا علیا,paadnaa-olyaa,890
+4,,4104,پارچین,parchin,1760
+2,,771,پارس‌آباد,parsabad,906
+4,,4280,پارس سرام,pars-seram,1761
+2,,3952,پارسیان,parsian,894
+4,,552,پارک آزادی,azadisq,6
+4,,2372,پارک ایثارگران,park-isargaraan,4
+4,,2477,پارک بانک استان,park-bank-ostan,1744
+4,,3244,پارک پرستار,park-parastar,1776
+4,,4285,پارک جنگلی,park-jangali-gharchak,1761
+4,,3302,پارک جنگلی,park-jangali,791
+4,,1502,پارک خبرنگار,gabr-abad,4
+4,,2413,پارک سلمان فارسی,park-salman-farsi,4
+4,,1913,پارک شهر,park-e-shahr,12
+4,,4186,پارک شهر,park-shahr,1
+4,,4384,پارک علم و فناوری البرز,park-elm-va-fanavari-alborz,2
+4,,3243,پارک کاشانی,park-kashani,1776
+4,,3085,پارک کوهستان,park-koohestan,3
+4,,2498,پارک کوهستان,park-kuhestan,1745
+4,,1381,پارک کوهستانی بوستان,saadiyeh,6
+4,,2356,پارک لاله,park-laaleh,30
+4,,392,پارک مشتاق,park-moshtagh,4
+4,,3324,پارک منابع طبیعی,park-manabe-tabie,318
+4,,1923,پاره بیجار,mofateh,12
+2,,3734,پارود,parud,883
+2,,3822,پاریز,pariz,877
+2,,2711,پاسارگاد,pasargad,898
+4,,3111,پاستور,pastor,318
+4,,2176,پاستوریزه,pasturizeh,12
+4,,3464,پاستوریزه,pasturize,7
+4,,2676,پاسدار,pasdar,8
+4,,3180,پاسداران,pasdaran-sabzevar,316
+4,,2043,پاسداران,pasdaran-bandar-e-anzali,708
+4,,2433,پاسداران,pasdaran-shahin-shahr,1744
+4,,67,پاسداران,pasdaran,1
+4,,3283,پاسداران,pasdaran-torbat-jam,791
+4,,2282,پاقپان,paqapan,30
+2,,1760,پاکدشت,pakdasht-city,904
+4,,4300,پاکدشت (مامازند),pakdasht-mamazand,1760
+4,,3195,پامنار,pamenar-sabzevar,316
+4,,2339,پامنار,pamnaar,30
+4,,280,پامنار,pamenar,1
+4,,2593,پامنار,pamenar-qom,8
+4,,2335,پا نخل,paa-nakhl,30
+4,,511,پانصد دستگاه ارتش,rahmatblvd,6
+2,,3880,پاوه,paveh,905
+4,,2313,پایانه مسافربری,payane-mosaferbari,30
+4,,3260,پایانه مسافربری تربت حیدریه,payane-mosaferbari-torbat-heydariye,1776
+4,,4605,پایانه مسافربری سعدی,payaneh-mosaferbari-saadi,6
+4,,3103,پایگاه شکاری,paygah-shekari,3
+4,,3068,پایین خیابان,payin-khiaban,3
+2,,1965,پایین هولار,paeen-holar,893
+4,,3482,پدافند,padafand,7
+4,,1588,پرتمان,partman,4
+4,,2117,پردسر,pardesar,746
+4,,2050,پردیس,pardis-bandar-e-anzali,708
+2,,1767,پردیس,pardis-city,904
+4,,3084,پردیس,mojtame-pardis,3
+4,,329,پردیس,pardis-ahvaz,7
+4,,600,پردیسان,pardisan-ghom,8
+4,,138,پردیسان,shahrak-e-jandarmeri,1
+4,,3458,پردیس دو,pardis-2,7
+4,,965,پرستار,parastar,1
+4,,2041,پرستار,parastar-bandar-e-anzali,708
+4,,3381,پرکندآباد,parkandabad,3
+2,,1766,پرند,parand-city,904
+4,,4213,پرندک,parandak,1765
+4,,4096,پرنیان,parnian,1764
+2,,1841,پره‌سر,pareh-sar,889
+4,,922,پرواز,parvaz,1
+4,,2391,پروین,parvin,4
+4,,1228,پروین اعتصامی,parvin-etesami,3
+4,,1509,پزوه,pozveh,4
+4,,2145,پستک,postak,12
+2,,3735,پسکوه,pasakuh,883
+4,,2197,پسیخان,pasikhan,12
+4,,2606,پشت انبار نفت,posht-anbaar-naft,8
+4,,2823,پشت سایپا‎,posht-saipa,1788
+4,,2270,پشت شهربانی,posht-shahrbani,30
+2,,3736,پشتکوه (سیستان و بلوچستان),poshtkuh-city,883
+2,,2712,پشتکوه (فارس),poshtkuh,898
+4,,1306,پشم شیشه,hoveyzeh,6
+2,,3737,پلان,pelan,883
+4,,1883,پل تالشان,pol-taleshan,12
+2,,1817,پلدختر,pol-dokhtar,884
+2,,3537,پلدشت,poldasht,881
+2,,1702,پل سفید,polsefid,893
+4,,2381,پل شریعتی,pol-shariati,4
+4,,1914,پل عراق,pol-e-aragh,12
+2,,4343,پلنگ آباد,palangabad,895
+4,,1188,پنجتن,kuy-e-panj-tan,3
+4,,3135,پنجراه,panjrah,318
+4,,1334,پودنک,pdonak,6
+4,,1936,پورسینا,rasht-poursina,12
+4,,1197,پورسینا,poursina,3
+4,,1452,پوریای ولی,puriya-ye-vali,4
+2,,1997,پول,pool,893
+4,,82,پونک,poonak,1
+4,,4281,پویینک,puinank,1761
+4,,3183,پیام,payam,316
+2,,3738,پیپ,pip,883
+2,,766,پیرانشهر,piranshahr,881
+2,,2011,پیربازار,pirbazar,889
+2,,2220,پیر بکران,pir-bakraan,890
+4,,1909,پیرسرا,pirsaraa,12
+2,,3985,پیر سلیمان,pir-solayman,899
+2,,3739,پیر سهراب,pir-sohrab,883
+4,,1877,پیرکلاچای,pir-kola-chay,12
+4,,3199,پیروزی,piroozi-sabzevar,316
+4,,292,پیروزی,pirouzi,1
+4,,1091,پیشاهنگی,pishahangi,2
+2,,3988,پیشخور,pishkhor,899
+4,,3242,پیشکوه,pishkuh,1776
+2,,781,پیشوا,pishva,904
+2,,3740,پیشین,pishin,883
+4,,4211,پیغمبر,payghambar,1765
+4,,4134,پیکان شهر,peykan-shahr,1
+4,,2054,پیل علی باغ,pil-ali-bagh,708
+4,,2163,پیله داربن,pile-darbon,12
+4,,1514,پینارت,pinart,4
+2,,2008,تاتار علیا,tatar-olya,897
+4,,512,تاچارا,tachara,6
+4,,1885,تازه آباد,shohada,12
+2,,811,تاکستان,takestan,878
+4,,966,تاکسیرانی,taxirani,1
+2,,3388,تالارپی,talarpey,893
+2,,829,تالش,talesh,889
+4,,2032,تالش,taalesh,829
+4,,2826,تامین اجتماعی‎,tamin-ejtemaei,1788
+2,,1729,تایباد,taybad,880
+4,,3373,تبادکان,tabadakan,3
+4,,1254,تپه تلویزیون,tappeh-telviziyoun,6
+4,,3275,تپه ننه حجی,tappe-nane-haji,1776
+4,,61,تجریش,tajrish,1
+4,,1361,تحویلی,tahavoli,6
+2,,1822,تخت,takht,894
+4,,2819,تخت جمشید,takht-jamshid,1788
+2,,3548,تخت سلیمان,takht-e-solayman,881
+4,,1500,تخت فولاد,takht-foulad,4
+4,,2088,تختی,takhti-bandar-e-anzali,708
+4,,236,تختی,shahrak-e-takhti,1
+4,,3148,تختی,takhti-nishabur,318
+4,,1901,تختی,takhti,12
+2,,791,تربت جام,torbat-jam,880
+2,,1776,تربت‌حیدریه,torbat-heydariyeh,880
+4,,481,تربت حیدریه,torbatheydarieh,3
+4,,2079,تربه گوده,torbeh-gudeh,708
+4,,1132,تربیت (صدف),sadaf,3
+4,,4084,ترشنبه,tarshanbeh,29
+4,,2338,ترک آباد,torkaabaad,30
+2,,3531,ترکمانچای,torkamanchay,891
+4,,3309,ترکمن ها,torkaman-ha,791
+4,,2188,ترمینال,terminal,12
+4,,3263,ترمینال,terminal-torbat-heydariyeh,1776
+4,,3098,ترمینال,terminal-mashhad,3
+4,,1411,ترمینال باربری,barbari-terminal,6
+4,,4333,ترمینال جنوب,terminal-jonub,1
+4,,4311,ترمینال غرب,terminal-gharb,1
+4,,4416,ترمینال کلانتری,terminal-kalanteri,2
+4,,3156,تریا پارک,teria-park,318
+4,,956,تسلیحات,taslihat,1
+2,,3502,تسوج,tasooj,891
+4,,4233,تصفیه خانه,tasfiye-khane,1763
+4,,2414,تصفیه خانه فاضلاب,tasfie-khaneh-fazelab,4
+4,,2660,تعویض پلاک,taaviz-pelak,8
+2,,1831,تفت,taft,886
+2,,3741,تفتان,taftan,883
+2,,3932,تفرش,tafresh,901
+4,,4225,تقی آباد,taghi-abad,1763
+2,,3538,تکاب,takab,881
+4,,2629,تکیه آقا سید حسنی,tekye-agha-seyyed-hasani,8
+4,,1385,تل حسین‌آباد,tal-e-hosseinabad,6
+4,,4596,تلخ داش,talkh-dash,6
+4,,1194,تلگرد,telgerd,3
+2,,3742,تلنگ,talang,883
+2,,4029,تلو,talu,904
+2,,3980,تنب بزرگ,jazireh-tonb-bozorg,894
+2,,3979,تنب کوچک,jazireh-tonb-koochak,894
+4,,1356,تندگویان,tondgooyan,6
+2,,833,تنکابن,tonekabon,893
+2,,1739,تنکمان,tankaman,895
+4,,2064,تهران,tehran-bandar-e-anzali,708
+4,,4175,تهرانپارس جنوبی,tehran-pars,1
+4,,109,تهرانپارس شرقی,east-tehranpars,1
+4,,108,تهرانپارس غربی,west-tehranpars,1
+4,,4530,تهران دشت,tehran-dasht,1754
+4,,178,تهرانسر شرقی,tehransar,1
+4,,4148,تهرانسر شمالی,tehransar-shomali,1
+4,,4177,تهرانسر غربی,tehransar-gharbi,1
+4,,4178,تهرانسر مرکزی,tehransar-markazi,1
+4,,123,تهران‌نو,tehran-no,1
+4,,201,تهران‌ویلا,tehranvila,1
+4,,2406,توپخانه ارتش,tophkhaneh-artesh,4
+2,,1855,توتکابن,toutkabon,889
+4,,203,توحید,tohid,1
+4,,3359,توحیدشهر,tohidshahr,316
+4,,642,توس (بلوار توس),bolvartoos,3
+4,,3070,توس فردوسی,toos-ferdowsi,3
+4,,1881,توشیبا,toushiba,12
+2,,3968,توکهور,tookehur,894
+2,,2007,تولم شهر,tulam-shahr,889
+4,,916,تولید دارو,tolid-daroo,1
+4,,2611,تولید دارو و یخچال,tolid-daruu-va-yakhchaal,8
+2,,866,تویسرکان,tuyserkan,899
+4,,3300,تیپ ۳۸ زرهی تربت جام,tip-38-zerehi-torbat-jam,791
+4,,3162,تیپ زرهی ۲۱  امام رضا (ع),tip-zerehi-21-emam-reza,318
+2,,2204,تیران,tiraan,890
+4,,402,تیران,tiran,4
+2,,3529,تیکمه داش,tikmeh-dash,891
+2,,3743,تیمور آباد,timur-abad,883
+4,,4533,ثابتی,sabeti,1751
+4,,1185,ثامن,samen,3
+4,,2840,ثبت احوال,sabt-ahval,1788
+2,,3866,ثلاث باباجانی,salas-babajani,905
+2,,3577,ثمرین,samareen,906
+4,,1577,جابر انصاری,jaber-ansari,4
+4,,971,جابری,jaberi,1
+2,,3919,جاپلق,chapalq,884
+2,,3694,جاجرم,jajarm,896
+2,,4038,جاجرود,jajrud,904
+4,,2680,جاده معدن,jade-madan,8
+2,,3840,جازموریان,jazmourian,877
+2,,3973,جاسک,jask,894
+2,,3744,جالق,jaluq,883
+4,,3042,جامرود,jamrud,791
+4,,2545,جامی,jami-najaf-abad,31
+4,,2397,جامی,jami,4
+4,,3314,جامی,jami-torbat-jam,791
+4,,497,جانباز,janbaz,3
+4,,1289,جانبازان,janbazan,6
+4,,2138,جانبازان,janbazan-rasht,12
+4,,3278,جانبازان,janbazan-torbat-heydariyeh,1776
+4,,3488,جانبازان,janbazan-ahvaz,7
+4,,1127,جاهد شهر,jahedshahr,3
+4,,1549,جاوان,javan,4
+4,,1550,جاوان بالا,javan-e-bala,4
+2,,3856,جبالبارز,jebalbarez,877
+4,,86,جردن,jordan,1
+4,,2857,جرسقان,jarasghan,6
+2,,2205,جرقویه,jarghuye,890
+2,,3682,جرگلان,jargalan,896
+2,,2701,جره و بالاده,jare-va-baladeh,898
+2,,3613,جزمان,jazman,888
+2,,3745,جزنیک,jaznik,883
+4,,2069,جزیره,jazireh,708
+2,,2570,جعفرآباد,jafarabad,892
+4,,2527,جعفرآباد,jafarabaad,31
+4,,4454,جعفرآباد,jafarabad-mohammadshahr,1752
+4,,4325,جعفر آباد اخوان,jafar-abad-akhavan,1762
+2,,2959,جغتای,joghatai,880
+2,,3966,جغین,joghin,894
+4,,4618,جفرود پایین,jafrud-e-payin,708
+4,,2522,جلال آباد,jalaal-abaad,31
+4,,1578,جلالیه,golmohammadi,4
+4,,451,جلالیه,mosalla,3
+4,,394,جلفا,jolfa,4
+2,,3506,جلفا,jolfa-city,891
+2,,3746,جلگه چاه هاشم,jolge-chah-hashem,883
+2,,2960,جلگه رخ,jolge-rokh,880
+2,,3011,جلگه زوزن,jolgeh-zoozan,880
+2,,3685,جلگه شوقان,jolgeh-shoqan,896
+2,,3676,جلگه ماژان,jolgeh-majan,876
+4,,3043,جلگه موسی آباد,jolgeh-musa-abaad,791
+4,,1601,جلوان,jelvan,4
+2,,4033,جلیل آباد,jalil-abad,904
+4,,1013,جلیلی,jalili,1
+2,,1981,جلین,jelin,897
+2,,1757,جم,jam,900
+4,,2171,جماران,jamaran-rasht,12
+4,,44,جماران (نیاوران),jamaran,1
+4,,2861,جمال آباد,jamal-abad-shiraz,6
+4,,2297,جمال آباد,jamal-abad,30
+4,,204,جمال‌زاده,jamalzadeh,1
+4,,2661,جمکران,jamkaran,8
+4,,94,جمهوری,jomhouri,1
+4,,2123,جمهوری,jomhuri,746
+4,,3157,جمهوری,jomhuri-nishabur,318
+4,,4612,جمهوری,jomhouri-shiraz,6
+4,,551,جمهوری (شیراز),jomhouriblvd,6
+2,,3954,جناح,janah,894
+4,,1175,جنت,jannat,3
+2,,2702,جنت,jannat-city,898
+4,,3191,جنت,jannat-sabzevar,316
+2,,2961,جنت آباد,janat-abad,880
+4,,148,جنت‌آباد جنوبی,south-janat-abad,1
+4,,145,جنت‌آباد شمالی,north-janat-abad,1
+4,,146,جنت‌آباد مرکزی,central-janat-abad,1
+2,,2962,جنگل,jangal,880
+4,,1463,جنیران,janiran,4
+4,,1471,جنیران (لادان),ladan-isfahan,4
+4,,933,جهاد,jahad,1
+4,,2160,جهاد,jihad,12
+4,,3210,جهاد کشاورزی,jehad-keshavarzi,316
+4,,2584,جهان بینی,jahan-bini,8
+4,,572,جهان‌شهر,jahanshahr,2
+4,,2058,جهانگانی,jahangani,708
+2,,808,جهرم,jahrom,898
+2,,1718,جوادآباد,javadabad,904
+4,,265,جوادیه,javadiyeh,1
+4,,450,جوادیه,tabarsi,3
+4,,1268,جوادیه,javadiyeh-shiraz,6
+4,,947,جوادیه تهرانپارس,javadiyeh-tehran-pars,1
+4,,3193,جوادیه شرقی,javadiyeh-sharqi,316
+4,,3205,جوادیه غربی,javadiyeh-gharbi,316
+2,,820,جوانرود,javanrud,905
+4,,156,جوانمردان (اندیشه),andisheh,1
+4,,231,جوانمرد قصاب,javanmard-e-ghasab,1
+4,,4042,جوانمرد قصاب,javanmard-ghassab,1763
+2,,2700,جوزار,jouzar,898
+4,,2430,جوزدان,jouzdan,31
+4,,1492,جوزدان الیادران,jowzdan-elyadaran,4
+2,,4039,جوقین,joqin,904
+2,,4001,جوکار,jowkar,899
+4,,2033,جوکندان,jokandan,829
+2,,3641,جونقان,joneghan,903
+2,,834,جویبار,juybar,893
+4,,1455,جویباره,juybareh,4
+4,,2625,جوی شور,juy-shur,8
+2,,2705,جویم,juyom,898
+2,,2963,جوین,jovin,880
+4,,196,جی,jey,1
+4,,657,جیحون,jeyhoun,1
+2,,816,جیرفت,jiroft,877
+2,,1850,جیرنده,jirandeh,889
+4,,1497,جی شیر,jey-Shir,4
+2,,864,چابکسر,chaboksar,889
+2,,747,چابهار,chabahar,883
+2,,2964,چاپشلو,chapeshlu,880
+2,,2206,چادگان,chaadgaan,890
+2,,3534,چاراویماق,charavimaq,891
+2,,3886,چاروسا,charusa,887
+2,,1686,چاف و چمخاله,chaf-chamkhale,889
+2,,3539,چالدران,chaldaran,881
+2,,835,چالوس,chalus,893
+4,,3333,چاه بلند,chah-boland,318
+2,,3847,چاه داد خدا,chah-dad-khoda,877
+4,,3096,چاهشک,chaheshk,3
+2,,4010,چاهک,chaahak,886
+2,,3631,چاه مبارک,chah-mobarak,900
+2,,3850,چاه مرید,chah-morid,877
+2,,2706,چاه ورز,chah-varz,898
+2,,3823,چترود,chatroud,877
+2,,3895,چرام,charam,887
+4,,1487,چرخاب,charkhab,4
+2,,3605,چرداول,chardavol,888
+4,,1480,چشمه باقرخان,cheshmeh-bagherkhan,4
+4,,2859,چشمه سید صفری,cheshme-seyed-safari,6
+2,,3633,چغادک,chaghadak,900
+2,,3912,چگنی,chegni,884
+4,,1911,چله خانه,cheleh-khaneh,12
+4,,1908,چمارسرا,chomaar-saraa,12
+4,,3331,چمبران,chambran,318
+4,,4402,چمران,chamran-karaj,2
+2,,1782,چمران,chamran-town,902
+4,,2442,چمران,chamran,1744
+2,,1694,چمستان,chamestan,893
+4,,1099,چمن,chaman,2
+2,,1732,چناران,chenaran,880
+4,,4391,چنارک,chenark,2
+2,,2221,چنارود,chenarood,890
+4,,1255,چنچنه,chencheneh,6
+2,,3813,چنگ الماسی,chang-almasi,885
+4,,3437,چنیبه پایین,chanibeh-payin,7
+4,,3444,چنیبه علیا,chenibeh-bala,7
+4,,2652,چهار امامزاده,chahar-emamzadeh,8
+4,,1211,چهارباغ,charbagh,3
+2,,1740,چهارباغ,charbagh-alborz,895
+2,,3540,چهاربرج,chaharborj-city,881
+4,,3071,چهاربرج,chaharborj,3
+4,,1119,چهارچشمه,shahrak-e-chahar-cheshmeh,3
+2,,3498,چهاردانگه (آذربایجان),chahar-dangeh-city,891
+2,,782,چهاردانگه (تهران),chahar-dangeh,904
+2,,3815,چهاردولی,chahardoli,885
+4,,3274,چهارراه خواف,chaharrah-khaf,1776
+4,,3212,چهارراه فرودگاه,salman-e-farsi-chahar-rah-forudgah,316
+4,,1893,چهارراه گلسار,charrah-golsaar,12
+4,,1083,چهارصد دستگاه,chaharsad-dastgah-karaj,2
+4,,3413,چهارصد دستگاه,chaharsad-dastgah-ahvaz,7
+4,,251,چهارصد دستگاه,charsad-dastgah,1
+4,,2099,چهارفریضه,chaharfarize,708
+4,,629,چهار مردان,enqelab-ghom,8
+4,,2590,چهل اختران,chehel-akhtaran,8
+4,,2587,چهل درخت‎,chehel-derakht,8
+4,,1220,چهنو,chahnou,3
+2,,3614,چوار,chavar,888
+4,,4160,چوب تراش,chub-tarash,1
+2,,1844,چوبر,chobar,889
+2,,3705,چورزق,churzegh,879
+4,,1375,چوگیاه‎,chogiah,6
+2,,3901,چیتاب,chitab,887
+4,,306,چیتگر جنوبی,chitgar,1
+4,,4136,چیتگر شمالی,chitgar-shomali,1
+4,,4064,چیچکلو,chichaklu,29
+4,,63,چیذر,chizar,1
+4,,2283,حاج جمال,haj-jamal,30
+4,,2603,حاج خلیل,haj-khalil,8
+4,,2586,حاج زینل,haj-zeinal,8
+2,,3948,حاجی آباد,haji-abad-city,894
+4,,4547,حاجی آباد,hajiabad-shahin-shahr,1744
+4,,1912,حاجی آباد,haaji-abad,12
+4,,4436,حاجی آباد,hajiabad,2
+4,,2119,حاجی آباد,haji-abad,746
+2,,3549,حاجیلار,hajilar,881
+4,,3322,حاجی یار‎,haji-yar,1776
+4,,3315,حافظ,hafez-torbat-jam,791
+4,,3053,حافظ,hafez,3
+4,,1926,حافظ آباد,hafez-abad,12
+4,,2469,حافظ جنوبی,hafez-jonubi,1744
+4,,2440,حافظ شمالی,hafez-shomali,1744
+4,,952,حافظیه,hafezie,1
+4,,1384,حافظیه,hafeziyeh,6
+2,,2222,حبیب آباد,habib-abaad,890
+4,,4161,حبیب الله,habibollah,1
+4,,3061,حجاب (شهرک غرب),hejab,3
+4,,1163,حجت,majd,3
+4,,1341,حجت آباد,hojat-abad,6
+4,,509,حر,atlasi,6
+4,,282,حر,hor-square,1
+4,,474,حرم مطهر رضوی,holyshrine,3
+4,,2102,حزین,hozin,746
+4,,3081,حسابی جنوبی (شهرک غرب),hesabi-jonoubi,3
+4,,99,حسن‌آباد,hassan-abad,1
+4,,1089,حسن آباد,shahrak-imam-reza,2
+2,,2703,حسن آباد,hasanabad-city,898
+4,,2241,حسن آباد,hasanabad,30
+4,,2852,حسن آباد,hasan-abad,6
+4,,216,حسن‌آباد باقرفر,hasan-abad-baqer-far,1
+4,,4471,حسن آباد سالم,hasanabad-salem,774
+4,,4294,حسنک,hasanak,1761
+4,,3016,حسنی بالا,hasani-bala,1776
+4,,645,حسین‌آباد,hoseinabad,4
+4,,1044,حسین‌آباد,hosseinabad,2
+4,,1203,حسین‌آباد,hoseynabad,3
+4,,1025,حسین‌آباد,tehran-hosein-abad,1
+4,,4472,حسین‌آباد,hoseynabad-nazarabad,774
+4,,1902,حسین آباد,hosein-abad,12
+2,,3812,حسین آباد,hosein-abad-city,885
+4,,4351,حسین آباد (اکبر آباد),hoseynabad-akbarabad,2
+4,,3332,حسین آباد جدید,hoseinabad-jadid,318
+4,,130,حشمتیه,heshamatiyeh,1
+4,,4439,حصار,hesar,2
+4,,4103,حصار امیر,hesar-amir,1760
+4,,942,حصار بوعلی,hesar-booali,1
+4,,4261,حصار ساتی,hesar-sati,1759
+4,,4444,حصار سرجوب,hesar-sarjoob,2
+4,,919,حصارک,tehran-hesarak,1
+4,,579,حصارک بالا,hesarak,2
+4,,4536,حصارک پایین,hesarak-payin,2
+4,,4197,حصار مهتر,hesar-mehtar,1765
+4,,1602,حصه جنوبی,hesse-jonoobi,4
+4,,2373,حصه شمالی,hesse-shomaali,4
+4,,364,حصیرآباد,hasirabad,7
+4,,1138,حضرت حجت,hojjat,3
+4,,2675,حقیقت,haghighat,8
+4,,3348,حقیه,haghieh,318
+4,,931,حکمت,hekmat,1
+4,,2674,حکمت شمالی,hekmat-shomali,8
+4,,4215,حکیم آباد,hakim-abad,1765
+4,,121,حکیمیه,hakimiyeh,1
+2,,3706,حلب,halab,879
+4,,2634,حمام تالار,hammam-talar,8
+4,,985,حمزه‌آباد,hamzeh-abad,1
+4,,4049,حمزه‌آباد,hamzeabad,1763
+2,,871,حمیدیا,hamidia,886
+4,,1925,حمیدیان,hamidiyan,12
+2,,1784,حمیدیه,hamidiyeh,902
+4,,4523,حمیدیه,hamidiyeh-hashtgerd,1754
+2,,3884,حمیل,hamil,905
+2,,2704,حنا,hanna,898
+4,,635,حنیف نژاد,beheshti,8
+2,,3854,حور,hoor,877
+4,,2199,حومه رشت,hume-rasht,12
+4,,4578,حومه شیراز,houme-shiraz,6
+4,,4545,حومه نجف آباد,home-najafabad,31
+2,,1847,حویق,haviq,889
+4,,1070,حیدرآباد,hyderabad,2
+4,,3228,حیدرآباد,heyderabad,1776
+4,,3100,حیدرآباد,heydarabad,3
+2,,4011,خاتم,khatam,886
+4,,3078,خاتم الانبیا,khatam-al-anbia,3
+4,,1564,خاتون‌آباد,khatoonabad,4
+4,,4101,خاتون آباد,khatoon-abad,1760
+2,,3634,خارک,khark,900
+2,,3635,خارکو,kharku,900
+2,,3508,خاروانا,kharvana,891
+2,,1785,خاش,khash,883
+4,,948,خاک سفید,khak-sefid,1
+4,,2585,خاکفرج,khakfaraj,8
+4,,2130,خالو باغ,khalu-bagh,746
+2,,1980,خان ببین,khan-bin,897
+2,,3656,خانمیرزا,khanmirza,903
+4,,381,خانه اصفهان,khaneesfahan,4
+4,,2470,خانه کارگر,khane-kargar,1744
+4,,255,خانی‌آباد,khani-abad,1
+4,,989,خانی آباد نو جنوبی,khani-abad-no,1
+4,,4137,خانی آباد نو شمالی,khaniabad-no-shomali,1
+4,,1017,خاوران,khavaran,1
+2,,4027,قیامدشت - خاورشهر,khavaran-city,904
+2,,3905,خاوه,khaveh,884
+2,,3805,خاو و میرآباد,khav-va-mirabad,885
+2,,3838,خبر,khabar,877
+4,,4546,خبرنگار,khabarnegar-shahin-shahr,1744
+4,,2157,خبرنگار,khabarnegar,12
+2,,3689,تیتکانلو,khobushan,896
+2,,3499,خدا آفرین,khoda-afarin,891
+4,,2663,خداکرم,khodakaram,8
+2,,2751,خرامه,kherameh,898
+2,,4012,خرانق,kharanaq,886
+4,,2148,خرسندی,khorsandi,12
+2,,3927,خرقان,kharghan,901
+4,,1599,خرم,khoram,4
+2,,27,خرم‌آباد,khorramabad,884
+4,,3371,خرم آباد,khorram-abad,3
+2,,2005,خرم‌آباد (تنکابن),khoram-abad,893
+2,,2752,خرم بید,khorram-bid,898
+2,,803,خرمدره,khorramdarreh,879
+2,,3790,خرمدشت,khorramdasht-city,878
+4,,2359,خرمدشت,khorramdasht-kashan,30
+4,,588,خرمدشت,khorramdasht,2
+4,,476,خرمشهر,adlekhomeinisquare,3
+2,,799,خرمشهر,khorramshahr,902
+4,,999,خرمشهر,salamat,1
+4,,2291,خزاق,khazzaq,30
+4,,253,خزانه,khazaneh,1
+2,,4000,خزل,khezel,899
+4,,4466,خسروآباد,khosroabad,774
+4,,3360,خسروجرد,khosrojerd,316
+2,,3517,خسروشاه,khosrowshah,891
+2,,2749,خشت,khesht,898
+2,,1689,خشکبیجار,khoshkbijar,889
+2,,4013,خضر آباد,khezr-abaad,886
+4,,3137,خط کاشمر,khat-kashmar,318
+2,,2750,خفر,khafr,898
+4,,4332,خلازیر,khalazir,1
+4,,4435,خلج آباد,khalajabad,2
+4,,1536,خلجا,khalaja,4
+2,,2571,خلجستان,khalajestan,892
+2,,772,خلخال,khalkhal,906
+4,,544,خلدبرین,kholbarin,6
+4,,3365,خلق آباد سفلی,khalqabad-sofla,3
+4,,188,خلیج فارس,khalij-e-fars,1
+4,,2320,خلیج فارس,khalij-fars,30
+2,,3550,خلیفان,khalifan,881
+2,,2965,خلیل آباد,khalil-abad-city,880
+4,,1506,خلیل آباد,khalil-abad,4
+2,,1861,خلیل شهر,khalil-shahr,893
+4,,1391,خلیلی,khalili,6
+2,,1809,خمام,khomam,889
+2,,3747,خمک,khomak,883
+2,,3960,خمیر,khamir,894
+4,,1935,خمیران زاهدان,rasht-motahari,12
+4,,2121,خمیر کلایه,khamir-kelaye,746
+2,,839,خمین,khomein,901
+4,,387,خمینی‌شهر,khomeinishahr,4
+2,,1747,خمینی‌شهر,khomeyni-shahr,890
+2,,2754,خنج,khanj,898
+2,,3938,خنجین,khanjin,901
+2,,3930,خنداب,khandab,901
+4,,2633,خندق,khandagh,8
+2,,3512,خواجه,khajeh,891
+4,,1181,خواجه ربیع,khaje-rabi,3
+4,,2385,خواجه عمید,khaje-amid,4
+4,,286,خواجه نصیر طوسی,eshrat-abad,1
+4,,958,خواجه نظام الملک,khaje-nezam-molk,1
+4,,391,خواجو,chaharbaghkhajoo,4
+2,,1736,خواف,khaf,880
+2,,1727,خوانسار,khansar,890
+4,,2175,خواهر امام,khahar-emam,12
+4,,4485,خور,khor,1754
+4,,2375,خوراسگان,khorasgan,4
+2,,1750,خور (اصفهان),khour,890
+2,,3578,خورش رستم,khorsh-e-rostam,906
+2,,1793,خور (فارس),khoour,898
+2,,1755,خورموج,khormoj,900
+4,,4328,خورین,khurin,1762
+2,,3672,خوسف,khusf,876
+2,,2966,خوشاب,khoshab,880
+4,,2087,خوش پیک,khosh-pik,708
+2,,1868,خوش‌رودپی,khoshroud-pey,893
+2,,767,خوی,khoy,881
+4,,1510,خیادان,khiadan,4
+4,,3345,خیام,khayyam,318
+4,,4368,خیام شرقی,khayyam-sharghi,1751
+4,,4370,خیام غربی,khayyam-gharbi,1751
+4,,4304,خیر آباد,kheir-abad,1762
+4,,3287,خیرآباد,kheyrabad,791
+2,,2755,خیرگو,kheyrgoo,898
+4,,1145,خین عرب,sepad,3
+2,,1992,دابودشت,dabudasht,893
+4,,47,دارآباد,darabad,1
+2,,809,داراب,darab,898
+4,,1340,دارالرحمه,shiraz-cemetery,6
+2,,1724,داران,daran,890
+4,,3146,دارایی,daraayi,318
+4,,1445,دارک,derak,4
+4,,3230,داروپخش,darupakhsh,1776
+4,,2771,داریون,darian,6
+2,,3863,دالاهو,dalahu,905
+2,,1967,دالخانی,dalkhani,893
+2,,805,دامغان,damghan,882
+2,,3748,دامن,daman,883
+4,,2265,دانش,danesh-kashan,30
+4,,2561,دانش,danesh-najaf-abad,31
+4,,2670,دانش,danesh-qom,8
+4,,1212,دانش,danesh,3
+4,,463,دانشجو,daneshjoo,3
+4,,4593,دانشکده دامپزشکی شیراز,daneshkade-dampezeshki-shiraz,6
+4,,4428,دانشکده علوم پزشکی البرز,daneshkade-oloum-pazeshki-alborz,2
+4,,3173,دانشکده کشاورزی,daneshkade-kshevarzi,318
+4,,4595,دانشکده کشاورزی دانشگاه شیراز,daneshkade-keshavarzi-daneshgah-shiraz,6
+4,,4586,دانشکده موشکی امام صادق (ع),daneshkade-moshaki-emam-sadegh,6
+4,,2306,دانشگاه,daneshgah,30
+4,,3321,دانشگاه آزاد,daneshgah-azad,316
+4,,4425,دانشگاه آزاد,daneshgah-azad-karaj,2
+4,,3172,دانشگاه آزاد اسلامی,daneshgah-azad-eslami,318
+4,,2474,دانشگاه آزاد شاهین شهر,daneshgah-azad-shahin-shahr,1744
+4,,4556,دانشگاه آزاد نجف آباد,daneshgah-azad-najafabad,31
+4,,1527,دانشگاه اصفهان,soffeh,4
+4,,2410,دانشگاه افسری امیرالمومنین,daneshgah-afsari-amiralmomenin,4
+4,,4426,دانشگاه پیام نور,daneshgah-payam-noor,2
+4,,4289,دانشگاه پیام نور قرچک,daneshgah-payam-noor-gharchak,1761
+4,,209,دانشگاه تهران,tehran-university,1
+4,,3436,دانشگاه چمران,daneshgah-chamran,7
+4,,4421,دانشگاه خوارزمی,daneshgah-khwarazmi,2
+4,,928,دانشگاه شریف,university-of-sharif,1
+4,,1350,دانشگاه شهید باهنر,shahid-bahonar-university,6
+4,,2327,دانشگاه شهید رجایی,daneshgah-shahid-rajai,30
+4,,1376,دانشگاه شیراز,pardis-of-eram,6
+4,,1422,دانشگاه صنعتی اصفهان,isfahan-university-of-technology,4
+4,,1124,دانشگاه فردوسی,ferdowsi-university-of-mashhad,3
+4,,2666,دانشگاه قم,daneshgah-qom,8
+4,,2326,دانشگاه کاشان,daneshgah-kashan,30
+4,,3161,دانشگاه نیشابور,daneshgah-neyshabur,318
+4,,4427,دانشگاه هنر تهران (پردیس کرج),daneshgah-honar-tehran-pardis-karaj,2
+4,,627,دانیال,danial,8
+2,,2967,داورزن,davarzan,880
+4,,4376,داوری,davari,1751
+4,,4299,داوود آباد,davood-abad,1761
+4,,1354,دباغ خانه,dabbagh-khaneh,6
+4,,2146,دباغیان,dabaghian,12
+4,,127,دبستان,dabestan,1
+4,,2151,دخانیات,dokhaniyat,12
+4,,3368,درابد امام,darabad-emam,3
+4,,2252,درب اصفهان,darb-esfahan,30
+4,,2336,درب باغ,darb-baagh,30
+2,,3857,درب بهشت,darb-behesht,877
+4,,2274,درب جوشقان,darb-josheqan,30
+4,,940,درب دوم,darb-dowom,1
+4,,2286,درب زنجیر,darb-zanjir,30
+4,,1552,درب سیبه علیا,darab-sibeh-olya,4
+4,,3029,دربقاضی,darboghazi,318
+4,,1459,درب کوشک,mahale-now,4
+2,,3914,درب گنبد,darb-gonbad,884
+4,,54,دربند,darband,1
+4,,2640,در بهشت,dar-behesht,8
+4,,2334,درب یلان,darb-yalaan,30
+4,,1547,درچه,dorcheh,4
+2,,3678,درح,darh,876
+4,,598,درختی,derakhti,2
+4,,926,درختی,sepehr,1
+4,,118,دردشت,dardasht,1
+4,,3035,درزآب,darzaab,3
+4,,58,درکه,darakeh,1
+4,,1283,درکی,derki,6
+2,,2968,درگز,dargaz,880
+2,,3994,درگزین,dargazin,899
+2,,1820,درگهان,dargahan,894
+2,,3677,درمیان,darmiyan,876
+2,,3579,دره رود,darreh-rud,906
+2,,3595,دره شهر,darreh-shahr,888
+4,,1258,دروازه اصفهان,darvazeh-isfahan,6
+4,,2276,دروازه جوشقان,darvaze-josheqan,30
+4,,2610,دروازه چوبی,darvazeh-chubi,8
+4,,2589,دروازه ری,darvazeh-rey,8
+4,,285,دروازه شمیران,darvazeh-shemiran,1
+4,,2246,دروازه فین,darvazeh-fin,30
+4,,2800,دروازه قران,darvaze-qoran,6
+4,,2624,دروازه قلعه,darvazeh-ghaleh,8
+4,,2638,دروازه کاشان,darvazeh-kashan,8
+4,,2173,دروازه لاکان,darvazeh-lakan,12
+2,,2753,درودزن,doroodzan,898
+4,,71,دروس,darrous,1
+4,,929,دریا,darya,1
+4,,1031,دریاچه شهدای خلیج فارس,chitgar-lake,1
+4,,3069,دریادل,daryadel,3
+4,,200,دریان‌نو,daryan-no,1
+4,,66,دزاشیب,dezashib,1
+2,,3402,دزپارت,dezpart,902
+2,,23,دزفول,dezful,902
+4,,4130,دژکام,dezhkam,1
+4,,1332,دست خضر,dastkhezr,6
+4,,1003,دستغیب,shahid-dastgheyb,1
+2,,3660,دستگردان,dastgerdan,876
+4,,1429,دستگرد قداره,dastgerd-e-qadaadeh,4
+4,,1457,دستگرده,dastgerdeh,4
+2,,3398,دشت آزادگان,dasht-azadegan,902
+2,,3791,دشتابی,dashtabi,878
+4,,2340,دشت چال,dasht-chaal,30
+4,,1406,دشت چنار,dasht-chenaran,6
+2,,3867,دشت ذهاب,dasht-zhahab,905
+4,,1476,دشتستان,dashtestan,4
+2,,3608,دشت عباس,dasht-abbas,888
+2,,3551,دشتک,dashtak,881
+4,,2351,دشت لتحر,dasht-lathar,30
+2,,3749,دشتیاری,dashtyari,883
+2,,2744,دشمن زیاری,doshman-ziyari,898
+4,,361,دغاغله,daghagheleh,7
+4,,2524,دفاع مقدس,defaa-moghaddas,31
+4,,2456,دکتر حسابی,doctor-hesabi,1744
+4,,1271,دکتر حسابی,hossein-abad,6
+4,,1029,دکتر هوشیار,dr-hoshyar,1
+2,,3809,دلبران,dalbaran,885
+4,,2794,دلجو,deljo,6
+2,,3750,دلگان,delgan,883
+4,,4608,دلگشا,delgosha-shiraz,6
+4,,2539,دلگشا,delgosha,31
+2,,1975,دلند,daland,897
+2,,3628,دلوار,dalvar,900
+2,,1824,دلیجان,delijan,901
+2,,783,دماوند,damavand,904
+4,,4189,دماوند,damavand-district,783
+4,,1597,دنارت,denart,4
+2,,2207,دهاقان,dahaaghan,890
+2,,3858,دهبکری,dehbakri,877
+4,,2821,ده بید,deh-bid,1788
+4,,3233,ده پائین,deh-payin,1776
+4,,1337,ده پیاله,deh-pialeh,6
+2,,3820,دهج,dahaj,877
+4,,4204,ده‌حسن,deh-hasan,1765
+4,,3130,ده حلاج,deh-hallaj,318
+4,,2457,دهخدا,dehkhoda,1744
+2,,822,دهدشت,dehdasht,887
+4,,1170,ده دی,10-day,3
+2,,2745,دهرم,dahram,898
+4,,4245,دهشاد بالا,dehshad-bala,1759
+4,,4244,دهشاد پائین,dehshad-payin,1759
+4,,3351,دهشک,dehshak,3
+4,,4086,ده عباس,deh-abbas,29
+2,,2223,علویجه - دهق,dehaq,890
+4,,962,دهقان,dehqan,1
+4,,591,دهقان ویلا,dehghanvilla,2
+4,,4366,دهکده,dehkade,1751
+4,,161,دهکده المپیک,dehkade-olympic,1
+4,,2081,دهکده ساحلی,dehkade-saheli,708
+2,,1798,دهگلان,dehgolan,885
+2,,777,دهلران,dehloran,888
+4,,4151,دهم فروردین,dahom-farvardin,1
+4,,3133,دهنو,dehno-nishabur,318
+4,,1423,دهنو,dehno,4
+4,,3347,دهنو لکزی,dehnow-lakzi,318
+4,,1566,دهنو (محمدآباد),mohammad-abad,4
+4,,81,ده‌ونک,vanak-village,1
+4,,2684,دوبرادر,dobaradar,8
+2,,3707,دوتپه,dotappe,879
+4,,2790,دودمان,dodman,6
+4,,613,دورشهر,dourshahr,8
+2,,752,دورود,dorud,884
+2,,1984,دوزین,dozin,897
+4,,3339,دوست آباد,dostabad,3
+4,,1524,دوطفلان,doteflan,4
+4,,1294,دوکوهک,dokuhak,6
+2,,874,دوگنبدان,dogonbadan,887
+4,,272,دولاب,doolab,1
+4,,233,دولت‌آباد,dolat-abad,1
+4,,1609,دولت‌آباد,dolat-abad-isfahan,4
+4,,1080,دولت‌آباد,dowlatabad-karaj,2
+4,,4043,دولت‌آباد,dowlatabad-rey,1763
+4,,2813,دولت آباد,dowlatabad,1788
+4,,918,دولتخواه جنوبی,dolatkhah,1
+4,,4181,دولتخواه شمالی,dolatkhah-shomali,1
+4,,1888,دیانتی,diyanati,12
+4,,3234,دیزقند,dizghand,1776
+2,,3889,دیشموک,dishmuk,887
+2,,3615,دیلم,deylam,900
+4,,4044,دیلمان,deylaman-rey,1763
+4,,2167,دیلمان,deylaman-rasht,12
+4,,228,دیلمان,south-deylaman,1
+2,,1814,دیلمان,deylaman,889
+4,,1259,دینکان,dinakan,6
+2,,3874,دینور,dinvar,905
+2,,3659,دیهوک,dihook,876
+2,,3797,دیواندره,divandareh,885
+2,,3924,ذلقی,zolqi,884
+2,,3859,رابر,rabar,877
+2,,2969,رادکان,radkan,880
+4,,1569,راران,raran,4
+2,,3683,راز وجرگلان,raz-va-jargalan,896
+4,,2791,رازی,razi,6
+4,,1921,رازی,raazi,12
+2,,3751,راسک,rask,883
+4,,2817,رامجرد یک,ramjerd-1,1788
+2,,4342,رامجین,ramjin,895
+2,,745,رامسر,ramsar,893
+2,,2224,رامشه,raamesheh,890
+2,,1781,رامشیر,ramshir,902
+2,,3792,رامند,ramand,878
+2,,800,رامهرمز,ramhormoz,902
+2,,1979,رامیان,ramiyan,897
+4,,4257,رامین,ramin,1759
+2,,1851,رانکوه,rankouh,889
+4,,4153,راه آهن,rah-ahan-tehran,1
+4,,3164,راه آهن,rah-ahan-nishabur,318
+4,,1172,راه آهن,rahahan,3
+4,,2412,راه آهن,rah-ahan,4
+4,,2304,راه آهن کاشان,rah-ahan-kashan,30
+2,,2742,راهگان,rahgan,898
+4,,2808,راهنمایی,rahnamaei-shiraz,6
+4,,442,راهنمایی,rahnamaei,3
+2,,3817,راور,ravar,877
+4,,2258,راوند,ravand,30
+2,,3851,راین,rayen,877
+4,,3024,رباط,rebat,316
+4,,3273,رباط سفلی,robat-sofla,1776
+4,,1240,رباط طرق,robat-e-Toroq,3
+2,,1765,رباط‌کریم,robat-karim,904
+4,,4335,رباط‌کریم,robat-karim-district,1765
+4,,4423,رباط ماشین,rebat-mashin,2
+2,,3552,ربط,rabt,881
+4,,2280,رجایی,rajai,30
+4,,3265,رجایی,rajayi-torbat-heydariyeh,1776
+4,,2109,رجایی,rajayi,746
+4,,2550,رجایی شمالی,rajai-shomali,31
+4,,1043,رجب‌آباد,rajababad,2
+4,,1390,رحمت‌آباد,rahmat-abad,6
+2,,2743,رحمت‌آباد,rahmatabad-city,898
+4,,2485,رحمت آباد,rahmatabad,31
+4,,3169,رحمت آباد,rahmatabad-nishabur,318
+2,,1839,رحیم‌آباد,raheem-abad,889
+4,,1605,رحیم‌آباد,rahim-abad,4
+4,,3329,رحیم آباد,rahimabad,318
+4,,1517,ردان,radan,4
+4,,1187,رده,kuy-e-raddeh,3
+4,,4254,رزکان,razkan,1759
+4,,1582,رزمندگان,razmandegan,4
+2,,3993,رزن,razen,899
+4,,1427,رسالت,resalat-isfahan,4
+4,,498,رسالت,resalat-mashhad,3
+4,,4468,رسالت,resalat-nazarabad,774
+4,,2257,رسالت,resalat-kashan,30
+4,,1931,رسالت,rasht-resalat,12
+4,,349,رسالت,resalat,7
+2,,2747,رستاق,rostaq,898
+4,,465,رستگار,abdolmotalleb,3
+2,,2748,رستم,rostam,898
+2,,1835,رستم‌آباد,rostam-abad,889
+2,,1860,رستمکلا,rostamkola,893
+2,,2970,رشتخوار,reshtkhar,880
+4,,1906,رشتیان,rasht-rashtian,12
+4,,3316,رضاآباد,rezaabad,791
+4,,3262,رضاشهر,rezashahr-torbat-heydariyeh,1776
+4,,433,رضاشهر,rezashahr,3
+4,,1204,رضاییه,rezaieyeh,3
+4,,3189,رضوان,rezvan-sabzevar,316
+2,,1684,رضوانشهر,rezvanshahr,889
+4,,3215,رضوی,razavi,316
+2,,2971,رضویه,razaviye-city,880
+4,,2642,رضویه,razaviye,8
+4,,4250,رضی آباد بالا,raziabad-bala,1759
+4,,4251,رضی آباد پایین,raziabad-payin,1759
+2,,817,رفسنجان,rafsanjan,877
+4,,537,رکن‌آباد,shahrakeroknabad,6
+4,,2420,رکن الدوله شرقی,rokn-od-dole-sharghi,4
+4,,1483,رکن الدوله غربی,rokn-od-dole-gharbi,4
+4,,3165,رنج آباد,ranjabad,318
+4,,4262,رنگرز,rangaraz,1759
+4,,1523,رهنان,mashadeh,4
+2,,3877,روانسر,ravansar,905
+2,,2972,روداب,rudab,880
+2,,3964,رودان,rudan,894
+2,,1810,رودبار,rudbar,889
+4,,2174,رودبارتان,rudbartan,12
+2,,3852,رودبار (کرمان),rudbar-city,877
+4,,1916,رودباری,roudbari,12
+4,,2816,رودبال,rudbal,1788
+2,,1849,رودبنه,roudbaneh,889
+2,,3965,رودخانه,rudkhaneh,894
+2,,826,رودسر,rudsar,889
+2,,2225,رودشت (اصفهان),roodasht,890
+2,,3649,رودشت (چهارمحال و بختیاری),rudasht,903
+2,,1769,رودهن,rudehen,904
+4,,1519,روشن‌دشت,roshan-dasht,4
+2,,3907,رومشکان,rumeshkan,884
+2,,2746,رونیز,roniz,898
+2,,1698,رویان,royan,893
+2,,3959,رویدر,ruydar,894
+2,,1763,شهر ری,shahre-rey,904
+4,,2792,ریاستی,riyasti,6
+4,,2552,ریاضی,riazi,31
+4,,4326,ریحان آباد,reyhan-abad,1762
+2,,3623,ریز,riz,900
+4,,1395,ریشمک,rishmak,6
+2,,3617,ریگ,rig,900
+2,,3841,ریگان,rigan,877
+2,,3752,ریگ ملک,rig-malek,883
+2,,1872,رینه,reyneh,893
+4,,3032,ریوند,reyvand,318
+2,,706,زابل,zabol,883
+4,,1551,زاجان,zajan,4
+4,,2598,زاد,zaad,8
+2,,4014,زارچ,zarch,886
+2,,3918,زاغه,zaghah,884
+2,,3604,زاگرس,zagros,888
+2,,3940,زالیان,zalian,901
+2,,11,زاهدان,zahedan,883
+4,,964,زاهد گیلانی,zahed-gilani,1
+2,,2973,زاوه,zaveh,880
+2,,2974,زاوین,zavin,880
+2,,3943,زاویه,zavieh,901
+4,,620,زاویه,kalhori,8
+2,,3645,زاینده رود,zayandeh-rud-city,903
+4,,2482,زاینده رود,zayandeh-rud,1745
+2,,2975,زبرخان,zabarkhan,880
+2,,3753,زرآباد,zarabad,883
+4,,4073,زرافشان,zarafshan,29
+4,,3479,زردشت,zardasht,7
+2,,1791,زرقان,zarghan,898
+4,,955,زرکش,zarkesh,1
+4,,358,زرگان,zergan,7
+2,,1982,زرگرشهر,zargarshahr,893
+4,,533,زرگری,zargari,6
+4,,84,زرگنده,zargandeh,1
+4,,4272,زرنان بالا,zarnan-e-bala,1758
+4,,4271,زرنان پایین,zarnan-e-payin,1758
+2,,867,زرند,zarand,877
+2,,3928,زرندیه,zarandieh,901
+2,,3593,زرنه,zarneh,888
+4,,1256,زرهی,kuy-valiasr,6
+2,,3594,زرین آباد,zarrin-abad,888
+2,,2736,زرین دشت (فارس),zarrin-dasht,898
+2,,3998,زرین دشت (همدان),zarrin-dasht-city,899
+4,,646,زرین‌شهر,zarinshahr,4
+2,,3916,ززوماهرو,zazomahru,884
+4,,56,زعفرانیه,zafaraniyeh,1
+4,,3104,زکریا,zakaria,3
+4,,2681,زمان زاده,zaman-zadeh,8
+4,,3077,زمانه,zamaneh,3
+4,,1147,زمرد,pardis-mashhad,3
+4,,1009,زمزم,zamzam,1
+2,,3885,زمکان,zamkan,905
+4,,2045,زنبق,zanbagh,708
+4,,606,زنبیل آباد,zanbilabad,8
+2,,20,زنجان,zanjan,879
+4,,1001,زنجان جنوبی,tehran-zanjan,1
+2,,3708,زنجانرود,zanjanrud,879
+2,,3997,زند,zend,899
+4,,529,زند,zand,6
+4,,2591,زند آباد,zand-aabad,8
+2,,2226,زنده رود,zendeh-rood,890
+4,,3462,زندوکیلی,khiaban-zandvakili,7
+4,,2846,زنگی آباد,zangi-abad,1788
+2,,3666,زهان,zohan,876
+4,,268,زهتابی,zehtabi,1
+4,,1548,زهران,zahran,4
+2,,1787,زهک,zahak,883
+2,,2227,زواره,zavaareh,890
+4,,1513,زوان,zavan,4
+4,,3471,زوویه ۲,zoveyeh-2,7
+4,,2425,زیار,ziyar,4
+4,,2299,زیارتی,ziyarati,30
+4,,4458,زیبادشت,zibadasht-mohammadshahr,1752
+4,,162,زیبادشت,shahrak-e-cheshmeh,1
+4,,640,زیبا شهر,zibashahr,6
+4,,4286,زیبا شهر,ziba-shahr-gharchak,1761
+4,,3066,زیبا شهر,ziba-shahr,3
+4,,4599,زیباشهر,zibashahr-shiraz,6
+2,,2228,زیباشهر,zibaashahr,890
+4,,352,زیباشهر,zibashahr-ahvaz,7
+2,,1683,زیباکنار,zibakenar,889
+4,,3280,زیباکنار,zibakenar-torbat-jam,791
+4,,2323,زیتون,zeytun,30
+4,,327,زیتون کارگری,zeytunkargari,7
+4,,324,زیتون کارمندی,zeytunkarmandi,7
+2,,3832,زید آباد,zeyd-abad,877
+4,,2266,زیدی,zeidi,30
+2,,1859,زیرآب,ziraab,893
+4,,3364,زیرکن,zirkan,3
+2,,3670,زیرکوه,zirkouh,876
+2,,3902,زیلائی,zilayi,887
+4,,3197,زینبیه,zeinabiyeh-sabzevar,316
+4,,2654,زینبیه,zeinabiyeh,8
+2,,3800,زیویه,ziviye,885
+4,,2094,ژاندارمری,zhandarmeri,708
+4,,2608,ژاندارمها,zhandaarmhaa,8
+4,,2812,ژیان,zhiyan,1788
+4,,2085,ساحل قو,sahel-gho,708
+2,,3814,سارال,saral,885
+2,,3754,ساربوک,sarbuk,883
+2,,3935,ساروق,sarugh,901
+2,,22,ساری,sari,893
+4,,157,سازمان آب,sazman-ab,1
+4,,3067,سازمان آب,sazman-ab-mashhad,3
+4,,4133,سازمان برنامه جنوبی,sazman-barname-jonubi,1
+4,,158,سازمان برنامه شمالی,sazamn-barnameh,1
+4,,597,ساسانی (قلمستان),sassani,2
+4,,1884,ساغری سازان,saghari-sazaan,12
+4,,2290,سال آباد,sal-abad,30
+4,,610,سالاریه,Salarieh,8
+4,,1910,سام,saam,12
+2,,1833,سامان,saman-city,903
+4,,1342,سامان,saman,6
+4,,1111,ساماندهی,samandehi,2
+4,,2074,سامانسر,samansar,708
+2,,3996,سامن,samen-city,899
+2,,671,ساوه,saveh,901
+4,,1410,سایت اداری,sait-edari,6
+4,,2503,سایت صنعتی کاوه,sait-sanati-kaveh,1745
+2,,316,سبزوار,sabzevar,880
+2,,3580,سبلان,sabalan-city,906
+4,,950,سبلان,sabalan,1
+4,,949,سبلان (لشگر),tehran-lashkar,1
+4,,4567,سپاد,sepad-mashhad,3
+4,,385,سپاهان‌شهر,sepahanshahr,4
+4,,2065,سپه,sepah,708
+2,,3903,سپیدار,sepidar-city,887
+4,,335,سپیدار,sepidar,7
+2,,2737,سپیدان,sepiddan,898
+4,,4363,سپید دشت,sepid-dasht,1751
+4,,2037,سپیدکنار,sepid-kenar,708
+4,,1562,ستار,sattar,4
+4,,523,ستار خان,sattarkhan-shiraz,6
+4,,205,ستارخان,sattarkhan,1
+4,,1279,ستارخان,talkh-e-dash,6
+4,,1014,سجاد,imam-sajjad,1
+4,,3194,سجاد,sajjad,316
+4,,538,سجاد (بنی هاشم),banihashemi,6
+4,,435,سجاد شهر,sadjadshahr,3
+4,,1312,سجادیه,sajjadieh,6
+4,,1199,سجادیه,sajadieh,3
+2,,3709,سجاس رود,sajas-rud,879
+4,,3419,سخیریه,sakhiriyeh,7
+2,,3665,سده (خراسان جنوبی),sede,876
+2,,2734,سده (فارس),sedeh,898
+4,,3140,سرآب کوشک,saraab-koushk,318
+2,,3888,سر آسیاب یوسفی,sar-aasiab-yousefi,887
+2,,852,سراب,sarab,891
+4,,491,سراب,sadi,3
+2,,3611,سراب باغ,sarab-bagh,888
+2,,3597,سراب میمه,sarab-meymeh,888
+4,,633,سراجه (۱۵ خرداد),15khordad,8
+2,,3525,سراجو,serajoo,891
+4,,1120,سرافرازان,kuy-e-sarafrazan,3
+2,,865,سراوان,saravan,883
+2,,3755,سرباز,sarbaz,883
+4,,1369,سر باغ,sar-bagh,6
+4,,2639,سربخش,sar-bakhsh,8
+2,,3939,سربند,sarband,901
+2,,3674,سربیشه,sarbisheh,876
+2,,854,سرپل ذهاب,sarpol-zahab,905
+4,,2249,سرپله جدید,sarpelle-jadid,30
+4,,2390,سرتاوه,sartaveh,4
+4,,4050,سرتخت,sartakht-rey,1763
+4,,984,سرتخت,sartakht,1
+4,,2394,سرچشمه,sarcheshmeh,4
+2,,2735,سرچهان,sarchahan,898
+2,,3692,سرحد,sarhad,896
+4,,4377,سرحد آباد,sarhad-abad,1751
+4,,4372,سرحدی,sarhadi,1751
+4,,2637,سرحوض,sarhoz,8
+2,,1700,سرخرود,sorkhrood,893
+2,,2976,سرخس,sarakhs,880
+2,,1968,سرخنکلاته,sorkhan-kalateh,897
+2,,3714,سرخه,sorkheh,882
+2,,4030,سرخه حصار,sorkhe-hesar-city,904
+2,,3673,سرداران,sardaran,876
+4,,4312,سردارجنگل,sardar-e-jangal,1
+2,,3992,سردرود,sardorud,899
+2,,857,سردشت,sardasht,881
+4,,2422,سرشبادران,sarvoshbaderan,4
+2,,3801,سرشیو,sarshiu,885
+2,,1741,سرعین,sarein,906
+2,,3897,سرفاریاب,sar-faryab,887
+4,,2332,سرفره و صدره,sarfarah-va-sadroh,30
+4,,3258,سرمحله,sar-mahalleh,1776
+4,,2803,سرو,sarv,6
+2,,3803,سروآباد,sarvabad,885
+2,,2740,سروستان,sarvestan-city,898
+4,,1478,سروستان,sarvestan,4
+2,,2977,سرولایت,sarvelayat,880
+2,,3810,سریش آباد,sarish-abad,885
+4,,75,سعادت‌آباد,saadat-abad,1
+4,,1542,سعادت‌آباد,saadat-abad-isfahan,4
+4,,2657,سعادتی,saadati,8
+4,,449,سعد آباد,southmotahhari,3
+2,,3636,سعدآباد,saadabad,900
+4,,2562,سعدی,saadi-najaf-abad,31
+4,,1899,سعدی,saadi,12
+4,,1900,سعدی (تختی),bagher-abad,12
+4,,2467,سعدی جنوبی,saadi-jonubi,1744
+4,,2439,سعدی شمالی,saadi-shomali,1744
+4,,4603,سعدیه جنوبی,saadieh-jonoubi,6
+4,,1379,سعدیه شمالی,sharak-e-sadi,6
+4,,4517,سعید آباد,saeid-abad,1754
+4,,913,سعیدآباد,saeed-abad,1
+4,,4600,سفیرشمالی,safir-shomali,6
+4,,4263,سقرچین,sagharchin,1759
+2,,812,سقز,saqqez,885
+4,,1213,سلام,salam,3
+2,,2978,سلامی,salami,880
+4,,284,سلسبیل جنوبی,sarsabil,1
+4,,4131,سلسبیل شمالی,selsebil-shomali,1
+4,,1508,سلطان‌آباد,soltan-abad,4
+4,,2848,سلطان آباد,soltan-abad-shiraz,6
+4,,2245,سلطان امیر احمد,soltan-amir-ahmad,30
+4,,353,سلطانمنش,soltanmanesh,7
+2,,3710,سلطانیه,soltaniye,879
+2,,2572,سلفچگان,salfchegan,892
+2,,768,سلماس,salmas,881
+2,,1699,سلمان‌شهر,salman-shahr,893
+4,,3461,سلیم آباد(سه راه خرمشهر),salim-abad-se-rah-khorramshahr,7
+2,,2979,سلیمان,soleyman,880
+4,,1920,سلیمانداراب,soleyman-daraab,12
+4,,1005,سلیمانی,soleymani,1
+4,,1153,سمزقند,samarghand,3
+4,,2376,سمسور,samsur,4
+2,,3686,سملقان,samalqan,896
+2,,35,سمنان,semnan,882
+2,,1725,سمیرم,semirom,890
+4,,299,سنائی,motahari,1
+4,,462,سناباد,sanabad,3
+4,,1462,سنبلستان,sonbolestan,4
+4,,1555,سنجوانمره,sanjavamareh,4
+2,,3693,سنخواست,sankhvast,896
+2,,3969,سندرک,sandarak,894
+2,,855,سنقر,sonqor,905
+2,,2980,سنگان,sangan,880
+4,,2635,سنگ بند,sangband,8
+2,,1966,سنگدوین,sangdovin,897
+2,,1811,سنگر,sangar,889
+4,,279,سنگلج (شاپور),sanglaj,1
+2,,28,سنندج,sanandaj,885
+4,,2311,سه راه پرورشگاه,se-rah-parvareshgah,30
+4,,302,سهروردی,north-sohrevardi,1
+2,,3667,سرایان,seh-ghaleh,876
+4,,2837,سهل‌آباد,sahl-abad-marvdasht,1788
+4,,1324,سهل‌آباد,sahl-abad,6
+2,,761,سهند,sahand,891
+4,,1465,سودان,soodan,4
+2,,1862,سورک,sourek,893
+2,,2741,سورنا,sorena,898
+2,,3910,سوری,suri,884
+4,,2341,سوریجان,sourijaan,30
+4,,2084,سوسر,susar,708
+2,,756,سوسنگرد,susangerd,902
+2,,3896,سوق,suq,887
+2,,3883,سومار,somar,905
+4,,52,سوهانک,sohanak,1
+4,,1907,سیا اسطلخ,sia-estalkh,12
+4,,3463,سیاحی(سه راه خرمشهر),siyahi-se-rah-khorramshahr,7
+2,,2738,سیاخ دارنگون,siyakh-darangoon,898
+4,,3206,سیادتی,seyadati,316
+4,,4318,سیاه سنگ,siyah-sang,1767
+4,,1370,سیاه سنگ,kuy-sang-siah,6
+2,,861,سیاهکل,siahkal,889
+4,,4418,سیاه کلان,siah-kalaan,2
+2,,3756,سیب و سوران,sib-va-sura,883
+2,,2003,سیجوال,sijval,897
+4,,386,سیچان,sichan,4
+2,,2981,سیدآباد,seyyedabad,880
+4,,4448,سیدآباد,seyedabad-mohammadshahr,1752
+4,,2051,سید آسیه,seyed-asieh,708
+2,,2739,سیدان,seydan,898
+4,,2636,سیدان,seyyedan,8
+4,,3150,سید جمال الدین,seyyed-jamaleddin,318
+4,,3472,سید خلف,seyed-khalaf,7
+4,,1028,سید خندان (جلفا),tehran-jolfa,1
+4,,3064,سید رضی,seyyed-razi,3
+4,,2614,سید معصوم,seyyed-masoom,8
+2,,3632,سیراف,siraf,900
+2,,818,سیرجان,sirjan,877
+2,,3601,سیروان,sirvan,888
+2,,4614,سیروان,sirvan-city,885
+4,,996,سیروس,sirous,1
+2,,3982,سیری,jazireh-siri,894
+2,,3975,سیریک,sirik,894
+4,,4051,سیزده آبان,sizdah-aban-rey,1763
+4,,983,سیزده آبان,sizdah-aban,1
+4,,1183,سیس‌آباد,sis-abad,3
+2,,2229,سیستان,seestaan,890
+2,,1808,سی‌سخت,sisakht,887
+4,,362,سیصد دستگاه,sisad-dastgah,7
+4,,4515,سیف آباد,seyfabad,1754
+4,,2256,سیفی آباد,seifi-abad,30
+2,,3920,سیلاخور,silakhur,884
+4,,3099,سیلو,silu,3
+4,,1251,سیلو,siloo,6
+2,,3553,سیلوانه,silvaneh,881
+4,,3276,سیلوی گندم,siloy-gandom,1776
+4,,4330,سیمای ایران,simaye-iran,1
+4,,2066,سی متری,si-metri,708
+4,,4415,سی متری صنعتکاران,si-metri-sanatkaraan,2
+4,,4059,سیمرغ,simorgh,29
+2,,2728,سیمکان,simakan,898
+2,,2006,سیمین شهر,simin-shahr,897
+2,,3554,سیمینه,simineh,881
+4,,534,سینما سعدی,sadicinema,6
+2,,3509,سیه رود,siah-rud,891
+2,,3600,سیوان,sivan,888
+4,,2769,شاپورجان,shapurjan,6
+2,,3664,شاخنات,shakhnat,876
+4,,3295,شاد,shad,791
+4,,189,شادآباد,shadabad,1
+4,,2583,شاد قلی,shad-gholi,8
+2,,1780,شادگان,shadeghan,902
+4,,656,شادمان,shadman,1
+2,,2982,شادمهر,shadmehr,880
+2,,3533,شادیان,shadian,891
+4,,957,شارق,east-shareq,1
+2,,1825,شازند,shazand,901
+2,,3671,شاسکوه,shaskouh,876
+4,,4310,شاطره,shatareh,29
+4,,2097,شاکوچه,shakucheh,708
+2,,1796,شال,shal,878
+4,,1887,شالکو,shalkou,12
+4,,2075,شالیور,shaliur,708
+2,,2983,شامکان,shamkan,880
+2,,1994,شاندرمن,shanderman,889
+2,,1775,شاندیز,shandiz-city,880
+4,,487,شاندیز,shandiz,3
+4,,2078,شانگهای پرده,shanghai-pardeh,708
+4,,634,شاه ابراهیم,kashani,8
+4,,2622,شاه احمد قاسم,shah-ahmad-ghasem,8
+4,,1467,شاه پسند,mohammad-taher,4
+4,,2802,شاهجیان,shahjian,6
+4,,1365,شاهچراغ,eshagh-beyg,6
+4,,3341,شاهد,shahed-torbat-jam,791
+4,,972,شاهد,shahed,1
+4,,2307,شاهد,shahed-kashan,30
+4,,1451,شاهد,shahed-esfahan,4
+2,,1713,شاهدشهر,shahedshahr,904
+4,,3021,شاهد (شهرک غرب),shahed-mashhad,3
+2,,707,شاهرود,shahrud,882
+2,,3581,شاهرود (اردبیل),shahrood,906
+4,,1521,شاهزاده ابراهیم,shahzade-ebrahim,4
+4,,1479,شاهزید,shahzyed,4
+4,,2582,شاه سید علی,shah-seyyed-ali,8
+4,,1282,شاه قلی بیگی,shah-gholi-beigi,6
+2,,3989,شاهنجرین,shahenjarin,899
+2,,3869,شاهو,shaho,905
+4,,147,شاهین,shahin,1
+2,,858,شاهین دژ,shahin-dej,881
+4,,379,شاهین‌شهر,shahinshahr,4
+2,,1744,شاهین‌شهر,shahin-shahr,890
+4,,570,شاهین‌ویلا,shahinvilla,2
+2,,3913,شاهیوند,shahivand,884
+4,,3034,شایه,shaaeh,3
+2,,3603,شباب,shabab,888
+2,,3620,شبانکاره,shabankareh,900
+2,,3503,شبستر,shabestar,891
+4,,1004,شبیری,shabiri,1
+4,,4205,شترخوار,shotorkhvar,1765
+4,,3384,شترک,shotarak,3
+2,,3987,شراء,shara,899
+4,,3209,شرق کال جنوبی (شمس آبادی),shargh-kal-jonoubi-shams-abadi,316
+4,,3223,شرق کال شمالی,shargh-kal-shomali,316
+4,,3208,شرق کال عیدگاه,shargh-kal-eidgah,316
+4,,3222,شرق کال میانی,shargh-kal-miani,316
+4,,2555,شریعتی,shariati-najaf-abad,31
+4,,3134,شریعتی,shariati-nishabur,318
+4,,2300,شریعتی,shariati,30
+4,,365,شریعتی جنوبی,shariatijonoobi,7
+4,,2549,شریعتی غربی,shariati-gharb,31
+4,,1131,شریف,sattari,3
+2,,4026,شریف‌آباد,sharif-abad-city,904
+4,,1333,شریف‌آباد,sharif-abad,6
+4,,637,شریف‌آباد,sharifabad,1
+2,,2984,ششتمد,sheshtamad,880
+2,,2729,ششده و قره بلاغ,sheshdeh-va-qareh-bolagh,898
+2,,2985,ششطراز,sheshtaraz,880
+4,,1047,شعبان‌آباد,shabanabad,2
+4,,1151,شفا,shafa,3
+2,,1813,شفت,shaft,889
+4,,1581,شفق,shafagh,4
+4,,2103,شقایق,shaqayeq,746
+4,,2196,شکار اسطلخ,shekar-estalakh,12
+4,,969,شکوفه,shokoofeh,1
+4,,4165,شکوفه (عبدل آباد),shokufe-abdol-abad,1
+4,,973,شکیبا,saheb-al-zaman,1
+2,,1845,شلمان,shelman,889
+4,,125,شمس‌آباد,shams-abad,1
+4,,3350,شمس آباد,shams-abad-mashhad,3
+4,,2396,شمس آباد,shams-abad-esfahan,4
+4,,2251,شمس آبادی,shams-abadi,30
+2,,1717,شمشک,shemshak,904
+4,,915,شمشیری,shamshiri,1
+4,,106,شمیران‌نو,shemiran-no,1
+2,,3961,شمیل,shamil,894
+2,,3625,شنبه و طسوج,shanbeh-va-tasuj,900
+4,,4052,شهادت,shahadat-rey,1763
+4,,977,شهادت,shahadat,1
+4,,2242,شهدا,shohada-kashan,30
+4,,624,شهدا,police,8
+4,,3207,شهدا,shohada-sabzevar,316
+4,,3241,شهدا,shohada-torbat-heydariyeh,1776
+4,,2565,شهدا,shohada-najaf-abad,31
+2,,3830,شهداد,shahdad,877
+4,,3480,شهدای انتظامی,shohaday-e-entezami,7
+4,,4606,شهدای شهرک سعدی,shohada-shahrak-saadi,6
+4,,2532,شهدای غربی,shohadaye-gharbi,31
+4,,3031,شهرآباد,shahrabaad,3
+2,,2986,شهرآباد,shahrabad,880
+4,,1117,شهرآرا,shahrara-mashhad,3
+4,,3144,شهرآرا,shahrara,318
+4,,202,شهرآرا,sharara,1
+4,,152,شهران جنوبی,south-shahran,1
+4,,151,شهران شمالی,north-shahran,1
+2,,3819,شهر بابک,shahr-babak,877
+4,,576,شهر جدید اندیشه,andishehnewcity,2
+4,,4570,شهر جدید گلبهار,shahr-jadid-golbahar,1773
+4,,2091,شهرداری,shahrdari,708
+4,,4223,شهرری,shahrerey,1763
+4,,155,شهر زیبا,shahr-e-ziba,1
+4,,1496,شهرستان,shahrestan,4
+4,,4210,شهرستانک,shahrestanak,1765
+4,,4397,شهر صنعتی,shahr-sanati,2
+4,,4619,شهر صنعتی انزلی,shahr-sanati-anzali,708
+2,,2200,شهرضا,shahreza-city,890
+4,,411,شهرضا,shahreza,4
+4,,2594,شهر قائم,shahr-ghaaem,8
+4,,4267,شهر‌قدس,shahr-ghods,1758
+4,,4381,شهرک ۱۱۰,shahrak-110,1751
+4,,2352,شهرک ۲۲ بهمن,shahrak-22-bahman,30
+4,,2052,شهرک 29 فروردین نیروی دریایی,shahrak-29-farvardin-niroy-daryaee,708
+4,,4505,شهرک آپادانا,shahrak-apadana-hashtgerd,1754
+4,,169,شهرک آپادانا,shahrak-e-apadana,1
+4,,4138,شهرک آتی شهر,shahrak-ati-shahr,1
+4,,4503,شهرک آرتیمان,shahrak-artiman,1754
+4,,1270,شهرک آرین,arian-town,6
+4,,4473,شهرک آزادگان,shahrak-azadegan-nazarabad,774
+4,,3290,شهرک آزادگان,shahrak-azadegan,791
+4,,164,شهرک آزادی,shahrak-e-azadi,1
+4,,4163,شهرک آزمایش,shahrak-azmayesh-tehran,1
+4,,2419,شهرک آزمایش,shahrak-azmayesh,4
+4,,1072,شهرک آسمان,aseman-town,2
+4,,180,شهرک آسمان,shahrak-e-aseman,1
+4,,4483,شهرک آفتاب,shahrak-aftab,1754
+4,,4191,شهرک آویشن,shahrak-avishan,783
+4,,2186,شهرک آیت الله منتظری,shahrak-ayatollah-montazeri,12
+4,,1040,شهرک ابریشم,abrisham,2
+4,,259,شهرک ابوذر,shahrak-e-aboozar,1
+4,,1239,شهرک ابوذر,shahrak-e-abuzar,3
+4,,3182,شهرک ابوذر,shahrak-abuzar,316
+4,,2189,شهرک احمد خمینی,shahrak-ahmad-khomeini,12
+4,,4072,شهرک احمدیه,shahrak-ahmadiyeh,29
+4,,4404,شهرک احمدیه‎,shahrak-ahmadiye,2
+4,,4511,شهرک اداری,shahrak-edari,1754
+4,,4239,شهرک اداری تندگویان,shahrak-edari-tandgoviyan,1759
+4,,3166,شهرک اردسمان,shahrak-ardesman,318
+4,,4382,شهرک ارم,shahrak-aram,1751
+4,,4496,شهرک ارم شرقی,shahrak-aram-sharghi,1754
+4,,4495,شهرک ارم غربی,shahrak-aram-gharb,1754
+4,,1066,شهرک استادان,shahrak-ostadan,2
+4,,175,شهرک استقلال,shaharak-e-esteqlal,1
+4,,2778,شهرک استقلال,shahrak-esteghlal,6
+4,,2077,شهرک اسحاقی,shahrak-eshaqi,708
+4,,4364,شهرک اسکویی,shahrak-askuyi,1751
+4,,4521,شهرک افشاریه,shahrak-afshariyeh,1754
+4,,4527,شهرک اقدسیه,shahrak-aghdasieh,1754
+4,,3438,شهرک اکباتان,shahrak-ekbatan,7
+4,,1096,شهرک البرز,shahrak-alborz,2
+4,,4359,شهرک البرز ۳,shahrak-alborz-3,2
+4,,4278,شهرک الحدید,shahrak-alhadid,1761
+4,,2179,شهرک الغدیر,shahrak-alqadir,12
+4,,4147,شهرک المهدی,shahrak-almahdi-tehran,1
+4,,4508,شهرک المهدی,shahrak-al-mahdi,1754
+4,,4090,شهرک المهدی,shahrak-almahdi,1764
+4,,4417,شهرک الهیه,shahrak-elahiye,2
+4,,4062,شهرک الهیه,shahrak-eliyeh,29
+4,,3440,شهرک الهیه,shahrak-elahiyeh-ahvaz,7
+4,,4316,شهرک الهیه غرب,shahrak-elahiye-gharb,1
+4,,2619,شهرک امام حسن,shahrak-emam-hasan,8
+4,,2793,شهرک امام حسن,shahrak-emam-hasan-shiraz,6
+4,,1604,شهرک امام حسین,shahrak-imam-hossein-isfahan,4
+4,,2617,شهرک امام حسین,shahrak-emam-hosein,8
+4,,1416,شهرک امام حسین,narenjestan,6
+4,,4066,شهرک امام حسین (میان آباد),shahrak-emam-hossein-miyan-abad,29
+4,,190,شهرک امام خمینی,shahrak-e-emamkhomeyni,1
+4,,2383,شهرک امام خمینی,shahrak-emam-khomeyni,4
+4,,4323,شهرک امام رضا,shahrak-emam-reza,1760
+4,,4551,شهرک امام رضا,shahrak-emam-reza-shahin-shahr,1744
+4,,4563,شهرک امام رضا (ع),shahrak-emam-reza-karaj,2
+4,,2367,شهرک امام زمان,shahrak-emam-zaman,4
+4,,4566,شهرک امام سجاد,shahrak-emam-sajjad,3
+4,,2444,شهرک امام علی,shahrak-emam-ali,1744
+4,,3063,شهرک امام هادی (شهرک غرب),shahrak-emam-hadi,3
+4,,113,شهرک امید,shahrak-e-omid,1
+4,,2471,شهرک امید,shahrak-omid-shahrak-bonyad-barekat,1744
+4,,4433,شهرک امیر المومنین,shahrak-amir-ol-momenin,2
+4,,2322,شهرک امیرالمومنین,shahrak-amiral-momenin,30
+4,,271,شهرک امیرالمومنین,shahrak-e-amiralmomenin,1
+4,,521,شهرک امیر کبیر,amirkabirblvd,6
+4,,2346,شهرک امیرکبیر,shahrak-amirkabir,30
+4,,4334,شهرک امیریه,shahrak-amiriyeh,1759
+4,,4322,شهرک انبیا,shahrak-anbia,29
+4,,3477,شهرک اندیشه,shahrak-andishe,7
+4,,3124,شهرک اندیشه,shahrak-andisheh,318
+4,,3184,شهرک اندیشه,shahrak-andisheh-sabzevar,316
+4,,166,شهرک انصار,shahrak-e-ansar,1
+4,,2324,شهرک انقلاب,shahrak-enghelab,30
+4,,4102,شهرک انقلاب,shahrak-enghelab-pakdasht,1760
+4,,596,شهرک اوج,owjtown,2
+4,,1257,شهرک ایثار,shahrak-isar,6
+4,,4500,شهرک ایران خودرو,shahrak-iran-khodro,1754
+4,,4482,شهرک بار و بن,shahrak-bar-o-ban,1754
+4,,2783,شهرک برف فروشان,shahrak-barf-forooshan,6
+4,,3441,شهرک برق,shahrak-bargh-ahvaz,7
+4,,1343,شهرک برق,shahrak-bargh,6
+4,,4474,شهرک بزرگمهر,shahrak-bozorgmehr,774
+4,,1272,شهرک بزین,bezin-town,6
+4,,3105,شهرک بسیج,shahrak-basij,318
+4,,2842,شهرک بسیجیان,shahrak-basijian,1788
+4,,4168,شهرک بعثت,shahrak-baasat,1
+4,,4518,شهرک بعثت,shahrak-besat,1754
+4,,590,شهرک بنفشه,banafsheh,2
+4,,1417,شهرک بهار,pay-kata,6
+4,,4549,شهرک بهاران,shahrak-baharan,31
+4,,4249,شهرک بهاران (ویره),shahrak-bahaaran-vireh,1759
+4,,1238,شهرک بهارستان,baharestan-mashhad,3
+4,,3132,شهرک بهارستان,shahrak-baharestan-nishabur,318
+4,,1073,شهرک بهارستان,baharestan-industrial-town,2
+4,,4441,شهرک بهداری,shahrak-behdari-karaj,2
+4,,3110,شهرک بهداری,shahrak-behdari,318
+4,,4498,شهرک بهشت,shahrak-behesht,1754
+4,,536,شهرک بهشتی,shahrakebeheshti,6
+4,,1266,شهرک بوتان,shahrak-bootan,6
+4,,4494,شهرک بوستان,shahrak-bustan,1754
+4,,4141,شهرک بوعلی,shahrak-booli,1
+4,,4390,شهرک بیدارچشمه,shahrak-bidar-chashmeh,2
+4,,2181,شهرک پارس خزر,shahrak-pars-khazar,12
+4,,4507,شهرک پارسیان,shahrak-parsian-hashtgerd,1754
+4,,2382,شهرک پارسیان,shahrak-parsian,4
+4,,910,شهرک پاسداران,shahrak-pasdaran,1
+4,,4501,شهرک پامچال,shahrak-pamchal,1754
+4,,1269,شهرک پردیس,pardis-town,6
+4,,2479,شهرک پردیس,shahrak-pardis,1744
+4,,3138,شهرک پردیس,shahrak-pardis-nishabur,318
+4,,4419,شهرک پردیسان,shahrak-pardisan-karaj,2
+4,,4331,شهرک پردیسان,shahrak-pardisan-tehran,1
+4,,2177,شهرک پردیسان,shahrak-pardisan,12
+4,,159,شهرک پرواز,shahrak-e-parvaz,1
+4,,542,شهرک پرواز,parvaztown,6
+4,,3430,شهرک پیام,shahrak-payam,7
+4,,4345,شهرک پیام (مهرالبرز),shahrak-payam-mehralborz,1752
+4,,1409,شهرک ترکان,torkan,6
+4,,2620,شهرک توانیر,shahrak-tavanir,8
+4,,4061,شهرک توحید,shahrak-tohid,29
+4,,3465,شهرک توسعه نیشکر,shahrak-tosee-neyshekar,7
+4,,3106,شهرک جانبازان,shahrak-janbazan-nishabur,318
+4,,2106,شهرک جانبازان,shahrak-janbazan,746
+4,,4063,شهرک جانبازان,shahrak-janbazan-eslam-shahr,29
+4,,1309,شهرک جماران,jamaran-shiraz,6
+4,,3185,شهرک جهاد,shahrak-e-jehad,316
+4,,4407,شهرک جهازیها,shahrak-jahaziha,2
+4,,4424,شهرک جهان آرا,shahrak-jahan-ara,2
+4,,1094,شهرک جهان‌نما,jahan-nama,2
+4,,4516,شهرک جهان ویلا (درخشانیه),shahrak-jahan-vila-derakhshanieh,1754
+4,,4354,شهرک چمران,shahrak-chamran,1752
+4,,311,شهرک چیتگر,azad-shahr,1
+4,,370,شهرک حفاری,shahrak-e-haffari,7
+4,,2349,شهرک خاتم الانبیا (مسکن ملی کاشان),shahrak-khatamolanbia,30
+4,,4442,شهرک خاتم النبیا,shahrak-khatam-ol-anbia,2
+4,,4314,شهرک خرازی,shahrak-kharazi,1
+4,,4616,شهرک خزر ویلا,shahrak-khazar-vila,708
+4,,2677,شهرک خودرو,shahrak-khodro,8
+4,,1344,شهرک دارایی,shahrak-daraie,6
+4,,4565,شهرک دانش,shahrak-danesh-hashtgard,1754
+4,,4270,شهرک دانش,shahrak-danesh,1758
+4,,1032,شهرک دانشگاه,shahrak-daneshgahi,1
+4,,337,شهرک دانشگاه,shahrakdaneshgah,7
+4,,1033,شهرک دانشگاه تهران,shahrak-daneshgah-tehran,1
+4,,1034,شهرک دانشگاه شریف,sharif,1
+4,,4200,شهرک درخشان,shahrak-derakhshan,1765
+4,,4429,شهرک دریا,shahrak-darya-karaj,2
+4,,179,شهرک دریا,shahrak-e-darya,1
+4,,4506,شهرک دریا,shahrak-darya-hashtgerd,1754
+4,,4392,شهرک رازی (بنیاد),shahrak-razi-bonyad,2
+4,,1052,شهرک رازی (حصارک),raazi-town,2
+4,,428,شهرک رازی (شهرک غرب),ghasemabad,3
+4,,4528,شهرک راه آهن,shahrak-rah-ahan-hashtgerd,1754
+4,,4360,شهرک راه آهن,shahrak-rah-ahan,1751
+2,,36,شهرکرد,shahrekord,903
+4,,2463,شهرک ردانی پور,shahrak-radani-pour,1744
+4,,3443,شهرک رزمندگان,shahrak-razmandegan,7
+4,,3143,شهرک رسولی,shahrak-rasuli,318
+4,,1307,شهرک رضوان,rezvan,6
+4,,4432,شهرک رضوانیه,shahrak-rezvaniyeh,2
+4,,3128,شهرک رضوی,shahrak-razavi,318
+4,,245,شهرک رضویه,karevan,1
+4,,4488,شهرک ریحانه,shahrak-reyhane,1754
+4,,1515,شهرک زاینده رود,shahrak-zayandeh,4
+4,,3154,شهرک زرگران,shahrak-zargaran,318
+4,,122,شهرک زینبیه,zeynabeiyeh,1
+4,,4607,شهرک زینبیه,shahrak-zeynabiyeh,6
+4,,2668,شهرک سازمان آب,shahrak-sazman-ab,8
+4,,4242,شهرک سازمانی ظفر,shahrak-sazmani-zafar,1759
+4,,4058,شهرک سالور,shahrak-salor,29
+4,,2347,شهرک سایپا,shahrak-saipa,30
+4,,2478,شهرک سایت,shahrak-sait,1744
+4,,4373,شهرک سپاه,shahrak-sepah,1751
+4,,4408,شهرک سپهر,shahrak-sepehr,2
+4,,517,شهرک سراج‎,seraj,6
+4,,4604,شهرک سعدی,shahrak-saadi,6
+4,,4067,شهرک سعیدیه,shahrak-saeediyeh,29
+4,,2366,شهرک سلامت,shahrak-salaamat,4
+4,,2107,شهرک سلمان فارسی,shahrak-salman-farsi,746
+4,,1050,شهرک سهرابیه,shahrak-sohrabiyeh,2
+4,,4524,شهرک سهیلیه,shahrak-soheylieh,1754
+4,,4470,شهرک سید جمال الدین,shahrak-seyyed-jamal-eddin,774
+4,,4240,شهرک شاهد,shahrak-shahed,1759
+4,,257,شهرک شریعتی,shaharak-e-shariyati,1
+4,,260,شهرک شریفی,shaharak-e-sharifi,1
+4,,2592,شهرک شهرداری,shahrak-shahrdaari,8
+4,,4564,شهرک شهرداری,shahrak-shahrdari-karaj,2
+4,,4176,شهرک شهرداری,shahrak-shahrdari,1
+4,,4434,شهرک شهید احسانی نژاد,shahrak-shahid-ehsani-nezhad,2
+4,,1030,شهرک شهید باقری,shahrak-shahid-bagheri,1
+4,,1198,شهرک شهید باهنر,bahonar-mashhad,3
+4,,2403,شهرک شهید حاج میرزایی,shahrak-shahid-haj-mirzaei,4
+4,,4361,شهرک شهید حسینی,shahrak-shahid-hosseini,1751
+4,,2156,شهرک شهید رجایی,shahrak-shahid-rajaei,12
+4,,944,شهرک شهید رجایی (کوی نوبنیاد),kuy-nobonyad,1
+4,,3467,شهرک شهید عباس پور,shahrak-shahid-abbaspoor,7
+4,,2187,شهرک شهید عباسپور,shahrak-shahid-abbaspur,12
+4,,2147,شهرک شهید مفتح,shahrak-shahid-moftah,12
+4,,1419,شهرک شهید منتظری,shahrak-shahid-montazeri,4
+4,,3422,شهرک شهید میثمی,shahrak-shahid-meysami,7
+4,,4396,شهرک شیخ سعدی,shahrak-sheikh-saadi,2
+4,,1226,شهرک شیرین,Shahrak-e-Shirin,3
+4,,4156,شهرک صادقیه,shahrak-sadeghieh,1
+4,,2765,شهرک صادقیه,shahrak-sadeghiyeh,6
+4,,2143,شهرک صبا,shahrak-saba,12
+4,,4481,شهرک صبا سوله,shahrak-saba-soleh,1754
+4,,2796,شهرک صدا و سیما,shahrak-seda-va-sima,6
+4,,163,شهرک صدرا,azadi-sport-complex,1
+4,,4561,شهرک صدف,shahrak-sadaf-karaj,2
+4,,4094,شهرک صدف,shahrak-sadaf,1764
+4,,2354,شهرک صنایع کارگاهی امیرکبیر,sanaye-karghaahi,30
+4,,2195,شهرک صنعتی,shahrak-sanaati,12
+4,,2466,شهرک صنعتی,shahrak-sanati,1744
+4,,2775,شهرک صنعتی,shahrak-sanaati-shiraz,6
+4,,4555,شهرک صنعتی اصفهان,shahrak-sanati-esfahan,1744
+4,,2292,شهرک صنعتی امیرکبیر ۲,shahrak-sanati-amirkabir-2,30
+4,,2364,شهرک صنعتی امیرکبیر (شاپور جدید),shahrak-sanati-amirkabir,4
+4,,4422,شهرک صنعتی بهارستان,shahrak-sanati-baharestan,2
+4,,4383,شهرک صنعتی بهارستان فاز ۲,shahrak-sanati-baharestan-faz-2,2
+4,,4199,شهرک صنعتی پاسارگاد,shahrak-sanati-pasargad,1765
+4,,4201,شهرک صنعتی پرند,shahrak-sanati-parand,1765
+4,,3097,شهرک صنعتی توس,shahrak-sanati-toos,3
+4,,2294,شهرک صنعتی جعفرآباد ۱,shahrak-sanati-jafarabad-1,30
+4,,4552,شهرک صنعتی جی,shahrak-sanati-ji,4
+4,,4081,شهرک صنعتی چیچکلو,shahrak-sanati-chichaklu,29
+4,,3320,شهرک صنعتی خاوران,shahrak-sanati-khavaran,316
+4,,4112,شهرک صنعتی خرمدشت فاز ۷,shahrak-sanati-khorramdash-faz-7,1767
+4,,4309,شهرک صنعتی خیرآباد,shahrak-sanati-kheirabad,1762
+4,,4082,شهرک صنعتی درودگران,shahrak-sanati-doroodgaran,29
+4,,4203,شهرک صنعتی ده‌حسن,shahrak-sanati-deh-hasan,1765
+4,,2305,شهرک صنعتی راوند,shahrak-sanaati-ravand,30
+4,,4145,شهرک صنعتی زاگرس,shahrak-sanati-zagros,1758
+4,,4202,شهرک صنعتی زواره‌ای,shahrak-sanati-zavaraei,1765
+4,,4457,شهرک صنعتی زیبادشت,shahrak-sanati-zibadasht,1752
+4,,4219,شهرک صنعتی سبلان,shahrak-sanati-sabalan,1765
+4,,4463,شهرک صنعتی سپهر,shahrak-sanati-sepehr,774
+4,,4379,شهرک صنعتی سیمین دشت,shahrak-sanati-simin-dasht,1751
+4,,3495,شهرک صنعتی شماره ۳,shahrak-sanati-shomare-3,7
+4,,3492,شهرک صنعتی شماره 4,shahrak-sanati-shomare-4,7
+4,,2850,شهرک صنعتی شیراز,shahrak-sanati-shiraz,6
+4,,4216,شهرک صنعتی صباشهر,shahrak-sanati-sabashahr,1765
+4,,2353,شهرک صنعتی فتح المبین,shahrak-sanati-fatholmobin,30
+4,,3025,شهرک صنعتی فرودگاه,shahrak-sanati-foroodgah,316
+4,,4293,شهرک صنعتی قرچک,shahrak-sanati-gharchak,1761
+4,,4277,شهرک صنعتی کارا,shahrak-sanati-kara,1761
+4,,4111,شهرک صنعتی کمرد,shahrak-sanati-kamard,1767
+4,,2330,شهرک صنعتی کویر,shahrak-sanaati-kavir,30
+4,,4269,شهرک صنعتی گلگون,shahrak-sanati-golgun,1758
+4,,3372,شهرک صنعتی مشهد,shahrak-sanati-mashhad,3
+4,,4550,شهرک صنعتی منتظریه,shahrak-sanati-montazariyeh,31
+4,,4554,شهرک صنعتی مورچه خورت,shahrak-sanati-murchekhort,1744
+4,,2402,شهرک صنعتی مولانا,shahrak-sanati-molana,4
+4,,2513,شهرک صنعتی نجف آباد,shahrak-sanaati-najafabaad,31
+4,,4544,شهرک صنعتی نجف آباد ۲,shahrak-sanati-najafabad-2,31
+4,,4208,شهرک صنعتی نصیرآباد,shahrak-sanati-nasirabad,1765
+4,,4357,شهرک صنعتی نور,shahrak-sanati-nur,1751
+4,,4529,شهرک صنعتی هشتگرد,shahrak-sanati-hashtgerd,1754
+4,,187,شهرک طالقانی,shahrak-e-taleghani,1
+4,,2650,شهرک طالقانی,shahrak-talaghani,8
+4,,4321,شهرک طالقانی,shahrak-taleghani,29
+4,,4562,شهرک طالقانی,shahrak-taleghani-karaj,2
+4,,4329,شهرک طلائیه,shahrak-talaeiyeh,1761
+4,,1064,شهرک ظفر,shahrak-zafar,2
+4,,4241,شهرک عباس پور,shahrak-abbaspour,1759
+4,,1263,شهرک عرفان,shahrak-erfan,6
+4,,4339,شهرک علم و فناوری,shahrak-elm-va-fanavari,1
+4,,1075,شهرک علی ابن ابیطالب (کوثر),shahrak-ali-ebn-abitaleb,2
+4,,78,شهرک غرب,shahrak-e-gharb,1
+4,,307,شهرک غزالی,shahrak-e-ghazali,1
+4,,2618,شهرک فاطمیه,shahrak-fatemiye,8
+4,,4306,شهرک فاطمیه,shahrak-fatemiye-varamin,1762
+4,,1293,شهرک فجر,fajr-town,6
+4,,4308,شهرک فجر,shahrak-fajr,1762
+4,,185,شهرک فردوس (حسینی),shahrak-e-ferdows,1
+4,,4268,شهرک فرزان,shahrak-farzan,1758
+4,,1305,شهرک فرزانگان,farzanegan,6
+4,,4537,شهرک فرهنگیان,shahrak-farhangian-hashtgerd,1754
+4,,1308,شهرک فرهنگیان,farhangian-shiraz,6
+4,,1507,شهرک فرهنگیان,farhangiyan-town,4
+4,,4075,شهرک فرهنگیان,shahrak-farhanghiyan,29
+4,,2343,شهرک فرهنگیان,shahrak-farhangiiaan,30
+4,,911,شهرک فرهنگیان,shahrak-farhangian,1
+4,,4475,شهرک فرهنگیان,shahrak-farhangiyan-nazarabad,774
+4,,1088,شهرک فرهنگیان,kuy-farhangian-karaj,2
+4,,3113,شهرک فرهنگیان,shahrak-farhangian-nishabur,318
+4,,2116,شهرک فرهنگیان,shahrak-farhangiyan,746
+4,,1084,شهرک فهمیده,shahrake-fahmideh,2
+4,,3112,شهرک فیروزه,shahrak-firoozeh,318
+4,,4068,شهرک قائمیه,shahrak-ghaemieh,29
+4,,2141,شهرک قدس,shahrak-qods,12
+4,,4542,شهرک قدس,shahrak-ghods-esfahan,4
+4,,614,شهرک قدس,qods,8
+4,,3109,شهرک قدس,shahrak-ghods,318
+4,,1295,شهرک قمشه,qasre-qomsheh,6
+4,,1443,شهرک کاوه,shahrak-kaveh,4
+4,,4438,شهرک کوثر,shahrak-kowsar-karaj,2
+4,,4093,شهرک کوثر,shahrak-kowsar-andishe,1764
+4,,1335,شهرک کوثر,bonakdaran,6
+4,,1425,شهرک کوثر,shahrak-kowsar,4
+4,,4519,شهرک کوثر,shahrak-kowsar-hashtgerd,1754
+4,,1327,شهرک کوشکک,koshkek,6
+4,,140,شهرک کوهسار,shahrak-e-koohsar,1
+4,,4352,شهرک کیوانیه(معراج),shahrak-keyvanie-meraj,2
+4,,4502,شهرک گلخانه,shahrak-golkhane,1754
+4,,540,شهرک گلدشت حافظ‎,goldashthafez,6
+4,,1262,شهرک گلدشت محمدی,goldasht-mohammadi,6
+4,,2449,شهرک گلدیس,shahrak-goldis,1744
+4,,502,شهرک گلستان,golestan,6
+4,,1276,شهرک گلستان شمالی,north-shahrak-golestan,6
+4,,4591,شهرک گلشن,shahrak-golshan,6
+4,,2408,شهرک گل نرگس,shahrak-gol-narges,4
+4,,50,شهرک گلها,shahrak-golha,1
+4,,4291,شهرک گلها,shahrak-golha-gharchak,1761
+4,,1321,شهرک گلها,shahrak-golha-shiraz,6
+4,,4493,شهرک گلها,shahrak-golha-hashtgerd,1754
+4,,4365,شهرک گلها,shahrak-golha-fardis,1751
+4,,4184,شهرک گلها (تهرانسر),shahrak-golha-tehransar,1
+4,,4535,شهرک لاله,shahrak-lale,2
+4,,4069,شهرک لاله,shahrak-laleh,29
+4,,3057,شهرک لشکر (شهرک غرب),shahrak-lashkar,3
+4,,4420,شهرک مترو,shahrak-metro,2
+4,,3429,شهرک محلاتی,shahrak-mahallati-ahvaz,7
+4,,51,شهرک محلاتی,shahrak-e-mahalati,1
+4,,4071,شهرک محمدیه,shahrak-mohamadiyeh,29
+4,,1297,شهرک مخابرات,shahrak-e-mokhaberat,6
+4,,4170,شهرک مخابرات,shahrak-mokhaberat,1
+4,,4305,شهرک مدرس,shahrak-modarres,1762
+4,,1303,شهرک مدرس,shahrak-modares,6
+4,,4091,شهرک مریم,shahrak-maryam,1764
+4,,4246,شهرک مصطفی خمینی,shahrak-mostafa-khomeyni,1759
+4,,4078,شهرک مصطفی خمینی,shahrak-mostafa-khomeini,29
+4,,3047,شهرک مطهری,shahrak-motahhari,3
+4,,2446,شهرک مطهری,shahrak-motahari,1744
+4,,554,شهرک مطهری,motahharitown,6
+4,,3293,شهرک معلم,shahrak-moallem,791
+4,,2767,شهرک مفتح,shahrak-mofatteh,6
+4,,4080,شهرک مفیدی,shahrak-mofidi,29
+4,,2464,شهرک منازل چوبی,shahrak-manazel-choubi,1744
+4,,1304,شهرک مهدی‌آباد,shahrak-mahdiabad,6
+4,,2580,شهرک مهدیه,shahrak-mahdiye,8
+4,,4070,شهرک مهدیه,shahrak-mahdiyeh,29
+4,,1426,شهرک مهدیه,shahrak-mahdieh,4
+4,,2832,شهرک مهدیه,shahrak-mahdieh-marvdasht,1788
+4,,1313,شهرک مهدیه,mahdiyeh,6
+4,,2667,شهرک مهدیه (مدرس),shahrak-mahdieh-shahid-jafari,8
+4,,1202,شهرک مهر آباد,mehrabad,3
+4,,3051,شهرک مهرگان,shahrak-mehregan,3
+4,,1326,شهرک مهرگان,mehregan,6
+4,,4292,شهرک مهستان,shahrak-mahestan,1761
+4,,4497,شهرک مهستان ۱,shahrak-mahestan-1,1754
+4,,4499,شهرک مهستان ۲,shahrak-mahestan-2,1754
+4,,2437,شهرک میلاد,shahrak-milad-shahin-shahr,1744
+4,,1442,شهرک میلاد,shahrak-milad,4
+4,,4375,شهرک ناز,shahrak-naz,1751
+4,,4230,شهرک نظامی,shahrak-nezami,1763
+4,,921,شهرک نفت,shahrak-naft-district5,1
+4,,339,شهرک نفت,shahraknaft,7
+4,,2780,شهرک نفت ۲,shahrak-naft-2,6
+4,,4455,شهرک نگین,shahrak-negin,1752
+4,,4252,شهرک نماز (دینار آباد),shahrak-namaz-dinar-abad,1759
+4,,1053,شهرک نهال و بذر,shahrak-nahal-va-bazr,2
+4,,4589,شهرک نیایش,shahrak-niayesh,6
+4,,1336,شهرک نیروی انتظامی,shahrak-nirou-entezamie,6
+4,,2448,شهرک هشت بهشت,shahrak-hasht-behesht,1744
+4,,4380,شهرک هفده شهریور,shahrak-hefdah-shahrivar,1751
+4,,4162,شهرک هما,shahrak-homa,1
+4,,3344,شهرکهنه,shahrkohneh,318
+4,,4238,شهرک وائین,shahrak-vaain,1759
+4,,4317,شهرک والفجر,shahrak-valfajr-robat-karim,1765
+4,,513,شهرک والفجر,valfajr,6
+4,,4301,شهرک واوان,shahrak-vavan,29
+4,,4347,شهرک وحدت,shahrak-vahdat,1751
+4,,594,شهرک وحدت,vahdattown,2
+4,,4520,شهرک وحدت,shahrak-vahdat-hashtgerd,1754
+4,,2293,شهرک ولیعصر,shahrak-valiasr-kashan,30
+4,,3108,شهرک ولیعصر,shahrak-valiasr-nishabur,318
+4,,1315,شهرک ولیعصر,shahrak-valiasr,6
+4,,3039,شهرک ولیعصر,shahrak-valiasr-torbat-heydariyeh,1776
+4,,1079,شهرک ولیعصر,valiasr-karaj,2
+4,,1441,شهرک ولیعصر,valiasr-town,4
+4,,4307,شهرک ولیعصر,shahrak-valiasr-varamin,1762
+4,,194,شهرک ولیعصر جنوبی,shahrak-e-vali-e-asr,1
+4,,4180,شهرک ولیعصر شمالی,shahrak-valiasr-shomali,1
+4,,4509,شهرک ولیعصر (مصلی),shahrak-valiasr-mosalla,1754
+4,,4504,شهرک ولیعصر (مهستان),shahrak-valiasr-mahestan,1754
+4,,4413,شهرک ویلایی ۳۲ دستگاه,shahrak-vilayi-32-dastgah,2
+4,,2772,شهرک ویلایی بهاران,shahrak-vilaei-baharan,6
+4,,4337,شهرک یاس,shahrak-yas-tehran,1
+4,,1057,شهرک یاس جنوبی,shahrak-yas,2
+4,,1059,شهرک یاس شمالی,golha,2
+4,,2785,شهرک یاس طلاییه,shahrak-yaas-talaiyeh,6
+4,,1584,شهریار,shahriyar-isfahan,4
+4,,4237,شهریار,shahriar-district,1759
+2,,1759,شهریار,shahriar-city,904
+4,,584,شهریار,shahriar-karaj,2
+4,,1924,شهریاران,shahriyaran,12
+4,,1454,شهشهان,shahshahan,4
+2,,3721,شهمیرزاد,shahmirzad,882
+4,,974,شهمیرزادی,aref,1
+4,,1189,شهید آوینی,shahid-avini-mashhad,3
+4,,2104,شهید آوینی,shahid-avini-lahijan,746
+4,,982,شهید آوینی,shahid-avini,1
+4,,3049,شهید احمدی روشن,shahid-ahmadi-roshan,3
+4,,963,شهید اسدی,shahid-asadi,1
+4,,3046,شهید بصیر,shahid-basir,3
+4,,3013,شهید بهشتی,shahid-beheshti-mashhad,3
+4,,3142,شهید بهشتی,shahid-beheshti-nishabur,318
+4,,3253,شهید بهشتی,shahid-beheshti-torbat-heydariyeh,1776
+4,,4222,شهید بهشتی,shahid-beheshti-rey,1763
+4,,2519,شهید بهشتی,shahid-beheshti,31
+4,,1418,شهید بهنام امیری,shahid-amiri,6
+4,,3125,شهید جعفری,khiaban-shahid-jafari,318
+4,,3337,شهید جنگی,shahid-jangi,3
+4,,618,شهید رجایی,somayyeh,8
+4,,263,شهید رجایی,eslam-abad,1
+4,,2533,شهید رجایی,shahid-rajaaee,31
+4,,1558,شهید رجایی,shahid-rajaee,4
+4,,3065,شهید رضوی,shahid-razavi,3
+4,,2277,شهید زجاجی,shahid-zojaji,30
+4,,3052,شهید شهریاری,shahid-shahriyari,3
+4,,2616,شهید صیاد شیرازی,shahid-sayad-shirazi,8
+4,,3050,شهید علی محمدی,shahid-ali-mohammadi,3
+4,,3299,شهید غلام زاده,shahid-gholam-zadeh,791
+4,,4048,شهید غیوری (ابن باویه),shahid-ghiyuri-ebn-baviye,1763
+4,,447,شهید فرامرز عباسی,faramarzabbasi,3
+4,,4166,شهید فکوری,shahid-fakuri,1
+4,,1186,شهید قربانی,shahid-qorbani,3
+4,,3246,شهید قرنی,shahid-gharani,1776
+4,,3297,شهید مدرس,shahid-modarres,791
+4,,1155,شهید مطهری,north-shahid-mottahari,3
+4,,1216,شهید معقول,shahid-maqoul,3
+4,,3307,شهید نصرالهی,shahid-nasrollahi,791
+4,,1177,شهید هاشمی نژاد,shahrak-e-hashmenizhad,3
+2,,3680,شوسف,shusef,876
+4,,240,شوش,shoosh,1
+2,,754,شوش,shush,902
+4,,264,شوش (باغ آذری),baq-e-azari,1
+2,,602,شوشتر,shushtar,902
+2,,3541,شوط,shut,881
+2,,2727,شیبکوه (فارس),shibkuh,898
+2,,3953,شیبکوه (هرمزگان),shibkuh-city,894
+4,,4398,شیخ آباد,sheikh-abad,2
+4,,2525,شیخ آباد,sheikh-abaad,31
+4,,3294,شیخ احمد جامی,sheykh-ahmad-jami,791
+4,,1446,شیخ اشراق,sheikh-eshraq,4
+4,,2465,شیخ بهایی,sheikh-bahaei,1744
+4,,2526,شیخ بهایی,sheikh-bahaaii,31
+4,,2530,شیخ بهایی جنوبی,sheikh-bahaaii-jonubi,31
+4,,2787,شیخ روزبهان,sheykh-rozbehan,6
+4,,2110,شیخ زاهد,sheykh-zahid,746
+4,,2389,شیخ طوسی,sheikh-tusi,4
+4,,1338,شیخ علی چوپان,sheikh-ali-choupan,6
+4,,281,شیخ هادی,sheykh-hadi,1
+4,,1474,شیخ یوسف,sheykh-yousef,4
+2,,3647,شیدا,sheyda,903
+2,,3984,شیدوار,jazireh-shidvar,894
+4,,1035,شیراز,shirazi,1
+4,,1230,شیرحصار,panj-tan-al-e-abba,3
+2,,1863,شیرگاه,shirgah,893
+2,,795,شیروان (خراسان),shirvan,896
+2,,3923,شیروان (لرستان),shirvan-city,884
+2,,1989,شیرود,shirud,893
+4,,1221,شیرودی,shiroudi,3
+2,,3995,شیرین‌سو,shirin-su,899
+4,,2124,شیشه گران,shishegaran,746
+4,,1349,شیشه‌گری,shishehgari,6
+4,,2070,شیلات,shilat,708
+4,,2779,شیمی گیاه,shimi-giyah,6
+4,,968,شیوا,shiva,1
+4,,1491,صائب,saeb,4
+2,,3700,صائین قلعه,saaein-ghaleh,879
+4,,2060,صابرحنان,saberhanan,708
+2,,3757,صابری,saberi,883
+4,,1351,صاحب الزمان,saheb-al-zaman-shiraz,6
+4,,193,صاحب الزمان,shaharak-e-moslemin,1
+4,,1405,صاحب دیوان,saheb-divan,6
+4,,4183,صاحبقرانیه,sahebgharanieh,1
+2,,1972,صادق آباد,sadegh-abad,897
+4,,2655,صادقی,sadeghi,8
+4,,4074,صادقیه,sadeghiyeh-eslam-shahr,29
+4,,172,صادقیه,sadeghiyeh,1
+4,,2512,صالح آباد,saleh-abaad,31
+2,,4620,صالح آباد,salehaabad,899
+4,,4295,صالح آباد,saleh-abad-gharchak,1761
+4,,4469,صالح آباد,salehabad,774
+4,,3356,صالح آباد,saleh-abad-sabzevar,316
+2,,3591,صالح آباد (ایلام),saleh-abad-city,888
+4,,4041,صالح آباد جنوبی (باغ رضوان),saleh-abad-jonubi-bagh-rezvan,1763
+2,,2987,صالح آباد (خراسان),saleh-abad,880
+4,,4054,صالح‌آباد شرقی,salehabad-sharghi,1763
+4,,1026,صالح‌آباد شرقی,east-saleh-abad,1
+4,,4217,صبا باطری,saba-batari,1765
+2,,1712,صباشهر,sabashahr,904
+2,,2732,صحرای باغ,sahraye-bagh,898
+2,,1800,صحنه,sahneh,905
+4,,3080,صداقیه,sedaghiye,3
+4,,2781,صدا و سیما,seda-va-sima,6
+4,,289,صد دستگاه,sad-dastgah,1
+2,,810,صدرا-فارس,sadra,898
+4,,1437,صدف,sadaf-isfahan,4
+4,,2626,صدوق,sadoogh,8
+4,,288,صفا,sheykh-al-raeis,1
+4,,601,صفائیه,safaeieh,8
+2,,3555,صفائیه,safaaiyeh,881
+4,,978,صفائیه (چشمه علی),safaiye,1
+2,,1710,صفادشت,safadasht-industrial-city,904
+4,,2159,صفاری,safari,12
+4,,621,صفاشهر,safashahr,8
+4,,4055,صفاییه (چشمه علی),safaayie-cheshme-ali,1763
+4,,2244,صفی آباد,safi-abad,30
+2,,3695,صفی آباد,safi-abad-city,896
+2,,3642,صمصامی,samsami,903
+4,,2782,صنایع الکترونیک,sanaye-electronik,6
+4,,2310,صنعت,sanat,30
+2,,3837,صوغان,sowghan,877
+2,,3507,صوفیان,soofiyan,891
+2,,3556,صومای برادوست,sumay-baradust,881
+2,,827,صومعه‌سرا,someh-sara,889
+4,,460,صیاد شیرازی,sayyadshirazi,3
+4,,3380,صیدآباد,seyedabad,3
+2,,3793,ضیاء آباد,ziaa-abad,878
+2,,2000,ضیابر,ziyabar,889
+4,,2392,طاحونه,tahuneh,4
+2,,3698,طارم (زنجان),tarem,879
+2,,4613,طارم (قزوین),tarem-city,878
+2,,2988,طاغنکوه,taghankooh,880
+4,,2076,طالب آباد,taleb-abad,708
+2,,850,طالقان,taleqan,895
+4,,2451,طالقانی,taleghani-shahin-shahr,1744
+4,,2540,طالقانی,taleghani-najaf-abad,31
+4,,347,طالقانی,taleghani,7
+4,,586,طالقانی,taleqani-karaj,2
+4,,4348,طالقانی,taleghani-fardis,1751
+4,,3171,طالقانی,taleghani-nishabur,318
+4,,2120,طالقانی,taleqani,746
+4,,2278,طالقانی,taleghani-kashan,30
+4,,3270,طالقانی,taleghani-torbat-heydariyeh,1776
+4,,1576,طامه,tameh,4
+4,,2289,طاهرآباد,taherabad,30
+2,,1983,طاهرگوراب,tahergurab,889
+4,,4522,طاووسیه,tavoosieh,1754
+4,,3214,طبرسی (جعفرآباد),tabarsi-jafarabad,316
+4,,1184,طبرسی شمالی,north-tabars,3
+2,,788,طبس,tabas,876
+2,,1998,طبقده,tabaghdeh,893
+4,,171,طرشت,tarasht,1
+4,,453,طرق,toroq,3
+2,,1774,طرقبه,torghabeh-city,880
+4,,454,طرقبه,torghabeh,3
+2,,3911,طرهان,tarhan,884
+2,,2733,طسوج,tasuj,898
+4,,1382,طلاب,abunasr,6
+4,,436,طلاب,tollab,3
+4,,2579,طلاب غیر ایرانی,tolab-gheyr-irani,8
+4,,1011,طوس,tous,1
+4,,2034,طولارود,toularoud,829
+4,,1016,طیب,tayeb,1
+4,,72,ظفر,zafar,1
+4,,2770,ظفرآباد,zafarabad,6
+4,,4045,ظهیرآباد,zahireabad,1763
+4,,227,ظهیرآباد,zahir-abad,1
+4,,543,عادل آباد,edalatblvd,6
+4,,3176,عارف,aref-sabzevar,316
+4,,1424,عاشق‌آباد,ashegh-abad,4
+4,,3420,عامری,ameri,7
+4,,1165,عامل,amel,3
+4,,1156,عبادی,ayatollah-ebadi,3
+2,,1697,عباس‌آباد,abbasabad-mazandaran,893
+4,,1191,عباس‌آباد,abbas-abad-mashhad,3
+4,,4226,عباس‌آباد,abbasabad-rey,1763
+4,,300,عباس‌آباد,abbas-abad,1
+4,,377,عباس‌آباد,abbasabad,4
+4,,2059,عباس آباد,abbas-abad-bandar-e-anzali,708
+4,,4453,عباس آباد,abbasabad-mohammadshahr,1752
+4,,4158,عباسی,abbasi,1
+4,,1027,عبدالله‌آباد,abdollah-abad,1
+4,,220,عبدل‌آباد,abdol-abad,1
+2,,3522,عجب شیر,ajabshir,891
+4,,3126,عدالت,edalat,318
+4,,2641,عربستان,arabestan,8
+4,,2272,عربها,arabha,30
+2,,2230,عسگران,asgaraan,890
+4,,1241,عسگریه,asgariyeh,3
+4,,1574,عسگریه,asgariyeh-isfahan,4
+2,,3630,عسلویه,asalouye,900
+4,,2628,عشقعلی,eshghali,8
+4,,2453,عطار,attar,1744
+4,,3346,عطار,attar-nishabur,318
+4,,1448,عطار نیشابوری,attar-nishaburi,4
+2,,2989,عطاملک,atamalek,880
+4,,3203,عظیمیان,azimian,316
+4,,569,عظیمیه,azimieh,2
+4,,535,عفیف‌آباد,afifabad,6
+2,,4015,عقدا,aghdaa,886
+4,,1436,عقیق,aqiq,4
+2,,2730,علامرودشت,alamarudash,898
+4,,4220,علایین,alayiin,1763
+4,,3187,علمدار,alamdar,316
+4,,116,علم و صنعت,elm-o-sanat,1
+4,,2776,علوم پزشکی,oloom-pezeeshki,6
+4,,3310,علوی,alavi,791
+4,,235,علی‌آباد,south-ali-abad,1
+4,,2828,علی‌آباد‎,aliabad,1788
+4,,2612,علی آباد,ali-aabad,8
+4,,3093,علی آباد,aliabad-mashhad,3
+4,,2854,علی آباد,ali-abadd,6
+4,,3490,علی آباد,ali-abad-ahvaz,7
+4,,1905,علی آباد,ali-abad,12
+4,,2596,علی آباد سعدگان,ali-aabad-saadgaan,8
+2,,823,علی‌آباد کتول,aliabad-katul,897
+4,,1330,علی آباد (کفترک),ali-abad-shiraz,6
+4,,4447,علی آباد گونه,aliabad-guneh,1752
+4,,1461,علی قلی آقا,nazband,4
+4,,625,عمار یاسر,ammareyaser,8
+4,,1567,عمان سامانی,oman-samani,4
+2,,3855,عنبرآباد,anbarabad,877
+2,,3582,عنبران,anbaran,906
+4,,1214,عنصری,onsori,3
+4,,1208,عیدگاه,eidgah,3
+4,,3292,عیدی آباد,eydi-abad,791
+4,,3468,عین ۲,eyn-2,7
+4,,1927,عینک,eynak,12
+4,,2370,غدیر,ghadir,4
+4,,2777,غدیر جنوبی,ghadir-jonoubi,6
+4,,2766,غدیر شمالی,ghadir-shomali,6
+4,,2260,غربت,ghorbat,30
+4,,3224,غرب نیروگاه,gharb-nirugah,316
+2,,3684,غلامان,gholaman,896
+4,,3407,غیزانیه,gheyzaniyeh,7
+2,,3640,فارسان,faarsan,903
+4,,1129,فارغ التحصیلان,fareqoltahsilan,3
+2,,3947,فارغان,fargan,894
+2,,3688,فاروج,faruj,896
+2,,3977,فارور,jazireh-farur,894
+2,,3853,فاریاب,faryab,877
+4,,4126,فاز ۰,faz-0,1766
+4,,4127,فاز ۱,faz-1-parand,1766
+4,,4581,فاز ۱,faz-1-sadra-fars,810
+4,,4114,فاز ۱,faz-1,1767
+4,,4109,فاز ۱۱,faz-11,1767
+4,,372,فاز ۱ پادادشهر,padadshahr-phase-1,7
+4,,2518,فاز ۱ شهرک آزادگان,faaz-1-shahrak-aazadegaan,31
+4,,3291,فاز ۱ فرهنگیان,faz-1-farhangian,791
+4,,1114,فاز ۱ مهرشهر,mehrshar-1,2
+4,,4489,فاز ۱ مهستان,faz-1-mahestan,1754
+4,,2255,فاز ۱ ناجی آباد,faz-1-naji-abad,30
+4,,4125,فاز ۲,faz-2-parand,1766
+4,,4580,فاز ۲,faz-2-sadra-fars,810
+4,,4106,فاز ۲,faz-2,1767
+4,,371,فاز ۲ پادادشهر,padad-phase-2,7
+4,,2517,فاز ۲ شهرک آزادگان,faaz-2-shahrak-aazadegaan,31
+4,,3284,فاز ۲ فرهنگیان,faz-2-farhangian,791
+4,,1112,فاز ۲ مهرشهر,mehrshahr-2,2
+4,,4538,فاز ۲ مهستان,faz-2-mahestan,1754
+4,,2325,فاز ۲ ناجی آباد,faz-2-naji-abad,30
+4,,4115,فاز ۳,faz-3,1767
+4,,4124,فاز ۳,faz-3-parand,1766
+4,,2516,فاز ۳ شهرک آزادگان,faaz-3-shahrak-aazadegaan,31
+4,,3279,فاز ۳ فرهنگیان,faz-3-farhangian,791
+4,,4440,فاز ۳ گوهردشت,faz-3-gohardasht,2
+4,,1113,فاز ۳ مهرشهر,mehrshahr-3,2
+4,,4491,فاز ۳ مهستان,faz-3-mahestan,1754
+4,,4116,فاز ۴,faz-4,1767
+4,,4120,فاز ۴,faz-4-parand,1766
+4,,2515,فاز ۴ شهرک آزادگان,faaz-4-shahrak-aazadegaan,31
+4,,567,فاز ۴ مهرشهر,mehrshahr,2
+4,,4121,فاز ۵,faz-5-parand,1766
+4,,4108,فاز ۵,faz-5,1767
+4,,3410,فاز ۵ پاداد,faz-5-padad,7
+4,,1097,فاز ۵ مهرشهر,mehrshahr-5,2
+4,,4110,فاز ۶,faz-6,1767
+4,,4123,فاز ۶,faz-6-parand,1766
+4,,4122,فاز ۷,faz-7,1766
+4,,4484,فاز ۷ مهستان,faz-7-mahestan,1754
+4,,4113,فاز ۸,faz-8,1767
+4,,4107,فاز ۹,faz-9,1767
+4,,2831,فاز اول شهرک فرهنگیان,faz-avval-shahrak-farhangian,1788
+4,,2825,فاز دوم شهرک فرهنگیان,faz-dovom-shahrak-farhangian,1788
+4,,2809,فاضل,fazel,6
+2,,1996,فاضل آباد,fazel-abad,897
+4,,210,فاطمی,north-karegar,1
+4,,1178,فاطمیه,fatemiye,3
+2,,3990,فامنین,famenin,899
+4,,912,فتح,fath,1
+4,,3485,فتح,fath-ahvaz,7
+4,,1488,فتح‌آباد,fath-abad,4
+4,,3261,فتح المبین,fath-ol-mobin,1776
+4,,3022,فتح المبین,fatholmobin,3
+4,,2388,فجر,fajr,4
+4,,2162,فخب,faxab,12
+4,,1371,فخرآباد (دروازه کازرون),darvazeh-kazeroon,6
+4,,4476,فخر ایران,fakhr-iran,774
+4,,3167,فخریه,fakhriyeh,318
+4,,2445,فدک,fadak-shahin-shahr,1744
+4,,120,فدک,fadak,1
+4,,1141,فدک,fadak-mashhad,3
+4,,3473,فدک,fadak-ahvaz,7
+4,,4259,فرارت,fararat,1759
+2,,2731,فراشبند,farashband,898
+2,,1970,فراغی,faragi,897
+4,,4374,فرامرزیه,faramarziye,1751
+4,,1537,فرح آباد,farah-abad-esfahan,4
+2,,1819,فرح آباد,farahabad,893
+4,,3149,فرح بخش,farah-bakhsh,318
+2,,2990,فرح دشت,farah-dasht,880
+4,,59,فرحزاد,farahzad,1
+4,,3330,فرخ آباد,farrokhabad,318
+4,,3370,فرخد,farkhod,3
+2,,786,فرخ‌شهر,farrokhshahr,903
+4,,2557,فرخی,farrokhi,31
+2,,2573,فردو,fordo,892
+4,,1586,فردوان,fardovan,4
+4,,1503,فردوس,ferdos,4
+4,,170,فردوس,kooy-e-ferdos,1
+2,,789,فردوس (خراسان),ferdows,876
+4,,3151,فردوس شمالی,ferdos-shomali,318
+2,,3825,فردوس (کرمان),ferdos-city,877
+4,,2559,فردوسی,ferdowsi-najaf-abad,31
+4,,3020,فردوسی,ferdowsi-mashhad,3
+4,,994,فردوسی,ferdowsi,1
+4,,2441,فردوسی,ferdowsi-shahin-shahr,1744
+4,,3264,فردوسی جنوبی,ferdowsi-jonubi,1776
+4,,3121,فردوسی جنوبی,ferdowsi-jonoubi,318
+4,,2560,فردوسی شمالی,ferdowsi-shomali,31
+2,,1716,فردوسیه,ferdosiye,904
+2,,1751,فردیس,fardis-city,895
+4,,4287,فردیس,fardis-gharchak,1761
+4,,4353,فردیس,fardis-district,1751
+4,,4150,فرزانه,farzane,1
+4,,2183,فرزانه,farzaneh,12
+4,,550,فرگاز,fergaz,6
+4,,3257,فرمانداری,farmandari,1776
+4,,2417,فرماندهی انتظامی اصفهان,farmandehi-entezami-esfahan,4
+4,,64,فرمانیه,farmaniyeh,1
+2,,3936,فرمهین,farmahin,901
+4,,1133,فرهنگ,farhang,3
+4,,2836,فرهنگ,farhang-marvdasht,1788
+4,,1533,فرهنگ,farhang-isfahan,4
+4,,342,فرهنگ شهر,farhangshahr-ahvaz,7
+4,,507,فرهنگ شهر,farhangshahr,6
+4,,3181,فرهنگیان,farhangian-sabzevar,316
+4,,1320,فرهنگیان,kuy-farhangian-shiraz,6
+4,,1484,فرهنگیان,farhangian-isfahan,4
+4,,3056,فرهنگیان (شهرک غرب),farhangian-mashhad,3
+4,,2605,فرهنگیان و شهربانی,farhangiiaan-va-shahrbaani,8
+4,,3489,فرودگاه,forudgah,7
+4,,1236,فرودگاه,mashhad-hashemi-nejad-international-airport,3
+4,,2418,فرودگاه,foroodgah,4
+4,,2185,فرودگاه سردار جنگل رشت,forudgah-sardar-jangal-rasht,12
+4,,4553,فرودگاه شهید بهشتی,forodgah-shahid-beheshti,4
+4,,2789,فرودگاه شهید دستغیب شیراز,foroodgah-shahid-dastgheyb-shiraz,6
+4,,2295,فرودگاه کاشان,foroodgah-kashan,30
+4,,182,فرودگاه مهرآباد,mehrabad-airport,1
+4,,2434,فرودگاه هسا,foroodgah-hesa,1744
+2,,3978,فرور,jazireh-forur,894
+4,,1450,فروردین,farvardin,4
+2,,2208,فریدونشهر,fereydoonshahr,890
+2,,836,فریدون‌کنار,fereydunkenar,893
+4,,3045,فریزی,farizi,3
+2,,1875,فریم,farim,893
+2,,2991,فریمان,fariman,880
+4,,526,فسا,fasa,6
+2,,1789,فسا,fasa-city,898
+2,,2696,فسارود,fasarud,898
+2,,4034,فشاپویه,fashapuyeh,904
+2,,1772,فشم,fasham-city,904
+4,,4486,فشند,fashand,1754
+4,,3030,فضل,fazl,318
+4,,1403,فضل‌آباد,fazl-abad,6
+4,,3186,فقیه سبزواری,fagheeh-sabzevari,316
+4,,199,فلاح,fallah,1
+2,,3655,فلارد,falard,903
+2,,849,فلاورجان,falavarjan,890
+4,,439,فلسطین,felestin,3
+4,,1932,فلسطین,rasht-felestin,12
+4,,655,فلسطین (میدان انقلاب),enqelab,1
+4,,486,فلکه ضد (۱۵ خرداد),falakehzed,3
+4,,4610,فلکه گاز,falakeh-gaz,6
+2,,3515,فندقلو,fandoghlu,891
+2,,3758,فنوج,fanouj,883
+4,,3174,فنی حرفه ای پسرانه نیشابور,fani-herfei-pesarane-neyshabur,318
+2,,3843,فهرج,fahraj,877
+2,,2695,فورگ,furg,898
+4,,3408,فولاد,fulad,7
+4,,2483,فولادشهر,fuladshahr,1745
+2,,1745,فولادشهر,foolad-shahr,890
+4,,354,فولادشهر,fooladshahr-ahvaz,7
+4,,384,فولادشهر,fooladshahr,4
+2,,860,فومن,fuman,889
+4,,3204,فیاض,fayyaz-sabzevar,316
+4,,2111,فیاض,fayyaz,746
+2,,3557,فیرورق,firuragh,881
+2,,3583,فیروز,firooz,906
+4,,4231,فیروزآباد,firuzabad-rey,1763
+4,,2521,فیروزآباد,firuzabaad,31
+2,,4615,فیروزآباد,firoozabad-city,905
+2,,3558,فیروزآباد (آذربایجان),firuzabad-city,881
+2,,1734,فیروزآباد (فارس),firuzabad,898
+2,,3922,فیروزآباد (لرستان),firoozabad,884
+4,,4056,فیروزآبادی,firuzabadi,1763
+4,,988,فیروزآبادی,firoozabadi,1
+2,,1770,فیروزکوه,firuzkooh,904
+2,,2992,فیروزه,firuzeh,880
+4,,2820,فیروزی,firoozi,1788
+4,,1516,فیزادان,fizadan,4
+4,,1501,فیض,kouleh-parcheh,4
+4,,2452,فیض,feyz-shahin-shahr,1744
+4,,3131,فیض آباد,feyz-abad,318
+2,,3949,فین,fin,894
+4,,2312,فین بزرگ,fin-bozorg,30
+4,,2316,فین کوچک,fin-koochak,30
+4,,3226,قائم,ghaem,316
+4,,3014,قائم,ghaaem,3
+4,,3248,قائم,ghaem-torbat-heydariyeh,1776
+2,,665,قائم‌شهر,qaem-shahr,893
+4,,1541,قائمیه,ghaemiyeh,4
+2,,790,قائن,ghayen,876
+4,,961,قاسم‌آباد,qasemabad,1
+4,,3229,قاسم آباد,ghasem-abad,1776
+4,,4513,قاسم آباد بزرگ,ghasemabad-bozorg,1754
+2,,1733,قاسم‌آباد (خواف),qasemabad-khaf,880
+4,,1917,قاسمیه,ghasemiyeh,12
+4,,3220,قاضی زاد,ghazi-zad,316
+4,,2797,قالیشویی,ghalishuyi,6
+4,,2838,قانون,ghanoun,1788
+2,,2574,قاهان,ghahan,892
+4,,941,قبا,qoba,1
+4,,2355,قبرستان دارالسلام,ghabrestan-darolsalaam,30
+4,,3211,قدس,ghods,316
+4,,2534,قدس,qods-najaf-abad,31
+2,,1758,قدس,qods-city,904
+4,,531,قدوسی شرقی,eastghoddusi,6
+4,,532,قدوسی غربی,westghoddusi,6
+2,,1761,قرچک,qarchak-city,904
+2,,2012,قرق,ghorogh,897
+2,,3759,قرقری,ghorghori,883
+2,,3711,قره پشتلو,ghareh-poshtlu,879
+2,,3929,قره چای,ghareh-chay,901
+2,,3542,قره ضیاالدین,ghare-ziyaoddin,881
+2,,3559,قره قوین,ghare-ghavin,881
+2,,3942,قره کهریز,ghareh-kahriz,901
+2,,813,قروه,qorveh,885
+4,,4367,قریشی,ghoreshi,1751
+4,,211,قزل قلعه,qezel-qaleh,1
+2,,19,قزوین,qazvin,878
+4,,4288,قشلاق جیتو,qeshlaq-jitu,1761
+2,,3584,قشلاق دشت,gheshlaq-dasht,906
+2,,660,قشم,qeshm,894
+2,,3585,قصابه,ghasabeh,906
+4,,3202,قصبه اب یمین,ghasabeh-ab-yamin,316
+4,,3358,قصبه شرقی,qasabeye-sharqi,316
+4,,3026,قصبه غربی,ghasabeh-gharbii,316
+4,,515,قصرالدشت,qasrdasht,6
+2,,3864,قصرشیرین,ghasr-shirin,905
+4,,293,قصر فیروزه ۱,qasr-e-firoozeh-yek,1
+4,,248,قصر فیروزه ۲,qasr-e-firooze-do,1
+2,,3760,قصرقند,ghasrghand,883
+4,,2267,قطب راوندی,ghotb-ravandi,30
+2,,2698,قطرویه,ghatruyeh,898
+2,,3560,قطور,ghatur,881
+4,,2865,قلات,ghalat,6
+4,,1556,قلعه برتیانچی,ghale-bertianchi,4
+4,,2427,قلعه جوم,ghaleh-joom,4
+2,,3523,قلعه چای,ghaleh-chay,891
+4,,4557,قلعه سفید,qal-e-sefid,31
+4,,1348,قلعه شاهزاده بیگم,ghaleh-shahzadeh-bagom,6
+2,,3865,قلعه شاهین,ghaleh-shahin,905
+4,,2678,قلعه صدری,ghaleh-sadri,8
+4,,1473,قلعه طبره,ghale-tabre,4
+4,,2621,قلعه عموحسین,ghaleh-amuhosein,8
+2,,3963,قلعه قاضی,ghaleh-ghazi,894
+4,,1355,قلعه قبله,ghaleh-ghebleh,6
+4,,2615,قلعه کامکار,ghaleh-kaamkaar,8
+2,,3848,قلعه گنج,ghaleh-ganj,877
+2,,3887,قلعه ممبی,ghaleh-mombi,887
+2,,4036,قلعه نو,ghaleh-no,904
+4,,1568,قلعه نو,ghale-nou,4
+4,,3145,قلعه نو,ghale-no-nishabur,318
+4,,1325,قلعه نو,ghale-no,6
+4,,3200,قلعه‌نو دهزار,ghaleh-no-dehzar,316
+4,,616,قلعه یزدیها,attaran,8
+2,,4002,قلقل رود,gholghol-rud,899
+4,,998,قلمستان,qalamestan,1
+4,,2068,قلم گوده,ghalam-gudeh,708
+2,,2993,قلندر آباد,ghalandar-abad,880
+4,,70,قلهک,gholhak,1
+4,,1895,قلی پور,gholipour,12
+2,,2569,قمرود,qamarud,892
+2,,1746,قمصر,ghamsar,890
+4,,2600,قم نو,ghom-no,8
+4,,105,قنات‌کوثر,ghanat-kosar,1
+2,,2576,قنوات,qanavat,892
+4,,2424,قهاب جنوبی,ghahab-jonoubi,4
+4,,2423,قهجاورستان,qahjavarestan,4
+2,,2231,قهدریجان,ghahderijaan,890
+2,,3663,قهستان,ghahestan,876
+4,,493,قوچان,ghoochan,3
+2,,1777,قوچان,quchan,880
+4,,4465,قوچ حصار,ghoch-hesar,774
+2,,3691,قوشخانه,qushkhaneh,896
+4,,4327,قويينک زهری,ghaviinak-zahri,1762
+4,,2113,قیام,qiyam,746
+4,,995,قیام,qiam,1
+4,,639,قیام‌دشت,qiamdash,1
+2,,804,قیدار,qeydar,879
+2,,2699,قیروکارزین,ghirokarzi,898
+4,,65,قیطریه,qeytariyeh,1
+4,,3383,كنويست,kanavist,3
+4,,959,کاج,tehran-police,1
+2,,2994,کاخک,kakhak,880
+4,,2049,کارآموزی,karamoozi,708
+4,,1383,کاراندیش,karandish,6
+4,,2296,کارخانه سایپا کاشان,karkhane-saipa-kashan,30
+4,,4235,کارخانه سیمان,karkhane-siman,1763
+4,,4400,کارخانه قند,karkhane-ghand,2
+4,,2421,کارخانه قند اصفهان,karkhane-ghand-esfahan,4
+4,,3038,کارده,kardeh,3
+2,,3606,کارزان,karzan,888
+4,,2314,کارگر,kargar,30
+4,,1222,کارگران,kuy-e-karagaran,3
+4,,1546,کارلادان,monarjonban,4
+4,,1218,کارمندان دوم,karmandan-e-dovom,3
+2,,3761,کاروان,karvan,883
+4,,2126,کاروانسرابر,karvan-sara-bar,746
+4,,3474,کارون,karun-ahvaz,7
+2,,3393,کارون,karun,902
+4,,3304,کاریز نو سفلی,kariz-no-sofla,791
+2,,1790,کازرون,kazeroon,898
+4,,514,کازرون,kazerun,6
+4,,2649,کاسه گران,kasehgaran,8
+4,,2361,کاشان,kaashaan,30
+2,,30,کاشان,kashan,890
+4,,4087,کاشانک,kashanak-eslam-shahr,29
+4,,43,کاشانک,kashanak,1
+4,,3250,کاشانی,kashani-torbat-heydariyeh,1776
+4,,3178,کاشفی شمالی (دادگستری),kashefi-shomali-dadgostari,316
+2,,2946,کاشمر,kasmar,880
+4,,485,کاشمر,kashmar,3
+4,,4218,کاظم‌آباد,kazemabad-robat-karim,1765
+4,,3335,کاظم آباد,kazemabad,3
+4,,3092,کاظم آباد پنجشنبه,kazemabad-panjshanbeh,3
+2,,3532,کاغذکنان,kaghazkenan,891
+2,,3904,کاکاوند,kakavand,884
+4,,2144,کاکتوس,kaktus,12
+2,,3624,کاکی,kaki,900
+2,,3722,کالپوش,kalpush,882
+4,,62,کامرانیه,kamraniyeh,1
+2,,2697,کامفیروز,kamfiruz,898
+2,,1797,کامیاران,kamyaran,885
+4,,368,کانتکس,cantex,7
+2,,1827,کبودرآهنگ,kabudrahang,899
+4,,4324,کبودگنبد,kabudgonbad,1760
+2,,1858,کتالم و سادات شهر,katalem-sadatshahr,893
+2,,2001,کجور,kojur,893
+4,,4362,کچویی,kachui,1751
+2,,2995,کدکن,kadkan,880
+2,,2689,کر,kor,898
+4,,3027,کراب,karab,316
+2,,3798,کرانی,karani,885
+2,,3762,کرباسک,karbask,883
+2,,2690,کربال,karbal,898
+4,,1067,کرج نو,karaj-no,2
+2,,2232,کرچمبو,kerchambu,890
+2,,3394,کرخه,karkheh,902
+4,,1504,کردآباد,kerdabad,4
+4,,4243,کرد امیر,kordamir,1759
+4,,4256,کردزار,kordzar,1759
+2,,750,کردکوی,Kordkuy,897
+4,,3119,کردها,kordha,318
+2,,2687,کردیان,kardiyan,898
+2,,3799,کرفتو,karftu,885
+2,,13,کرمان,kerman,877
+4,,945,کرمان,tehran-kerman,1
+4,,2849,کرونی(خاتونک),korooni-khatonek,6
+4,,219,کریم‌آباد,karim-abad,1
+4,,3102,کریم آباد,karimabad,3
+4,,3127,کریم آباد,karim-abad-nishabur,318
+4,,1585,کساره,kesare,4
+4,,2564,کشاورز,keshavarz-najaf-abad,31
+4,,1215,کشاورز,dehnavi,3
+2,,3561,کشاورز,keshavarz-city,881
+4,,2268,کشاورز,keshavarz,30
+4,,1538,کشاورزی,keshavarzi,4
+4,,3318,کشتارگاه,koshtargah-torbat-jam,791
+4,,3170,کشتارگاه,koshtargah,318
+4,,3094,کشف,kashf,3
+2,,3504,کشکسرای,kashksaray,891
+2,,3860,کشکوئیه,koshkouyeh,877
+4,,1386,کفترک,kaftarak,6
+2,,3763,کلاتان,kalatan,883
+2,,3610,کلات (ایلام),kalat-city,888
+2,,2996,کلات (خراسان),kalat,880
+2,,3806,کلاترزان,kalatarezan,885
+4,,3072,کلاته برفی,kalateh-barfi,3
+4,,3231,کلاته توکلی,kalate-tavakoli,1776
+4,,3385,کلاته تیموری,kalateh-teymoori,3
+4,,3354,کلاته سیفر,kalateh-seyfer,316
+2,,863,کلاچای,kelachay,889
+2,,1695,کلارآباد,kelarabad,893
+2,,1696,کلاردشت,kelarestan,893
+2,,3871,کلاشی,kalashi,905
+4,,3129,کلاغان,kalaghan,318
+4,,1093,کلاک بالا,kalak,2
+4,,4443,کلاک پایین,kelak-e-payin,2
+4,,1095,کلاک نو,kalak-no,2
+4,,3376,کلاکوب,kalakub,3
+2,,1692,کلاله,kalale,897
+4,,3306,کلالی,kalali,791
+4,,2799,کلاهدوز,kolahdooz,6
+4,,443,کلاهدوز,kolahdouz,3
+2,,3389,کلباد,kolbad,893
+4,,1505,کلمان,kalman,4
+4,,1512,کلمه خوران,kalmh-khvaran,4
+4,,2287,کلنگه,kolengeh,30
+4,,4020,کلهری,kalehri,8
+2,,3764,کله گان,kaleh-gaan,883
+2,,3875,کلیائی,kliyai,905
+2,,3496,کلیبر,kalibar,891
+4,,2042,کلیور,kelivar,708
+4,,581,کمال‌شهر,kamalshahr,2
+4,,332,کمپلو جنوبی,camplojonoobi,7
+4,,331,کمپلو شمالی,camploshomali,7
+4,,4117,کمرد,kamard,1767
+2,,3941,کمره,kamarah,901
+2,,3933,کمیجان,komijan,901
+4,,153,کن,kan,1
+2,,4031,کن,kan-city,904
+2,,2688,کنار تخته و کمار,kenar-takhte-va-kamar,898
+2,,1786,کنارک,konarak,883
+4,,2822,کناره,kenare,1788
+2,,3528,کندوان,kandovan,891
+4,,1561,کنگاز,kangaz,4
+2,,821,کنگاور,kangavar,905
+4,,2429,کهریزسنگ,kahrizsang,31
+2,,1708,کهریزک,kahrizak,904
+2,,2575,کهک,kahak,892
+2,,3723,کهن آباد,kohan-abad,882
+4,,4247,کهنز,kahnez,1759
+4,,3353,کهنه آب,kohneh-ab,316
+2,,1803,کهنوج,kahnooj,877
+2,,3765,کهیر,kahir,883
+2,,2693,کوار,kavar,898
+4,,367,کوت عبدالله,kut-abdollah,7
+4,,997,کوثر,kosar,1
+2,,3572,کوثر,kosar-city,906
+4,,1122,کوثر,kuy-e-kowsar,3
+4,,1587,کوجان,kojan,4
+2,,1840,کوچصفهان,kouchesfahan,889
+4,,2308,کوچه باسکول,kuche-baskul,30
+2,,3955,کوخرد هرنگ,kookherd-hareng,894
+4,,2866,کودیان,koodiyan,6
+2,,3586,کوراییم,koraayim,906
+4,,326,کوروش,koorosh,7
+2,,3766,کورین,kourin,883
+2,,3872,کوزران,kuzeran,905
+4,,1402,کوزه‌گری,koozehgari,6
+4,,1347,کوزه گری,maqar,6
+4,,1174,کوشش,koushesh,3
+4,,2845,کوشک,kooshk,1788
+4,,2863,کوشک بیدک,koshk-bidak,6
+4,,4490,کوشک زر,kushk-zar,1754
+4,,2337,کوشک صفی,kooshk-safi,30
+4,,3387,کوشک مهدی,koshk-mehdi,3
+4,,1314,کوشک میدان,shahrak-e-shahid-navvab-e-safavi,6
+2,,3951,کوشکنار,kushkenar,894
+2,,1843,کومله,koumeleh,889
+4,,2401,کوهانستان,kohanestan,4
+2,,3818,کوهبنان,koohbanan,877
+4,,2105,کوه بیجار,kuh-bijar,746
+2,,2233,کوهپایه,koohpaye,890
+2,,2694,کوه چنار,kuh-chenar,898
+2,,831,کوهدشت,kuhdasht,884
+2,,3648,کوهرنگ,kuhrang,903
+4,,4142,کوهسار,kuhsar-tehran,1
+4,,2806,کوهسار,kuhsar,6
+2,,3562,کوهسار (آذربایجان),kuhsar-city,881
+2,,1738,کوهسار (البرز),koohsar,895
+2,,3827,کوهساران,koohsaran,877
+4,,2805,کوهستان,kuhestan,6
+2,,3390,کوهستان,kuhestan-city,893
+2,,2997,کوهسرخ,koohsorkh,880
+4,,2672,کوه سفید,kooh-sefid,8
+4,,3251,کوه سنگی,kuh-sangi,1776
+4,,457,کوه سنگی,koohsangi,3
+4,,909,کوهک,kuhak,1
+2,,2691,کوهمره,kuhmarreh,898
+2,,3909,کوهنانی,kohnani,884
+2,,2692,کوهنجان,kuhenjan,898
+2,,1870,کوهی‌خیل,kouhi-kheyl,893
+2,,3794,کوهین,kuhin,878
+4,,1281,کوی آزادگان,kuy-azadi,6
+4,,2073,کوی آزادگان,kuy-azadegan,708
+4,,2127,کوی آزادگان,kuy-e-azadegan,746
+4,,3476,کوی آزادی,kuy-azadi-ahvaz,7
+4,,369,کوی آغاجاری,shahrak-e-aghajari,7
+4,,3481,کوی ابوالفضل,kuy-abolfazl,7
+4,,2273,کوی اداره گاز,kuy-edare-gaz,30
+4,,2129,کوی استادان,kuy-e-ostadan,746
+4,,489,کوی المهدی,kuy-e-mahdi,3
+4,,1594,کوی امام,kuy-emam,4
+4,,1595,کوی امام جعفر صادق,emam-jafar-sadegh-town,4
+4,,2190,کوی امام رضا,kuy-emam-reza,12
+4,,1071,کوی امامیه,kuy-emamiyeh,2
+4,,1529,کوی امیریه,kuy-amiriyeh,4
+4,,4405,کوی ایثار,kuy-isar-karaj,2
+4,,3425,کوی ایثار,kuy-isar,7
+4,,330,کوی باهنر,bahonar,7
+4,,3418,کوی بشارت,kuy-besharat,7
+4,,4406,کوی بعثت,kuy-baasat,2
+4,,3177,کوی بهار,kuy-bahar-sabzevar,316
+4,,1055,کوی بهار,kuy-bahar,2
+4,,4349,کوی بهار,kuy-bahar-mohammadshahr,1752
+4,,2057,کوی بهار,kuy-bahar-bandar-e-anzali,708
+4,,4526,کوی بهروز,kuy-behrooz,1754
+4,,2169,کوی بیانی,kuy-bayani,12
+4,,168,کوی بیمه,kooy-e-bimeh,1
+4,,1234,کوی پلیس,kuy-e-police,3
+4,,3446,کوی پلیس,kuy-police,7
+4,,3455,کوی پیروزی,kuy-piroozi,7
+4,,351,کوی ترابری,saddastgah,7
+4,,1930,کوی جام جم,rasht-emam-hossein,12
+4,,3417,کوی جانبازان(دانش),kuy-janbazan-danesh,7
+4,,3460,کوی جواهری,kuy-javaheri,7
+4,,3153,کوی حسینی,kuy-hoseini,318
+4,,1897,کوی حسینی,kouye-hoseini,12
+4,,2122,کوی خزر,kuy-e-khazar,746
+4,,1182,کوی دروی,kuy-e-daravey,3
+2,,2234,کویرات,kavirat,890
+4,,1207,کوی راد,kuy-e-paein-khiaban,3
+4,,2416,کوی راه حق,kuy-rah-hagh,4
+4,,3415,کوی راه کربلا,kuy-rah-karbala,7
+4,,345,کوی رمضان,kooyramezan,7
+4,,2115,کوی زمانی,kuy-e-zamani,746
+4,,1038,کوی زنبق,kuy-zanbaq,2
+4,,563,کوی زهرا,kuyezahra,6
+4,,3448,کوی سپاه,kuy-sepah,7
+4,,1596,کوی سپاهان,sepahan-lane,4
+4,,4574,کوی سعدی,kuy-saadi,7
+4,,1235,کوی سیدی,Kuy-e-Seyyedi,3
+4,,3454,کوی شاهد,kuy-shahed,7
+4,,3475,کوی شایسته,kuy-shayeste,7
+4,,3426,کوی شهروند,kuy-shahrvand,7
+4,,3272,کوی شهید احمدزاده ملکی,kuy-shahid-ahmadzade-maleki,1776
+4,,1518,کوی شهید کشوری,kuy-shahid-keshvari,4
+4,,3423,کوی صادقیه,kuy-sadeghiyeh,7
+4,,3428,کوی صنایع,kuy-sanaye,7
+4,,2178,کوی طالقانی,kuy-taleqani,12
+4,,3459,کوی طالقانی,kuy-talaghani,7
+4,,373,کوی طلاب,kooy-e-modarres,7
+4,,3469,کوی عابدی,kuy-abedi,7
+4,,2164,کوی عرفان,kuy-erfan,12
+4,,366,کوی علوی,kooyealavi,7
+4,,2180,کوی غلام نیا,kuy-qlam-niya,12
+4,,3452,کوی فاطمیه,kuy-fatemiyeh,7
+4,,923,کوی فراز,kuy-faraz,1
+4,,1046,کوی فرهنگ,kuy-farhang,2
+4,,2170,کوی فرهنگیان,kuy-farhangian,12
+4,,4601,کوی فرهنگیان,kuy-farhangian-shiraz-district,6
+4,,3116,کوی فرهنگیان,kuy-farhangian-nishabur,318
+4,,4575,کوی فرهنگیان ۱,kuy-farhangiyan-1,7
+4,,644,کوی فرهنگیان ۲,farhangian,7
+4,,2140,کوی فکوری,kuy-fakuri,12
+4,,3451,کوی قائم,kuy-ghaem,7
+4,,2168,کوی قدس,kuy-qods,12
+4,,1288,کوی قضات,kuy-ghozat,6
+4,,1069,کوی کارمندان جنوبی,south-kuy-karmandan,2
+4,,1076,کوی کارمندان شمالی,north-kuy-karmandan,2
+4,,3435,کوی کربن,kuy-karbon,7
+4,,1579,کوی گلزار,kuy-golzar,4
+4,,3218,کوی گلستان,kuy-golestan,316
+4,,4411,کوی گلها,kuy-golha,2
+4,,1086,کوی مدرس,kuy-modarres-karaj,2
+4,,341,کوی ملی راه,mellirah,7
+4,,3449,کوی منابع طبیعی,kuy-manabe-tabiie,7
+4,,3466,کوی مندلی(سه راه خرمشهر),kuy-mandali-se-rah-khorramshahr,7
+4,,343,کوی مهدیس,mahdis,7
+4,,2462,کوی مهدیه,kuy-mahdieh,1744
+4,,1039,کوی مهر,kuy-mehr,2
+4,,2139,کوی مهر,kuy-mehr-rasht,12
+4,,3470,کوی مهندسان,kuy-mohandesan,7
+4,,2368,کوی میلاد,kuy-milad,4
+4,,2369,کوی نرگس,kuy-narges,4
+4,,4146,کوی نصر مهرآباد,kuy-nasr-mehrabad,1
+4,,336,کوی نفت,kooyenaft,7
+4,,4378,کوی نور,kuy-nur,1751
+4,,3453,کوی نیرو,kuy-niru,7
+4,,2063,کوی واحدی,kuy-vahedi,708
+4,,2784,کوی وحدت,kuy-vahdat,6
+4,,1528,کوی ولی عصر,shahrak-valiasr-isfahan,4
+4,,1232,کوی ولیعصر,valiasr-mashhad,3
+4,,4480,کوی یاران,kuy-yaran,1754
+4,,1286,کوی یاس,kuy-yas,6
+4,,2166,کوی یخ,kuy-yakh,12
+4,,3107,کوی یغما,kuy-yaghma,318
+2,,3638,کیار,kiar,903
+2,,1869,کیاسر,kiasar,893
+2,,1687,کیاشهر,kiashahr,889
+2,,1864,کیاکلا,kiakola,893
+4,,2851,کیان آباد,kian-abad,6
+4,,333,کیان اباد,kianabad,7
+4,,322,کیانپارس ,kianpars,7
+4,,1378,کیان شهر,kian-shahr-shiraz,6
+4,,340,کیانشهر,kianshahr,7
+4,,241,کیانشهر,shahrak-e-kianshahr,1
+2,,3816,کیانشهر,kianshahr-city,877
+4,,582,کیانمهر,kianmehr,2
+2,,33,کیش,kish,894
+2,,3767,کیشکور,kishkur,883
+4,,4198,کیکاور,kikavor,1765
+2,,1719,کیلان,kilan,904
+4,,623,کیوانفر,keyvanfar,8
+4,,2253,گارزگاه,garzgah,30
+2,,4016,گاریزات,garizat,886
+4,,1915,گاز,gaaz,12
+4,,495,گاز,eastgaz,3
+2,,3971,گافر و پارمون,gafar-va-parmun,894
+2,,1832,گالیکش,galikesh,897
+4,,96,گاندی,gandi,1
+4,,2301,گبرها,gabrha,30
+2,,1866,گتاب,gatab,893
+2,,3395,گتوند,getvand,902
+2,,3768,گتیج,gatij,883
+4,,2847,گچی,gachi,6
+2,,3599,گچی,gachi-city,888
+4,,2632,گذر قلعه,gozar-ghaleh,8
+2,,2761,گراش,gerash,898
+4,,3091,گرجی علیا,gorji-olya,3
+4,,1565,گرکان,garkan,4
+4,,2472,گرگاب,gorgab,1744
+4,,960,گرگان,tehran-gorgan,1
+2,,21,گرگان,gorgan,897
+2,,3500,گرمادوز,garmadooz,891
+2,,3690,گرمخان,garmkhan,896
+2,,1720,گرمدره,garmdareh,895
+2,,806,گرمسار,garmsar,882
+2,,3687,گرمه,garmeh,896
+2,,1743,گرمی,germi,906
+4,,2248,گریه,geriyeh,30
+4,,875,گز,gaz,4
+4,,2473,گزبرخوار,gazborkhar,1744
+2,,1876,گزنک,gazanak,893
+2,,3679,گزیک,gazik,876
+4,,46,گلاب دره,golab-dareh,1
+4,,1891,گلباغ نماز,golbagh-namaz,12
+2,,3829,گلباف,golbaf,877
+4,,3012,گلبرگ,golbarg,3
+4,,437,گلبرگ شمالی,aboutaleb,3
+4,,2529,گلبهار,golbahaar,31
+2,,1773,گلبهار,golbahar-city,880
+4,,466,گلبهار,golbahar,3
+2,,848,گلپایگان,golpayegan,890
+2,,3991,گل تپه,gol-tappeh,899
+4,,1012,گلچین,golchin,1
+4,,3493,گلدشت,goldasht-ahvaz,7
+4,,1318,گلدشت,goldasht-shiraz,6
+4,,1092,گلدشت,goldasht,2
+4,,2566,گلدشت,goldasht-najaf-abad,31
+4,,1264,گلدشت معالی‌آباد,goldasht-moaliabad,6
+4,,1472,گلزار,golzar-isfahan,4
+4,,636,گلزار,golzar,8
+2,,3835,گلزار,golzar-city,877
+4,,2161,گلزاران,golzaran,12
+4,,1928,گلسار,golsaar,12
+4,,4514,گلسار,golsar,1754
+4,,323,گلستان,golestan-ahvaz,7
+4,,1054,گلستان,golestan-karaj,2
+4,,1544,گلستان,golestan-isfahan,4
+4,,2108,گلستان,golestan-lahijan,746
+4,,2768,گلستان,golestan-shiraz,6
+2,,1706,گلستان (تهران),golestan-baharestan,904
+4,,165,گلستان (شهرک راه آهن),west-shahrak-e-golestan,1
+2,,3839,گلستان (کرمان),golestan-city,877
+4,,1387,گل سرخ,chogha,6
+4,,2098,گلسرخ,golsorkh,708
+4,,1287,گلشن,golshan,6
+4,,4617,گلشن,golshan-bandar-e-anzali,708
+4,,3227,گلشن,golshan-sabzevar,316
+4,,568,گلشهر,golshahr,2
+4,,1077,گلشهر ویلا,golshahrvila,2
+4,,1201,گلشور,golshour,3
+4,,1353,گلکوب,golkoub,6
+2,,2998,گلمکان,golmakan,880
+2,,2762,گله دار,geleh-dar,898
+2,,1856,گلوگاه,galougah-babol,893
+2,,1971,گلوگاه بابل (گلیا),galugah-babol,893
+2,,1986,گلی داغ,goli-dagh,897
+4,,275,گمرک,gomrok,1
+4,,2095,گمرک,gomrok-bandar-e-anzali,708
+4,,3115,گمنام غربی,gomnam-gharbii,318
+2,,749,گمیشان,gomishan,897
+2,,847,گناباد,gonabad,880
+4,,3120,گنبد سبز,gonbad-sabz,318
+2,,743,گنبد کاووس,gonbad-kavus,897
+4,,3379,گنبدواز,gonbadvaz,3
+2,,3842,گنبکی,gonbaki,877
+4,,2829,گندم‎,gandom,1788
+2,,3657,گندمان,gandoman,903
+2,,1802,گهواره,gahvareh,905
+2,,3881,گوآور,goaavar,905
+4,,2801,گود خزینه,goud-khazine,6
+4,,1363,گود عربان,god-araban,6
+2,,1846,گوراب زرمیخ,gourab-zarmikh,889
+4,,1572,گورت,gavart,4
+4,,1460,گورتان,gurtan,4
+2,,3521,گوگان,gogan,891
+2,,3976,گوهران,goharan,894
+4,,566,گوهردشت,gohardasht,2
+4,,444,گوهرشاد,goharshad,3
+2,,3769,گوهرکوه,goharkuh,883
+4,,1292,گویم,gouyom,6
+2,,3999,گیان,giyan,899
+4,,1571,گیان,kian,4
+4,,3439,گیت بوستان,git-boustan,7
+4,,88,گیشا,gisha,1
+4,,2193,گیل,gil,12
+4,,2082,گیلار,gilar,708
+2,,3882,گیلان غرب,gilan-gharb,905
+4,,4190,گیلاوند,gilavand,783
+2,,3712,گیلوان,gilvan,879
+2,,3563,لاجان,lajan,881
+2,,3770,لادیز,ladiz,883
+2,,1730,لار,lar,898
+2,,3644,لاران,laran,903
+2,,3944,لارک,jazireh-larak,894
+2,,3771,لاشار,lashar,883
+4,,2131,لاشیدان,lashidan,746
+4,,2198,لاکان,lakan,12
+4,,2191,لاکان شهر,lakan-shahr,12
+4,,1904,لاکانی,lakani,12
+2,,3986,لالجین,lalajin,899
+4,,2048,لاله,laleh-bandar-e-anzali,708
+4,,1447,لاله,lale,4
+4,,1357,لاله,laleh,6
+4,,4187,لاله زار,lalezar,1
+2,,3833,لاله زار,laleh-zar,877
+2,,3396,لالی,lali,902
+2,,1731,لامرد,lamerd,898
+2,,746,لاهیجان,lahijan,889
+2,,3945,لاوان,jazireh-lavan,894
+4,,1367,لب آب,lab-e-ab,6
+4,,2631,لبچال,labchal,8
+4,,2333,لتحر,lathar,30
+2,,787,لردگان,lordegan,903
+4,,2607,لسانی,lasaaani,8
+2,,1690,لشت نشا,lashtenesha,889
+4,,363,لشکرآباد,lashkarabad,7
+4,,4386,لشکر ده سید الشهدا,lashkar-deh-seyed-ol-shohada,2
+4,,1339,لشکری‎,lashkari,6
+2,,2999,لطف آباد,lotf-abad,880
+4,,2133,لفمجان,lafmejan,746
+4,,3386,لقمانی,loghmani,3
+4,,3377,لک لک,lak-lak,3
+4,,378,لنبان,lonban,4
+2,,1749,لنجان,lenjan,890
+2,,3898,لنده,lendeh,887
+2,,828,لنگرود,langarud,889
+2,,1771,لواسان,lavasan-city,904
+2,,3892,لوداب,ludab,887
+2,,1836,لوشان,loshan,889
+2,,1842,لولمان,loulman,889
+2,,1837,لوندویل,lavandevil,889
+4,,104,لویزان,lavizan,1
+4,,2137,لیالستان,layalestan,746
+4,,2100,لیچارگی حسن رود,lichargi-hasan-rud,708
+2,,3974,لیردف,lirdaf,894
+2,,1848,لیسار,lisar,889
+2,,3890,لیکک,likak,887
+4,,2134,لیل,lil,746
+2,,3526,لیلان,leylan,891
+4,,1433,لیمجیر,lemjir,4
+4,,1430,مارچین,marchin,4
+2,,3893,مارگون,margon,887
+4,,577,مارلیک,marlik,2
+4,,1498,مارنان,marnan,4
+4,,3037,ماروسک,maroosk,318
+4,,3033,مازول,mazool,318
+2,,3612,ماژین,mazhin,888
+2,,862,ماسال,masal,889
+2,,1815,ماسوله,masuleh,889
+2,,1853,ماکلوان,makloan,889
+2,,856,ماکو,maku,881
+2,,3696,مانه,maneh,896
+2,,1806,ماهان,mahan,877
+2,,1753,ماهدشت,mahdasht-city,895
+4,,1328,ماه فیروزان,mah-firouzan,6
+2,,3699,ماهنشان,mahneshan,879
+2,,2685,ماهورمیلاتی,mahur-milati,898
+2,,3873,ماهیدشت,mahidasht,905
+4,,214,مبارک‌آباد بهشتی,mobarak-abad-e-beheshti,1
+4,,3328,مبارکه,mobarakeh-nishabur,318
+2,,1748,مبارکه,mobarakeh,890
+4,,413,مبارکه,mobarake,4
+4,,2798,مبعث,mabath,6
+4,,2071,متروپل,metropl,708
+4,,3427,مجاهد,mojahed,7
+4,,2548,مجاهد شمالی,mojahed-shomali,31
+4,,2858,مجتمع شهید پرویزی,mojtama-shahid-parvizi,6
+4,,4395,مجتمع صنفی صنعتی,mojtaame-sanfi-sanati,2
+4,,4283,مجتمع گلشهر,mojtaame-golshahr,1761
+4,,4282,مجتمع مسکونی طبیعت,mojtaame-maskuni-tabiat,1761
+4,,2818,مجد آباد,majdabad,1788
+4,,4358,مجموعه کارخانه جات مپنا,majmue-karxane-jat-mapna,1751
+4,,110,مجیدآباد,majid-abad,1
+4,,2648,مجیدیه,majidiye,8
+4,,126,مجیدیه,majidiyeh,1
+4,,1407,محراب,mehrab,6
+2,,840,محلات,mahalat,901
+4,,2395,محله اسلامی,mahale-eslami,4
+4,,1372,محله سر دزک,dozak,6
+4,,1553,محله سفلی,mahaleh-sofla,4
+4,,3147,محله میدان باغات,mahalleh-meydan-baghat,318
+4,,2613,محمد آباد,mohammad-aabad,8
+4,,2814,محمد آباد,mohammadabad-marvdasht,1788
+4,,4446,محمد آباد,mohammadabad-karaj,2
+4,,4296,محمد آباد,mohammad-abad-gharchak,1761
+4,,1225,محمدآباد,mohammadabad,3
+2,,3564,محمدیار,mohammadbar,881
+4,,578,محمدشهر,mohammadshahr,1752
+2,,1752,محمدشهر,mohammad-shahr,895
+4,,1317,محمدیه,mohammadiyeh-shiraz,6
+2,,873,محمدیه-قزوین,mohammadieh,878
+2,,2686,محمله,mahmaleh,898
+4,,1074,محمود آباد,mahmodabad,2
+4,,2853,محمودآباد,mahmoodabad,6
+2,,837,محمودآباد,mahmudabad,893
+4,,1420,محمودآباد,mahmud-abad,4
+4,,1300,محمودیه,mahmoudieh,6
+4,,1534,محمودیه,mahmoodiyeh-isfahan,4
+4,,60,محمودیه,mahmoodiyeh,1
+4,,2438,مخابرات (شهید بهشتی),mokhaberat-shahid-beheshti,1744
+4,,2830,مختارآباد,mokhtarabad,1788
+4,,4154,مختاری,mokhtari,1
+4,,1000,مخصوص,makhsous,1
+4,,117,مدائن,sarsabz,1
+4,,2275,مدرس,modarres-kashan,30
+4,,3216,مدرس,modarres-sabzevar,316
+4,,4512,مدرس,modarres-hashtgerd,1754
+4,,3159,مدرس,modarres-nishabur,318
+4,,4558,مدیسه,madise,1745
+4,,141,مرادآباد,morad-abad,1
+2,,3587,مرادلو,moradlu,906
+2,,762,مراغه,maragheh,891
+2,,1974,مراوه,maraveh-tapeh,897
+4,,398,مرداویج,mardavich,4
+4,,139,مرزداران,marzdaran,1
+2,,3000,مرزداران,marzdaran-city,880
+2,,1867,مرزن‌آباد,marzan-abad,893
+2,,1874,مرزیکلا,marzikola,893
+4,,4403,مرکز آموزشی شهید مدرس,markaz-amoozeshi-shahid-modarres,2
+4,,4409,مرکز تحقیقات البرز,markaz-tahghighat-alborz,2
+4,,2379,مرکز همایش های بین المللی اصفهان,markaz-hamayesh,4
+2,,763,مرند,marand,891
+4,,4340,مروارید شهر,morvarid-shahr,1
+4,,504,مرودشت,marvdasht,6
+2,,1788,مرودشت,marvdasht-city,898
+2,,4017,مروست,marvast,886
+2,,814,مریوان,marivan,885
+2,,2763,مزایجان,mazayjan,898
+4,,2547,مزرعه طالب,mazraeh-taleb,31
+2,,1999,مزرعه کتول,mazrae-katool,897
+4,,2331,مزرعه نو,mazraee-no,30
+4,,2315,مزرعه نواب,mazraeh-navab,30
+4,,3434,مستغلات,mostaghelat,7
+4,,2581,مسجد امام حسن,masjed-emam-hasan,8
+4,,3254,مسجد جامع,masjed-jame,1776
+4,,2833,مسجد رسول‎,masjed-rasool,1788
+2,,317,مسجد سلیمان,masjed-e-soleyman,902
+4,,1535,مسجد مصلی,sheykh-sadough,4
+4,,246,مسعودیه,masoudieh,1
+4,,3363,مسکن ملی,maskan-meli,791
+4,,4548,مسکن مهر,maskan-mehr-shahin-shahr,1744
+4,,2514,مسکن مهر,maskan-mehr-najaf-abad,31
+4,,2669,مسکن مهر,maskan-mehr-qom,8
+4,,2040,مسکن مهر,maskan-mehr,708
+4,,3288,مسکن مهر,maskan-mehr-torbat-jam,791
+4,,4193,مسکن مهر آبشناسان,maskan-mehr-abshenansan,1765
+4,,4065,مسکن مهر اسلاشهر (شهرک امام خمینی),maskan-mehr-eslashahr-shahrak-emam-khomeini,29
+4,,2786,مسکن مهر شیراز,maskan-mehr-shiraz,6
+4,,2511,مسکن مهر فولادشهر,maskan-mehr-foolaadshahr,1745
+4,,2844,مسکن مهرگان,maskan-mehregan,1788
+4,,4336,مسکن مهر گیلاوند,maskan-mehr-gilavand,783
+4,,4464,مسکن مهر نظرآباد,maskan-mehr-nazarabad,774
+4,,3118,مسکن مهر نور,maskan-e-mehr-e-noor,318
+4,,976,مسگرآباد,mesgar-abad,1
+4,,1345,مسلم,moslem,6
+4,,2321,مسلم آباد,moslem-abad,30
+4,,2360,مشکات,moshkaat,30
+2,,3001,مشکان,moshkan,880
+4,,2400,مشکین,meshkin,4
+4,,593,مشکین‌دشت,meshkindasht,2
+2,,4341,مشکین‌دشت,meshkindasht-city,895
+4,,3062,مشکینی (شهرک غرب),moshkiny,3
+2,,773,مشگین شهر,meshgin-shahr,906
+4,,3048,مشهدقلی,mashhadgholi,3
+2,,2757,مشهد مرغاب,mashhad-marghab,898
+4,,1393,مشیر غربی,west-moshir,6
+4,,243,مشیریه,moshiriyeh,1
+4,,580,مصباح,mesbah,2
+4,,4467,مصطفی آباد,mostafaabad,774
+4,,1223,مصطفی خمینی,kuy-e-agha-mostafa-khomeini,3
+4,,2588,مصلاء,mosallaa,8
+4,,1449,مصلی,toghchi,4
+4,,2093,مصلی,mosalla-bandar-e-anzali,708
+4,,2348,مصلی,mosalla-kashan,30
+4,,1219,مصلی (کارمندان اول),karmandan-e-aval,3
+4,,4560,مطهری,motahhari-karaj,2
+4,,4140,مطهری,motahhari-tehran,1
+4,,3281,مطهری,motahari-torbat-jam,791
+4,,4079,مطهری,motahhari,29
+4,,4155,مظاهری,mazaheri,1
+4,,3249,مظفریه,mozaffariye,1776
+4,,4077,مظفریه,mozaffariyeh,29
+4,,4274,معادن شن و ماسه,maaden-shen-o-maseh,1758
+4,,503,معالی‌آباد,moaliabad,6
+4,,3319,معدآباد,maadabad,791
+4,,2543,معرفت,marefat,31
+2,,3934,معصومیه,masoumieh,901
+4,,1898,معلم,moalem,12
+4,,2086,معلم,moallem,708
+4,,2298,معلم,moalem-kashan,30
+4,,1919,معلولین,maaloolin,12
+2,,3908,معمولان,mamulan,884
+4,,350,معین زاده,moeinzadeh,7
+4,,2271,مفتح,moftah,30
+4,,1475,مفتح,mofatteh,4
+4,,1010,مقدم,moqadam,1
+4,,1227,مقدم,moqadam-mashhad,3
+4,,3367,مقصود آباد,maghsud-abad,3
+4,,2250,ملا حبیب‌الله شریف,molla-habibollah-sharif,30
+2,,4032,ملارد,malard-city,904
+4,,592,ملارد,malard,2
+4,,3491,ملاشیه,molashie,7
+4,,505,ملاصدرا,mollasadra,6
+4,,2243,ملاصدرا,molla-sadra,30
+4,,1477,ملاصدرا,molla-sadra-esfahan,4
+4,,2319,ملاصدرا (راه آهن کاشان),molla-sadra-kashan,30
+2,,843,ملایر,malayer,899
+4,,1598,ملک,malek,4
+4,,1048,ملک‌آباد,malekabad-karaj,2
+4,,234,ملک‌آباد,malek-abad,1
+4,,4046,ملک‌آباد,malekabad-rey,1763
+2,,1778,ملک‌آباد,molkabad,880
+4,,4085,ملک‌آباد,malek-abad-eslam-shahr,29
+4,,1169,ملک‌آباد,malek-abad-garden,3
+4,,2259,ملک آباد,malek-abad-kashan,30
+2,,3524,ملکان,malekan,891
+2,,3598,ملکشاهی,malekshahi,888
+4,,383,ملک‌شهر,malekshahr,4
+2,,3520,ممقان,mamaqaan,891
+4,,3421,منازل سپاه,manazel-sepah,7
+4,,356,منازل کارون,piroozi,7
+4,,2645,منبع آب,manba-aab,8
+4,,3447,منبع اب,manbae-ab,7
+4,,2384,منتظرالمهدی,montazerolmahdi,4
+4,,2531,منتظری جنوبی,montazeri-jonubi,31
+4,,2541,منتظری شمالی,montazeri-shomali,31
+2,,3651,منج,minj,903
+2,,3501,منجوان,minjavan,891
+2,,1834,منجیل,manjil,889
+4,,4196,منجیل آباد,manjilabad,1765
+4,,3095,منزل آباد,manzelabad,3
+4,,1260,منصورآباد,mansoor-abad,6
+4,,3277,منصوریه,mansuriye,1776
+4,,232,منصوریه (پل سیمان),mansouriyeh,1
+4,,4047,منصوریه منگل,mansuriye-mangal,1763
+4,,2435,منطقه صنعتی سین,mantaqe-sanaati-sin,1744
+4,,548,منطقه هوایی شهید دوران,dowran,6
+4,,2862,منطقه ویژه اقتصادی,mantaghe-vije-eghtesadi,6
+4,,4393,منطقه ویژه اقتصادی پیام,mantaghe-vizhe-eghtesadi-payam,2
+4,,3361,منظر,manzar-torbat-heydariyeh,1776
+4,,3325,منظر,manzar,318
+4,,1882,منظریه,manzariyeh,12
+4,,4350,منظریه,manzariye,1751
+4,,587,منظریه,manzarieh,2
+2,,3846,منوجان,manujan,877
+4,,278,منیریه,moniriyeh,1
+2,,769,مهاباد (آذربایجان غربی),mahabad,881
+2,,2235,مهاباد (اصفهان),mahabad-city,890
+2,,1826,مهاجران,mohajeran,901
+4,,1398,مهدی‌آباد,mahdi-abad,6
+4,,1440,مهدی آباد,negarestan,4
+4,,2683,مهدی آباد,mahdi-abad-qom,8
+4,,643,مهدی آباد,rajaee,3
+4,,1137,مهدی آباد (بلوار توس),mahdiabad,3
+2,,3715,مهدی شهر,mahdi-shahr,882
+4,,4276,مهدیه,mahdiye-gharchak,1761
+4,,2578,مهدیه,mahdiye,8
+4,,1495,مهدیه,mahdiyeh-esfahan,4
+2,,1792,مهر,mohr,898
+4,,2599,مهر آباد,mehr-aabad,8
+4,,914,مهرآباد,sar-asiyab-mehr-abad,1
+4,,1494,مهرآباد,mehr-abad,4
+4,,186,مهرآباد جنوبی,south-mehrabad,1
+4,,174,مهران,hasan-abad-shomali,1
+2,,1823,مهران (ایلام),mehran,888
+4,,95,مهران (سیدخندان),seyed-khandan,1
+2,,3957,مهران (هرمزگان),mehran-city,894
+2,,3513,مهربان,mehraban,891
+2,,3772,مهرستان,mehrestan,883
+4,,3409,مهرشهر,mehrshahr-ahvaz,7
+2,,3773,مهرگان,mehregan-city,883
+4,,2132,مهرگان,mehregan-lahijan,746
+4,,571,مهرویلا جنوبی,mehrvilla,2
+4,,4431,مهرویلا شمالی,mehrvila-shomali,2
+2,,1830,مهریز,mehriz,886
+4,,4313,مهستان,mahestan,1
+2,,3002,مه ولات,mahvelat,880
+4,,2067,موج شکن,moj-shekan,708
+2,,3802,موچش,muchesh,885
+2,,3675,مود,mud,876
+2,,3588,موران,moran,906
+4,,2480,مورچه خورت,murchekhort,1744
+4,,3323,مورشک,murashk,1776
+4,,479,موسوی قوچانی,mousavighoochani,3
+2,,3609,موسیان,musian,888
+4,,1196,موعود,mooud,3
+2,,3891,موگرمون,mogarmun,887
+2,,2236,موگوئی,mogouyi,890
+4,,3308,مولانا,molana,791
+4,,266,مولوی,molavi,1
+4,,1453,مولوی,modarres-isfahan,4
+4,,2556,مولوی شمالی,molavi-shomali,31
+2,,3716,میامی,miami,882
+4,,2055,میان پشته,mian-poshte,708
+4,,3041,میان جام,miyan-jam,791
+2,,3003,میان جلگه,mian-jolgeh,880
+4,,2284,میانچال,mianchal,30
+2,,792,میاندوآب,miandoab,881
+4,,516,میانرود,mianrood,6
+2,,3652,میانکوه,miankuh,903
+2,,764,میانه,mianeh,891
+4,,3036,میان ولایت,miyan-velaayat,3
+2,,3004,میان ولایت,mian-velayat,880
+2,,845,میبد,meybod,886
+4,,3198,میدان بار,meydan-bar,316
+4,,3141,میدان حافظ,meydan-hafez,318
+4,,1368,میدان شاه,shah-square,6
+4,,4609,میدان قائم,meydan-ghaem,6
+4,,2262,میدان کهنه,meydan-koohneh,30
+4,,2285,میدانگاه آقا,meydangah-aga,30
+4,,3256,میدان مرکزی,meydan-markazi,1776
+4,,2261,میدان میوه تره بار,meydan-miveh-tareh-bar,30
+4,,4129,میدان میوه و تره‌بار مرکزی,meydan-mive-va-terehbar-markazi,1
+4,,4534,میدان میوه و تره بار مرکزی,meydan-mive-va-tare-bar-markazi,2
+4,,2601,میدان نو,meydan-no,8
+4,,658,میدان ولیعصر,valiasr,1
+4,,3152,میدون بار,meydoon-bar,318
+2,,3774,میرجاوه,mirjaveh,883
+4,,74,میرداماد,mirdamad,1
+4,,4279,میرزائی جنوبی,mirzaei-jonubi,1761
+4,,4284,میرزائی شمالی,mirzaei-shomali,1761
+4,,615,میرزائیه,jomhoori,8
+4,,2807,میرزاکوچک خان,mirza-koochak-khan,6
+4,,1583,میرعماد,miremad,4
+4,,3312,میرقوام الدین,mirghavamedin,791
+4,,3075,میعاد (شهرک غرب),miad,3
+2,,3931,میلاجرد,milajerd,901
+2,,2756,میمند,mimand,898
+2,,2237,میمه,meymeh,890
+2,,841,میناب,minab,894
+4,,1018,مینابی,minabi,1
+2,,3775,مینان,minan,883
+4,,975,مینای جنوبی,mina,1
+4,,4139,مینای شمالی (مخبر),minay-shomali-mokhber,1
+2,,1693,مینودشت,minoodasht,897
+4,,49,مینی‌سیتی (شهرک نفت),shahrak-naft,1
+2,,2209,نائین,naaeein,890
+4,,3478,ناحیه صنعتی کارون,nahie-sanati-karun,7
+4,,328,نادری,naderi,7
+4,,399,نارمک,narmak,1
+4,,954,نارمک جنوبی,south-narmak,1
+4,,4602,نارنجستان,narenjestan-shiraz,6
+4,,252,نازی‌آباد,nazi-abad,1
+2,,3776,نازیل,nazil,883
+4,,1493,ناژوان,nazhvan,4
+4,,3155,ناسیونال,national,318
+4,,2092,ناسیونال,nasional,708
+4,,1434,ناصرخسرو,naser-khosro,4
+4,,2664,ناصردیوان,naserdivan,8
+2,,3654,ناغان,naghan,903
+2,,3565,نالوس,nalus,881
+4,,2155,نامجو,namjoo,12
+4,,2080,نامجو,namju,708
+4,,344,نبوت,nabovvat,7
+4,,2461,نبوت,nobovat,1744
+4,,967,نبی اکرم,nabi-akram,1
+4,,936,نجات اللهی,nejatollahi,1
+2,,31,نجف‌آباد,najafabad,890
+4,,2431,نجف‌آباد,najafabad-najaf-abad,31
+4,,4460,نجم آباد,najmabad,774
+4,,2860,نجم آباد,najm-abad,6
+2,,3566,نختالو,nakhtalu,881
+4,,2149,نخودچر,naxodchar,12
+4,,632,نخودی,modarres,8
+4,,4388,ندامتگاه کرج (قزلحصار),nedamatgah-karaj-qezel-hesar,2
+2,,4018,ندوشن,nadushan,886
+4,,3055,نرگس (شهرک غرب),narges,3
+2,,3845,نرماشیر,narmashir,877
+4,,4369,نسترن شرقی,nastaran-sharghi,1751
+4,,4371,نسترن غربی,nastaran-gharbi,1751
+2,,3777,نسکند,naskand,883
+4,,2458,نسیم ۵,nasim-1,1744
+2,,784,نسیم‌شهر,nasimshahr,904
+4,,4266,نسیم‌شهر,nasim-shahr,784
+4,,1396,نشاط,neshat-shiraz,6
+2,,1818,نشتارود,nashtarud,893
+4,,2764,نصر,nasr,6
+2,,3005,نصر آباد,nasr-abad-city,880
+4,,1331,نصرآباد,nasr-abad,6
+4,,1545,نصرآباد,nasr-abad-isfahan,4
+4,,935,نصرت,nosrat,1
+2,,3778,نصرت‌آباد (زاهدان),nosrat-abad,883
+4,,4207,نصیرشهر,nasirshahr,1765
+2,,2210,نطنز,natanz,890
+4,,132,نظام‌آباد,nezam-abad,1
+4,,3101,نظام دوست,nezam-doust,3
+4,,2455,نظامی,nezami,1744
+4,,3311,نظامی,nezami-torbat-jam,791
+4,,934,نظامی گنجوی (توانیر),tavanir,1
+2,,774,نظرآباد,nazarabad,895
+4,,4462,نظرآباد,nazarabad-district,774
+2,,3535,نظر کهریزی,nazar-kahrizi,891
+4,,1918,نظری,nazari,12
+4,,262,نعمت‌آباد,nemat-abad,1
+2,,770,نقده,naqadeh,881
+4,,1522,نقش جهان,naqshe-jahan,4
+4,,2815,نقش رستم,naqsh-rostam,1788
+2,,838,نکا,neka,893
+4,,3017,نکاح,nekaah,3
+2,,3828,نگار,negar,877
+4,,4532,نگارستان,negarestan-fardis,1751
+2,,1976,نگین شهر,negin-shahr,897
+4,,4315,نگین غرب,negin-gharb,1
+2,,3844,نگین کویر,negin-kavir,877
+4,,2544,نمازی,namazi,31
+4,,4171,نمایشگاه بین المللی,namayeshgah-beyn-olmelali,1
+4,,2377,نمایشگاه بین المللی اصفهان,namayeshgah-beyn-olmellali-esfahan,4
+4,,1613,نمایشگاه بین المللی مشهد,mashhad-international-exhibition,3
+2,,3795,نمشیر,namshir,885
+2,,1742,نمین,namin,906
+2,,3807,ننور,nannur,885
+2,,844,نهاوند,nahavand,899
+2,,3681,نهبندان,nahbandan,876
+4,,312,نواب,shahid-navab-safavi,1
+4,,1894,نواب,navaab,12
+4,,3247,نواب صفوی,navab-safavi-torbat-heydariyeh,1776
+4,,3225,نواب صفوی,navab-safavi,316
+2,,3926,نوبران,nobaran,901
+2,,2760,نوبندگان,noubandegan,898
+4,,4571,نوبهار,nobahar,1773
+4,,2651,نوبهار,sarajeh,8
+4,,3378,نوچاه,nochah,3
+2,,3006,نوخندان,nokhandan,880
+4,,3089,نوده,nudeh,3
+4,,4206,نوده,nude,1765
+2,,3007,نوده انقلاب,nodeh-enghelab,880
+2,,1990,نوده خاندوز,nodeh-khandoz,897
+2,,744,نور,nur,893
+2,,753,نورآباد,nurabad,884
+2,,1794,نورآباد ممسنی,norabad,898
+4,,4394,نوروزآباد,noruzabad,2
+4,,2096,نوروزی,nowruzi,708
+2,,3879,نوسود,navsud,905
+4,,2263,نوش آباد,noosh-abad,30
+2,,709,نوشهر,nowshahr,893
+2,,3567,نوشین شهر,nushin-shahr,881
+4,,2053,نوغان,noqan,708
+4,,1205,نوغان,noghan,3
+4,,461,نوفل لوشاتو,nofellowshatow,3
+4,,626,نوقطار,payamenoor,8
+2,,1985,نوکنده,nokandeh,897
+4,,4541,نوگوران,noguran,1745
+4,,1144,نوید,keshavaz,3
+2,,2238,نیاسر,niasar,890
+4,,42,نیاوران,niavaran,1
+4,,1299,نیایش,niayesh,6
+2,,3573,نیر (اردبیل),nir,906
+4,,607,نیروگاه,tohid-ghom,8
+4,,2404,نیروگاه,nirugah,4
+4,,4356,نیروگاه برق,nirugah-bargh,1751
+4,,3163,نیروگاه سیکل ترکیبی خیام,nirugah-cycle-tarkibi-khayyam,318
+4,,1878,نیروی دریایی,niroo-daryaee,12
+4,,4173,نیروی دریایی,niruye-daryaei,1
+4,,1118,نیروی هوایی,shahrak-e-niru-ye-havayi,3
+4,,134,نیروی هوایی (پیروزی),niroo-havayi,1
+2,,1726,نی‌ریز,neyriz,898
+2,,4019,نیر (یزد),nirs,886
+4,,1229,نیزه,neyzeh,3
+4,,1380,نیستان,kuy-tollab,6
+2,,318,نیشابور,neyshabur,880
+4,,1879,نیکرام,nikmaraam,12
+2,,3779,نیک شهر,nik-shahr,883
+4,,2158,نیکمرام,nikmaram,12
+4,,290,نیکنام,soleymanieh,1
+4,,939,نیلوفر,niloufar,1
+2,,3669,نیمبلوک,nimbuluk,876
+2,,3780,نیمروز,nimrooz,883
+4,,2044,نیمه شعبان,nime-shaban,708
+4,,357,نیوسایت,newsite,7
+4,,3424,نیوساید,park-laleh,7
+2,,1977,هادی شهر,hadi-shahr,893
+4,,270,هاشم‌آباد,hashem-abad,1
+4,,4221,هاشم‌آباد,hashemabad,1763
+4,,1002,هاشمی,hashemi,1
+4,,3271,هاشمی‌نژاد,hashemi-nejad,1776
+4,,432,هاشمیه,hashemieh,3
+2,,3781,هامون,hamun,883
+2,,2009,هچیرود,hachirud,893
+4,,1148,هدایت,kuy-e-nane-razavi,3
+2,,1799,هرسین,harsin,905
+2,,1821,هرمز,hormuz,894
+2,,2211,هرند,harand,890
+4,,4167,هرندی,harandi,1
+4,,1024,هروی,heravi,1
+2,,3514,هریس,heris,891
+2,,3391,هزارجریب,hezarjarib-city,893
+4,,2409,هزارجریب,hezarjarib,4
+4,,924,هزارسنگ,hezarsang,1
+2,,3008,هزار مسجد,hezar-masjed,880
+4,,4456,هزار واحدی,hezar-vahedi,1752
+4,,403,هشت بهشت,hashtbehesht,4
+4,,2035,هشتپر,hashtpar,829
+2,,3530,هشترود,hashtrood,891
+2,,1754,هشتگرد,hashtgerd-city,895
+4,,4510,هشتگرد قدیم,hashtgerd-ghadim,1754
+4,,1401,هفت تنان,haft-tanan,6
+4,,3196,هفت تیر,haft-tir,316
+4,,619,هفت تیر,haftetir-ghom,8
+4,,585,هفت تیر,haftetir-karaj,2
+4,,3018,هفت تیر (آب و برق),ab-va-bargh,3
+4,,467,هفت تیر (حافظ),haftetir,3
+4,,3087,هفت تیر (نه دره),nah-darreh,3
+4,,4273,هفت جوی,haft-juy,1758
+4,,1006,هفت چنار,haftchenar,1
+4,,119,هفت حوض,haft-hoz,1
+2,,3400,هفتگل,haftgel,902
+4,,1573,هفتون,haftoon,4
+2,,3724,هفدر,hafdar,882
+4,,452,هفده شهریور,17shahrivar,3
+4,,184,هفده شهریور,kooye-e-hefdahom-e-shahrivar,1
+4,,2554,هفده شهریور,haftdah-shahrivar,31
+4,,3122,هفده شهریور,hefdah-shahrivar-nishabur,318
+4,,4159,هلال احمر,helal-ahmar-tehran,1
+4,,2184,هلال احمر,helal-ahmar,12
+2,,3009,هلالی,helali,880
+4,,4385,هلجرد,haljerd,2
+2,,3607,هلیلان,halilan,888
+2,,2758,همایجان,homayjan,898
+4,,4449,همایون ویلا,homayoun-vila,1752
+4,,3188,همت,hemmat,316
+4,,1592,همت‌آباد,hemat-abad,4
+4,,3090,همت آباد,hemmatabad,3
+2,,14,همدان,hamedan,899
+4,,1481,همدانیان,hamedaniyan,4
+2,,3596,هندمینی,handemini,888
+2,,3983,هندورابی,jazireh-hendorabi,894
+2,,1783,هندیجان,hendijan,902
+4,,477,هنرستان,honarestan,3
+4,,617,هنرستان,honarestan-ghom,8
+4,,1154,هنرور,shahid-honarvar,3
+2,,3831,هنزا,henza,877
+2,,3946,هنگام,jazireh-hengam,894
+4,,2411,هوانیروز,havaniruz,4
+4,,908,هوانیروز,havanirooz,1
+2,,3516,هوراند,horand,891
+4,,3201,هویزه,hoveizeh,316
+2,,4573,هویزه,hoyze,902
+2,,3782,هیدوچ,hiduch,883
+2,,3589,هیر,hir,906
+2,,3783,هیرمند,hirmand,883
+4,,1557,هیستان,histan,4
+4,,4478,هیو,hiv,1754
+2,,1969,واجارگاه,vajargah,889
+4,,2604,وادی السلام,vaadi-ossalaam,8
+4,,4118,واصفجان,vasafjan,1767
+4,,932,والفجر,shahrak-valfajr,1
+4,,3282,والفجر,valfajr-torbat-jam,791
+4,,4152,والفجر (افسریه),valfajr-afsarieh,1
+4,,506,وحدت,modarresblvd,6
+2,,3618,وحدتیه,vahdatiyeh,900
+4,,1192,وحید,vahid-mashhad,3
+4,,1531,وحید,vahid-isfahan,4
+2,,1711,وحیدیه,vahidieh,904
+4,,133,وحیدیه,vahidiyeh,1
+2,,1762,ورامین,varamin-city,904
+4,,4303,ورامین,varamin-district,1762
+2,,2759,وراوی,varavi,898
+4,,374,وردآورد,vardavard,1
+2,,2239,وردشت,vardasht,890
+4,,4135,ورزشگاه آزادی,varzeshgah-azadi,1
+4,,2492,ورزشگاه فولادشهر,varzeshgah-fuladshahr,1745
+4,,2374,ورزشگاه نقش جهان,varzeshgah-naghsh-jahan,4
+2,,3511,ورزقان,varzeghan,891
+2,,2212,ورزنه,varzaneh,890
+4,,1323,وزیرآباد,vazir-abad,6
+2,,3568,وزینه,vazine,881
+4,,1373,وصال,vesal,6
+4,,269,وصفنارد,vasfenard,1
+4,,430,وکیل‌آباد,vakilabad,3
+4,,2839,ولایت,velayat,1788
+4,,4450,ولدآباد,valadabad,1752
+4,,4452,ولدآباد بزرگ,valadabad-bozorg,1752
+4,,1464,ولدان,veldan,4
+4,,2152,ولکس,volox,12
+4,,55,ولنجک,velenjak,1
+4,,4053,ولی آباد,valiabad,1763
+4,,4297,ولی آباد,vali-abad,1761
+4,,2247,ولی سلطان,vali-soltan,30
+4,,2528,ولیعصر,valiasr-najaf-abad,31
+4,,2673,ولیعصر,vali-asr-qom,8
+4,,2358,ولیعصر,vali-asr,30
+4,,3060,ولیعصر (شهرک غرب),vali-asr-emamiyeh,3
+4,,3179,ولیعصر (نجار آباد),vali-asr-najjarabad,316
+4,,315,ونک,vanak,1
+4,,4209,وهن آباد,vahan-abad,1765
+2,,3917,ویسیان,veysian,884
+4,,1408,ویلاشهر,kimia-villa-complex,6
+4,,4576,ویلاشهر,vilashahr-ahvaz,7
+4,,308,ویلاشهر,shahrak-e-vilashahr,1
+4,,3083,ویلاشهر,vilashahr-mashhad,3
+4,,2484,ویلاشهر,vilashahr,31
+2,,3590,ویلکیج,vilkij,906
+4,,250,یاخجی آباد,yakhchi-abad,1
+4,,3076,یاس,yas,3
+2,,38,یاسوج,yasuj,887
+4,,3336,باغون آباد,yaghunabad,3
+4,,1008,یافت‌آباد,tehran-shandiz,1
+4,,192,یافت آباد جنوبی,yaftabad,1
+4,,191,یافت آباد شمالی,ebrahim-abad,1
+2,,3505,یامچی,yamchi,891
+2,,3392,یانه سر,yaneh-sar,893
+4,,2118,یحی آباد,yahi-abad,746
+4,,3236,یحیی آباد,yahia-abad-torbat-heydariyeh,1776
+4,,2303,یحیی آباد,yahia-abad,30
+4,,3286,یحیی آباد,yahia-abad-torbat-jam,791
+4,,2627,یخچال قاضی,yakhchal-ghazi,8
+4,,1358,یخ سازی,zerehi,6
+4,,1880,یخسازی,yakhsaazi,12
+2,,16,یزد,yazd,886
+4,,2350,یزد‌آباد,yazdaabaad,30
+4,,1469,یزد‌آباد,yazd-abad,4
+4,,628,یزدان‌شهر,yazdanshahr,8
+2,,3826,یزدان شهر,yazdan-shahr-city,877
+4,,2520,یزدانشهر,yazdanshahr-najaf-abad,31
+4,,4451,یزدیها,yazdiha,1752
+4,,4194,یقه,yaghe,1765
+2,,2002,ینقاق,yanghagh,897
+4,,4525,ینگی امام,yengi-emam,1754
+4,,90,یوسف‌آباد,yousef-abad,1
+4,,2112,یوسف آباد,yusef-abad,746
+4,,4258,یوسف آباد صیرفی,yusef-abad-seyrefi,1759
+4,,348,یوسفی,yoosefi,7
+4,,3074,یوسفیه (شهرک غرب),yousefiyeh,3
+2,,3010,یونسی,younesi,880
+2,,4623,استانبول,istanbul,4621
+1,49,891,آذربایجان شرقی,azarbaijan-east-province,715
+1,45,881,آذربایجان غربی,azerbaijan-west-province,715
+1,29,906,اردبیل,ardabil-province,715
+1,57,890,اصفهان,isfahan-province,715
+1,16,895,البرز,alborz-province,715
+1,29,888,ایلام,ilam-province,715
+1,29,900,بوشهر,bushehr-province,715
+1,50,904,تهران,tehran-province,715
+1,26,903,چهارمحال و بختیاری,chahar-mahaal-and-bakhtiari,715
+1,28,876,خراسان جنوبی,khorasan-south-province,715
+1,82,880,خراسان رضوی,khorasan-razavi-province,715
+1,19,896,خراسان شمالی,khorasan-north-province,715
+1,32,902,خوزستان,khuzestan-province,715
+1,20,879,زنجان,zanjan-province,715
+1,16,882,سمنان,semnan-province,715
+1,67,883,سیستان و بلوچستان,sistan-and-baluchestan,715
+1,96,898,فارس,fars-province,715
+1,19,878,قزوین,qazvin-province,715
+1,9,892,قم,qom-province,715
+1,30,885,کردستان,kurdistan-province,715
+1,58,877,کرمان,kerman-province,715
+1,34,905,کرمانشاه,kermanshah-province,715
+1,22,887,کهگیلویه و بویراحمد,kohgiluyeh-and-boyer-ahmad,715
+1,36,897,گلستان,golestan-province,715
+1,56,889,گیلان,gilan-province,715
+1,31,884,لرستان,lorestan-province,715
+1,69,893,مازندران,mazandaran-province,715
+1,25,901,مرکزی,markazi-province,715
+1,48,894,هرمزگان,hormozgan-province,715
+1,26,899,همدان,hamadan-province,715
+1,24,886,یزد,yazd-province,715

@@ -1,0 +1,74 @@
+{{ define "category" }}
+{{ template "page_open" . }}
+<section class="mega-cat container">
+  <header class="mega-cat__intro">
+    <h1 class="mega-cat__title">{{ .Heading }}</h1>
+    <p class="mega-cat__desc">{{ format .T.Categories.Description .CityDisplayName }}</p>
+  </header>
+
+  {{ if .LoadError }}
+  <p class="mega-cat__error">{{ .LoadError }}</p>
+  {{ else if .Groups }}
+  <div class="mega-cat__shell" data-mega-cat data-active="{{ .ActiveID }}">
+    <aside class="mega-cat__sidebar" aria-label="{{ .T.Nav.Category }}">
+      <ul class="mega-cat__nav">
+        {{- range .Groups }}
+        <li>
+          <button
+            type="button"
+            class="mega-cat__nav-item{{ if eq $.ActiveID .ID }} is-active{{ end }}"
+            data-mega-id="{{ .ID }}"
+            aria-controls="mega-panel-{{ .ID }}"
+            aria-pressed="{{ if eq $.ActiveID .ID }}true{{ else }}false{{ end }}"
+          >
+            <span class="mega-cat__nav-icon">{{ template "category_icon" .Icon }}</span>
+            <span class="mega-cat__nav-label">{{ .Title }}</span>
+          </button>
+        </li>
+        {{- end }}
+      </ul>
+    </aside>
+
+    <div class="mega-cat__panel">
+      {{- range .Groups }}
+      <div
+        id="mega-panel-{{ .ID }}"
+        class="mega-cat__panel-body{{ if eq $.ActiveID .ID }} is-active{{ end }}"
+        data-mega-panel="{{ .ID }}"
+        {{ if ne $.ActiveID .ID }}hidden{{ end }}
+      >
+        <a href="{{ .Href }}" class="mega-cat__view-all">
+          {{ format $.T.Categories.ViewAll .Title }}
+          <svg class="mega-cat__view-all-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m9 6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+
+        {{- if .Columns }}
+        <div class="mega-cat__columns">
+          {{- range .Columns }}
+          <div class="mega-cat__column">
+            {{- if .Title }}
+            <h2 class="mega-cat__column-title">
+              <a href="{{ .Href }}">{{ .Title }}</a>
+            </h2>
+            {{- end }}
+            <ul class="mega-cat__links">
+              {{- range .Links }}
+              <li><a href="{{ .Href }}">{{ .Title }}</a></li>
+              {{- end }}
+            </ul>
+          </div>
+          {{- end }}
+        </div>
+        {{- else }}
+        <p class="mega-cat__empty">{{ $.T.Categories.Empty }}</p>
+        {{- end }}
+      </div>
+      {{- end }}
+    </div>
+  </div>
+  {{ end }}
+</section>
+{{ template "page_close" . }}
+{{ end }}

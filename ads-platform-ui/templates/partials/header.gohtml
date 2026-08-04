@@ -1,0 +1,48 @@
+{{ define "header" }}
+<header class="site-header">
+  <div class="site-header__inner container">
+    <a href="/query-ads" class="brand" aria-label="{{ .AppName }} — {{ .T.Header.HomeAria }}">
+      {{ template "brand_logo" . }}
+    </a>
+
+    <form class="header-search" action="/query-ads" method="get" role="search">
+      <label for="header-search-input" class="visually-hidden">{{ .T.Header.SearchLabel }}</label>
+      <input
+        id="header-search-input"
+        name="q"
+        type="search"
+        class="header-search__input"
+        placeholder="{{ .T.Header.SearchPlaceholder }}"
+        autocomplete="off"
+      />
+      <button type="submit" class="header-search__submit" aria-label="{{ .T.Header.SearchSubmit }}">
+        <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.75"/>
+          <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </form>
+
+    <nav class="site-nav" aria-label="{{ .T.Nav.MenuAria }}">
+      <a href="/category" class="site-nav__link{{ if eq .CurrentPath "/category" }} is-active{{ end }}">{{ .T.Nav.Category }}</a>
+      <a href="/location" class="site-nav__link{{ if eq .CurrentPath "/location" }} is-active{{ end }}">{{ .T.Nav.Location }}</a>
+    </nav>
+
+    <a href="/location" class="header-city" aria-label="{{ .T.Header.CityAria }}">
+      <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 21s7-4.35 7-11a7 7 0 1 0-14 0c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="1.75"/>
+        <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.75"/>
+      </svg>
+      <span>{{ .CityDisplayName }}</span>
+    </a>
+
+    <a href="/new-ad" class="btn btn--post header-post{{ if eq .CurrentPath "/new-ad" }} is-active{{ end }}">{{ .T.Nav.NewAd }}</a>
+    <a href="/my-info" class="header-account{{ if hasPrefix .CurrentPath "/my-info" }} is-active{{ end }}" aria-label="{{ .T.Nav.MyInfo }}">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.75"/>
+        <path d="M5 20c1.5-4 5-6 7-6s5.5 2 7 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+      </svg>
+    </a>
+  </div>
+</header>
+{{ end }}

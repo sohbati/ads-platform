@@ -1,0 +1,5 @@
+PORT=4000
+STATIC_DIR=./cdn
+CATEGORY_JSON=./cdn/json/category.json
+CITIES_JSON=./cdn/json/cities.json
+LOCATION_JSON=./cdn/json/location.json

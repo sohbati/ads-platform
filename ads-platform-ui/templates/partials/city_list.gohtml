@@ -1,0 +1,21 @@
+{{ define "city_list" }}
+<section class="cities" aria-labelledby="cities-heading">
+  <div class="container">
+    <div class="section-head section-head--row">
+      <div>
+        <h2 id="cities-heading" class="section-head__title">{{ .T.Cities.Title }}</h2>
+        <p class="section-head__desc">{{ .T.Cities.Description }}</p>
+      </div>
+      <a href="/location" class="section-head__link">{{ .T.Cities.AllCities }}</a>
+    </div>
+
+    <ul class="city-chips">
+      {{- range .PopularCities }}
+      <li>
+        <a href="{{ .Href }}" class="city-chip{{ if eq $.CitySlug .Slug }} is-active{{ end }}">{{ .Name }}</a>
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+</section>
+{{ end }}

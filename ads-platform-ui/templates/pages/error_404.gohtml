@@ -1,0 +1,10 @@
+{{ define "error_404" }}
+{{ template "page_open" . }}
+<section class="error-page container">
+  <p class="error-page__code">{{ .T.Error.Code }}</p>
+  <h1 class="error-page__title">{{ .T.Error.Heading }}</h1>
+  <p class="error-page__desc">{{ .T.Error.Description }}</p>
+  <a href="/query-ads" class="btn btn--primary">{{ .T.Error.BackHome }}</a>
+</section>
+{{ template "page_close" . }}
+{{ end }}

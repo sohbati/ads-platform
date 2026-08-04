@@ -1,0 +1,10 @@
+{{ define "page_open" }}
+<!doctype html>
+<html lang="{{ .Lang }}" dir="{{ .Dir }}">
+<head>
+  {{ template "head" . }}
+</head>
+<body class="page" dir="{{ .Dir }}">
+  {{ template "header" . }}
+  <main id="main-content" class="main">
+{{ end }}

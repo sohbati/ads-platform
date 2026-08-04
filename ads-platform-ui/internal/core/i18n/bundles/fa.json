@@ -1,0 +1,93 @@
+{
+  "locale": "fa",
+  "dir": "rtl",
+  "label": "فارسی",
+  "messages": {
+    "meta": {
+      "site_description": "خرید و فروش بی‌واسطه — جستجو در آگهی‌ها و ثبت آگهی جدید."
+    },
+    "header": {
+      "home_aria": "صفحهٔ اصلی",
+      "categories": "گروه‌ها",
+      "search_label": "جستجو در آگهی‌ها",
+      "search_placeholder": "جستجو در همهٔ آگهی‌ها",
+      "search_submit": "جستجو",
+      "city_aria": "انتخاب شهر",
+      "post_ad": "جدید",
+      "account_aria": "حساب کاربری"
+    },
+    "nav": {
+      "menu_aria": "منوی اصلی",
+      "query_ads": "جستجوی آگهی",
+      "my_info": "حساب من",
+      "new_ad": "آگهی جدید",
+      "category": "دسته‌بندی",
+      "location": "موقعیت",
+      "user_details": "اطلاعات کاربر",
+      "user_ads": "آگهی‌های من",
+      "marked_ads": "نشان‌شده‌ها",
+      "setting": "تنظیمات"
+    },
+    "hero": {
+      "title": "آنچه می‌خواهید را در %s پیدا کنید",
+      "subtitle": "از میان دسته‌بندی‌ها انتخاب کنید یا در بالای صفحه جستجو کنید."
+    },
+    "categories": {
+      "title": "دسته‌بندی‌ها",
+      "description": "یک دسته را برای مشاهدهٔ آگهی‌ها در %s انتخاب کنید",
+      "view_all": "همه آگهی‌های %s",
+      "empty": "زیردسته‌ای برای این گروه ثبت نشده است."
+    },
+    "cities": {
+      "title": "شهرهای پربازدید",
+      "description": "شهر را عوض کنید تا آگهی‌های محلی را ببینید",
+      "all_cities": "همهٔ شهرها"
+    },
+    "cta": {
+      "aria_label": "ثبت آگهی",
+      "title": "چیزی برای فروش دارید؟",
+      "description": "در چند قدم آگهی بگذارید — عکس، قیمت، و منتشر شد.",
+      "button": "ثبت آگهی"
+    },
+    "section": {
+      "coming_soon": "این بخش به‌زودی آماده می‌شود."
+    },
+    "footer": {
+      "tagline": "%s — خرید و فروش محلی، ساده و بی‌واسطه.",
+      "nav_aria": "پاورقی",
+      "about": "دربارهٔ ما",
+      "help": "راهنما",
+      "terms": "قوانین",
+      "privacy": "حریم خصوصی"
+    },
+    "error": {
+      "title": "صفحه پیدا نشد",
+      "heading": "صفحه پیدا نشد",
+      "description": "صفحه‌ای که دنبال آن هستید وجود ندارد یا جابه‌جا شده است.",
+      "back_home": "بازگشت به خانه",
+      "code": "۴۰۴"
+    },
+    "category_items": {
+      "real-estate": { "name": "املاک", "description": "اجاره، خرید و فروش" },
+      "vehicles": { "name": "وسایل نقلیه", "description": "خودرو، موتور و قطعات" },
+      "digital": { "name": "کالای دیجیتال", "description": "موبایل، لپ‌تاپ و گجت" },
+      "home": { "name": "خانه و آشپزخانه", "description": "مبلمان و لوازم" },
+      "services": { "name": "خدمات", "description": "تعمیرات، آموزش و بیشتر" },
+      "jobs": { "name": "استخدام", "description": "تمام‌وقت، پاره‌وقت و پروژه" },
+      "personal": { "name": "وسایل شخصی", "description": "پوشاک، زیبایی و اکسسوری" },
+      "leisure": { "name": "سرگرمی", "description": "ورزش، بلیت و سرگرمی" }
+    },
+    "city_names": {
+      "tehran": "تهران",
+      "mashhad": "مشهد",
+      "karaj": "کرج",
+      "shiraz": "شیراز",
+      "isfahan": "اصفهان",
+      "ahvaz": "اهواز",
+      "tabriz": "تبریز",
+      "kermanshah": "کرمانشاه",
+      "qom": "قم",
+      "rasht": "رشت"
+    }
+  }
+}

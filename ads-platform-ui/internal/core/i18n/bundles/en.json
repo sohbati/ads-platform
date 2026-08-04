@@ -1,0 +1,93 @@
+{
+  "locale": "en",
+  "dir": "ltr",
+  "label": "English",
+  "messages": {
+    "meta": {
+      "site_description": "Buy and sell locally — search listings and post your ad in minutes."
+    },
+    "header": {
+      "home_aria": "Home",
+      "categories": "Categories",
+      "search_label": "Search listings",
+      "search_placeholder": "Search all listings",
+      "search_submit": "Search",
+      "city_aria": "Choose city",
+      "post_ad": "Post ad",
+      "account_aria": "Account"
+    },
+    "nav": {
+      "menu_aria": "Main menu",
+      "query_ads": "Browse ads",
+      "my_info": "My info",
+      "new_ad": "New ad",
+      "category": "Category",
+      "location": "Location",
+      "user_details": "User details",
+      "user_ads": "My ads",
+      "marked_ads": "Saved ads",
+      "setting": "Settings"
+    },
+    "hero": {
+      "title": "Find what you need in %s",
+      "subtitle": "Browse categories or use the search bar above."
+    },
+    "categories": {
+      "title": "Browse categories",
+      "description": "Pick a category to explore listings in %s",
+      "view_all": "All %s listings",
+      "empty": "No subcategories in this group yet."
+    },
+    "cities": {
+      "title": "Popular cities",
+      "description": "Switch city to see local listings",
+      "all_cities": "All cities"
+    },
+    "cta": {
+      "aria_label": "Post a listing",
+      "title": "Have something to sell?",
+      "description": "Post your ad in a few steps — photos, price, and you are live.",
+      "button": "Post your ad"
+    },
+    "section": {
+      "coming_soon": "This section is coming soon."
+    },
+    "footer": {
+      "tagline": "%s — buy and sell locally, without the hassle.",
+      "nav_aria": "Footer",
+      "about": "About",
+      "help": "Help",
+      "terms": "Terms",
+      "privacy": "Privacy"
+    },
+    "error": {
+      "title": "Page not found",
+      "heading": "Page not found",
+      "description": "The page you are looking for does not exist or has been moved.",
+      "back_home": "Back to home",
+      "code": "404"
+    },
+    "category_items": {
+      "real-estate": { "name": "Real Estate", "description": "Rent, buy & sell property" },
+      "vehicles": { "name": "Vehicles", "description": "Cars, motorcycles & parts" },
+      "digital": { "name": "Digital", "description": "Phones, laptops & gadgets" },
+      "home": { "name": "Home & Living", "description": "Furniture, appliances & decor" },
+      "services": { "name": "Services", "description": "Repairs, lessons & more" },
+      "jobs": { "name": "Jobs", "description": "Full-time, part-time & gigs" },
+      "personal": { "name": "Personal", "description": "Clothing, beauty & accessories" },
+      "leisure": { "name": "Leisure", "description": "Sports, tickets & hobbies" }
+    },
+    "city_names": {
+      "tehran": "Tehran",
+      "mashhad": "Mashhad",
+      "karaj": "Karaj",
+      "shiraz": "Shiraz",
+      "isfahan": "Isfahan",
+      "ahvaz": "Ahvaz",
+      "tabriz": "Tabriz",
+      "kermanshah": "Kermanshah",
+      "qom": "Qom",
+      "rasht": "Rasht"
+    }
+  }
+}

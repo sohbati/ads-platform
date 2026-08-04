@@ -1,0 +1,17 @@
+{{ define "query_ads" }}
+{{ template "page_open" . }}
+  {{ template "search_hero" . }}
+  {{ template "category_grid" . }}
+  {{ template "city_list" . }}
+
+  <section class="cta-banner container" aria-label="{{ .T.CTA.AriaLabel }}">
+    <div class="cta-banner__card">
+      <div class="cta-banner__text">
+        <h2 class="cta-banner__title">{{ .T.CTA.Title }}</h2>
+        <p class="cta-banner__desc">{{ .T.CTA.Description }}</p>
+      </div>
+      <a href="/new-ad" class="btn btn--primary btn--lg">{{ .T.CTA.Button }}</a>
+    </div>
+  </section>
+{{ template "page_close" . }}
+{{ end }}

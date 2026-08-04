@@ -1,0 +1,226 @@
+[
+    {
+        "id": 1,
+        "parent": 0,
+        "type": 0,
+        "slug": "iran",
+        "name": "ایران"
+    },
+    {
+        "id": 2,
+        "parent": 1,
+        "type": 1,
+        "slug": "azarbaijan-e-sharghi",
+        "name": "آذربایجان شرقی"
+    },
+    {
+        "id": 3,
+        "parent": 1,
+        "type": 1,
+        "slug": "azarbaijan-e-gharbi",
+        "name": "آذربایجان غربی"
+    },
+    {
+        "id": 4,
+        "parent": 1,
+        "type": 1,
+        "slug": "ardabil",
+        "name": "اردبیل"
+    },
+    {
+        "id": 5,
+        "parent": 1,
+        "type": 1,
+        "slug": "esfahan",
+        "name": "اصفهان"
+    },
+    {
+        "id": 6,
+        "parent": 1,
+        "type": 1,
+        "slug": "alborz",
+        "name": "البرز"
+    },
+    {
+        "id": 7,
+        "parent": 1,
+        "type": 1,
+        "slug": "ilam",
+        "name": "ایلام"
+    },
+    {
+        "id": 8,
+        "parent": 1,
+        "type": 1,
+        "slug": "bushehr",
+        "name": "بوشهر"
+    },
+    {
+        "id": 9,
+        "parent": 1,
+        "type": 1,
+        "slug": "tehran",
+        "name": "تهران"
+    },
+    {
+        "id": 10,
+        "parent": 1,
+        "type": 1,
+        "slug": "chaharmahal-va-bakhtiari",
+        "name": "چهارمحال و بختیاری"
+    },
+    {
+        "id": 11,
+        "parent": 1,
+        "type": 1,
+        "slug": "khorasan-e-jonubi",
+        "name": "خراسان جنوبی"
+    },
+    {
+        "id": 12,
+        "parent": 1,
+        "type": 1,
+        "slug": "khorasan-e-razavi",
+        "name": "خراسان رضوی"
+    },
+    {
+        "id": 13,
+        "parent": 1,
+        "type": 1,
+        "slug": "khorasan-e-shomali",
+        "name": "خراسان شمالی"
+    },
+    {
+        "id": 14,
+        "parent": 1,
+        "type": 1,
+        "slug": "khuzestan",
+        "name": "خوزستان"
+    },
+    {
+        "id": 15,
+        "parent": 1,
+        "type": 1,
+        "slug": "zanjan",
+        "name": "زنجان"
+    },
+    {
+        "id": 16,
+        "parent": 1,
+        "type": 1,
+        "slug": "semnan",
+        "name": "سمنان"
+    },
+    {
+        "id": 17,
+        "parent": 1,
+        "type": 1,
+        "slug": "sistan-va-baluchestan",
+        "name": "سیستان و بلوچستان"
+    },
+    {
+        "id": 18,
+        "parent": 1,
+        "type": 1,
+        "slug": "fars",
+        "name": "فارس"
+    },
+    {
+        "id": 19,
+        "parent": 1,
+        "type": 1,
+        "slug": "qazvin",
+        "name": "قزوین"
+    },
+    {
+        "id": 20,
+        "parent": 1,
+        "type": 1,
+        "slug": "qom",
+        "name": "قم"
+    },
+    {
+        "id": 21,
+        "parent": 1,
+        "type": 1,
+        "slug": "kordestan",
+        "name": "کردستان"
+    },
+    {
+        "id": 22,
+        "parent": 1,
+        "type": 1,
+        "slug": "kerman",
+        "name": "کرمان"
+    },
+    {
+        "id": 23,
+        "parent": 1,
+        "type": 1,
+        "slug": "kermanshah",
+        "name": "کرمانشاه"
+    },
+    {
+        "id": 24,
+        "parent": 1,
+        "type": 1,
+        "slug": "kohgiluyeh-va-boyrahmad",
+        "name": "کهگیلویه و بویراحمد"
+    },
+    {
+        "id": 25,
+        "parent": 1,
+        "type": 1,
+        "slug": "golestan",
+        "name": "گلستان"
+    },
+    {
+        "id": 26,
+        "parent": 1,
+        "type": 1,
+        "slug": "gilan",
+        "name": "گیلان"
+    },
+    {
+        "id": 27,
+        "parent": 1,
+        "type": 1,
+        "slug": "lorestan",
+        "name": "لرستان"
+    },
+    {
+        "id": 28,
+        "parent": 1,
+        "type": 1,
+        "slug": "mazandaran",
+        "name": "مازندران"
+    },
+    {
+        "id": 29,
+        "parent": 1,
+        "type": 1,
+        "slug": "markazi",
+        "name": "مرکزی"
+    },
+    {
+        "id": 30,
+        "parent": 1,
+        "type": 1,
+        "slug": "hormozgan",
+        "name": "هرمزگان"
+    },
+    {
+        "id": 31,
+        "parent": 1,
+        "type": 1,
+        "slug": "hamedan",
+        "name": "همدان"
+    },
+    {
+        "id": 32,
+        "parent": 1,
+        "type": 1,
+        "slug": "yazd",
+        "name": "یزد"
+    }
+]

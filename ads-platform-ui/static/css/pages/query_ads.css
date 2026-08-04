@@ -1,0 +1,202 @@
+/* Hero & search */
+.hero {
+  padding: var(--space-2xl) 0 var(--space-xl);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+}
+
+.hero__title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  max-width: 16ch;
+}
+
+.hero__subtitle {
+  margin-top: var(--space-md);
+  max-width: 42ch;
+  color: var(--color-text-muted);
+  font-size: 1.0625rem;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+  padding: var(--space-sm);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.search-bar__icon {
+  margin-inline-start: var(--space-sm);
+  color: var(--color-text-subtle);
+}
+
+.search-bar__input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-md) var(--space-sm);
+  border: none;
+  background: transparent;
+}
+
+.search-bar__input::placeholder {
+  color: var(--color-text-subtle);
+}
+
+.search-bar__submit {
+  flex-shrink: 0;
+}
+
+/* Category grid */
+.categories {
+  padding: var(--space-xl) 0;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-md);
+}
+
+.category-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.category-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.category-card__icon-wrap {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.category-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.category-card__name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.category-card__desc {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-card__arrow {
+  color: var(--color-text-subtle);
+}
+
+/* Cities */
+.cities {
+  padding: var(--space-lg) 0 var(--space-xl);
+}
+
+.city-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.city-chip {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.city-chip:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-hover);
+}
+
+/* CTA banner */
+.cta-banner {
+  padding-bottom: var(--space-2xl);
+}
+
+.cta-banner__card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  padding: var(--space-xl);
+  background: linear-gradient(135deg, var(--color-primary-soft) 0%, var(--color-accent-soft) 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.cta-banner__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.cta-banner__desc {
+  margin-top: var(--space-xs);
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .site-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header__inner {
+    flex-wrap: wrap;
+    padding-block: var(--space-sm);
+    min-height: auto;
+  }
+
+  .header-search {
+    order: 10;
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  .header-post {
+    margin-inline-start: auto;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+}
