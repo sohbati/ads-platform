@@ -11,3 +11,6 @@ test: ## Run unit tests only
 
 test-integration: ## Run integration tests with testcontainers (requires Docker)
 	go test -tags=integration -timeout=20m -v ./tests/...
+
+test-otp: ## Run OTP verify integration tests only
+	go test -tags=integration -timeout=20m -v ./tests/otp_verify/...
