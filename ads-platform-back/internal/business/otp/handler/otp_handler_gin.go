@@ -23,7 +23,7 @@ func (h *OtpHandler) SendOTP(c *gin.Context) {
 
 	resp, err := h.otpService.SendOTP(c.Request.Context(), mobile)
 	if err != nil {
-		middleware.HandleError(c, err, http.StatusMethodNotAllowed)
+		middleware.HandleError(c, err, 0)
 		return
 	}
 
@@ -41,7 +41,7 @@ func (h *OtpHandler) VerifyOTP(c *gin.Context) {
 
 	resp, err := h.otpService.VerifyOTP(c.Request.Context(), mobile, req.Otp)
 	if err != nil {
-		middleware.HandleError(c, err, http.StatusMethodNotAllowed)
+		middleware.HandleError(c, err, 0)
 		return
 	}
 

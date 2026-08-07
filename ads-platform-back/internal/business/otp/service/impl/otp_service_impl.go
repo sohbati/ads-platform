@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/rand"
 	"fmt"
+	"log"
 	"math/big"
 
 	"ads-platform/internal/business/otp/client"
@@ -14,11 +15,15 @@ import (
 )
 
 type otpService struct {
-	cacheClient client.OtpCacheClient
+	cacheClient    client.OtpCacheClient
+	eventPublisher client.OtpEventPublisher
 }
 
-func NewOtpService(cacheClient client.OtpCacheClient) service.OtpService {
-	return &otpService{cacheClient: cacheClient}
+func NewOtpService(cacheClient client.OtpCacheClient, eventPublisher client.OtpEventPublisher) service.OtpService {
+	return &otpService{
+		cacheClient:    cacheClient,
+		eventPublisher: eventPublisher,
+	}
 }
 
 func (s *otpService) SendOTP(ctx context.Context, mobile string) (*model.SendOtpResponse, error) {
@@ -28,6 +33,7 @@ func (s *otpService) SendOTP(ctx context.Context, mobile string) (*model.SendOtp
 	}
 
 	otp, err := generateOTP()
+	log.Printf("otp: %s", otp)
 	if err != nil {
 		return nil, fmt.Errorf("generate otp: %w", err)
 	}
@@ -35,6 +41,10 @@ func (s *otpService) SendOTP(ctx context.Context, mobile string) (*model.SendOtp
 	if err := s.cacheClient.StoreOTP(ctx, otpCacheKey(mobile), otp); err != nil {
 		return nil, exception.NewAppError(
 			errorcode.ErrCacheUnavailable.Code, errorcode.ErrCacheUnavailable.HttpStatus, mobile).WithCause(err)
+	}
+
+	if err := s.eventPublisher.PublishOtpEvent(ctx, mobile, otp); err != nil {
+		log.Printf("failed to publish otp event for mobile=%s: %v", mobile, err)
 	}
 
 	return &model.SendOtpResponse{Message: "otp_sent"}, nil

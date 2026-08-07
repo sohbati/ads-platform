@@ -20,25 +20,30 @@ type ErrorResponse struct {
 // It catches all errors from handlers and formats them consistently
 func GlobalErrorHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		// Process the request
 		c.Next()
-		log.Printf("********")
-		// Check for errors set by handlers
-		if len(c.Errors) > 0 {
-			err := c.Errors.Last()
 
-			// Determine HTTP status code and format error response
-			statusCode, errorKey, params := handleError(err)
-
-			// Return standardized error response
-			c.JSON(statusCode, ErrorResponse{
-				Error:      errorKey,
-				StatusCode: statusCode,
-				Params:     params,
-			})
-			c.Abort()
+		if len(c.Errors) == 0 {
 			return
 		}
+
+		ginErr := c.Errors.Last()
+		statusCode, errorKey, params := handleError(ginErr)
+
+		log.Printf("[ERROR] %s %s status=%d error=%q params=%v cause=%v",
+			c.Request.Method,
+			c.Request.URL.Path,
+			statusCode,
+			errorKey,
+			params,
+			ginErr.Err,
+		)
+
+		c.JSON(statusCode, ErrorResponse{
+			Error:      errorKey,
+			StatusCode: statusCode,
+			Params:     params,
+		})
+		c.Abort()
 	}
 }
 
@@ -47,12 +52,10 @@ func CustomRecovery() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		defer func() {
 			if err := recover(); err != nil {
-				log.Printf("Panic recovered: %v", err)
-
-				errorMsg := "INTERNAL_SERVER_ERRROR"
+				log.Printf("[PANIC] %s %s recovered=%v", c.Request.Method, c.Request.URL.Path, err)
 
 				c.JSON(http.StatusInternalServerError, ErrorResponse{
-					Error:      errorMsg,
+					Error:      "INTERNAL_SERVER_ERROR",
 					StatusCode: http.StatusInternalServerError,
 				})
 				c.Abort()
@@ -62,17 +65,38 @@ func CustomRecovery() gin.HandlerFunc {
 	}
 }
 
-// handleError processes errors and determines status code and error key
-// Similar to Spring Boot's exception handler methods
 func handleError(ginErr *gin.Error) (int, string, []string) {
 	err := ginErr.Err
 
-	// Handle application errors
 	if appErr, ok := exception.AsAppError(err); ok {
 		return appErr.StatusCode, appErr.ErrorCode, appErr.Params
 	}
-	// Default: internal server error
+
+	if statusCode, ok := ginErr.Meta.(int); ok && statusCode != 0 {
+		return statusCode, mapErrorKey(statusCode, err), nil
+	}
+
 	return http.StatusInternalServerError, "INTERNAL_SERVER_ERROR", nil
+}
+
+func mapErrorKey(statusCode int, err error) string {
+	switch statusCode {
+	case http.StatusBadRequest:
+		return "BAD_REQUEST"
+	case http.StatusUnauthorized:
+		return "UNAUTHORIZED"
+	case http.StatusForbidden:
+		return "FORBIDDEN"
+	case http.StatusNotFound:
+		return "NOT_FOUND"
+	case http.StatusMethodNotAllowed:
+		return "METHOD_NOT_ALLOWED"
+	default:
+		if err != nil {
+			return err.Error()
+		}
+		return "INTERNAL_SERVER_ERROR"
+	}
 }
 
 // HandleError is a helper for handlers to add errors to context
