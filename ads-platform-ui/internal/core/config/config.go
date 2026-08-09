@@ -7,22 +7,22 @@ import (
 )
 
 type Config struct {
-	Port              string
-	AppName           string
-	DefaultCity       string
-	CDNBaseURL        string
-	BackendAPIBaseURL string
+	Port         string
+	AppName      string
+	DefaultCity  string
+	CDNBaseURL   string
+	BFFBaseURL   string
 }
 
 func Load() *Config {
 	_ = godotenv.Load()
 
 	return &Config{
-		Port:              getEnv("PORT", "8094"),
-		AppName:           getEnv("APP_NAME", "Ruab"),
-		DefaultCity:       getEnv("DEFAULT_CITY", "tehran"),
-		CDNBaseURL:        getEnv("CDN_BASE_URL", "http://localhost:4000"),
-		BackendAPIBaseURL: getEnv("BACKEND_API_BASE_URL", "http://localhost:8092"),
+		Port:        getEnv("PORT", "8094"),
+		AppName:     getEnv("APP_NAME", "Ruab"),
+		DefaultCity: getEnv("DEFAULT_CITY", "tehran"),
+		CDNBaseURL:  getEnv("CDN_BASE_URL", "http://localhost:4000"),
+		BFFBaseURL:  getEnv("BFF_BASE_URL", "http://localhost:8097"),
 	}
 }
 

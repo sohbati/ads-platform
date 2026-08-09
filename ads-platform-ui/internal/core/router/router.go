@@ -63,6 +63,10 @@ func (r *Router) SetupRoutes() *gin.Engine {
 	{
 		api.GET("/categories", r.container.Category.APIHandler.List)
 		api.GET("/cities", r.container.Location.APIHandler.ListCities)
+
+		api.GET("/users/mobile/:mobile", r.container.User.APIHandler.GetByMobile)
+		api.POST("/otp/:mobile/send", r.container.Otp.APIHandler.SendOTP)
+		api.POST("/otp/:mobile/verify", r.container.Otp.APIHandler.VerifyOTP)
 	}
 
 	return router

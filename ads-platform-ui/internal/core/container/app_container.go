@@ -9,7 +9,10 @@ import (
 	locationContainer "ads-platform-ui/internal/business/location/container"
 	myinfoContainer "ads-platform-ui/internal/business/myinfo/container"
 	newadContainer "ads-platform-ui/internal/business/newad/container"
+	otpContainer "ads-platform-ui/internal/business/otp/container"
 	queryadsContainer "ads-platform-ui/internal/business/queryads/container"
+	userContainer "ads-platform-ui/internal/business/user/container"
+	"ads-platform-ui/internal/core/bff"
 	"ads-platform-ui/internal/core/cdn"
 	"ads-platform-ui/internal/core/cities"
 	"ads-platform-ui/internal/core/config"
@@ -20,12 +23,15 @@ type AppContainer struct {
 	Config   *config.Config
 	I18n     *i18n.Registry
 	CDN      *cdn.Client
+	BFF      *bff.Client
 	Cities   *cities.Catalog
 	QueryAds *queryadsContainer.QueryAdsContainer
 	MyInfo   *myinfoContainer.MyInfoContainer
 	NewAd    *newadContainer.NewAdContainer
 	Category *categoryContainer.CategoryContainer
 	Location *locationContainer.LocationContainer
+	Otp      *otpContainer.OtpContainer
+	User     *userContainer.UserContainer
 }
 
 func NewAppContainer(cfg *config.Config) (*AppContainer, error) {
@@ -35,6 +41,7 @@ func NewAppContainer(cfg *config.Config) (*AppContainer, error) {
 	}
 
 	cdnClient := cdn.NewClient(cfg.CDNBaseURL, nil)
+	bffClient := bff.NewClient(cfg.BFFBaseURL, nil)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
@@ -48,11 +55,14 @@ func NewAppContainer(cfg *config.Config) (*AppContainer, error) {
 		Config:   cfg,
 		I18n:     reg,
 		CDN:      cdnClient,
+		BFF:      bffClient,
 		Cities:   catalog,
 		QueryAds: queryadsContainer.NewQueryAdsContainer(cfg, reg, catalog),
 		MyInfo:   myinfoContainer.NewMyInfoContainer(cfg, reg, catalog),
 		NewAd:    newadContainer.NewNewAdContainer(cfg, reg, catalog),
 		Category: categoryContainer.NewCategoryContainer(cfg, reg, catalog, cdnClient),
 		Location: locationContainer.NewLocationContainer(cfg, reg, catalog, cdnClient),
+		Otp:      otpContainer.NewOtpContainer(bffClient),
+		User:     userContainer.NewUserContainer(bffClient),
 	}, nil
 }

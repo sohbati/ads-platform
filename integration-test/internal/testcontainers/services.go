@@ -153,6 +153,20 @@ func StartBack(ctx context.Context, t *testing.T, net *testcontainers.DockerNetw
 	})
 }
 
+func StartBFF(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
+	return startService(ctx, t, net, serviceConfig{
+		name:       "ads-bff",
+		alias:      "ads-bff",
+		dockerfile: "integration-test/docker/ads-bff.Dockerfile",
+		port:       "8097/tcp",
+		healthPath: "/health",
+		env: map[string]string{
+			"PORT":                 "8097",
+			"BACKEND_API_BASE_URL": "http://ads-platform-back:8092",
+		},
+	})
+}
+
 func StartUI(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
 	return startService(ctx, t, net, serviceConfig{
 		name:       "ads-platform-ui",
@@ -161,9 +175,9 @@ func StartUI(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwor
 		port:       "8094/tcp",
 		healthPath: "/health",
 		env: map[string]string{
-			"PORT":                 "8094",
-			"CDN_BASE_URL":         "http://ads-platform-cdn:4000",
-			"BACKEND_API_BASE_URL": "http://ads-platform-back:8092",
+			"PORT":         "8094",
+			"CDN_BASE_URL": "http://ads-platform-cdn:4000",
+			"BFF_BASE_URL": "http://ads-bff:8097",
 		},
 	})
 }

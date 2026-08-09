@@ -16,6 +16,7 @@ type Stack struct {
 	CDN          *ServiceContainer
 	Notification *ServiceContainer
 	Back         *ServiceContainer
+	BFF          *ServiceContainer
 	UI           *ServiceContainer
 }
 
@@ -82,6 +83,13 @@ func StartStack(ctx context.Context, t *testing.T) (*Stack, error) {
 		return nil, err
 	}
 
+	stack.BFF, err = start("ads-bff", func() (*ServiceContainer, error) {
+		return StartBFF(ctx, t, net)
+	})
+	if err != nil {
+		return nil, err
+	}
+
 	stack.UI, err = start("ads-platform-ui", func() (*ServiceContainer, error) {
 		return StartUI(ctx, t, net)
 	})
@@ -97,6 +105,7 @@ func (s *Stack) Terminate(ctx context.Context, t *testing.T) {
 
 	Terminate(ctx, t,
 		serviceContainer(s.UI),
+		serviceContainer(s.BFF),
 		serviceContainer(s.Back),
 		serviceContainer(s.Notification),
 		serviceContainer(s.CDN),
@@ -128,6 +137,7 @@ func (s *Stack) URLs(ctx context.Context) (map[string]string, error) {
 	urls := make(map[string]string)
 	services := map[string]*ServiceContainer{
 		"ads-platform-back":          s.Back,
+		"ads-bff":                    s.BFF,
 		"ads-platform-cache-service": s.Cache,
 		"ads-platform-cdn":           s.CDN,
 		"ads-platform-ui":            s.UI,

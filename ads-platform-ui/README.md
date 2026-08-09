@@ -66,7 +66,7 @@ ads-platform-ui/
 | `APP_NAME` | `Ruab` | Brand name |
 | `DEFAULT_CITY` | `tehran` | Default city slug |
 | `CDN_BASE_URL` | `http://localhost:4000` | ads-platform-cdn |
-| `BACKEND_API_BASE_URL` | `http://localhost:8092` | Backend API |
+| `BFF_BASE_URL` | `http://localhost:8097` | ads-bff (proxies to ads-platform-back) |
 
 ## API
 
@@ -75,6 +75,9 @@ ads-platform-ui/
 | GET | `/health` | Health check |
 | GET | `/api/v1/categories` | Proxies CDN `GET /api/categories` |
 | GET | `/api/v1/cities` | Proxies CDN `GET /api/cities` |
+| GET | `/api/v1/users/mobile/:mobile` | Via ads-bff → backend user lookup |
+| POST | `/api/v1/otp/:mobile/send` | Via ads-bff → backend send OTP |
+| POST | `/api/v1/otp/:mobile/verify` | Via ads-bff → backend verify OTP |
 
 CDN base URL is configured via `CDN_BASE_URL` (default `http://localhost:4000`).
 
