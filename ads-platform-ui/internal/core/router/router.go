@@ -49,6 +49,8 @@ func (r *Router) SetupRoutes() *gin.Engine {
 
 	router.GET("/query-ads", r.container.QueryAds.PageHandler.Index)
 
+	router.GET("/login", r.container.Auth.PageHandler.Login)
+
 	router.GET("/my-info", r.container.MyInfo.PageHandler.Index)
 	router.GET("/my-info/user-details", r.container.MyInfo.PageHandler.UserDetails)
 	router.GET("/my-info/user-ads", r.container.MyInfo.PageHandler.UserAds)
@@ -64,9 +66,13 @@ func (r *Router) SetupRoutes() *gin.Engine {
 		api.GET("/categories", r.container.Category.APIHandler.List)
 		api.GET("/cities", r.container.Location.APIHandler.ListCities)
 
-		api.GET("/users/mobile/:mobile", r.container.User.APIHandler.GetByMobile)
-		api.POST("/otp/:mobile/send", r.container.Otp.APIHandler.SendOTP)
-		api.POST("/otp/:mobile/verify", r.container.Otp.APIHandler.VerifyOTP)
+		auth := api.Group("/auth")
+		{
+			auth.POST("/otp/:mobile/send", r.container.Auth.APIHandler.SendOTP)
+			auth.POST("/otp/:mobile/verify", r.container.Auth.APIHandler.VerifyOTP)
+			auth.GET("/me", r.container.Auth.APIHandler.Me)
+			auth.POST("/logout", r.container.Auth.APIHandler.Logout)
+		}
 	}
 
 	return router

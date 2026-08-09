@@ -2,6 +2,9 @@
 {{ template "page_open" . }}
 <section class="section-stub container">
   <h1 class="section-stub__title">{{ .T.Nav.MyInfo }}</h1>
+  {{ if .IsAuthenticated }}
+  <p class="myinfo-welcome">{{ format .T.Auth.WelcomeUser .SessionUserName }}</p>
+  {{ end }}
   <nav class="myinfo-nav" aria-label="{{ .T.Nav.MyInfo }}">
     <a href="/my-info/user-details" class="{{ if eq .CurrentPath "/my-info/user-details" }}is-active{{ end }}">{{ .T.Nav.UserDetails }}</a>
     <a href="/my-info/user-ads" class="{{ if eq .CurrentPath "/my-info/user-ads" }}is-active{{ end }}">{{ .T.Nav.UserAds }}</a>

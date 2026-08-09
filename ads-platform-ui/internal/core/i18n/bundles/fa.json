@@ -26,7 +26,22 @@
       "user_details": "اطلاعات کاربر",
       "user_ads": "آگهی‌های من",
       "marked_ads": "نشان‌شده‌ها",
-      "setting": "تنظیمات"
+      "setting": "تنظیمات",
+      "login": "ورود",
+      "logout": "خروج"
+    },
+    "auth": {
+      "login_title": "ورود با کد یکبار مصرف",
+      "mobile_label": "شماره موبایل",
+      "mobile_placeholder": "مثلاً 09121234567",
+      "otp_label": "کد یکبار مصرف",
+      "otp_placeholder": "۶ رقم",
+      "send_otp": "ارسال کد",
+      "verify_otp": "ورود",
+      "login_success": "ورود موفق",
+      "login_failed": "ورود ناموفق",
+      "otp_sent": "کد ارسال شد",
+      "welcome_user": "سلام %s"
     },
     "hero": {
       "title": "آنچه می‌خواهید را در %s پیدا کنید",

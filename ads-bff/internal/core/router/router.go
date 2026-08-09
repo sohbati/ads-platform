@@ -3,6 +3,7 @@ package router
 import (
 	"context"
 	"net/http"
+	"strings"
 	"time"
 
 	appContainer "ads-bff/internal/core/container"
@@ -43,6 +44,12 @@ func (r *Router) SetupRoutes() *gin.Engine {
 	router.Use(corsMiddleware())
 
 	router.NoRoute(func(c *gin.Context) {
+		path := c.Request.URL.Path
+		if strings.HasPrefix(path, "/api/v1/") && !strings.HasPrefix(path, "/api/v1/auth") {
+			r.container.Backend.ServeHTTP(c.Writer, c.Request)
+			return
+		}
+
 		c.JSON(http.StatusNotFound, gin.H{
 			"error":      "ROUTE_NOT_DEFINED",
 			"statusCode": http.StatusNotFound,
@@ -70,9 +77,15 @@ func (r *Router) SetupRoutes() *gin.Engine {
 	})
 
 	api := router.Group("/api/v1")
-	api.Any("/*proxyPath", func(c *gin.Context) {
-		r.container.Backend.ServeHTTP(c.Writer, c.Request)
-	})
+	{
+		auth := api.Group("/auth")
+		{
+			auth.POST("/otp/:mobile/send", r.container.Auth.AuthHandler.SendOTP)
+			auth.POST("/otp/:mobile/verify", r.container.Auth.AuthHandler.VerifyOTP)
+			auth.GET("/me", r.container.Auth.AuthHandler.Me)
+			auth.POST("/logout", r.container.Auth.AuthHandler.Logout)
+		}
+	}
 
 	return router
 }

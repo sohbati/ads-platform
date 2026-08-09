@@ -16,8 +16,12 @@ type Page struct {
 	AppName         string
 	CitySlug        string
 	CityDisplayName string
-	CurrentPath     string
-	T               Messages
+	CurrentPath       string
+	NextPath          string
+	SessionUserName   string
+	SessionUserMobile string
+	IsAuthenticated   bool
+	T                 Messages
 }
 
 // BuildPage creates shared template data for HTML pages.

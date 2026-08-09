@@ -71,6 +71,9 @@ func (r *Router) SetupRoutes() *gin.Engine {
 			caches.GET("/otp/:key", r.container.OtpCacheContainer.OtpCacheHandler.GetCacheByKey)
 			caches.POST("/otp/:key", r.container.OtpCacheContainer.OtpCacheHandler.AddItem)
 
+			caches.GET("/session/:key", r.container.SessionCacheContainer.SessionCacheHandler.GetCacheByKey)
+			caches.POST("/session/:key", r.container.SessionCacheContainer.SessionCacheHandler.AddItem)
+			caches.DELETE("/session/:key", r.container.SessionCacheContainer.SessionCacheHandler.DeleteItem)
 		}
 
 	}

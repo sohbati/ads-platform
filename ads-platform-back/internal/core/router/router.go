@@ -69,7 +69,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 		users := api.Group("/users")
 		{
 			users.GET("/mobile/:mobile", r.container.User.UserHandler.GetUserByMobile)
-
+			users.POST("/register-by-mobile/:mobile", r.container.User.UserHandler.RegisterByMobile)
 		}
 
 		// OTP routes

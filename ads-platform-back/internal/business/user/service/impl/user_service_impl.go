@@ -53,6 +53,36 @@ func (s *userService) GetUserByMobile(ctx context.Context, mobile string) (*mode
 	return user, nil
 }
 
+func (s *userService) RegisterByMobile(ctx context.Context, mobile string) (*model.User, error) {
+	if mobile == "" {
+		return nil, exception.NewAppError(
+			errorcode.ErrMobileEmpty.Code, errorcode.ErrMobileEmpty.HttpStatus, mobile)
+	}
+
+	existing, err := s.userRepo.GetUserByMobile(ctx, mobile)
+	if err == nil {
+		return existing, nil
+	}
+	if !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, err
+	}
+
+	user := &model.User{
+		Mobile:     mobile,
+		Name:       mobile,
+		NationalId: "",
+	}
+	if err := s.userRepo.CreateUser(ctx, user); err != nil {
+		existing, getErr := s.userRepo.GetUserByMobile(ctx, mobile)
+		if getErr == nil {
+			return existing, nil
+		}
+		return nil, err
+	}
+
+	return user, nil
+}
+
 // GetUserByID retrieves a user by ID
 func (s *userService) GetUserByID(ctx context.Context, id int64) (*model.User, error) {
 	if id <= 0 {

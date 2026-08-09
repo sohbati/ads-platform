@@ -53,6 +53,7 @@ func main() {
 	}
 
 	defer app.container.OtpCacheContainer.OtpCacheStore.Stop()
+	defer app.container.SessionCacheContainer.SessionCacheStore.Stop()
 
 	if err := app.Run(); err != nil {
 		log.Fatalf("Failed to start: %v", err)

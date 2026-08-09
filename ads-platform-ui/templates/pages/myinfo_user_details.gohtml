@@ -1,5 +1,27 @@
 {{ define "myinfo_user_details" }}
 {{ template "page_open" . }}
-{{ template "section_stub" . }}
+<section class="section-stub container">
+  <h1 class="section-stub__title">{{ .T.Nav.UserDetails }}</h1>
+  {{ if .IsAuthenticated }}
+  <dl class="user-details">
+    <dt>{{ .T.Auth.MobileLabel }}</dt>
+    <dd>{{ .SessionUserMobile }}</dd>
+    <dt>{{ .T.Nav.UserDetails }}</dt>
+    <dd>{{ .SessionUserName }}</dd>
+  </dl>
+  <form action="/api/v1/auth/logout" method="post" id="logout-form">
+    <button type="submit" class="btn">{{ .T.Nav.Logout }}</button>
+  </form>
+  <script>
+    document.getElementById("logout-form")?.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      await fetch("/api/v1/auth/logout", { method: "POST", credentials: "same-origin" });
+      window.location.assign("/login");
+    });
+  </script>
+  {{ else }}
+  <p>{{ .T.Section.ComingSoon }}</p>
+  {{ end }}
+</section>
 {{ template "page_close" . }}
 {{ end }}

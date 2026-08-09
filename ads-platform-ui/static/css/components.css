@@ -521,3 +521,52 @@
   width: 1.25rem;
   height: 1.25rem;
 }
+
+/* Login */
+.login-page {
+  max-width: 28rem;
+}
+
+.login-form {
+  display: grid;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.login-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+
+.login-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.login-form__step.is-hidden {
+  display: none;
+}
+
+.login-form__message {
+  min-height: 1.5rem;
+  color: var(--color-text-muted);
+}
+
+.login-form__message.is-error {
+  color: #b42318;
+}
+
+.user-details {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-sm) var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+.myinfo-welcome {
+  margin-bottom: var(--space-md);
+  color: var(--color-text-muted);
+}

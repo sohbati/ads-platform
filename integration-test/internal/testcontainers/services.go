@@ -163,6 +163,7 @@ func StartBFF(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwo
 		env: map[string]string{
 			"PORT":                 "8097",
 			"BACKEND_API_BASE_URL": "http://ads-platform-back:8092",
+			"CACHE_SERVICE_URL":    "http://ads-platform-cache-service:8093",
 		},
 	})
 }

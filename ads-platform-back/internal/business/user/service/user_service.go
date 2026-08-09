@@ -16,6 +16,7 @@ type UserService interface {
 
 	// Search and filtering operations
 	GetUserByMobile(ctx context.Context, mobile string) (*model.User, error)
+	RegisterByMobile(ctx context.Context, mobile string) (*model.User, error)
 
 	ValidateUserData(ctx context.Context, user *model.User) error
 }

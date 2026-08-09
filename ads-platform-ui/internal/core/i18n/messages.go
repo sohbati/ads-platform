@@ -5,6 +5,7 @@ type Messages struct {
 	Meta          MetaMessages                    `json:"meta"`
 	Header        HeaderMessages                  `json:"header"`
 	Nav           NavMessages                     `json:"nav"`
+	Auth          AuthMessages                    `json:"auth"`
 	Hero          HeroMessages                    `json:"hero"`
 	Categories    CategoriesMessages              `json:"categories"`
 	Cities        CitiesMessages                  `json:"cities"`
@@ -27,6 +28,22 @@ type NavMessages struct {
 	UserAds      string `json:"user_ads"`
 	MarkedAds    string `json:"marked_ads"`
 	Setting      string `json:"setting"`
+	Login        string `json:"login"`
+	Logout       string `json:"logout"`
+}
+
+type AuthMessages struct {
+	LoginTitle       string `json:"login_title"`
+	MobileLabel      string `json:"mobile_label"`
+	MobilePlaceholder string `json:"mobile_placeholder"`
+	OtpLabel         string `json:"otp_label"`
+	OtpPlaceholder   string `json:"otp_placeholder"`
+	SendOtp          string `json:"send_otp"`
+	VerifyOtp        string `json:"verify_otp"`
+	LoginSuccess     string `json:"login_success"`
+	LoginFailed      string `json:"login_failed"`
+	OtpSent          string `json:"otp_sent"`
+	WelcomeUser      string `json:"welcome_user"`
 }
 
 type SectionMessages struct {

@@ -33,3 +33,15 @@ func (h *UserHandler) GetUserByMobile(c *gin.Context) {
 
 	c.JSON(http.StatusOK, user)
 }
+
+func (h *UserHandler) RegisterByMobile(c *gin.Context) {
+	mobile := c.Param("mobile")
+
+	user, err := h.userService.RegisterByMobile(c.Request.Context(), mobile)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+
+	c.JSON(http.StatusOK, user)
+}

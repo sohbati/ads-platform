@@ -26,7 +26,22 @@
       "user_details": "User details",
       "user_ads": "My ads",
       "marked_ads": "Saved ads",
-      "setting": "Settings"
+      "setting": "Settings",
+      "login": "Login",
+      "logout": "Logout"
+    },
+    "auth": {
+      "login_title": "Login with OTP",
+      "mobile_label": "Mobile number",
+      "mobile_placeholder": "e.g. 09121234567",
+      "otp_label": "One-time code",
+      "otp_placeholder": "6 digits",
+      "send_otp": "Send code",
+      "verify_otp": "Sign in",
+      "login_success": "Signed in",
+      "login_failed": "Sign in failed",
+      "otp_sent": "Code sent",
+      "welcome_user": "Hello %s"
     },
     "hero": {
       "title": "Find what you need in %s",

@@ -5,13 +5,12 @@ import (
 	"fmt"
 	"time"
 
+	authContainer "ads-platform-ui/internal/business/auth/container"
 	categoryContainer "ads-platform-ui/internal/business/category/container"
 	locationContainer "ads-platform-ui/internal/business/location/container"
 	myinfoContainer "ads-platform-ui/internal/business/myinfo/container"
 	newadContainer "ads-platform-ui/internal/business/newad/container"
-	otpContainer "ads-platform-ui/internal/business/otp/container"
 	queryadsContainer "ads-platform-ui/internal/business/queryads/container"
-	userContainer "ads-platform-ui/internal/business/user/container"
 	"ads-platform-ui/internal/core/bff"
 	"ads-platform-ui/internal/core/cdn"
 	"ads-platform-ui/internal/core/cities"
@@ -30,8 +29,7 @@ type AppContainer struct {
 	NewAd    *newadContainer.NewAdContainer
 	Category *categoryContainer.CategoryContainer
 	Location *locationContainer.LocationContainer
-	Otp      *otpContainer.OtpContainer
-	User     *userContainer.UserContainer
+	Auth     *authContainer.AuthContainer
 }
 
 func NewAppContainer(cfg *config.Config) (*AppContainer, error) {
@@ -58,11 +56,10 @@ func NewAppContainer(cfg *config.Config) (*AppContainer, error) {
 		BFF:      bffClient,
 		Cities:   catalog,
 		QueryAds: queryadsContainer.NewQueryAdsContainer(cfg, reg, catalog),
-		MyInfo:   myinfoContainer.NewMyInfoContainer(cfg, reg, catalog),
+		MyInfo:   myinfoContainer.NewMyInfoContainer(cfg, reg, catalog, bffClient),
 		NewAd:    newadContainer.NewNewAdContainer(cfg, reg, catalog),
 		Category: categoryContainer.NewCategoryContainer(cfg, reg, catalog, cdnClient),
 		Location: locationContainer.NewLocationContainer(cfg, reg, catalog, cdnClient),
-		Otp:      otpContainer.NewOtpContainer(bffClient),
-		User:     userContainer.NewUserContainer(bffClient),
+		Auth:     authContainer.NewAuthContainer(cfg, reg, catalog, bffClient),
 	}, nil
 }
