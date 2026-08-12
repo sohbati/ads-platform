@@ -1,6 +1,10 @@
 {{ define "page_close" }}
   </main>
   {{ template "footer" . }}
+  {{ template "api_error_catalog" . }}
+  <script defer src="/static/js/api_errors.js?v=1"></script>
+  <script defer src="/static/js/mobile.js?v=1"></script>
+  <script defer src="/static/js/login.js?v=7"></script>
   <script defer src="/static/js/main.js?v=2"></script>
 </body>
 </html>

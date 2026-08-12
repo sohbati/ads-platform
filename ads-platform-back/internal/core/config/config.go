@@ -15,6 +15,7 @@ type Config struct {
 	NatsURL               string
 	NatsBrokerURL         string
 	OtpSubject            string
+	DefaultCountryCode    string
 }
 
 func Load() *Config {
@@ -28,6 +29,7 @@ func Load() *Config {
 		NatsURL:               os.Getenv("NATS_URL"),
 		NatsBrokerURL:         getEnv("NATS_BROKER_URL", "http://localhost:8095"),
 		OtpSubject:            getEnv("OTP_SUBJECT", "notifications.otp.send"),
+		DefaultCountryCode:    getEnv("DEFAULT_COUNTRY_CODE", "+98"),
 	}
 
 	natsURL, err := resolveNatsURL(cfg.NatsURL, cfg.NatsBrokerURL)

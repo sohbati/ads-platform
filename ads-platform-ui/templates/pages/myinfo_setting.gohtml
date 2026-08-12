@@ -1,5 +1,9 @@
 {{ define "myinfo_setting" }}
 {{ template "page_open" . }}
-{{ template "section_stub" . }}
+<section class="section-stub container">
+  <h1 class="section-stub__title">{{ .Heading }}</h1>
+  {{ if .IsAuthenticated }}{{ template "myinfo_nav" . }}{{ end }}
+  <p class="section-stub__desc">{{ .T.Section.ComingSoon }}</p>
+</section>
 {{ template "page_close" . }}
 {{ end }}

@@ -13,6 +13,7 @@ type Messages struct {
 	Section       SectionMessages                 `json:"section"`
 	Footer        FooterMessages                  `json:"footer"`
 	Error         ErrorMessages                   `json:"error"`
+	ApiErrors     map[string]string               `json:"api_errors"`
 	CategoryItems map[string]CategoryItemMessages `json:"category_items"`
 	CityNames     map[string]string               `json:"city_names"`
 }
@@ -33,17 +34,29 @@ type NavMessages struct {
 }
 
 type AuthMessages struct {
-	LoginTitle       string `json:"login_title"`
-	MobileLabel      string `json:"mobile_label"`
+	ModalTitle        string `json:"modal_title"`
+	LoginTitle        string `json:"login_title"`
+	MobileHeading     string `json:"mobile_heading"`
+	MobileHint        string `json:"mobile_hint"`
+	MobileLabel       string `json:"mobile_label"`
 	MobilePlaceholder string `json:"mobile_placeholder"`
-	OtpLabel         string `json:"otp_label"`
-	OtpPlaceholder   string `json:"otp_placeholder"`
-	SendOtp          string `json:"send_otp"`
-	VerifyOtp        string `json:"verify_otp"`
-	LoginSuccess     string `json:"login_success"`
-	LoginFailed      string `json:"login_failed"`
-	OtpSent          string `json:"otp_sent"`
-	WelcomeUser      string `json:"welcome_user"`
+	OtpHeading        string `json:"otp_heading"`
+	OtpHint           string `json:"otp_hint"`
+	OtpLabel          string `json:"otp_label"`
+	OtpPlaceholder    string `json:"otp_placeholder"`
+	Next              string `json:"next"`
+	SendOtp           string `json:"send_otp"`
+	VerifyOtp         string `json:"verify_otp"`
+	ChangeMobile      string `json:"change_mobile"`
+	CloseAria         string `json:"close_aria"`
+	TermsAccept       string `json:"terms_accept"`
+	TermsLink         string `json:"terms_link"`
+	PrivacyLink       string `json:"privacy_link"`
+	LoginSuccess      string `json:"login_success"`
+	LoginFailed       string `json:"login_failed"`
+	OtpSent           string `json:"otp_sent"`
+	ResendOtp         string `json:"resend_otp"`
+	WelcomeUser       string `json:"welcome_user"`
 }
 
 type SectionMessages struct {

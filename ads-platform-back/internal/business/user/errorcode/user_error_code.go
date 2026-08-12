@@ -12,6 +12,7 @@ type ErrorCode struct {
 var (
 	ErrUserNotFound    = New("USER_NOT_FOUND", http.StatusNotFound)
 	ErrMobileEmpty     = New("MOBILE_EMPTY", http.StatusBadRequest)
+	ErrInvalidMobile   = New("INVALID_MOBILE", http.StatusBadRequest)
 	ErrDuplicateMobile = New("DUPLICATE_MOBILE", http.StatusConflict)
 )
 

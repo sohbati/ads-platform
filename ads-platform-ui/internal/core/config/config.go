@@ -7,11 +7,12 @@ import (
 )
 
 type Config struct {
-	Port         string
-	AppName      string
-	DefaultCity  string
-	CDNBaseURL   string
-	BFFBaseURL   string
+	Port               string
+	AppName            string
+	DefaultCity        string
+	CDNBaseURL         string
+	BFFBaseURL         string
+	DefaultCountryCode string
 }
 
 func Load() *Config {
@@ -22,7 +23,8 @@ func Load() *Config {
 		AppName:     getEnv("APP_NAME", "Ruab"),
 		DefaultCity: getEnv("DEFAULT_CITY", "tehran"),
 		CDNBaseURL:  getEnv("CDN_BASE_URL", "http://localhost:4000"),
-		BFFBaseURL:  getEnv("BFF_BASE_URL", "http://localhost:8097"),
+		BFFBaseURL:         getEnv("BFF_BASE_URL", "http://localhost:8097"),
+		DefaultCountryCode: getEnv("DEFAULT_COUNTRY_CODE", "+98"),
 	}
 }
 

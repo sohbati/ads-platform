@@ -15,7 +15,7 @@ type AppContainer struct {
 
 func NewAppContainer(db *gorm.DB, cfg *config.Config) *AppContainer {
 	return &AppContainer{
-		User: userContainer.NewUserContainer(db),
-		Otp:  otpContainer.NewOtpContainer(cfg.CacheServiceURL, cfg.NatsURL, cfg.OtpSubject),
+		User: userContainer.NewUserContainer(db, cfg.DefaultCountryCode),
+		Otp:  otpContainer.NewOtpContainer(cfg.CacheServiceURL, cfg.NatsURL, cfg.OtpSubject, cfg.DefaultCountryCode),
 	}
 }

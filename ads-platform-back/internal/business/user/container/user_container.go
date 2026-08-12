@@ -25,6 +25,7 @@ import (
 	"ads-platform/internal/business/user/handler"
 	repoimpl "ads-platform/internal/business/user/repository/impl"
 	serviceimpl "ads-platform/internal/business/user/service/impl"
+	"ads-platform/internal/core/mobile"
 
 	"gorm.io/gorm"
 )
@@ -33,16 +34,17 @@ type UserContainer struct {
 	UserHandler *handler.UserHandler
 }
 
-func NewUserContainer(db *gorm.DB) *UserContainer {
+func NewUserContainer(db *gorm.DB, defaultCountryCode string) *UserContainer {
 
 	// repositories
 	userRepo := repoimpl.NewUserRepository(db)
 
 	// services
 	userService := serviceimpl.NewUserService(userRepo)
+	mobileNorm := mobile.NewNormalizer(defaultCountryCode)
 
 	// handlers
-	userHandler := handler.NewUserHandler(userService)
+	userHandler := handler.NewUserHandler(userService, mobileNorm)
 
 	return &UserContainer{
 		UserHandler: userHandler,

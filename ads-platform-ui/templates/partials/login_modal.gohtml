@@ -1,0 +1,73 @@
+{{ define "login_modal" }}
+<div id="login-modal" class="login-modal" hidden aria-hidden="true">
+  <div class="login-modal__backdrop" data-login-close tabindex="-1"></div>
+  <div
+    class="login-modal__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="login-modal-title"
+  >
+    <button type="button" class="login-modal__close" data-login-close aria-label="{{ .T.Auth.CloseAria }}">
+      <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <h2 id="login-modal-title" class="login-modal__title">{{ .T.Auth.ModalTitle }}</h2>
+
+    <form id="login-form" class="login-modal__form" novalidate data-country-code="{{ .DefaultCountryCode }}">
+      <input type="hidden" id="login-next" value="/my-info" />
+
+      <div class="login-modal__step" id="login-step-mobile">
+        <p class="login-modal__heading">{{ .T.Auth.MobileHeading }}</p>
+        <p class="login-modal__hint">{{ .T.Auth.MobileHint }}</p>
+        <label class="visually-hidden" for="login-mobile">{{ .T.Auth.MobileLabel }}</label>
+        <input
+          id="login-mobile"
+          name="mobile"
+          type="tel"
+          class="login-modal__input"
+          inputmode="numeric"
+          autocomplete="tel"
+          placeholder="{{ .T.Auth.MobilePlaceholder }}"
+          required
+        />
+        <p class="login-modal__terms">
+          {{ format .T.Auth.TermsAccept .AppName }}
+          <a href="/terms" class="login-modal__link">{{ .T.Auth.TermsLink }}</a>
+          {{ if eq .Lang "fa" }} و {{ else }} and {{ end }}
+          <a href="/privacy" class="login-modal__link">{{ .T.Auth.PrivacyLink }}</a>
+          {{ if eq .Lang "fa" }} را می‌پذیرم.{{ else }}.{{ end }}
+        </p>
+        <div class="login-modal__actions">
+          <button type="button" id="login-send-otp" class="btn btn--login">{{ .T.Auth.Next }}</button>
+        </div>
+      </div>
+
+      <div class="login-modal__step is-hidden" id="login-step-otp" hidden>
+        <p class="login-modal__heading">{{ .T.Auth.OtpHeading }}</p>
+        <p class="login-modal__hint" id="login-otp-hint">{{ .T.Auth.OtpHint }}</p>
+        <button type="button" class="login-modal__back" id="login-change-mobile">{{ .T.Auth.ChangeMobile }}</button>
+        <label class="visually-hidden" for="login-otp">{{ .T.Auth.OtpLabel }}</label>
+        <input
+          id="login-otp"
+          name="otp"
+          type="text"
+          class="login-modal__input login-modal__input--otp"
+          inputmode="numeric"
+          maxlength="6"
+          pattern="[0-9]{6}"
+          placeholder="{{ .T.Auth.OtpPlaceholder }}"
+          required
+        />
+        <div class="login-modal__actions">
+          <button type="button" id="login-resend-otp" class="btn btn--login-secondary login-modal__resend is-hidden" hidden>{{ .T.Auth.ResendOtp }}</button>
+          <button type="button" id="login-verify-otp" class="btn btn--login">{{ .T.Auth.VerifyOtp }}</button>
+        </div>
+      </div>
+
+      <p id="login-message" class="login-modal__message" role="status" aria-live="polite" data-sent="{{ .T.Auth.OtpSent }}"></p>
+    </form>
+  </div>
+</div>
+{{ end }}

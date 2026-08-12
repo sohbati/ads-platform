@@ -8,23 +8,35 @@ import (
 	"ads-bff/internal/business/auth/service"
 	cacheclient "ads-bff/internal/core/client/cache"
 	"ads-bff/internal/core/config"
+	"ads-bff/internal/core/exception"
+	"ads-bff/internal/core/mobile"
 	"ads-bff/internal/core/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
 type AuthHandler struct {
-	cfg     *config.Config
-	service service.AuthService
+	cfg        *config.Config
+	service    service.AuthService
+	mobileNorm *mobile.Normalizer
 }
 
 func NewAuthHandler(cfg *config.Config, svc service.AuthService) *AuthHandler {
-	return &AuthHandler{cfg: cfg, service: svc}
+	return &AuthHandler{
+		cfg:        cfg,
+		service:    svc,
+		mobileNorm: mobile.NewNormalizer(cfg.DefaultCountryCode),
+	}
 }
 
 func (h *AuthHandler) SendOTP(c *gin.Context) {
-	mobile := c.Param("mobile")
-	status, body, err := h.service.SendOTP(c.Request.Context(), mobile)
+	mobileNumber, err := h.normalizeMobile(c.Param("mobile"))
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+
+	status, body, err := h.service.SendOTP(c.Request.Context(), mobileNumber)
 	if err != nil {
 		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE", "statusCode": http.StatusBadGateway})
 		return
@@ -33,7 +45,11 @@ func (h *AuthHandler) SendOTP(c *gin.Context) {
 }
 
 func (h *AuthHandler) VerifyOTP(c *gin.Context) {
-	mobile := c.Param("mobile")
+	mobileNumber, err := h.normalizeMobile(c.Param("mobile"))
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
 
 	var req model.VerifyOtpRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -41,7 +57,7 @@ func (h *AuthHandler) VerifyOTP(c *gin.Context) {
 		return
 	}
 
-	loginResp, sessionID, status, body, err := h.service.LoginWithOTP(c.Request.Context(), mobile, req.Otp)
+	loginResp, sessionID, status, body, err := h.service.LoginWithOTP(c.Request.Context(), mobileNumber, req.Otp)
 	if err != nil {
 		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE", "statusCode": http.StatusBadGateway})
 		return
@@ -53,6 +69,14 @@ func (h *AuthHandler) VerifyOTP(c *gin.Context) {
 
 	h.setSessionCookie(c, sessionID)
 	c.JSON(http.StatusOK, loginResp)
+}
+
+func (h *AuthHandler) normalizeMobile(raw string) (string, error) {
+	normalized, err := h.mobileNorm.Normalize(raw)
+	if err != nil {
+		return "", exception.NewAppError("INVALID_MOBILE", http.StatusBadRequest, raw)
+	}
+	return normalized, nil
 }
 
 func (h *AuthHandler) Me(c *gin.Context) {

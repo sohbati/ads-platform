@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"net/url"
 
 	"ads-platform-ui/internal/core/cities"
 	"ads-platform-ui/internal/core/config"
@@ -26,9 +27,6 @@ func (h *PageHandler) Login(c *gin.Context) {
 		next = "/my-info"
 	}
 
-	pageData := i18n.BuildPage(h.i18n, h.cities, i18n.FromContext(c), h.config.AppName, i18n.CityFromContext(c), c.Request.URL.Path)
-	pageData.Title = h.config.AppName + " — " + pageData.T.Auth.LoginTitle
-	pageData.Heading = pageData.T.Auth.LoginTitle
-	pageData.NextPath = next
-	c.HTML(http.StatusOK, "login", pageData)
+	target := "/query-ads?login=1&next=" + url.QueryEscape(next)
+	c.Redirect(http.StatusFound, target)
 }

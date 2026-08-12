@@ -31,16 +31,28 @@
       "logout": "خروج"
     },
     "auth": {
+      "modal_title": "ورود به حساب کاربری",
       "login_title": "ورود با کد یکبار مصرف",
+      "mobile_heading": "شمارهٔ موبایل خود را وارد کنید",
+      "mobile_hint": "کد تأیید به این شماره پیامک می‌شود.",
       "mobile_label": "شماره موبایل",
-      "mobile_placeholder": "مثلاً 09121234567",
+      "mobile_placeholder": "۰۹۱۲ ۱۲۳ ۴۵۶۷",
+      "otp_heading": "کد تأیید را وارد کنید",
+      "otp_hint": "کد ۶ رقمی پیامک‌شده را وارد کنید.",
       "otp_label": "کد یکبار مصرف",
       "otp_placeholder": "۶ رقم",
+      "next": "بعدی",
       "send_otp": "ارسال کد",
       "verify_otp": "ورود",
+      "change_mobile": "تغییر شماره موبایل",
+      "close_aria": "بستن",
+      "terms_accept": "با ورود به %s،",
+      "terms_link": "شرایط و قوانین استفاده",
+      "privacy_link": "سیاست‌نامهٔ حریم خصوصی",
       "login_success": "ورود موفق",
       "login_failed": "ورود ناموفق",
       "otp_sent": "کد ارسال شد",
+      "resend_otp": "ارسال مجدد کد",
       "welcome_user": "سلام %s"
     },
     "hero": {
@@ -81,6 +93,19 @@
       "description": "صفحه‌ای که دنبال آن هستید وجود ندارد یا جابه‌جا شده است.",
       "back_home": "بازگشت به خانه",
       "code": "۴۰۴"
+    },
+    "api_errors": {
+      "_default": "خطایی رخ داد. لطفاً دوباره تلاش کنید.",
+      "OTP_VERIFY_FAILED": "کد تأیید نادرست است.",
+      "OTP_EXPIRED": "کد منقضی شده است. کد جدید درخواست کنید.",
+      "OTP_NOT_FOUND": "کدی برای این شماره یافت نشد. کد جدید درخواست کنید.",
+      "MOBILE_EMPTY": "شماره موبایل را وارد کنید.",
+      "INVALID_MOBILE": "شماره موبایل معتبر وارد کنید.",
+      "INVALID_OTP": "کد ۶ رقمی معتبر وارد کنید.",
+      "INVALID_REQUEST": "درخواست نامعتبر است. دوباره تلاش کنید.",
+      "CACHE_SERVICE_UNAVAILABLE": "سرویس موقتاً در دسترس نیست. بعداً تلاش کنید.",
+      "BACKEND_UNAVAILABLE": "سرویس موقتاً در دسترس نیست. بعداً تلاش کنید.",
+      "NETWORK_ERROR": "خطای شبکه. اتصال خود را بررسی و دوباره تلاش کنید."
     },
     "category_items": {
       "real-estate": { "name": "املاک", "description": "اجاره، خرید و فروش" },

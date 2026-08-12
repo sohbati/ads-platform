@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
+	"net/url"
 
 	"ads-platform-ui/internal/core/bff"
 	"ads-platform-ui/internal/core/cities"
@@ -39,11 +40,13 @@ func (h *PageHandler) currentUser(c *gin.Context) (*sessionUser, bool) {
 func (h *PageHandler) renderProtected(c *gin.Context, templateName, heading string) {
 	user, ok := h.currentUser(c)
 	if !ok {
-		c.Redirect(http.StatusFound, "/login?next="+c.Request.URL.Path)
+		target := "/query-ads?login=1&next=" + url.QueryEscape(c.Request.URL.Path)
+		c.Redirect(http.StatusFound, target)
 		return
 	}
 
 	pageData := i18n.BuildPage(h.i18n, h.cities, i18n.FromContext(c), h.config.AppName, i18n.CityFromContext(c), c.Request.URL.Path)
+	pageData.DefaultCountryCode = h.config.DefaultCountryCode
 	pageData.Title = h.config.AppName + " — " + heading
 	pageData.Heading = heading
 	pageData.IsAuthenticated = true

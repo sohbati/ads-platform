@@ -9,12 +9,13 @@ import (
 )
 
 type Config struct {
-	Port              string
-	BackendAPIBaseURL string
-	CacheServiceURL   string
-	SessionCookieName string
-	SessionTTL        time.Duration
-	CookieSecure      bool
+	Port                 string
+	BackendAPIBaseURL    string
+	CacheServiceURL      string
+	SessionCookieName    string
+	SessionTTL           time.Duration
+	CookieSecure         bool
+	DefaultCountryCode   string
 }
 
 func Load() *Config {
@@ -26,7 +27,8 @@ func Load() *Config {
 		CacheServiceURL:   getEnv("CACHE_SERVICE_URL", "http://localhost:8093"),
 		SessionCookieName: getEnv("SESSION_COOKIE_NAME", "ads_session"),
 		SessionTTL:        getDurationEnv("SESSION_TTL", 24*time.Hour),
-		CookieSecure:      getBoolEnv("COOKIE_SECURE", false),
+		CookieSecure:         getBoolEnv("COOKIE_SECURE", false),
+		DefaultCountryCode:   getEnv("DEFAULT_COUNTRY_CODE", "+98"),
 	}
 }
 

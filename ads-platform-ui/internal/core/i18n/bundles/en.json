@@ -31,16 +31,28 @@
       "logout": "Logout"
     },
     "auth": {
+      "modal_title": "Sign in to your account",
       "login_title": "Login with OTP",
+      "mobile_heading": "Enter your mobile number",
+      "mobile_hint": "A verification code will be sent to this number.",
       "mobile_label": "Mobile number",
-      "mobile_placeholder": "e.g. 09121234567",
+      "mobile_placeholder": "0912 123 4567",
+      "otp_heading": "Enter verification code",
+      "otp_hint": "Enter the 6-digit code we sent you.",
       "otp_label": "One-time code",
       "otp_placeholder": "6 digits",
+      "next": "Next",
       "send_otp": "Send code",
       "verify_otp": "Sign in",
+      "change_mobile": "Change mobile number",
+      "close_aria": "Close",
+      "terms_accept": "By signing in to %s, I accept the",
+      "terms_link": "terms of use",
+      "privacy_link": "privacy policy",
       "login_success": "Signed in",
       "login_failed": "Sign in failed",
       "otp_sent": "Code sent",
+      "resend_otp": "Resend code",
       "welcome_user": "Hello %s"
     },
     "hero": {
@@ -81,6 +93,19 @@
       "description": "The page you are looking for does not exist or has been moved.",
       "back_home": "Back to home",
       "code": "404"
+    },
+    "api_errors": {
+      "_default": "Something went wrong. Please try again.",
+      "OTP_VERIFY_FAILED": "The verification code is incorrect.",
+      "OTP_EXPIRED": "This code has expired. Request a new one.",
+      "OTP_NOT_FOUND": "No verification code found for this number. Request a new one.",
+      "MOBILE_EMPTY": "Enter your mobile number.",
+      "INVALID_MOBILE": "Enter a valid mobile number.",
+      "INVALID_OTP": "Enter a valid 6-digit code.",
+      "INVALID_REQUEST": "Invalid request. Please try again.",
+      "CACHE_SERVICE_UNAVAILABLE": "Service is temporarily unavailable. Try again later.",
+      "BACKEND_UNAVAILABLE": "Service is temporarily unavailable. Try again later.",
+      "NETWORK_ERROR": "Network error. Check your connection and try again."
     },
     "category_items": {
       "real-estate": { "name": "Real Estate", "description": "Rent, buy & sell property" },

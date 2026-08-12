@@ -21,6 +21,7 @@ type Page struct {
 	SessionUserName   string
 	SessionUserMobile string
 	IsAuthenticated   bool
+	DefaultCountryCode string
 	T                 Messages
 }
 

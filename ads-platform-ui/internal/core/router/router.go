@@ -34,6 +34,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 		loc := i18n.FromContext(c)
 		city := i18n.CityFromContext(c)
 		page := i18n.BuildPage(r.container.I18n, r.container.Cities, loc, cfg.AppName, city, c.Request.URL.Path)
+		page.DefaultCountryCode = cfg.DefaultCountryCode
 		page.Title = cfg.AppName + " — " + page.T.Error.Title
 		c.HTML(http.StatusNotFound, "error_404", page)
 	})

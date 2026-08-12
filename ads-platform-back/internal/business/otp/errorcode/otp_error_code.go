@@ -11,6 +11,7 @@ type ErrorCode struct {
 
 var (
 	ErrMobileEmpty    = New("MOBILE_EMPTY", http.StatusBadRequest)
+	ErrInvalidMobile  = New("INVALID_MOBILE", http.StatusBadRequest)
 	ErrInvalidOTP     = New("INVALID_OTP", http.StatusBadRequest)
 	ErrOTPNotFound    = New("OTP_NOT_FOUND", http.StatusNotFound)
 	ErrOTPExpired     = New("OTP_EXPIRED", http.StatusNotFound)

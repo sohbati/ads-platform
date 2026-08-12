@@ -15,6 +15,7 @@ func Base(c *gin.Context, cfg *config.Config, reg *i18n.Registry, catalog *citie
 	loc := i18n.FromContext(c)
 	city := i18n.CityFromContext(c)
 	p := i18n.BuildPage(reg, catalog, loc, cfg.AppName, city, c.Request.URL.Path)
+	p.DefaultCountryCode = cfg.DefaultCountryCode
 	p.Title = title
 	p.Heading = heading
 	return p

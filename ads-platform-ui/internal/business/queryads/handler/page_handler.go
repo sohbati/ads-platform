@@ -23,5 +23,6 @@ func (h *PageHandler) Index(c *gin.Context) {
 	loc := i18n.FromContext(c)
 	city := i18n.CityFromContext(c)
 	page := h.service.BuildPage(loc, h.config.AppName, city, c.Request.URL.Path)
+	page.Page.DefaultCountryCode = h.config.DefaultCountryCode
 	c.HTML(http.StatusOK, "query_ads", page)
 }

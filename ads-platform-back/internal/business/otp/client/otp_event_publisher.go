@@ -62,6 +62,7 @@ func (p *otpEventPublisher) PublishOtpEvent(ctx context.Context, mobile string, 
 		return fmt.Errorf("publish otp event: %w", err)
 	}
 
+	log.Printf("OTP event published subject=%s mobile=%s", p.subject, mobile)
 	return nil
 }
 
