@@ -22,7 +22,10 @@ const (
 
 type PostgresContainer struct {
 	Container *postgres.PostgresContainer
-	DSN       string
+	// DSN is reachable from other containers on the shared Docker network.
+	DSN string
+	// HostDSN is reachable from the test process on the host.
+	HostDSN string
 }
 
 func StartPostgres(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwork) (*PostgresContainer, error) {
@@ -50,9 +53,16 @@ func StartPostgres(ctx context.Context, t *testing.T, net *testcontainers.Docker
 		pgUser, pgPassword, networkName, pgDatabase,
 	)
 
+	hostDSN, err := container.ConnectionString(ctx, "sslmode=disable", "search_path=ads_platform_schema")
+	if err != nil {
+		_ = container.Terminate(ctx)
+		return nil, fmt.Errorf("postgres host connection string: %w", err)
+	}
+
 	return &PostgresContainer{
 		Container: container,
 		DSN:       dsn,
+		HostDSN:   hostDSN,
 	}, nil
 }
 

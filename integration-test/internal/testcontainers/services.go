@@ -40,6 +40,11 @@ func startService(ctx context.Context, t *testing.T, net *testcontainers.DockerN
 		FromDockerfile: testcontainers.FromDockerfile{
 			Context:    RepoRoot(),
 			Dockerfile: cfg.dockerfile,
+			// Stable tags + KeepImage so parallel OTP packages reuse builds instead of
+			// each package rebuilding with a random UUID tag (that caused 15m timeouts).
+			Repo:      "ads-platform-it/" + cfg.name,
+			Tag:       "local",
+			KeepImage: true,
 		},
 		ExposedPorts: []string{string(cfg.port)},
 		Env:          cfg.env,

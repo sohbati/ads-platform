@@ -38,7 +38,7 @@ func SetupOtpStack(t *testing.T) (*tc.OtpStack, string, string) {
 		t.Skip("skipping integration test in short mode")
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Minute)
+	ctx, cancel := context.WithTimeout(context.Background(), 25*time.Minute)
 	t.Cleanup(cancel)
 
 	stack, err := tc.StartOtpStack(ctx, t)

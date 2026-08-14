@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/testcontainers/testcontainers-go"
 )
@@ -28,7 +29,9 @@ func StartOtpStack(ctx context.Context, t *testing.T) (*OtpStack, error) {
 
 	pg, err := StartPostgres(ctx, t, net)
 	if err != nil {
-		_ = net.Remove(ctx)
+		cleanupCtx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+		defer cancel()
+		_ = net.Remove(cleanupCtx)
 		return nil, err
 	}
 
@@ -40,7 +43,10 @@ func StartOtpStack(ctx context.Context, t *testing.T) (*OtpStack, error) {
 	start := func(name string, fn func() (*ServiceContainer, error)) (*ServiceContainer, error) {
 		svc, err := fn()
 		if err != nil {
-			stack.Terminate(ctx, t)
+			// Do not reuse ctx: it is often already cancelled (deadline exceeded).
+			cleanupCtx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+			defer cancel()
+			stack.Terminate(cleanupCtx, t)
 			return nil, fmt.Errorf("start %s: %w", name, err)
 		}
 		return svc, nil
