@@ -1,6 +1,6 @@
 package model
 
-// City matches cdn/json/cities.json entries.
+// City matches CDN /api/cities JSON entries.
 type City struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
@@ -8,5 +8,5 @@ type City struct {
 	Parent      *int   `json:"parent"`
 	Type        string `json:"type"`
 	CitiesCount *int   `json:"cities_count,omitempty"`
-	Path        string `json:"path"` // root → … → self ids, e.g. "715,904,1"
+	Path        string `json:"path,omitempty"`
 }

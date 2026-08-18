@@ -10,13 +10,15 @@ type Config struct {
 	fooEnv       string
 	DatabaseType string
 	Port         string
+	CDNBaseURL   string
 }
 
 func Load() *Config {
 	godotenv.Load()
 
 	return &Config{
-		Port: getEnv("PORT", "8093"),
+		Port:       getEnv("PORT", "8093"),
+		CDNBaseURL: getEnv("CDN_BASE_URL", "http://localhost:4000"),
 	}
 }
 

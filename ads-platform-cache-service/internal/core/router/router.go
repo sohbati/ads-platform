@@ -74,6 +74,9 @@ func (r *Router) SetupRoutes() *gin.Engine {
 			caches.GET("/session/:key", r.container.SessionCacheContainer.SessionCacheHandler.GetCacheByKey)
 			caches.POST("/session/:key", r.container.SessionCacheContainer.SessionCacheHandler.AddItem)
 			caches.DELETE("/session/:key", r.container.SessionCacheContainer.SessionCacheHandler.DeleteItem)
+
+			caches.GET("/cities/by-ids", r.container.CityCacheContainer.CityCacheHandler.GetByIDs)
+			caches.GET("/cities/by-slugs", r.container.CityCacheContainer.CityCacheHandler.GetBySlugs)
 		}
 
 	}

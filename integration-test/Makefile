@@ -15,3 +15,6 @@ test-integration: ## Run integration tests with testcontainers (requires Docker)
 
 test-otp: ## Run OTP verify integration tests only
 	go test -tags=integration -timeout=45m -p 1 -v ./tests/otp_verify/...
+
+test-city-cache: ## Run city cache GET API integration tests
+	go test -tags=integration -timeout=45m -p 1 -v ./tests/city_cache/...

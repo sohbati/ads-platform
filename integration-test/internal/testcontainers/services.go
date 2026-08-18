@@ -105,7 +105,8 @@ func StartCacheService(ctx context.Context, t *testing.T, net *testcontainers.Do
 		port:       "8093/tcp",
 		healthPath: "/health",
 		env: map[string]string{
-			"PORT": "8093",
+			"PORT":         "8093",
+			"CDN_BASE_URL": "http://ads-platform-cdn:4000",
 		},
 	})
 }

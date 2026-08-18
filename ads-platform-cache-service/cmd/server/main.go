@@ -27,7 +27,7 @@ func NewApplication() *Application {
 func (app *Application) Initialize() error {
 	app.loadConfig()
 
-	container := container.NewAppContainer()
+	container := container.NewAppContainer(app.config)
 	app.container = container
 	app.router = router.NewRouter(container)
 	log.Println("Router configured")
@@ -54,6 +54,8 @@ func main() {
 
 	defer app.container.OtpCacheContainer.OtpCacheStore.Stop()
 	defer app.container.SessionCacheContainer.SessionCacheStore.Stop()
+	defer app.container.CityCacheContainer.IDToCityStore.Stop()
+	defer app.container.CityCacheContainer.SlugToIDStore.Stop()
 
 	if err := app.Run(); err != nil {
 		log.Fatalf("Failed to start: %v", err)
