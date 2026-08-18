@@ -56,6 +56,8 @@ func main() {
 	defer app.container.SessionCacheContainer.SessionCacheStore.Stop()
 	defer app.container.CityCacheContainer.IDToCityStore.Stop()
 	defer app.container.CityCacheContainer.SlugToIDStore.Stop()
+	defer app.container.CategoryCacheContainer.SlugToCategoryStore.Stop()
+	defer app.container.CategoryCacheContainer.IDToSlugStore.Stop()
 
 	if err := app.Run(); err != nil {
 		log.Fatalf("Failed to start: %v", err)

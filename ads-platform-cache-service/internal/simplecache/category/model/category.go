@@ -1,11 +1,11 @@
 package model
 
-// Category matches cdn/json/category.json entries.
+// Category matches CDN /api/categories JSON entries.
 type Category struct {
 	ID     int    `json:"id"`
 	Parent *int   `json:"parent"`
 	Order  int    `json:"order"`
 	Title  string `json:"title"`
 	Slug   string `json:"slug"`
-	Path   string `json:"path"` // root → … → self ids, e.g. "3,15"
+	Path   string `json:"path,omitempty"`
 }

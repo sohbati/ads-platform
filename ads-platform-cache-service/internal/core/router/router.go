@@ -77,6 +77,9 @@ func (r *Router) SetupRoutes() *gin.Engine {
 
 			caches.GET("/cities/by-ids", r.container.CityCacheContainer.CityCacheHandler.GetByIDs)
 			caches.GET("/cities/by-slugs", r.container.CityCacheContainer.CityCacheHandler.GetBySlugs)
+
+			caches.GET("/categories/by-slugs", r.container.CategoryCacheContainer.CategoryCacheHandler.GetBySlugs)
+			caches.GET("/categories/by-ids", r.container.CategoryCacheContainer.CategoryCacheHandler.GetByIDs)
 		}
 
 	}

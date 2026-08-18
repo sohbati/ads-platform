@@ -18,3 +18,6 @@ test-otp: ## Run OTP verify integration tests only
 
 test-city-cache: ## Run city cache GET API integration tests
 	go test -tags=integration -timeout=45m -p 1 -v ./tests/city_cache/...
+
+test-category-cache: ## Run category cache GET API integration tests
+	go test -tags=integration -timeout=45m -p 1 -v ./tests/category_cache/...
