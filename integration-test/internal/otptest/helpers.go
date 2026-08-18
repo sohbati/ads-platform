@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
+	"strings"
 	"testing"
 	"time"
-
-	tc "integration-test/internal/testcontainers"
 )
 
 const TestMobile = "09125697463"
@@ -29,40 +29,6 @@ type SendOtpResponse struct {
 type VerifyOtpResponse struct {
 	Verified bool   `json:"verified"`
 	Message  string `json:"message"`
-}
-
-func SetupOtpStack(t *testing.T) (*tc.OtpStack, string, string) {
-	t.Helper()
-
-	if testing.Short() {
-		t.Skip("skipping integration test in short mode")
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 25*time.Minute)
-	t.Cleanup(cancel)
-
-	stack, err := tc.StartOtpStack(ctx, t)
-	if err != nil {
-		t.Fatalf("start otp stack: %v", err)
-	}
-
-	t.Cleanup(func() {
-		cleanupCtx, cleanupCancel := context.WithTimeout(context.Background(), 2*time.Minute)
-		defer cleanupCancel()
-		stack.Terminate(cleanupCtx, t)
-	})
-
-	backURL, err := stack.BackURL(ctx)
-	if err != nil {
-		t.Fatalf("back url: %v", err)
-	}
-
-	cacheURL, err := stack.CacheURL(ctx)
-	if err != nil {
-		t.Fatalf("cache url: %v", err)
-	}
-
-	return stack, backURL, cacheURL
 }
 
 func SendOTP(ctx context.Context, backURL, mobile string) (int, SendOtpResponse, ErrorResponse) {
@@ -155,9 +121,31 @@ func VerifyOTPRaw(ctx context.Context, backURL, mobile string, body []byte) (int
 	return resp.StatusCode, success, failure
 }
 
+// cacheOTPKey matches ads-platform-back otpCacheKey after Iran E.164 normalization.
+func cacheOTPKey(mobile string) string {
+	return "otp:" + normalizeIranMobile(mobile)
+}
+
+func normalizeIranMobile(mobile string) string {
+	s := strings.TrimSpace(mobile)
+	switch {
+	case strings.HasPrefix(s, "+"):
+		return s
+	case strings.HasPrefix(s, "00"):
+		return "+" + s[2:]
+	case strings.HasPrefix(s, "0"):
+		return "+98" + s[1:]
+	case strings.HasPrefix(s, "98"):
+		return "+" + s
+	default:
+		return "+98" + s
+	}
+}
+
 func GetCachedOTP(ctx context.Context, cacheURL, mobile string) (string, error) {
-	url := fmt.Sprintf("%s/api/v1/caches/otp/otp:%s", cacheURL, mobile)
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	key := cacheOTPKey(mobile)
+	getURL := fmt.Sprintf("%s/api/v1/caches/otp/%s", cacheURL, url.PathEscape(key))
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, getURL, nil)
 	if err != nil {
 		return "", err
 	}

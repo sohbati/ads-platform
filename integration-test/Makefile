@@ -10,14 +10,11 @@ test: ## Run unit tests only
 	go test ./...
 
 test-integration: ## Run integration tests with testcontainers (requires Docker)
-	# -p 1: each OTP package boots its own Docker stack; parallel packages starve builds.
+	# -p 1: suites share stacks internally; avoid parallel packages competing for Docker.
 	go test -tags=integration -timeout=45m -p 1 -v ./tests/...
 
-test-otp: ## Run OTP verify integration tests only
-	go test -tags=integration -timeout=45m -p 1 -v ./tests/otp_verify/...
+test-otp: ## Run OTP verify suite (one shared stack)
+	go test -tags=integration -timeout=45m -v ./tests/otp_verify/
 
-test-city-cache: ## Run city cache GET API integration tests
-	go test -tags=integration -timeout=45m -p 1 -v ./tests/city_cache/...
-
-test-category-cache: ## Run category cache GET API integration tests
-	go test -tags=integration -timeout=45m -p 1 -v ./tests/category_cache/...
+test-cache-catalog: ## Run city+category cache suite (one shared CDN+cache stack)
+	go test -tags=integration -timeout=45m -v ./tests/cache_catalog/

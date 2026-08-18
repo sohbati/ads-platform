@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
-	"testing"
 	"time"
 
 	"github.com/docker/go-connections/nat"
@@ -33,9 +33,7 @@ func (s *ServiceContainer) BaseURL(ctx context.Context) (string, error) {
 	return fmt.Sprintf("http://%s:%s", host, mappedPort.Port()), nil
 }
 
-func startService(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwork, cfg serviceConfig) (*ServiceContainer, error) {
-	t.Helper()
-
+func startService(ctx context.Context, net *testcontainers.DockerNetwork, cfg serviceConfig) (*ServiceContainer, error) {
 	req := testcontainers.ContainerRequest{
 		FromDockerfile: testcontainers.FromDockerfile{
 			Context:    RepoRoot(),
@@ -73,16 +71,16 @@ func startService(ctx context.Context, t *testing.T, net *testcontainers.DockerN
 }
 
 type serviceConfig struct {
-	name         string
-	alias        string
-	dockerfile   string
-	port         nat.Port
-	healthPath   string
-	env          map[string]string
+	name       string
+	alias      string
+	dockerfile string
+	port       nat.Port
+	healthPath string
+	env        map[string]string
 }
 
-func StartNatsBroker(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
-	return startService(ctx, t, net, serviceConfig{
+func StartNatsBroker(ctx context.Context, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
+	return startService(ctx, net, serviceConfig{
 		name:       "nats-message-broker",
 		alias:      "nats-message-broker",
 		dockerfile: "integration-test/docker/nats-message-broker.Dockerfile",
@@ -97,8 +95,8 @@ func StartNatsBroker(ctx context.Context, t *testing.T, net *testcontainers.Dock
 	})
 }
 
-func StartCacheService(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
-	return startService(ctx, t, net, serviceConfig{
+func StartCacheService(ctx context.Context, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
+	return startService(ctx, net, serviceConfig{
 		name:       "ads-platform-cache-service",
 		alias:      "ads-platform-cache-service",
 		dockerfile: "integration-test/docker/ads-platform-cache-service.Dockerfile",
@@ -111,8 +109,8 @@ func StartCacheService(ctx context.Context, t *testing.T, net *testcontainers.Do
 	})
 }
 
-func StartCDN(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
-	return startService(ctx, t, net, serviceConfig{
+func StartCDN(ctx context.Context, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
+	return startService(ctx, net, serviceConfig{
 		name:       "ads-platform-cdn",
 		alias:      "ads-platform-cdn",
 		dockerfile: "integration-test/docker/ads-platform-cdn.Dockerfile",
@@ -124,24 +122,24 @@ func StartCDN(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwo
 	})
 }
 
-func StartNotification(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
-	return startService(ctx, t, net, serviceConfig{
+func StartNotification(ctx context.Context, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
+	return startService(ctx, net, serviceConfig{
 		name:       "ads-platform-notification",
 		alias:      "ads-platform-notification",
 		dockerfile: "integration-test/docker/ads-platform-notification.Dockerfile",
 		port:       "8096/tcp",
 		healthPath: "/health",
 		env: map[string]string{
-			"PORT":             "8096",
-			"NATS_URL":         "nats://nats-message-broker:4222",
-			"NATS_BROKER_URL":  "http://nats-message-broker:8095",
-			"OTP_SUBJECT":      "notifications.otp.send",
+			"PORT":            "8096",
+			"NATS_URL":        "nats://nats-message-broker:4222",
+			"NATS_BROKER_URL": "http://nats-message-broker:8095",
+			"OTP_SUBJECT":     "notifications.otp.send",
 		},
 	})
 }
 
-func StartBack(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwork, pg *PostgresContainer) (*ServiceContainer, error) {
-	return startService(ctx, t, net, serviceConfig{
+func StartBack(ctx context.Context, net *testcontainers.DockerNetwork, pg *PostgresContainer) (*ServiceContainer, error) {
+	return startService(ctx, net, serviceConfig{
 		name:       "ads-platform-back",
 		alias:      "ads-platform-back",
 		dockerfile: "integration-test/docker/ads-platform-back.Dockerfile",
@@ -159,8 +157,8 @@ func StartBack(ctx context.Context, t *testing.T, net *testcontainers.DockerNetw
 	})
 }
 
-func StartBFF(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
-	return startService(ctx, t, net, serviceConfig{
+func StartBFF(ctx context.Context, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
+	return startService(ctx, net, serviceConfig{
 		name:       "ads-bff",
 		alias:      "ads-bff",
 		dockerfile: "integration-test/docker/ads-bff.Dockerfile",
@@ -174,8 +172,8 @@ func StartBFF(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwo
 	})
 }
 
-func StartUI(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
-	return startService(ctx, t, net, serviceConfig{
+func StartUI(ctx context.Context, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
+	return startService(ctx, net, serviceConfig{
 		name:       "ads-platform-ui",
 		alias:      "ads-platform-ui",
 		dockerfile: "integration-test/docker/ads-platform-ui.Dockerfile",
@@ -215,14 +213,13 @@ func WaitForHealthyURL(ctx context.Context, url string) error {
 	return fmt.Errorf("service not healthy at %s", url)
 }
 
-func Terminate(ctx context.Context, t *testing.T, containers ...testcontainers.Container) {
-	t.Helper()
+func Terminate(ctx context.Context, containers ...testcontainers.Container) {
 	for _, container := range containers {
 		if container == nil {
 			continue
 		}
 		if err := container.Terminate(ctx); err != nil {
-			t.Logf("terminate container: %v", err)
+			log.Printf("terminate container: %v", err)
 		}
 	}
 }

@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strings"
 
 	"ads-platform/internal/business/otp/errorcode"
 	"ads-platform/internal/business/otp/model"
@@ -61,6 +62,11 @@ func (h *OtpHandler) VerifyOTP(c *gin.Context) {
 }
 
 func (h *OtpHandler) normalizeMobile(raw string) (string, error) {
+	if strings.TrimSpace(raw) == "" {
+		return "", exception.NewAppError(
+			errorcode.ErrMobileEmpty.Code, errorcode.ErrMobileEmpty.HttpStatus, raw)
+	}
+
 	normalized, err := h.mobileNorm.Normalize(raw)
 	if err != nil {
 		return "", exception.NewAppError(

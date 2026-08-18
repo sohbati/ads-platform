@@ -9,10 +9,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
-	"testing"
 	"time"
-
-	tc "integration-test/internal/testcontainers"
 )
 
 type Category struct {
@@ -28,36 +25,6 @@ type ErrorResponse struct {
 	Error      string   `json:"error"`
 	StatusCode int      `json:"statusCode"`
 	Params     []string `json:"params"`
-}
-
-// SetupCategoryCacheStack reuses CDN + cache-service (same as city cache).
-func SetupCategoryCacheStack(t *testing.T) (*tc.CityCacheStack, string) {
-	t.Helper()
-
-	if testing.Short() {
-		t.Skip("skipping integration test in short mode")
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 25*time.Minute)
-	t.Cleanup(cancel)
-
-	stack, err := tc.StartCityCacheStack(ctx, t)
-	if err != nil {
-		t.Fatalf("start category cache stack: %v", err)
-	}
-
-	t.Cleanup(func() {
-		cleanupCtx, cleanupCancel := context.WithTimeout(context.Background(), 2*time.Minute)
-		defer cleanupCancel()
-		stack.Terminate(cleanupCtx, t)
-	})
-
-	cacheURL, err := stack.CacheURL(ctx)
-	if err != nil {
-		t.Fatalf("cache url: %v", err)
-	}
-
-	return stack, cacheURL
 }
 
 func GetCategoriesByIDs(ctx context.Context, cacheURL string, ids ...int) (int, []Category, ErrorResponse, error) {

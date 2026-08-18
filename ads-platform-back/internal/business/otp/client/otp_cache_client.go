@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 
@@ -39,8 +40,8 @@ func (c *otpCacheClient) StoreOTP(ctx context.Context, key string, otp string) e
 		return fmt.Errorf("cache-service: marshal otp request: %w", err)
 	}
 
-	url := fmt.Sprintf("%s/api/v1/caches/otp/%s", c.baseURL, key)
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(body))
+	storeURL := fmt.Sprintf("%s/api/v1/caches/otp/%s", c.baseURL, url.PathEscape(key))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, storeURL, bytes.NewReader(body))
 	if err != nil {
 		return fmt.Errorf("cache-service: build store request: %w", err)
 	}
@@ -48,33 +49,33 @@ func (c *otpCacheClient) StoreOTP(ctx context.Context, key string, otp string) e
 
 	resp, err := c.http.Do(req)
 	if err != nil {
-		return fmt.Errorf("cache-service: POST %s: %w", url, err)
+		return fmt.Errorf("cache-service: POST %s: %w", storeURL, err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("cache-service: POST %s: status %d", url, resp.StatusCode)
+		return fmt.Errorf("cache-service: POST %s: status %d", storeURL, resp.StatusCode)
 	}
 
 	return nil
 }
 
 func (c *otpCacheClient) GetOTP(ctx context.Context, key string) (string, error) {
-	url := fmt.Sprintf("%s/api/v1/caches/otp/%s", c.baseURL, key)
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	getURL := fmt.Sprintf("%s/api/v1/caches/otp/%s", c.baseURL, url.PathEscape(key))
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, getURL, nil)
 	if err != nil {
 		return "", fmt.Errorf("cache-service: build get request: %w", err)
 	}
 
 	resp, err := c.http.Do(req)
 	if err != nil {
-		return "", fmt.Errorf("cache-service: GET %s: %w", url, err)
+		return "", fmt.Errorf("cache-service: GET %s: %w", getURL, err)
 	}
 	defer resp.Body.Close()
 
 	data, err := io.ReadAll(io.LimitReader(resp.Body, 1<<10))
 	if err != nil {
-		return "", fmt.Errorf("cache-service: read %s: %w", url, err)
+		return "", fmt.Errorf("cache-service: read %s: %w", getURL, err)
 	}
 
 	if resp.StatusCode == http.StatusNotFound {
@@ -82,12 +83,12 @@ func (c *otpCacheClient) GetOTP(ctx context.Context, key string) (string, error)
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("cache-service: GET %s: status %d", url, resp.StatusCode)
+		return "", fmt.Errorf("cache-service: GET %s: status %d", getURL, resp.StatusCode)
 	}
 
 	var otp string
 	if err := json.Unmarshal(data, &otp); err != nil {
-		return "", fmt.Errorf("cache-service: parse %s: %w", url, err)
+		return "", fmt.Errorf("cache-service: parse %s: %w", getURL, err)
 	}
 
 	return otp, nil

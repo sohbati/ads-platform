@@ -1,6 +1,6 @@
 //go:build integration
 
-package missing_body
+package otp_verify
 
 import (
 	"context"
@@ -11,12 +11,11 @@ import (
 	"integration-test/internal/otptest"
 )
 
-func TestMissingBody(t *testing.T) {
-	_, backURL, _ := otptest.SetupOtpStack(t)
+func TestMissingOtpField(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	status, _, errResp := otptest.VerifyOTPRaw(ctx, backURL, otptest.TestMobile, nil)
+	status, _, errResp := otptest.VerifyOTPRaw(ctx, backURL, otptest.TestMobile, []byte(`{}`))
 	if status != http.StatusBadRequest {
 		t.Fatalf("expected 400, got %d", status)
 	}

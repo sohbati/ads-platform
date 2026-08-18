@@ -3,7 +3,7 @@ package testcontainers
 import (
 	"context"
 	"fmt"
-	"testing"
+	"log"
 	"time"
 
 	"github.com/testcontainers/testcontainers-go"
@@ -21,15 +21,13 @@ type Stack struct {
 	UI           *ServiceContainer
 }
 
-func StartStack(ctx context.Context, t *testing.T) (*Stack, error) {
-	t.Helper()
-
+func StartStack(ctx context.Context) (*Stack, error) {
 	net, err := CreateNetwork(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("create network: %w", err)
 	}
 
-	pg, err := StartPostgres(ctx, t, net)
+	pg, err := StartPostgres(ctx, net)
 	if err != nil {
 		cleanupCtx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 		defer cancel()
@@ -47,56 +45,56 @@ func StartStack(ctx context.Context, t *testing.T) (*Stack, error) {
 		if err != nil {
 			cleanupCtx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 			defer cancel()
-			stack.Terminate(cleanupCtx, t)
+			stack.Terminate(cleanupCtx)
 			return nil, fmt.Errorf("start %s: %w", name, err)
 		}
 		return svc, nil
 	}
 
 	stack.NatsBroker, err = start("nats-message-broker", func() (*ServiceContainer, error) {
-		return StartNatsBroker(ctx, t, net)
+		return StartNatsBroker(ctx, net)
 	})
 	if err != nil {
 		return nil, err
 	}
 
 	stack.Cache, err = start("ads-platform-cache-service", func() (*ServiceContainer, error) {
-		return StartCacheService(ctx, t, net)
+		return StartCacheService(ctx, net)
 	})
 	if err != nil {
 		return nil, err
 	}
 
 	stack.CDN, err = start("ads-platform-cdn", func() (*ServiceContainer, error) {
-		return StartCDN(ctx, t, net)
+		return StartCDN(ctx, net)
 	})
 	if err != nil {
 		return nil, err
 	}
 
 	stack.Notification, err = start("ads-platform-notification", func() (*ServiceContainer, error) {
-		return StartNotification(ctx, t, net)
+		return StartNotification(ctx, net)
 	})
 	if err != nil {
 		return nil, err
 	}
 
 	stack.Back, err = start("ads-platform-back", func() (*ServiceContainer, error) {
-		return StartBack(ctx, t, net, pg)
+		return StartBack(ctx, net, pg)
 	})
 	if err != nil {
 		return nil, err
 	}
 
 	stack.BFF, err = start("ads-bff", func() (*ServiceContainer, error) {
-		return StartBFF(ctx, t, net)
+		return StartBFF(ctx, net)
 	})
 	if err != nil {
 		return nil, err
 	}
 
 	stack.UI, err = start("ads-platform-ui", func() (*ServiceContainer, error) {
-		return StartUI(ctx, t, net)
+		return StartUI(ctx, net)
 	})
 	if err != nil {
 		return nil, err
@@ -105,10 +103,8 @@ func StartStack(ctx context.Context, t *testing.T) (*Stack, error) {
 	return stack, nil
 }
 
-func (s *Stack) Terminate(ctx context.Context, t *testing.T) {
-	t.Helper()
-
-	Terminate(ctx, t,
+func (s *Stack) Terminate(ctx context.Context) {
+	Terminate(ctx,
 		serviceContainer(s.UI),
 		serviceContainer(s.BFF),
 		serviceContainer(s.Back),
@@ -120,13 +116,13 @@ func (s *Stack) Terminate(ctx context.Context, t *testing.T) {
 
 	if s.Postgres != nil && s.Postgres.Container != nil {
 		if err := s.Postgres.Container.Terminate(ctx); err != nil {
-			t.Logf("terminate postgres: %v", err)
+			log.Printf("terminate postgres: %v", err)
 		}
 	}
 
 	if s.Network != nil {
 		if err := s.Network.Remove(ctx); err != nil {
-			t.Logf("remove network: %v", err)
+			log.Printf("remove network: %v", err)
 		}
 	}
 }

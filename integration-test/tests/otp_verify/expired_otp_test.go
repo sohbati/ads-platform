@@ -1,6 +1,6 @@
 //go:build integration
 
-package expired_otp
+package otp_verify
 
 import (
 	"context"
@@ -14,7 +14,6 @@ import (
 func TestExpiredOtp(t *testing.T) {
 	t.Skip("OTP TTL is 500s; run manually or reduce cache TTL for automated expiry test")
 
-	_, backURL, _ := otptest.SetupOtpStack(t)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 

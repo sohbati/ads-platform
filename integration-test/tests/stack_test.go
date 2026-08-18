@@ -19,14 +19,14 @@ func TestStackHealth(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 25*time.Minute)
 	defer cancel()
 
-	stack, err := tc.StartStack(ctx, t)
+	stack, err := tc.StartStack(ctx)
 	if err != nil {
 		t.Fatalf("start stack: %v", err)
 	}
 	t.Cleanup(func() {
 		cleanupCtx, cleanupCancel := context.WithTimeout(context.Background(), 2*time.Minute)
 		defer cleanupCancel()
-		stack.Terminate(cleanupCtx, t)
+		stack.Terminate(cleanupCtx)
 	})
 
 	urls, err := stack.URLs(ctx)
@@ -66,7 +66,7 @@ func TestPostgresConnection(t *testing.T) {
 		_ = net.Remove(context.Background())
 	})
 
-	pg, err := tc.StartPostgres(ctx, t, net)
+	pg, err := tc.StartPostgres(ctx, net)
 	if err != nil {
 		t.Fatalf("start postgres: %v", err)
 	}

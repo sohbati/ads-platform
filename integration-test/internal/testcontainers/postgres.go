@@ -3,7 +3,6 @@ package testcontainers
 import (
 	"context"
 	"fmt"
-	"testing"
 	"time"
 
 	"github.com/testcontainers/testcontainers-go"
@@ -28,9 +27,7 @@ type PostgresContainer struct {
 	HostDSN string
 }
 
-func StartPostgres(ctx context.Context, t *testing.T, net *testcontainers.DockerNetwork) (*PostgresContainer, error) {
-	t.Helper()
-
+func StartPostgres(ctx context.Context, net *testcontainers.DockerNetwork) (*PostgresContainer, error) {
 	container, err := postgres.Run(ctx,
 		"postgres:16-alpine",
 		postgres.WithDatabase(pgDatabase),

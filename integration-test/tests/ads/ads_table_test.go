@@ -29,7 +29,7 @@ func TestAdsTableInsertAndJSONBQuery(t *testing.T) {
 		_ = net.Remove(context.Background())
 	})
 
-	pg, err := tc.StartPostgres(ctx, t, net)
+	pg, err := tc.StartPostgres(ctx, net)
 	if err != nil {
 		t.Fatalf("start postgres: %v", err)
 	}

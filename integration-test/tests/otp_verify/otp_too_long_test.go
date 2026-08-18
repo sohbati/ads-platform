@@ -1,6 +1,6 @@
 //go:build integration
 
-package otp_too_long
+package otp_verify
 
 import (
 	"context"
@@ -12,7 +12,6 @@ import (
 )
 
 func TestOtpTooLong(t *testing.T) {
-	_, backURL, _ := otptest.SetupOtpStack(t)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 

@@ -1,6 +1,6 @@
 //go:build integration
 
-package non_numeric_otp
+package otp_verify
 
 import (
 	"context"
@@ -11,16 +11,15 @@ import (
 	"integration-test/internal/otptest"
 )
 
-func TestNonNumericOtp(t *testing.T) {
-	_, backURL, _ := otptest.SetupOtpStack(t)
+func TestEmptyMobileSend(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	status, _, errResp := otptest.VerifyOTP(ctx, backURL, otptest.TestMobile, "abc123")
+	status, _, errResp := otptest.SendOTP(ctx, backURL, "")
 	if status != http.StatusBadRequest {
 		t.Fatalf("expected 400, got %d", status)
 	}
-	if errResp.Error != "BAD_REQUEST" {
-		t.Fatalf("expected BAD_REQUEST, got %q", errResp.Error)
+	if errResp.Error != "MOBILE_EMPTY" {
+		t.Fatalf("expected MOBILE_EMPTY, got %q", errResp.Error)
 	}
 }

@@ -1,6 +1,6 @@
 //go:build integration
 
-package e2e_happy_path
+package otp_verify
 
 import (
 	"context"
@@ -12,7 +12,6 @@ import (
 )
 
 func TestE2EHappyPath(t *testing.T) {
-	_, backURL, cacheURL := otptest.SetupOtpStack(t)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 

@@ -1,6 +1,6 @@
 //go:build integration
 
-package verify_twice
+package otp_verify
 
 import (
 	"context"
@@ -12,7 +12,6 @@ import (
 )
 
 func TestVerifyTwice(t *testing.T) {
-	_, backURL, cacheURL := otptest.SetupOtpStack(t)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
