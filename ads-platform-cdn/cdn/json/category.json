@@ -4,356 +4,407 @@
     "order": 1,
     "parent": null,
     "title": "املاک",
-    "slug": "real-estate"
+    "slug": "real-estate",
+    "path": "1"
   },
   {
     "id": 2,
     "order": 2,
     "parent": null,
     "title": "وسایل نقلیه",
-    "slug": "vehicles"
+    "slug": "vehicles",
+    "path": "2"
   },
   {
     "id": 3,
     "order": 3,
     "parent": null,
     "title": "کالای دیجیتال",
-    "slug": "digital"
+    "slug": "digital",
+    "path": "3"
   },
   {
     "id": 4,
     "order": 4,
     "parent": null,
     "title": "خانه و آشپزخانه",
-    "slug": "home"
+    "slug": "home",
+    "path": "4"
   },
   {
     "id": 5,
     "order": 5,
     "parent": null,
     "title": "خدمات",
-    "slug": "services"
+    "slug": "services",
+    "path": "5"
   },
   {
     "id": 6,
     "order": 6,
     "parent": null,
     "title": "استخدام",
-    "slug": "jobs"
+    "slug": "jobs",
+    "path": "6"
   },
   {
     "id": 7,
     "order": 7,
     "parent": null,
     "title": "وسایل شخصی",
-    "slug": "personal"
+    "slug": "personal",
+    "path": "7"
   },
   {
     "id": 8,
     "order": 8,
     "parent": null,
     "title": "سرگرمی و فراغت",
-    "slug": "leisure"
+    "slug": "leisure",
+    "path": "8"
   },
   {
     "id": 9,
     "order": 9,
     "parent": null,
     "title": "اجتماعی",
-    "slug": "social"
+    "slug": "social",
+    "path": "9"
   },
   {
     "id": 10,
     "order": 10,
     "parent": null,
     "title": "تجهیزات و صنعتی",
-    "slug": "industrial"
+    "slug": "industrial",
+    "path": "10"
   },
   {
     "id": 11,
     "order": 11,
     "parent": 1,
     "title": "فروش مسکونی",
-    "slug": "residential-sale"
+    "slug": "residential-sale",
+    "path": "1,11"
   },
   {
     "id": 12,
     "order": 12,
     "parent": 1,
     "title": "اجاره مسکونی",
-    "slug": "residential-rent"
+    "slug": "residential-rent",
+    "path": "1,12"
   },
   {
     "id": 21,
     "order": 13,
     "parent": 1,
     "title": "فروش اداری و تجاری",
-    "slug": "commercial-sale"
+    "slug": "commercial-sale",
+    "path": "1,21"
   },
   {
     "id": 22,
     "order": 14,
     "parent": 1,
     "title": "اجاره اداری و تجاری",
-    "slug": "commercial-rent"
+    "slug": "commercial-rent",
+    "path": "1,22"
   },
   {
     "id": 23,
     "order": 15,
     "parent": 1,
     "title": "اجاره کوتاه‌مدت",
-    "slug": "short-term-rent"
+    "slug": "short-term-rent",
+    "path": "1,23"
   },
   {
     "id": 24,
     "order": 16,
     "parent": 1,
     "title": "پروژه‌های ساخت و ساز",
-    "slug": "construction"
+    "slug": "construction",
+    "path": "1,24"
   },
   {
     "id": 13,
     "order": 17,
     "parent": 2,
     "title": "خودرو",
-    "slug": "cars"
+    "slug": "cars",
+    "path": "2,13"
   },
   {
     "id": 14,
     "order": 18,
     "parent": 2,
     "title": "موتورسیکلت",
-    "slug": "motorcycles"
+    "slug": "motorcycles",
+    "path": "2,14"
   },
   {
     "id": 25,
     "order": 19,
     "parent": 2,
     "title": "قطعات یدکی و لوازم جانبی",
-    "slug": "auto-parts"
+    "slug": "auto-parts",
+    "path": "2,25"
   },
   {
     "id": 26,
     "order": 20,
     "parent": 2,
     "title": "قایق و وسایل دریایی",
-    "slug": "boats"
+    "slug": "boats",
+    "path": "2,26"
   },
   {
     "id": 27,
     "order": 21,
     "parent": 2,
     "title": "اجاره خودرو",
-    "slug": "car-rental"
+    "slug": "car-rental",
+    "path": "2,27"
   },
   {
     "id": 15,
     "order": 22,
     "parent": 3,
     "title": "موبایل و تبلت",
-    "slug": "mobile-tablet"
+    "slug": "mobile-tablet",
+    "path": "3,15"
   },
   {
     "id": 16,
     "order": 23,
     "parent": 3,
     "title": "لپ‌تاپ",
-    "slug": "laptop"
+    "slug": "laptop",
+    "path": "3,16"
   },
   {
     "id": 28,
     "order": 24,
     "parent": 3,
     "title": "کامپیوتر و تجهیزات",
-    "slug": "computers"
+    "slug": "computers",
+    "path": "3,28"
   },
   {
     "id": 29,
     "order": 25,
     "parent": 3,
     "title": "کنسول بازی",
-    "slug": "gaming"
+    "slug": "gaming",
+    "path": "3,29"
   },
   {
     "id": 30,
     "order": 26,
     "parent": 3,
     "title": "صوتی و تصویری",
-    "slug": "av"
+    "slug": "av",
+    "path": "3,30"
   },
   {
     "id": 31,
     "order": 27,
     "parent": 3,
     "title": "دوربین",
-    "slug": "cameras"
+    "slug": "cameras",
+    "path": "3,31"
   },
   {
     "id": 32,
     "order": 28,
     "parent": 3,
     "title": "تلفن رومیزی",
-    "slug": "phones"
+    "slug": "phones",
+    "path": "3,32"
   },
   {
     "id": 17,
     "order": 29,
     "parent": 4,
     "title": "لوازم خانگی",
-    "slug": "appliances"
+    "slug": "appliances",
+    "path": "4,17"
   },
   {
     "id": 33,
     "order": 30,
     "parent": 4,
     "title": "آشپزخانه",
-    "slug": "kitchen"
+    "slug": "kitchen",
+    "path": "4,33"
   },
   {
     "id": 34,
     "order": 31,
     "parent": 4,
     "title": "خواب و حمام",
-    "slug": "bedroom-bath"
+    "slug": "bedroom-bath",
+    "path": "4,34"
   },
   {
     "id": 35,
     "order": 32,
     "parent": 4,
     "title": "دکوراسیون و روشنایی",
-    "slug": "decor"
+    "slug": "decor",
+    "path": "4,35"
   },
   {
     "id": 36,
     "order": 33,
     "parent": 4,
     "title": "تهویه و سرمایش",
-    "slug": "hvac"
+    "slug": "hvac",
+    "path": "4,36"
   },
   {
     "id": 18,
     "order": 34,
     "parent": 5,
     "title": "آموزشی",
-    "slug": "education"
+    "slug": "education",
+    "path": "5,18"
   },
   {
     "id": 37,
     "order": 35,
     "parent": 5,
     "title": "حمل و نقل",
-    "slug": "transport"
+    "slug": "transport",
+    "path": "5,37"
   },
   {
     "id": 38,
     "order": 36,
     "parent": 5,
     "title": "زیبایی و سلامت",
-    "slug": "beauty"
+    "slug": "beauty",
+    "path": "5,38"
   },
   {
     "id": 39,
     "order": 37,
     "parent": 5,
     "title": "نظافت",
-    "slug": "cleaning"
+    "slug": "cleaning",
+    "path": "5,39"
   },
   {
     "id": 19,
     "order": 38,
     "parent": 6,
     "title": "اداری و مدیریت",
-    "slug": "admin-jobs"
+    "slug": "admin-jobs",
+    "path": "6,19"
   },
   {
     "id": 40,
     "order": 39,
     "parent": 6,
     "title": "فروش و بازاریابی",
-    "slug": "sales-jobs"
+    "slug": "sales-jobs",
+    "path": "6,40"
   },
   {
     "id": 41,
     "order": 40,
     "parent": 6,
     "title": "فناوری اطلاعات",
-    "slug": "it-jobs"
+    "slug": "it-jobs",
+    "path": "6,41"
   },
   {
     "id": 42,
     "order": 41,
     "parent": 6,
     "title": "مالی و حسابداری",
-    "slug": "finance-jobs"
+    "slug": "finance-jobs",
+    "path": "6,42"
   },
   {
     "id": 20,
     "order": 42,
     "parent": 7,
     "title": "کیف و کفش و لباس",
-    "slug": "fashion"
+    "slug": "fashion",
+    "path": "7,20"
   },
   {
     "id": 43,
     "order": 43,
     "parent": 7,
     "title": "ساعت و جواهرات",
-    "slug": "jewelry"
+    "slug": "jewelry",
+    "path": "7,43"
   },
   {
     "id": 44,
     "order": 44,
     "parent": 7,
     "title": "آرایشی و بهداشتی",
-    "slug": "cosmetics"
+    "slug": "cosmetics",
+    "path": "7,44"
   },
   {
     "id": 45,
     "order": 45,
     "parent": 8,
     "title": "ورزش و تناسب اندام",
-    "slug": "sports"
+    "slug": "sports",
+    "path": "8,45"
   },
   {
     "id": 46,
     "order": 46,
     "parent": 8,
     "title": "کتاب و مجله",
-    "slug": "books"
+    "slug": "books",
+    "path": "8,46"
   },
   {
     "id": 47,
     "order": 47,
     "parent": 8,
     "title": "دوچرخه و اسکوتر",
-    "slug": "bikes"
+    "slug": "bikes",
+    "path": "8,47"
   },
   {
     "id": 48,
     "order": 48,
     "parent": 9,
     "title": "رویداد",
-    "slug": "events"
+    "slug": "events",
+    "path": "9,48"
   },
   {
     "id": 49,
     "order": 49,
     "parent": 9,
     "title": "داوطلبانه",
-    "slug": "volunteer"
+    "slug": "volunteer",
+    "path": "9,49"
   },
   {
     "id": 50,
     "order": 50,
     "parent": 10,
     "title": "ابزار صنعتی",
-    "slug": "industrial-tools"
+    "slug": "industrial-tools",
+    "path": "10,50"
   },
   {
     "id": 51,
     "order": 51,
     "parent": 10,
     "title": "ماشین‌آلات",
-    "slug": "machinery"
+    "slug": "machinery",
+    "path": "10,51"
   }
 ]
