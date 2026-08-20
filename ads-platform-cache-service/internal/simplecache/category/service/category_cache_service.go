@@ -7,6 +7,6 @@ import (
 )
 
 type CategoryCacheService interface {
-	GetBySlugs(ctx context.Context, slugs []string) ([]model.Category, error)
-	GetByIDs(ctx context.Context, ids []int) ([]model.Category, error)
+	GetBySlugs(ctx context.Context, slugs []string, includeDescendants bool) ([]model.Category, error)
+	GetByIDs(ctx context.Context, ids []int, includeDescendants bool) ([]model.Category, error)
 }

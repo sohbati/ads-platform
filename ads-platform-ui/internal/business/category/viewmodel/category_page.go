@@ -18,7 +18,7 @@ type CategoryColumn struct {
 	Links []CategoryItem
 }
 
-// CategoryGroup is a top-level category with optional children (Digikala mega-menu style).
+// CategoryGroup is a top-level category with optional children.
 type CategoryGroup struct {
 	CategoryItem
 	Children []CategoryItem

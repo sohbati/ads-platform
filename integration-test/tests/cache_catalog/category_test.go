@@ -125,4 +125,40 @@ func TestCategoriesBySlugsAPI(t *testing.T) {
 			t.Fatalf("expected CATEGORY_SLUGS_EMPTY, got %q", errResp.Error)
 		}
 	})
+
+	t.Run("include_descendants_returns_subtree_ids", func(t *testing.T) {
+		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+		defer cancel()
+
+		status, categories, errResp, err := categorycache.GetCategoriesBySlugsWithDescendants(ctx, cacheURL, "digital")
+		if err != nil {
+			t.Fatalf("request: %v", err)
+		}
+		if status != http.StatusOK {
+			t.Fatalf("status=%d error=%+v", status, errResp)
+		}
+		if len(categories) != 1 {
+			t.Fatalf("expected 1 category, got %d: %+v", len(categories), categories)
+		}
+
+		digital := categories[0]
+		if digital.ID != 3 {
+			t.Fatalf("digital id: got %d", digital.ID)
+		}
+		if len(digital.DescendantIDs) < 2 {
+			t.Fatalf("expected descendants for digital, got %v", digital.DescendantIDs)
+		}
+
+		want := map[int]bool{3: false, 15: false} // self + mobile-tablet
+		for _, id := range digital.DescendantIDs {
+			if _, ok := want[id]; ok {
+				want[id] = true
+			}
+		}
+		for id, found := range want {
+			if !found {
+				t.Fatalf("expected id %d in descendants: %v", id, digital.DescendantIDs)
+			}
+		}
+	})
 }

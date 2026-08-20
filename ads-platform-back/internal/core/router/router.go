@@ -79,6 +79,8 @@ func (r *Router) SetupRoutes() *gin.Engine {
 			otp.POST("/:mobile/verify", r.container.Otp.OtpHandler.VerifyOTP)
 		}
 
+		// Search routes
+		api.GET("/q/:place/:category", r.container.Search.SearchHandler.SearchAds)
 	}
 
 	return router

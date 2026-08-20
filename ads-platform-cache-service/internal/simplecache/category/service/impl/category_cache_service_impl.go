@@ -3,6 +3,8 @@ package impl
 import (
 	"context"
 	"encoding/json"
+	"sort"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -33,7 +35,7 @@ func NewCategoryCacheService(
 	}
 }
 
-func (s *categoryCacheService) GetBySlugs(ctx context.Context, slugs []string) ([]model.Category, error) {
+func (s *categoryCacheService) GetBySlugs(ctx context.Context, slugs []string, includeDescendants bool) ([]model.Category, error) {
 	clean := make([]string, 0, len(slugs))
 	for _, slug := range slugs {
 		slug = strings.TrimSpace(slug)
@@ -54,12 +56,15 @@ func (s *categoryCacheService) GetBySlugs(ctx context.Context, slugs []string) (
 		if !ok {
 			continue
 		}
+		if includeDescendants {
+			category.DescendantIDs = s.descendantIDs(ctx, category.ID)
+		}
 		out = append(out, category)
 	}
 	return out, nil
 }
 
-func (s *categoryCacheService) GetByIDs(ctx context.Context, ids []int) ([]model.Category, error) {
+func (s *categoryCacheService) GetByIDs(ctx context.Context, ids []int, includeDescendants bool) ([]model.Category, error) {
 	if len(ids) == 0 {
 		return nil, exception.NewAppError(errorcode.ErrIDsEmpty.Code, errorcode.ErrIDsEmpty.HttpStatus)
 	}
@@ -77,9 +82,42 @@ func (s *categoryCacheService) GetByIDs(ctx context.Context, ids []int) ([]model
 		if !ok {
 			continue
 		}
+		if includeDescendants {
+			category.DescendantIDs = s.descendantIDs(ctx, category.ID)
+		}
 		out = append(out, category)
 	}
 	return out, nil
+}
+
+// descendantIDs returns self + all descendant category ids, derived from the
+// Path field (comma-separated ancestor ids root→self).
+func (s *categoryCacheService) descendantIDs(ctx context.Context, id int) []int {
+	ids := make([]int, 0, 8)
+	for _, slug := range s.slugToCategory.Keys() {
+		category, ok := s.categoryBySlug(ctx, slug)
+		if !ok {
+			continue
+		}
+		if pathContains(category.Path, id) || category.ID == id {
+			ids = append(ids, category.ID)
+		}
+	}
+	sort.Ints(ids)
+	return ids
+}
+
+func pathContains(path string, id int) bool {
+	if path == "" {
+		return false
+	}
+	for _, part := range strings.Split(path, ",") {
+		v, err := strconv.Atoi(strings.TrimSpace(part))
+		if err == nil && v == id {
+			return true
+		}
+	}
+	return false
 }
 
 func (s *categoryCacheService) categoryBySlug(ctx context.Context, slug string) (model.Category, bool) {

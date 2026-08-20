@@ -21,10 +21,10 @@ func NewCategoryCacheHandler(svc service.CategoryCacheService) *CategoryCacheHan
 }
 
 // GetBySlugs returns categories for the given slugs.
-// GET /api/v1/caches/categories/by-slugs?slugs=digital,cars
+// GET /api/v1/caches/categories/by-slugs?slugs=digital,cars&include_descendants=true
 func (h *CategoryCacheHandler) GetBySlugs(c *gin.Context) {
 	slugs := parseCSV(c.Query("slugs"))
-	categories, err := h.service.GetBySlugs(c.Request.Context(), slugs)
+	categories, err := h.service.GetBySlugs(c.Request.Context(), slugs, parseBoolQuery(c.Query("include_descendants")))
 	if err != nil {
 		_ = c.Error(err)
 		c.Abort()
@@ -34,7 +34,7 @@ func (h *CategoryCacheHandler) GetBySlugs(c *gin.Context) {
 }
 
 // GetByIDs resolves id→slug then slug→category.
-// GET /api/v1/caches/categories/by-ids?ids=3,13
+// GET /api/v1/caches/categories/by-ids?ids=3,13&include_descendants=true
 func (h *CategoryCacheHandler) GetByIDs(c *gin.Context) {
 	ids, err := parseIDs(c.Query("ids"))
 	if err != nil {
@@ -46,7 +46,7 @@ func (h *CategoryCacheHandler) GetByIDs(c *gin.Context) {
 		return
 	}
 
-	categories, err := h.service.GetByIDs(c.Request.Context(), ids)
+	categories, err := h.service.GetByIDs(c.Request.Context(), ids, parseBoolQuery(c.Query("include_descendants")))
 	if err != nil {
 		_ = c.Error(err)
 		c.Abort()
@@ -78,4 +78,9 @@ func parseIDs(raw string) ([]int, error) {
 		ids = append(ids, id)
 	}
 	return ids, nil
+}
+
+func parseBoolQuery(raw string) bool {
+	v, err := strconv.ParseBool(strings.TrimSpace(raw))
+	return err == nil && v
 }

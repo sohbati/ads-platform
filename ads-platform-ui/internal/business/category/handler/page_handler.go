@@ -70,7 +70,7 @@ func buildGroups(items []cdn.Category) []viewmodel.CategoryGroup {
 	return groups
 }
 
-// chunkColumns spreads links across Digikala-style vertical columns.
+// chunkColumns spreads links across vertical columns.
 func chunkColumns(title, href string, links []viewmodel.CategoryItem, perCol int) []viewmodel.CategoryColumn {
 	if len(links) == 0 {
 		return nil

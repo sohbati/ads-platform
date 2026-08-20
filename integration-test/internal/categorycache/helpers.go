@@ -13,12 +13,13 @@ import (
 )
 
 type Category struct {
-	ID     int    `json:"id"`
-	Parent *int   `json:"parent"`
-	Order  int    `json:"order"`
-	Title  string `json:"title"`
-	Slug   string `json:"slug"`
-	Path   string `json:"path,omitempty"`
+	ID            int    `json:"id"`
+	Parent        *int   `json:"parent"`
+	Order         int    `json:"order"`
+	Title         string `json:"title"`
+	Slug          string `json:"slug"`
+	Path          string `json:"path,omitempty"`
+	DescendantIDs []int  `json:"descendant_ids,omitempty"`
 }
 
 type ErrorResponse struct {
@@ -38,6 +39,11 @@ func GetCategoriesByIDs(ctx context.Context, cacheURL string, ids ...int) (int, 
 
 func GetCategoriesBySlugs(ctx context.Context, cacheURL string, slugs ...string) (int, []Category, ErrorResponse, error) {
 	u := cacheURL + "/api/v1/caches/categories/by-slugs?slugs=" + url.QueryEscape(strings.Join(slugs, ","))
+	return getCategories(ctx, u)
+}
+
+func GetCategoriesBySlugsWithDescendants(ctx context.Context, cacheURL string, slugs ...string) (int, []Category, ErrorResponse, error) {
+	u := cacheURL + "/api/v1/caches/categories/by-slugs?include_descendants=true&slugs=" + url.QueryEscape(strings.Join(slugs, ","))
 	return getCategories(ctx, u)
 }
 
