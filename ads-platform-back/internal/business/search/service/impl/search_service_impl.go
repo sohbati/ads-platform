@@ -107,6 +107,9 @@ func (s *searchService) Search(
 	}, nil
 }
 
+// categoryAll is the wildcard category segment: search across all categories.
+const categoryAll = "all"
+
 // resolveCategory resolves the slug via cache-service and returns the category
 // plus self+descendant ids so parent categories include their leaves.
 func (s *searchService) resolveCategory(ctx context.Context, slug string) (client.Category, []int, error) {
@@ -114,6 +117,9 @@ func (s *searchService) resolveCategory(ctx context.Context, slug string) (clien
 	if slug == "" {
 		return client.Category{}, nil, exception.NewAppError(
 			errorcode.ErrInvalidCategory.Code, errorcode.ErrInvalidCategory.HttpStatus, slug)
+	}
+	if slug == categoryAll {
+		return client.Category{Slug: categoryAll}, nil, nil
 	}
 
 	categories, err := s.catalog.CategoriesBySlugs(ctx, []string{slug}, true)

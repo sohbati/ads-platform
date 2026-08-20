@@ -59,6 +59,18 @@
       "title": "Find what you need in %s",
       "subtitle": "Browse categories or use the search bar above."
     },
+    "search": {
+      "results_title": "Search results",
+      "results_for": "Results for “%s”",
+      "results_count": "%d ads found",
+      "empty": "No ads matched your search. Try different words or another category.",
+      "unavailable": "Search is temporarily unavailable. Please try again in a moment.",
+      "negotiable": "Negotiable",
+      "currency": "IRR",
+      "prev": "Previous",
+      "next": "Next",
+      "page_of": "Page %d of %d"
+    },
     "categories": {
       "title": "Browse categories",
       "description": "Pick a category to explore listings in %s",

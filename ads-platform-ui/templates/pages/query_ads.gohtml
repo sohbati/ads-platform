@@ -1,5 +1,58 @@
 {{ define "query_ads" }}
 {{ template "page_open" . }}
+  {{ if .Search }}
+  <section class="search-results container" aria-labelledby="search-results-heading">
+    <header class="search-results__head">
+      <h1 id="search-results-heading" class="search-results__title">
+        {{- if .Search.Query }}{{ format .T.Search.ResultsFor .Search.Query }}
+        {{- else if .Search.CategoryTitle }}{{ .Search.CategoryTitle }}
+        {{- else }}{{ .T.Search.ResultsTitle }}{{ end -}}
+      </h1>
+      {{ if not .Search.Unavailable }}
+      <p class="search-results__count">{{ format .T.Search.ResultsCount .Search.Total }}</p>
+      {{ end }}
+    </header>
+
+    {{ if .Search.Unavailable }}
+    <p class="search-results__empty">{{ .T.Search.Unavailable }}</p>
+    {{ else if not .Search.Ads }}
+    <p class="search-results__empty">{{ .T.Search.Empty }}</p>
+    {{ else }}
+    <ul class="ad-grid">
+      {{ range .Search.Ads }}
+      <li class="ad-card">
+        <div class="ad-card__media">
+          {{ if .Thumbnail }}
+          <img class="ad-card__img" src="{{ .Thumbnail }}" alt="" loading="lazy" />
+          {{ else }}
+          <svg class="icon ad-card__placeholder" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="9" cy="10" r="1.75" stroke="currentColor" stroke-width="1.5"/>
+            <path d="m5 17 4.5-4 3.5 3 2.5-2 3.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          {{ end }}
+        </div>
+        <div class="ad-card__body">
+          <h2 class="ad-card__title">{{ .Title }}</h2>
+          <p class="ad-card__price">{{ .Price }}</p>
+          <p class="ad-card__meta">
+            {{- .Location }}{{ if and .Location .PublishedAt }} · {{ end }}{{ .PublishedAt -}}
+          </p>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+
+    {{ if gt .Search.TotalPages 1 }}
+    <nav class="search-pagination" aria-label="{{ .T.Search.ResultsTitle }}">
+      {{ if .Search.PrevURL }}<a class="btn btn--sm" href="{{ .Search.PrevURL }}">{{ .T.Search.Prev }}</a>{{ end }}
+      <span class="search-pagination__status">{{ format .T.Search.PageOf .Search.Page .Search.TotalPages }}</span>
+      {{ if .Search.NextURL }}<a class="btn btn--sm" href="{{ .Search.NextURL }}">{{ .T.Search.Next }}</a>{{ end }}
+    </nav>
+    {{ end }}
+    {{ end }}
+  </section>
+  {{ else }}
   {{ template "search_hero" . }}
   {{ template "category_grid" . }}
   {{ template "city_list" . }}
@@ -13,5 +66,6 @@
       <a href="/new-ad" class="btn btn--primary btn--lg">{{ .T.CTA.Button }}</a>
     </div>
   </section>
+  {{ end }}
 {{ template "page_close" . }}
 {{ end }}

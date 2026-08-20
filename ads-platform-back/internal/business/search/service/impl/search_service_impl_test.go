@@ -176,6 +176,24 @@ func TestSearchCityPlaceSlugResolvesToCityID(t *testing.T) {
 	}
 }
 
+func TestSearchAllCategoriesSkipsCategoryFilter(t *testing.T) {
+	repo := &fakeRepo{}
+	// Category lookup erroring proves "all" never hits the catalog.
+	catalog := &fakeCatalog{categoriesErr: errors.New("must not be called")}
+	svc := NewSearchService(repo, catalog)
+
+	resp, err := svc.Search(context.Background(), "iran", "all", "", "phone", nil, nil, nil, "", "", 1, 24)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if repo.gotFilter.CategoryIDs != nil {
+		t.Errorf("CategoryIDs = %v, want nil (no category filter)", repo.gotFilter.CategoryIDs)
+	}
+	if resp.Category != "all" || resp.CategoryTitle != "" {
+		t.Errorf("Category/CategoryTitle = %q/%q, want \"all\"/empty", resp.Category, resp.CategoryTitle)
+	}
+}
+
 func TestSearchCategoryWithoutDescendantsUsesOwnID(t *testing.T) {
 	repo := &fakeRepo{}
 	catalog := &fakeCatalog{

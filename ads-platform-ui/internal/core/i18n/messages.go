@@ -7,6 +7,7 @@ type Messages struct {
 	Nav           NavMessages                     `json:"nav"`
 	Auth          AuthMessages                    `json:"auth"`
 	Hero          HeroMessages                    `json:"hero"`
+	Search        SearchMessages                  `json:"search"`
 	Categories    CategoriesMessages              `json:"categories"`
 	Cities        CitiesMessages                  `json:"cities"`
 	CTA           CTAMessages                     `json:"cta"`
@@ -81,6 +82,19 @@ type HeaderMessages struct {
 type HeroMessages struct {
 	Title    string `json:"title"`
 	Subtitle string `json:"subtitle"`
+}
+
+type SearchMessages struct {
+	ResultsTitle string `json:"results_title"`
+	ResultsFor   string `json:"results_for"`
+	ResultsCount string `json:"results_count"`
+	Empty        string `json:"empty"`
+	Unavailable  string `json:"unavailable"`
+	Negotiable   string `json:"negotiable"`
+	Currency     string `json:"currency"`
+	Prev         string `json:"prev"`
+	Next         string `json:"next"`
+	PageOf       string `json:"page_of"`
 }
 
 type CategoriesMessages struct {

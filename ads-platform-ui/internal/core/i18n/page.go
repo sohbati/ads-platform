@@ -22,7 +22,9 @@ type Page struct {
 	SessionUserMobile string
 	IsAuthenticated   bool
 	DefaultCountryCode string
-	T                 Messages
+	// SearchQuery pre-fills the header search input on result pages.
+	SearchQuery string
+	T           Messages
 }
 
 // BuildPage creates shared template data for HTML pages.
