@@ -10,7 +10,7 @@ import (
 )
 
 func TestQueryAdsTemplateRenders(t *testing.T) {
-	tmpl, err := template.New("").Funcs(FuncMap()).ParseGlob("../../../templates/**/*.gohtml")
+	tmpl, err := template.New("").Funcs(FuncMap(nil)).ParseGlob("../../../templates/**/*.gohtml")
 	if err != nil {
 		t.Fatalf("parse templates: %v", err)
 	}

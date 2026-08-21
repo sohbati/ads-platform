@@ -2,8 +2,10 @@ package router
 
 import (
 	"html/template"
+	"log"
 	"net/http"
 
+	"ads-platform-ui/internal/core/assets"
 	appContainer "ads-platform-ui/internal/core/container"
 	"ads-platform-ui/internal/core/i18n"
 	coreview "ads-platform-ui/internal/core/view"
@@ -24,10 +26,22 @@ func (r *Router) SetupRoutes() *gin.Engine {
 
 	router.Use(i18n.Middleware(r.container.I18n, r.container.Cities, r.container.Config.DefaultCity))
 
-	tmpl := template.Must(template.New("").Funcs(coreview.FuncMap()).ParseGlob("templates/**/*.gohtml"))
+	// Content-hashed asset URLs let /static be served as immutable: browsers
+	// cache files for a year and never revalidate; changed content gets a new URL.
+	var assetURL func(string) string
+	if manifest, err := assets.Load("./static", "/static"); err != nil {
+		log.Printf("assets: falling back to unversioned URLs: %v", err)
+	} else {
+		assetURL = manifest.URL
+	}
+
+	tmpl := template.Must(template.New("").Funcs(coreview.FuncMap(assetURL)).ParseGlob("templates/**/*.gohtml"))
 	router.SetHTMLTemplate(tmpl)
 
-	router.Static("/static", "./static")
+	static := router.Group("/static", func(c *gin.Context) {
+		c.Header("Cache-Control", "public, max-age=31536000, immutable")
+	})
+	static.Static("/", "./static")
 
 	router.NoRoute(func(c *gin.Context) {
 		cfg := r.container.Config
