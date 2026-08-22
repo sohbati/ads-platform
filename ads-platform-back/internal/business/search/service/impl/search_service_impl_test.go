@@ -41,6 +41,10 @@ func (f *fakeCatalog) CategoriesBySlugs(context.Context, []string, bool) ([]clie
 	return f.categories, f.categoriesErr
 }
 
+func (f *fakeCatalog) CategoriesByIDs(context.Context, []int, bool) ([]client.Category, error) {
+	return f.categories, f.categoriesErr
+}
+
 func (f *fakeCatalog) CitiesBySlugs(context.Context, []string) ([]client.City, error) {
 	return f.citiesBySlugs, f.citiesBySlugsErr
 }

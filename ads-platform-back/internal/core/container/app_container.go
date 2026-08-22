@@ -22,6 +22,6 @@ func NewAppContainer(db *gorm.DB, cfg *config.Config) *AppContainer {
 		User:   userContainer.NewUserContainer(db, cfg.DefaultCountryCode),
 		Otp:    otpContainer.NewOtpContainer(cfg.CacheServiceURL, cfg.NatsURL, cfg.OtpSubject, cfg.DefaultCountryCode),
 		Search: searchContainer.NewSearchContainer(db, cfg.CacheServiceURL),
-		Ads:    adsContainer.NewAdsContainer(db),
+		Ads:    adsContainer.NewAdsContainer(db, cfg),
 	}
 }

@@ -28,6 +28,15 @@ type Ad struct {
 	UpdatedAt   time.Time       `json:"updated_at" gorm:"autoUpdateTime"`
 }
 
+const (
+	AdStatusDraft    = "draft"
+	AdStatusPending  = "pending"
+	AdStatusActive   = "active"
+	AdStatusRejected = "rejected"
+	AdStatusExpired  = "expired"
+	AdStatusDeleted  = "deleted"
+)
+
 func (Ad) TableName() string {
 	return "ads"
 }

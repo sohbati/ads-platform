@@ -49,7 +49,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 	// Handle 404: http.StatusNotFound routes
 	router.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{
-			"error":       "ROUTE_NOT_DEFINED",
+			"error":      "ROUTE_NOT_DEFINED",
 			"statusCode": http.StatusNotFound,
 		})
 	})
@@ -82,13 +82,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 		// Search routes
 		api.GET("/q/:place/:category", r.container.Search.SearchHandler.SearchAds)
 
-		adImages := api.Group("/ads/images")
-		{
-			adImages.POST("", r.container.Ads.AdImageHandler.Register)
-			adImages.GET("/:id", r.container.Ads.AdImageHandler.Get)
-			adImages.POST("/:id/uploaded", r.container.Ads.AdImageHandler.MarkUploaded)
-			adImages.DELETE("/:id", r.container.Ads.AdImageHandler.Delete)
-		}
+		api.POST("/ads", r.container.Ads.AdHandler.Create)
 	}
 
 	return router

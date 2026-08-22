@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 	"os"
+	"strconv"
 
 	"github.com/joho/godotenv"
 )
@@ -16,6 +17,14 @@ type Config struct {
 	NatsBrokerURL         string
 	OtpSubject            string
 	DefaultCountryCode    string
+	MaxAdPictures         int
+	MaxAdPictureBytes     int64
+	MinioEndpoint         string
+	MinioAccessKey        string
+	MinioSecretKey        string
+	MinioBucket           string
+	MinioUseSSL           bool
+	MinioPublicURL        string
 }
 
 func Load() *Config {
@@ -27,9 +36,17 @@ func Load() *Config {
 		ApplicationServerPort: os.Getenv("APPLICATION_SERVER_PORT"),
 		CacheServiceURL:       os.Getenv("CACHE_SERVICE_URL"),
 		NatsURL:               os.Getenv("NATS_URL"),
-		NatsBrokerURL:         getEnv("NATS_BROKER_URL", "http://localhost:8095"),
-		OtpSubject:            getEnv("OTP_SUBJECT", "notifications.otp.send"),
-		DefaultCountryCode:    getEnv("DEFAULT_COUNTRY_CODE", "+98"),
+		NatsBrokerURL:         os.Getenv("NATS_BROKER_URL"),
+		OtpSubject:            os.Getenv("OTP_SUBJECT"),
+		DefaultCountryCode:    os.Getenv("DEFAULT_COUNTRY_CODE"),
+		MaxAdPictures:         envInt("ADS_MAX_PICTURES"),
+		MaxAdPictureBytes:     int64(envInt("ADS_MAX_PICTURE_BYTES")),
+		MinioEndpoint:         os.Getenv("MINIO_ENDPOINT"),
+		MinioAccessKey:        os.Getenv("MINIO_ACCESS_KEY"),
+		MinioSecretKey:        os.Getenv("MINIO_SECRET_KEY"),
+		MinioBucket:           os.Getenv("MINIO_BUCKET"),
+		MinioUseSSL:           os.Getenv("MINIO_USE_SSL") == "true",
+		MinioPublicURL:        os.Getenv("MINIO_PUBLIC_URL"),
 	}
 
 	natsURL, err := resolveNatsURL(cfg.NatsURL, cfg.NatsBrokerURL)
@@ -45,9 +62,7 @@ func Load() *Config {
 	return cfg
 }
 
-func getEnv(key, defaultValue string) string {
-	if value := os.Getenv(key); value != "" {
-		return value
-	}
-	return defaultValue
+func envInt(key string) int {
+	v, _ := strconv.Atoi(os.Getenv(key))
+	return v
 }

@@ -2,10 +2,8 @@ package model
 
 import "time"
 
-// AdImage lifecycle: a row is created as "pending" before the client uploads
-// the file to object storage, flips to "uploaded" once the upload is
-// confirmed, and becomes "deleted" on removal (soft delete, so a cleanup job
-// can later purge the file from storage).
+// Image rows are written as "uploaded" when an ad is created with pictures.
+// Soft-delete (status deleted + deleted_at) lets a later job purge MinIO objects.
 const (
 	ImageStatusPending  = "pending"
 	ImageStatusUploaded = "uploaded"

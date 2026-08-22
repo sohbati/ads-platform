@@ -31,6 +31,7 @@ type City struct {
 // CatalogClient resolves categories and cities via ads-platform-cache-service.
 type CatalogClient interface {
 	CategoriesBySlugs(ctx context.Context, slugs []string, includeDescendants bool) ([]Category, error)
+	CategoriesByIDs(ctx context.Context, ids []int, includeDescendants bool) ([]Category, error)
 	CitiesBySlugs(ctx context.Context, slugs []string) ([]City, error)
 	CitiesByIDs(ctx context.Context, ids []int) ([]City, error)
 }
@@ -58,6 +59,23 @@ func (c *catalogClient) CategoriesBySlugs(ctx context.Context, slugs []string, i
 
 	var out []Category
 	if err := c.getJSON(ctx, "/api/v1/caches/categories/by-slugs", q, &out); err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catalogClient) CategoriesByIDs(ctx context.Context, ids []int, includeDescendants bool) ([]Category, error) {
+	parts := make([]string, 0, len(ids))
+	for _, id := range ids {
+		parts = append(parts, strconv.Itoa(id))
+	}
+	q := url.Values{"ids": {strings.Join(parts, ",")}}
+	if includeDescendants {
+		q.Set("include_descendants", "true")
+	}
+
+	var out []Category
+	if err := c.getJSON(ctx, "/api/v1/caches/categories/by-ids", q, &out); err != nil {
 		return nil, err
 	}
 	return out, nil

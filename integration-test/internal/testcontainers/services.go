@@ -139,21 +139,29 @@ func StartNotification(ctx context.Context, net *testcontainers.DockerNetwork) (
 }
 
 func StartBack(ctx context.Context, net *testcontainers.DockerNetwork, pg *PostgresContainer) (*ServiceContainer, error) {
+	return StartBackWithEnv(ctx, net, pg, nil)
+}
+
+func StartBackWithEnv(ctx context.Context, net *testcontainers.DockerNetwork, pg *PostgresContainer, extraEnv map[string]string) (*ServiceContainer, error) {
+	env := map[string]string{
+		"APPLICATION_SERVER_PORT": "8092",
+		"DATABASE_URL":            pg.DSN,
+		"DATABASE_TYPE":           "postgres",
+		"CACHE_SERVICE_URL":       "http://ads-platform-cache-service:8093",
+		"NATS_URL":                "nats://nats-message-broker:4222",
+		"NATS_BROKER_URL":         "http://nats-message-broker:8095",
+		"OTP_SUBJECT":             "notifications.otp.send",
+	}
+	for k, v := range extraEnv {
+		env[k] = v
+	}
 	return startService(ctx, net, serviceConfig{
 		name:       "ads-platform-back",
 		alias:      "ads-platform-back",
 		dockerfile: "integration-test/docker/ads-platform-back.Dockerfile",
 		port:       "8092/tcp",
 		healthPath: "/health",
-		env: map[string]string{
-			"APPLICATION_SERVER_PORT": "8092",
-			"DATABASE_URL":            pg.DSN,
-			"DATABASE_TYPE":           "postgres",
-			"CACHE_SERVICE_URL":       "http://ads-platform-cache-service:8093",
-			"NATS_URL":                "nats://nats-message-broker:4222",
-			"NATS_BROKER_URL":         "http://nats-message-broker:8095",
-			"OTP_SUBJECT":             "notifications.otp.send",
-		},
+		env:        env,
 	})
 }
 

@@ -18,3 +18,6 @@ test-otp: ## Run OTP verify suite (one shared stack)
 
 test-cache-catalog: ## Run city+category cache suite (one shared CDN+cache stack)
 	go test -tags=integration -timeout=45m -v ./tests/cache_catalog/
+
+test-ads-api: ## Run POST /ads suite (postgres+cdn+cache+minio+back)
+	go test -tags=integration -timeout=45m -v ./tests/ads_api/
