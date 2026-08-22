@@ -70,3 +70,26 @@ CREATE INDEX IF NOT EXISTS ads_price_idx ON ads_platform_schema.ads (price_amoun
 CREATE INDEX IF NOT EXISTS ads_published_at_idx ON ads_platform_schema.ads (published_at DESC) WHERE status = 'active';
 CREATE INDEX IF NOT EXISTS ads_attrs_gin_idx ON ads_platform_schema.ads USING GIN (attrs);
 CREATE INDEX IF NOT EXISTS ads_media_gin_idx ON ads_platform_schema.ads USING GIN (media);
+
+-- متادیتای تصاویر آگهی؛ فایل اصلی در object storage (MinIO/S3) نگهداری می‌شود
+CREATE TABLE IF NOT EXISTS ads_platform_schema.ad_images (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES ads_platform_schema."user"(id),
+    ad_id BIGINT REFERENCES ads_platform_schema.ads(id),
+    object_key VARCHAR(255) NOT NULL UNIQUE,
+    original_filename VARCHAR(255) NOT NULL,
+    content_type VARCHAR(100) NOT NULL,
+    file_size BIGINT NOT NULL DEFAULT 0,
+    status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    checksum VARCHAR(64),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    uploaded_at TIMESTAMP,
+    deleted_at TIMESTAMP
+);
+
+COMMENT ON TABLE ads_platform_schema.ad_images IS 'متادیتای تصاویر آگهی؛ خود فایل در object storage ذخیره می‌شود و این جدول چرخهٔ عمر آن را دنبال می‌کند';
+COMMENT ON COLUMN ads_platform_schema.ad_images.status IS 'وضعیت تصویر: pending (در انتظار آپلود)، uploaded (آپلود شده)، deleted (حذف شده)';
+
+CREATE INDEX IF NOT EXISTS ad_images_user_id_idx ON ads_platform_schema.ad_images (user_id);
+CREATE INDEX IF NOT EXISTS ad_images_ad_id_idx ON ads_platform_schema.ad_images (ad_id) WHERE ad_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS ad_images_pending_created_idx ON ads_platform_schema.ad_images (created_at) WHERE status = 'pending';

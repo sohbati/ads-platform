@@ -81,6 +81,14 @@ func (r *Router) SetupRoutes() *gin.Engine {
 
 		// Search routes
 		api.GET("/q/:place/:category", r.container.Search.SearchHandler.SearchAds)
+
+		adImages := api.Group("/ads/images")
+		{
+			adImages.POST("", r.container.Ads.AdImageHandler.Register)
+			adImages.GET("/:id", r.container.Ads.AdImageHandler.Get)
+			adImages.POST("/:id/uploaded", r.container.Ads.AdImageHandler.MarkUploaded)
+			adImages.DELETE("/:id", r.container.Ads.AdImageHandler.Delete)
+		}
 	}
 
 	return router
