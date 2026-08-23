@@ -8,4 +8,5 @@ type Category struct {
 	Title  string `json:"title"`
 	Slug   string `json:"slug"`
 	Path   string `json:"path"` // root → … → self ids, e.g. "3,15"
+	IsLeaf bool   `json:"isLeaf"`
 }

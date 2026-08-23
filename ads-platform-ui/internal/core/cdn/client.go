@@ -17,6 +17,7 @@ type Category struct {
 	Order  int    `json:"order"`
 	Title  string `json:"title"`
 	Slug   string `json:"slug"`
+	IsLeaf bool   `json:"isLeaf"`
 }
 
 // City matches ads-platform-cdn GET /api/cities.

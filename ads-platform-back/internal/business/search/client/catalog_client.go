@@ -18,6 +18,7 @@ type Category struct {
 	Slug          string `json:"slug"`
 	Title         string `json:"title"`
 	Path          string `json:"path,omitempty"`
+	IsLeaf        bool   `json:"isLeaf"`
 	DescendantIDs []int  `json:"descendant_ids,omitempty"`
 }
 
