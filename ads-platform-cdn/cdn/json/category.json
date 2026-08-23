@@ -6,7 +6,8 @@
     "title": "املاک",
     "slug": "real-estate",
     "path": "1",
-    "isLeaf": false
+    "isLeaf": false,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "title": "وسایل نقلیه",
     "slug": "vehicles",
     "path": "2",
-    "isLeaf": false
+    "isLeaf": false,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 3,
@@ -24,7 +26,8 @@
     "title": "کالای دیجیتال",
     "slug": "digital",
     "path": "3",
-    "isLeaf": false
+    "isLeaf": false,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 4,
@@ -33,7 +36,8 @@
     "title": "خانه و آشپزخانه",
     "slug": "home",
     "path": "4",
-    "isLeaf": false
+    "isLeaf": false,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 5,
@@ -42,7 +46,8 @@
     "title": "خدمات",
     "slug": "services",
     "path": "5",
-    "isLeaf": false
+    "isLeaf": false,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 6,
@@ -51,7 +56,8 @@
     "title": "استخدام",
     "slug": "jobs",
     "path": "6",
-    "isLeaf": false
+    "isLeaf": false,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 7,
@@ -60,7 +66,8 @@
     "title": "وسایل شخصی",
     "slug": "personal",
     "path": "7",
-    "isLeaf": false
+    "isLeaf": false,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 8,
@@ -69,7 +76,8 @@
     "title": "سرگرمی و فراغت",
     "slug": "leisure",
     "path": "8",
-    "isLeaf": false
+    "isLeaf": false,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 9,
@@ -78,7 +86,8 @@
     "title": "اجتماعی",
     "slug": "social",
     "path": "9",
-    "isLeaf": false
+    "isLeaf": false,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 10,
@@ -87,7 +96,8 @@
     "title": "تجهیزات و صنعتی",
     "slug": "industrial",
     "path": "10",
-    "isLeaf": false
+    "isLeaf": false,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 11,
@@ -96,7 +106,8 @@
     "title": "فروش مسکونی",
     "slug": "residential-sale",
     "path": "1,11",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 12,
@@ -105,7 +116,8 @@
     "title": "اجاره مسکونی",
     "slug": "residential-rent",
     "path": "1,12",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 21,
@@ -114,7 +126,8 @@
     "title": "فروش اداری و تجاری",
     "slug": "commercial-sale",
     "path": "1,21",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 22,
@@ -123,7 +136,8 @@
     "title": "اجاره اداری و تجاری",
     "slug": "commercial-rent",
     "path": "1,22",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 23,
@@ -132,7 +146,8 @@
     "title": "اجاره کوتاه‌مدت",
     "slug": "short-term-rent",
     "path": "1,23",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 24,
@@ -141,7 +156,8 @@
     "title": "پروژه‌های ساخت و ساز",
     "slug": "construction",
     "path": "1,24",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 13,
@@ -150,7 +166,8 @@
     "title": "خودرو",
     "slug": "cars",
     "path": "2,13",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 14,
@@ -159,7 +176,8 @@
     "title": "موتورسیکلت",
     "slug": "motorcycles",
     "path": "2,14",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 25,
@@ -168,7 +186,8 @@
     "title": "قطعات یدکی و لوازم جانبی",
     "slug": "auto-parts",
     "path": "2,25",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 26,
@@ -177,7 +196,8 @@
     "title": "قایق و وسایل دریایی",
     "slug": "boats",
     "path": "2,26",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 27,
@@ -186,7 +206,8 @@
     "title": "اجاره خودرو",
     "slug": "car-rental",
     "path": "2,27",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 15,
@@ -195,7 +216,8 @@
     "title": "موبایل و تبلت",
     "slug": "mobile-tablet",
     "path": "3,15",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 16,
@@ -204,7 +226,8 @@
     "title": "لپ‌تاپ",
     "slug": "laptop",
     "path": "3,16",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 28,
@@ -213,7 +236,8 @@
     "title": "کامپیوتر و تجهیزات",
     "slug": "computers",
     "path": "3,28",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 29,
@@ -222,7 +246,8 @@
     "title": "کنسول بازی",
     "slug": "gaming",
     "path": "3,29",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 30,
@@ -231,7 +256,8 @@
     "title": "صوتی و تصویری",
     "slug": "av",
     "path": "3,30",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 31,
@@ -240,7 +266,8 @@
     "title": "دوربین",
     "slug": "cameras",
     "path": "3,31",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 32,
@@ -249,7 +276,8 @@
     "title": "تلفن رومیزی",
     "slug": "phones",
     "path": "3,32",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 17,
@@ -258,7 +286,8 @@
     "title": "لوازم خانگی",
     "slug": "appliances",
     "path": "4,17",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 33,
@@ -267,7 +296,8 @@
     "title": "آشپزخانه",
     "slug": "kitchen",
     "path": "4,33",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 34,
@@ -276,7 +306,8 @@
     "title": "خواب و حمام",
     "slug": "bedroom-bath",
     "path": "4,34",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 35,
@@ -285,7 +316,8 @@
     "title": "دکوراسیون و روشنایی",
     "slug": "decor",
     "path": "4,35",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 36,
@@ -294,7 +326,8 @@
     "title": "تهویه و سرمایش",
     "slug": "hvac",
     "path": "4,36",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 18,
@@ -303,7 +336,8 @@
     "title": "آموزشی",
     "slug": "education",
     "path": "5,18",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 37,
@@ -312,7 +346,8 @@
     "title": "حمل و نقل",
     "slug": "transport",
     "path": "5,37",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 38,
@@ -321,7 +356,8 @@
     "title": "زیبایی و سلامت",
     "slug": "beauty",
     "path": "5,38",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 39,
@@ -330,7 +366,8 @@
     "title": "نظافت",
     "slug": "cleaning",
     "path": "5,39",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 19,
@@ -339,7 +376,8 @@
     "title": "اداری و مدیریت",
     "slug": "admin-jobs",
     "path": "6,19",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 40,
@@ -348,7 +386,8 @@
     "title": "فروش و بازاریابی",
     "slug": "sales-jobs",
     "path": "6,40",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 41,
@@ -357,7 +396,8 @@
     "title": "فناوری اطلاعات",
     "slug": "it-jobs",
     "path": "6,41",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 42,
@@ -366,7 +406,8 @@
     "title": "مالی و حسابداری",
     "slug": "finance-jobs",
     "path": "6,42",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 20,
@@ -375,7 +416,8 @@
     "title": "کیف و کفش و لباس",
     "slug": "fashion",
     "path": "7,20",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 43,
@@ -384,7 +426,8 @@
     "title": "ساعت و جواهرات",
     "slug": "jewelry",
     "path": "7,43",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 44,
@@ -393,7 +436,8 @@
     "title": "آرایشی و بهداشتی",
     "slug": "cosmetics",
     "path": "7,44",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 45,
@@ -402,7 +446,8 @@
     "title": "ورزش و تناسب اندام",
     "slug": "sports",
     "path": "8,45",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 46,
@@ -411,7 +456,8 @@
     "title": "کتاب و مجله",
     "slug": "books",
     "path": "8,46",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 47,
@@ -420,7 +466,8 @@
     "title": "دوچرخه و اسکوتر",
     "slug": "bikes",
     "path": "8,47",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 48,
@@ -429,7 +476,8 @@
     "title": "رویداد",
     "slug": "events",
     "path": "9,48",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 49,
@@ -438,7 +486,8 @@
     "title": "داوطلبانه",
     "slug": "volunteer",
     "path": "9,49",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 50,
@@ -447,7 +496,8 @@
     "title": "ابزار صنعتی",
     "slug": "industrial-tools",
     "path": "10,50",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   },
   {
     "id": 51,
@@ -456,6 +506,7 @@
     "title": "ماشین‌آلات",
     "slug": "machinery",
     "path": "10,51",
-    "isLeaf": true
+    "isLeaf": true,
+    "adsAttrsJsonSchemaTemplateName": null
   }
 ]

@@ -13,14 +13,15 @@ import (
 )
 
 type Category struct {
-	ID            int    `json:"id"`
-	Parent        *int   `json:"parent"`
-	Order         int    `json:"order"`
-	Title         string `json:"title"`
-	Slug          string `json:"slug"`
-	Path          string `json:"path,omitempty"`
-	IsLeaf        bool   `json:"isLeaf"`
-	DescendantIDs []int  `json:"descendant_ids,omitempty"`
+	ID                             int     `json:"id"`
+	Parent                         *int    `json:"parent"`
+	Order                          int     `json:"order"`
+	Title                          string  `json:"title"`
+	Slug                           string  `json:"slug"`
+	Path                           string  `json:"path,omitempty"`
+	IsLeaf                         bool    `json:"isLeaf"`
+	AdsAttrsJSONSchemaTemplateName *string `json:"adsAttrsJsonSchemaTemplateName"`
+	DescendantIDs                  []int   `json:"descendant_ids,omitempty"`
 }
 
 type ErrorResponse struct {

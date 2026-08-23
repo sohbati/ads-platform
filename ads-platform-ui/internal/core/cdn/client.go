@@ -12,12 +12,13 @@ import (
 
 // Category matches ads-platform-cdn GET /api/categories.
 type Category struct {
-	ID     int    `json:"id"`
-	Parent *int   `json:"parent"`
-	Order  int    `json:"order"`
-	Title  string `json:"title"`
-	Slug   string `json:"slug"`
-	IsLeaf bool   `json:"isLeaf"`
+	ID                             int     `json:"id"`
+	Parent                         *int    `json:"parent"`
+	Order                          int     `json:"order"`
+	Title                          string  `json:"title"`
+	Slug                           string  `json:"slug"`
+	IsLeaf                         bool    `json:"isLeaf"`
+	AdsAttrsJSONSchemaTemplateName *string `json:"adsAttrsJsonSchemaTemplateName"`
 }
 
 // City matches ads-platform-cdn GET /api/cities.

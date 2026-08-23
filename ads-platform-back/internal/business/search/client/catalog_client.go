@@ -14,12 +14,13 @@ import (
 
 // Category mirrors the cache-service category response.
 type Category struct {
-	ID            int    `json:"id"`
-	Slug          string `json:"slug"`
-	Title         string `json:"title"`
-	Path          string `json:"path,omitempty"`
-	IsLeaf        bool   `json:"isLeaf"`
-	DescendantIDs []int  `json:"descendant_ids,omitempty"`
+	ID                             int     `json:"id"`
+	Slug                           string  `json:"slug"`
+	Title                          string  `json:"title"`
+	Path                           string  `json:"path,omitempty"`
+	IsLeaf                         bool    `json:"isLeaf"`
+	AdsAttrsJSONSchemaTemplateName *string `json:"adsAttrsJsonSchemaTemplateName"`
+	DescendantIDs                  []int   `json:"descendant_ids,omitempty"`
 }
 
 // City mirrors the cache-service city response.
