@@ -3,3 +3,4 @@ STATIC_DIR=./cdn
 CATEGORY_JSON=./cdn/json/category.json
 CITIES_JSON=./cdn/json/cities.json
 LOCATION_JSON=./cdn/json/location.json
+ATTR_SCHEMAS_JSON=./cdn/json/attr-schemas.json

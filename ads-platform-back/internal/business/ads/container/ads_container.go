@@ -5,7 +5,6 @@ import (
 
 	"ads-platform/internal/business/ads/handler"
 	repoimpl "ads-platform/internal/business/ads/repository/impl"
-	"ads-platform/internal/business/ads/service"
 	serviceimpl "ads-platform/internal/business/ads/service/impl"
 	searchclient "ads-platform/internal/business/search/client"
 	"ads-platform/internal/core/config"
@@ -15,8 +14,7 @@ import (
 )
 
 type AdsContainer struct {
-	AdHandler                  *handler.AdHandler
-	AttrsSchemaTemplateService service.AdsAttrsJSONSchemaTemplateService
+	AdHandler *handler.AdHandler
 }
 
 func NewAdsContainer(db *gorm.DB, cfg *config.Config) *AdsContainer {
@@ -36,12 +34,9 @@ func NewAdsContainer(db *gorm.DB, cfg *config.Config) *AdsContainer {
 	catalog := searchclient.NewCatalogClient(cfg.CacheServiceURL, nil)
 	adRepo := repoimpl.NewAdRepository(db)
 	imageRepo := repoimpl.NewAdImageRepository(db)
-	templateRepo := repoimpl.NewAdsAttrsJSONSchemaTemplateRepository(db)
 	svc := serviceimpl.NewAdService(adRepo, imageRepo, catalog, objects, cfg.MaxAdPictures, cfg.MaxAdPictureBytes)
-	templateSvc := serviceimpl.NewAdsAttrsJSONSchemaTemplateService(templateRepo)
 
 	return &AdsContainer{
-		AdHandler:                  handler.NewAdHandler(svc),
-		AttrsSchemaTemplateService: templateSvc,
+		AdHandler: handler.NewAdHandler(svc),
 	}
 }

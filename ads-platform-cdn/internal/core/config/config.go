@@ -8,11 +8,12 @@ import (
 )
 
 type Config struct {
-	Port           string
-	StaticDir      string
-	CategoryJSON   string
-	CitiesJSON     string
-	LocationJSON   string
+	Port            string
+	StaticDir       string
+	CategoryJSON    string
+	CitiesJSON      string
+	LocationJSON    string
+	AttrSchemasJSON string
 }
 
 func Load() *Config {
@@ -21,11 +22,12 @@ func Load() *Config {
 	staticDir := getEnv("STATIC_DIR", "./cdn")
 
 	return &Config{
-		Port:         getEnv("PORT", "4000"),
-		StaticDir:    staticDir,
-		CategoryJSON: getEnv("CATEGORY_JSON", filepath.Join(staticDir, "json", "category.json")),
-		CitiesJSON:   getEnv("CITIES_JSON", filepath.Join(staticDir, "json", "cities.json")),
-		LocationJSON: getEnv("LOCATION_JSON", filepath.Join(staticDir, "json", "location.json")),
+		Port:            getEnv("PORT", "4000"),
+		StaticDir:       staticDir,
+		CategoryJSON:    getEnv("CATEGORY_JSON", filepath.Join(staticDir, "json", "category.json")),
+		CitiesJSON:      getEnv("CITIES_JSON", filepath.Join(staticDir, "json", "cities.json")),
+		LocationJSON:    getEnv("LOCATION_JSON", filepath.Join(staticDir, "json", "location.json")),
+		AttrSchemasJSON: getEnv("ATTR_SCHEMAS_JSON", filepath.Join(staticDir, "json", "attr-schemas.json")),
 	}
 }
 

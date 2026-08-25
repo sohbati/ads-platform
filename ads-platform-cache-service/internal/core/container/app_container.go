@@ -2,6 +2,7 @@ package container
 
 import (
 	"cache-service/internal/core/config"
+	attrschemaContainer "cache-service/internal/simplecache/attrschema/container"
 	categoryContainer "cache-service/internal/simplecache/category/container"
 	cityContainer "cache-service/internal/simplecache/city/container"
 	cacheContainer "cache-service/internal/simplecache/otp/container"
@@ -9,17 +10,19 @@ import (
 )
 
 type AppContainer struct {
-	OtpCacheContainer      *cacheContainer.OtpCacheContainer
-	SessionCacheContainer  *sessionContainer.SessionCacheContainer
-	CityCacheContainer     *cityContainer.CityCacheContainer
-	CategoryCacheContainer *categoryContainer.CategoryCacheContainer
+	OtpCacheContainer        *cacheContainer.OtpCacheContainer
+	SessionCacheContainer    *sessionContainer.SessionCacheContainer
+	CityCacheContainer       *cityContainer.CityCacheContainer
+	CategoryCacheContainer   *categoryContainer.CategoryCacheContainer
+	AttrSchemaCacheContainer *attrschemaContainer.AttrSchemaCacheContainer
 }
 
 func NewAppContainer(cfg *config.Config) *AppContainer {
 	return &AppContainer{
-		OtpCacheContainer:      cacheContainer.NewOtpCacheContainer(),
-		SessionCacheContainer:  sessionContainer.NewSessionCacheContainer(),
-		CityCacheContainer:     cityContainer.NewCityCacheContainer(cfg.CDNBaseURL),
-		CategoryCacheContainer: categoryContainer.NewCategoryCacheContainer(cfg.CDNBaseURL),
+		OtpCacheContainer:        cacheContainer.NewOtpCacheContainer(),
+		SessionCacheContainer:    sessionContainer.NewSessionCacheContainer(),
+		CityCacheContainer:       cityContainer.NewCityCacheContainer(cfg.CDNBaseURL),
+		CategoryCacheContainer:   categoryContainer.NewCategoryCacheContainer(cfg.CDNBaseURL),
+		AttrSchemaCacheContainer: attrschemaContainer.NewAttrSchemaCacheContainer(cfg.CDNBaseURL),
 	}
 }

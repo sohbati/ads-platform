@@ -80,6 +80,8 @@ func (r *Router) SetupRoutes() *gin.Engine {
 
 			caches.GET("/categories/by-slugs", r.container.CategoryCacheContainer.CategoryCacheHandler.GetBySlugs)
 			caches.GET("/categories/by-ids", r.container.CategoryCacheContainer.CategoryCacheHandler.GetByIDs)
+
+			caches.GET("/attr-schemas/by-names", r.container.AttrSchemaCacheContainer.AttrSchemaCacheHandler.GetByNames)
 		}
 
 	}

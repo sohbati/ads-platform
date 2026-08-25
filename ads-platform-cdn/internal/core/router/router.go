@@ -31,6 +31,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 	{
 		api.GET("/categories", r.container.Category.APIHandler.List)
 		api.GET("/cities", r.container.City.APIHandler.List)
+		api.GET("/attr-schemas", r.container.AttrSchema.APIHandler.List)
 	}
 
 	router.NoRoute(func(c *gin.Context) {

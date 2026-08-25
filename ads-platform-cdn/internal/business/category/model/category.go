@@ -9,7 +9,7 @@ type Category struct {
 	Slug   string `json:"slug"`
 	Path   string `json:"path"` // root → … → self ids, e.g. "3,15"
 	IsLeaf bool   `json:"isLeaf"`
-	// AdsAttrsJSONSchemaTemplateName names the JSON Schema for this category's
-	// ad attributes; null until a template is assigned.
+	// AdsAttrsJSONSchemaTemplateName is the key in attr-schemas.json for this
+	// category's ad-attrs form; null on non-leaf categories.
 	AdsAttrsJSONSchemaTemplateName *string `json:"adsAttrsJsonSchemaTemplateName"`
 }

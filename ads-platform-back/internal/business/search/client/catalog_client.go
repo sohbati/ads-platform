@@ -30,12 +30,20 @@ type City struct {
 	Name string `json:"name"`
 }
 
-// CatalogClient resolves categories and cities via ads-platform-cache-service.
+// AttrSchema mirrors the cache-service attr-schema response (CDN templates).
+type AttrSchema struct {
+	Name       string          `json:"name"`
+	Title      string          `json:"title"`
+	JSONSchema json.RawMessage `json:"jsonSchema"`
+}
+
+// CatalogClient resolves categories, cities, and attr schemas via ads-platform-cache-service.
 type CatalogClient interface {
 	CategoriesBySlugs(ctx context.Context, slugs []string, includeDescendants bool) ([]Category, error)
 	CategoriesByIDs(ctx context.Context, ids []int, includeDescendants bool) ([]Category, error)
 	CitiesBySlugs(ctx context.Context, slugs []string) ([]City, error)
 	CitiesByIDs(ctx context.Context, ids []int) ([]City, error)
+	AttrSchemasByNames(ctx context.Context, names []string) ([]AttrSchema, error)
 }
 
 type catalogClient struct {
@@ -102,6 +110,16 @@ func (c *catalogClient) CitiesByIDs(ctx context.Context, ids []int) ([]City, err
 
 	var out []City
 	if err := c.getJSON(ctx, "/api/v1/caches/cities/by-ids", q, &out); err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catalogClient) AttrSchemasByNames(ctx context.Context, names []string) ([]AttrSchema, error) {
+	q := url.Values{"names": {strings.Join(names, ",")}}
+
+	var out []AttrSchema
+	if err := c.getJSON(ctx, "/api/v1/caches/attr-schemas/by-names", q, &out); err != nil {
 		return nil, err
 	}
 	return out, nil

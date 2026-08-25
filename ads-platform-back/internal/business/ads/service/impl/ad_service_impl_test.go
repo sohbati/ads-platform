@@ -83,6 +83,9 @@ func (f *fakeCatalog) CitiesBySlugs(context.Context, []string) ([]searchclient.C
 func (f *fakeCatalog) CitiesByIDs(context.Context, []int) ([]searchclient.City, error) {
 	return f.cities, f.citiesErr
 }
+func (f *fakeCatalog) AttrSchemasByNames(context.Context, []string) ([]searchclient.AttrSchema, error) {
+	return nil, nil
+}
 
 type fakeStorage struct {
 	keys []string

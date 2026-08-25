@@ -53,6 +53,10 @@ func (f *fakeCatalog) CitiesByIDs(context.Context, []int) ([]client.City, error)
 	return f.citiesByIDs, f.citiesByIDsErr
 }
 
+func (f *fakeCatalog) AttrSchemasByNames(context.Context, []string) ([]client.AttrSchema, error) {
+	return nil, nil
+}
+
 func assertAppErrorCode(t *testing.T, err error, code string) {
 	t.Helper()
 	if err == nil {

@@ -1,0 +1,400 @@
+{
+  "deed_type": {
+    "single": {
+      "fa": "تک‌برگ",
+      "en": "Single"
+    },
+    "joint": {
+      "fa": "مشاع",
+      "en": "Joint"
+    },
+    "cooperative": {
+      "fa": "تعاونی",
+      "en": "Cooperative"
+    }
+  },
+  "commercial_usage": {
+    "shop": {
+      "fa": "مغازه",
+      "en": "Shop"
+    },
+    "office": {
+      "fa": "دفتر",
+      "en": "Office"
+    },
+    "warehouse": {
+      "fa": "انبار",
+      "en": "Warehouse"
+    },
+    "other": {
+      "fa": "سایر",
+      "en": "Other"
+    }
+  },
+  "project_type": {
+    "residential": {
+      "fa": "مسکونی",
+      "en": "Residential"
+    },
+    "commercial": {
+      "fa": "تجاری",
+      "en": "Commercial"
+    },
+    "mixed": {
+      "fa": "مختلط",
+      "en": "Mixed"
+    }
+  },
+  "gearbox": {
+    "manual": {
+      "fa": "دستی",
+      "en": "Manual"
+    },
+    "automatic": {
+      "fa": "اتوماتیک",
+      "en": "Automatic"
+    }
+  },
+  "fuel": {
+    "petrol": {
+      "fa": "بنزین",
+      "en": "Petrol"
+    },
+    "diesel": {
+      "fa": "گازوئیل",
+      "en": "Diesel"
+    },
+    "cng": {
+      "fa": "گازسوز",
+      "en": "CNG"
+    },
+    "hybrid": {
+      "fa": "هیبرید",
+      "en": "Hybrid"
+    },
+    "electric": {
+      "fa": "برقی",
+      "en": "Electric"
+    }
+  },
+  "condition": {
+    "new": {
+      "fa": "نو",
+      "en": "New"
+    },
+    "used": {
+      "fa": "کارکرده",
+      "en": "Used"
+    }
+  },
+  "boat_type": {
+    "boat": {
+      "fa": "قایق",
+      "en": "Boat"
+    },
+    "jetski": {
+      "fa": "جت‌اسکی",
+      "en": "Jet ski"
+    },
+    "yacht": {
+      "fa": "یات",
+      "en": "Yacht"
+    },
+    "other": {
+      "fa": "سایر",
+      "en": "Other"
+    }
+  },
+  "console_brand": {
+    "sony": {
+      "fa": "سونی",
+      "en": "Sony"
+    },
+    "microsoft": {
+      "fa": "مایکروسافت",
+      "en": "Microsoft"
+    },
+    "nintendo": {
+      "fa": "نینتندو",
+      "en": "Nintendo"
+    },
+    "other": {
+      "fa": "سایر",
+      "en": "Other"
+    }
+  },
+  "resolution": {
+    "hd": {
+      "fa": "اچ‌دی",
+      "en": "HD"
+    },
+    "fhd": {
+      "fa": "فول اچ‌دی",
+      "en": "Full HD"
+    },
+    "4k": {
+      "fa": "۴کی",
+      "en": "4K"
+    },
+    "8k": {
+      "fa": "۸کی",
+      "en": "8K"
+    }
+  },
+  "camera_type": {
+    "dslr": {
+      "fa": "دی‌اس‌ال‌آر",
+      "en": "DSLR"
+    },
+    "mirrorless": {
+      "fa": "بدون آینه",
+      "en": "Mirrorless"
+    },
+    "compact": {
+      "fa": "کامپکت",
+      "en": "Compact"
+    },
+    "action": {
+      "fa": "اکشن",
+      "en": "Action"
+    },
+    "other": {
+      "fa": "سایر",
+      "en": "Other"
+    }
+  },
+  "energy_grade": {
+    "A+++": {
+      "fa": "A+++",
+      "en": "A+++"
+    },
+    "A++": {
+      "fa": "A++",
+      "en": "A++"
+    },
+    "A+": {
+      "fa": "A+",
+      "en": "A+"
+    },
+    "A": {
+      "fa": "A",
+      "en": "A"
+    },
+    "B": {
+      "fa": "B",
+      "en": "B"
+    },
+    "C": {
+      "fa": "C",
+      "en": "C"
+    },
+    "D": {
+      "fa": "D",
+      "en": "D"
+    }
+  },
+  "hvac_type": {
+    "split": {
+      "fa": "اسپلیت",
+      "en": "Split"
+    },
+    "window": {
+      "fa": "پنجره‌ای",
+      "en": "Window"
+    },
+    "portable": {
+      "fa": "پرتابل",
+      "en": "Portable"
+    },
+    "central": {
+      "fa": "مرکزی",
+      "en": "Central"
+    },
+    "other": {
+      "fa": "سایر",
+      "en": "Other"
+    }
+  },
+  "education_level": {
+    "beginner": {
+      "fa": "مقدماتی",
+      "en": "Beginner"
+    },
+    "intermediate": {
+      "fa": "متوسط",
+      "en": "Intermediate"
+    },
+    "advanced": {
+      "fa": "پیشرفته",
+      "en": "Advanced"
+    },
+    "konkur": {
+      "fa": "کنکور",
+      "en": "Konkur"
+    },
+    "other": {
+      "fa": "سایر",
+      "en": "Other"
+    }
+  },
+  "transport_vehicle": {
+    "van": {
+      "fa": "ون",
+      "en": "Van"
+    },
+    "truck": {
+      "fa": "کامیون",
+      "en": "Truck"
+    },
+    "pickup": {
+      "fa": "وانت",
+      "en": "Pickup"
+    },
+    "other": {
+      "fa": "سایر",
+      "en": "Other"
+    }
+  },
+  "audience": {
+    "women": {
+      "fa": "بانوان",
+      "en": "Women"
+    },
+    "men": {
+      "fa": "آقایان",
+      "en": "Men"
+    },
+    "unisex": {
+      "fa": "همه",
+      "en": "Unisex"
+    }
+  },
+  "employment_type": {
+    "full_time": {
+      "fa": "تمام‌وقت",
+      "en": "Full-time"
+    },
+    "part_time": {
+      "fa": "پاره‌وقت",
+      "en": "Part-time"
+    },
+    "contract": {
+      "fa": "قراردادی",
+      "en": "Contract"
+    },
+    "intern": {
+      "fa": "کارآموزی",
+      "en": "Internship"
+    },
+    "commission": {
+      "fa": "پورسانتی",
+      "en": "Commission"
+    },
+    "freelance": {
+      "fa": "فریلنس",
+      "en": "Freelance"
+    }
+  },
+  "fashion_type": {
+    "shoes": {
+      "fa": "کفش",
+      "en": "Shoes"
+    },
+    "clothing": {
+      "fa": "لباس",
+      "en": "Clothing"
+    },
+    "bag": {
+      "fa": "کیف",
+      "en": "Bag"
+    },
+    "accessory": {
+      "fa": "اکسسوری",
+      "en": "Accessory"
+    },
+    "other": {
+      "fa": "سایر",
+      "en": "Other"
+    }
+  },
+  "gender": {
+    "women": {
+      "fa": "زنانه",
+      "en": "Women"
+    },
+    "men": {
+      "fa": "مردانه",
+      "en": "Men"
+    },
+    "unisex": {
+      "fa": "یونیسکس",
+      "en": "Unisex"
+    },
+    "kids": {
+      "fa": "بچگانه",
+      "en": "Kids"
+    }
+  },
+  "jewelry_type": {
+    "watch": {
+      "fa": "ساعت",
+      "en": "Watch"
+    },
+    "ring": {
+      "fa": "انگشتر",
+      "en": "Ring"
+    },
+    "necklace": {
+      "fa": "گردنبند",
+      "en": "Necklace"
+    },
+    "bracelet": {
+      "fa": "دستبند",
+      "en": "Bracelet"
+    },
+    "other": {
+      "fa": "سایر",
+      "en": "Other"
+    }
+  },
+  "book_language": {
+    "fa": {
+      "fa": "فارسی",
+      "en": "Persian"
+    },
+    "en": {
+      "fa": "انگلیسی",
+      "en": "English"
+    },
+    "ar": {
+      "fa": "عربی",
+      "en": "Arabic"
+    },
+    "other": {
+      "fa": "سایر",
+      "en": "Other"
+    }
+  },
+  "bike_type": {
+    "mountain": {
+      "fa": "کوهستان",
+      "en": "Mountain"
+    },
+    "road": {
+      "fa": "جاده",
+      "en": "Road"
+    },
+    "city": {
+      "fa": "شهری",
+      "en": "City"
+    },
+    "scooter": {
+      "fa": "اسکوتر",
+      "en": "Scooter"
+    },
+    "other": {
+      "fa": "سایر",
+      "en": "Other"
+    }
+  }
+}

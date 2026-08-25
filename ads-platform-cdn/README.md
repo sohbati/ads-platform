@@ -11,7 +11,8 @@ ads-platform-cdn/
 ├── internal/
 │   ├── business/
 │   │   ├── category/           # Categories API
-│   │   └── city/               # Cities API
+│   │   ├── city/               # Cities API
+│   │   └── attrschema/         # Attr JSON Schema templates API
 │   └── core/
 │       ├── config/
 │       ├── container/
@@ -36,6 +37,7 @@ ads-platform-cdn/
 | GET | `/health` | Health check |
 | GET | `/api/categories` | Categories from `category.json` |
 | GET | `/api/cities` | Cities from `cities.json` |
+| GET | `/api/attr-schemas` | Attr JSON Schema templates from `attr-schemas.json` |
 | GET | `/json/*` | Raw static JSON files |
 
 Default port: **4000**

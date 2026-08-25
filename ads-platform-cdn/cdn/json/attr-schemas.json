@@ -1,0 +1,1578 @@
+{
+  "residential-sale": {
+    "title": "فروش مسکونی",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "area_m2": {
+          "type": "integer",
+          "title": "متراژ (متر مربع)",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "rooms": {
+          "type": "integer",
+          "title": "تعداد اتاق",
+          "minimum": 0,
+          "maximum": 50
+        },
+        "floor": {
+          "type": "integer",
+          "title": "طبقه",
+          "minimum": -5,
+          "maximum": 200
+        },
+        "parking": {
+          "type": "boolean",
+          "title": "پارکینگ"
+        },
+        "elevator": {
+          "type": "boolean",
+          "title": "آسانسور"
+        },
+        "year_built": {
+          "type": "integer",
+          "title": "سال",
+          "minimum": 1300,
+          "maximum": 1410
+        },
+        "deed_type": {
+          "type": "string",
+          "title": "نوع سند",
+          "enum": [
+            "single",
+            "joint",
+            "cooperative"
+          ],
+          "x-enumVocab": "deed_type"
+        }
+      },
+      "title": "فروش مسکونی",
+      "required": [
+        "area_m2",
+        "rooms"
+      ]
+    }
+  },
+  "residential-rent": {
+    "title": "اجاره مسکونی",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "area_m2": {
+          "type": "integer",
+          "title": "متراژ (متر مربع)",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "rooms": {
+          "type": "integer",
+          "title": "تعداد اتاق",
+          "minimum": 0,
+          "maximum": 50
+        },
+        "floor": {
+          "type": "integer",
+          "title": "طبقه",
+          "minimum": -5,
+          "maximum": 200
+        },
+        "parking": {
+          "type": "boolean",
+          "title": "پارکینگ"
+        },
+        "furnished": {
+          "type": "boolean",
+          "title": "مبله"
+        },
+        "deposit": {
+          "type": "integer",
+          "title": "ودیعه (ریال)",
+          "minimum": 0
+        },
+        "rent_monthly": {
+          "type": "integer",
+          "title": "اجاره ماهانه (ریال)",
+          "minimum": 0
+        }
+      },
+      "title": "اجاره مسکونی",
+      "required": [
+        "area_m2",
+        "rooms"
+      ]
+    }
+  },
+  "commercial-sale": {
+    "title": "فروش اداری و تجاری",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "area_m2": {
+          "type": "integer",
+          "title": "متراژ (متر مربع)",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "usage": {
+          "type": "string",
+          "title": "کاربری",
+          "enum": [
+            "shop",
+            "office",
+            "warehouse",
+            "other"
+          ],
+          "x-enumVocab": "commercial_usage"
+        },
+        "floor": {
+          "type": "integer",
+          "title": "طبقه",
+          "minimum": -5,
+          "maximum": 200
+        },
+        "parking": {
+          "type": "boolean",
+          "title": "پارکینگ"
+        }
+      },
+      "title": "فروش اداری و تجاری",
+      "required": [
+        "area_m2"
+      ]
+    }
+  },
+  "commercial-rent": {
+    "title": "اجاره اداری و تجاری",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "area_m2": {
+          "type": "integer",
+          "title": "متراژ (متر مربع)",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "usage": {
+          "type": "string",
+          "title": "کاربری",
+          "enum": [
+            "shop",
+            "office",
+            "warehouse",
+            "other"
+          ],
+          "x-enumVocab": "commercial_usage"
+        },
+        "parking": {
+          "type": "boolean",
+          "title": "پارکینگ"
+        },
+        "deposit": {
+          "type": "integer",
+          "title": "ودیعه (ریال)",
+          "minimum": 0
+        },
+        "rent_monthly": {
+          "type": "integer",
+          "title": "اجاره ماهانه (ریال)",
+          "minimum": 0
+        }
+      },
+      "title": "اجاره اداری و تجاری",
+      "required": [
+        "area_m2"
+      ]
+    }
+  },
+  "short-term-rent": {
+    "title": "اجاره کوتاه‌مدت",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "nights": {
+          "type": "integer",
+          "title": "حداقل شب",
+          "minimum": 1,
+          "maximum": 365
+        },
+        "capacity": {
+          "type": "integer",
+          "title": "ظرفیت (نفر)",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "pool": {
+          "type": "boolean",
+          "title": "استخر"
+        },
+        "furnished": {
+          "type": "boolean",
+          "title": "مبله"
+        }
+      },
+      "title": "اجاره کوتاه‌مدت",
+      "required": [
+        "capacity"
+      ]
+    }
+  },
+  "construction": {
+    "title": "پروژه‌های ساخت و ساز",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "area_m2": {
+          "type": "integer",
+          "title": "متراژ (متر مربع)",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "project_type": {
+          "type": "string",
+          "title": "نوع پروژه",
+          "enum": [
+            "residential",
+            "commercial",
+            "mixed"
+          ],
+          "x-enumVocab": "project_type"
+        },
+        "completion_year": {
+          "type": "integer",
+          "title": "سال",
+          "minimum": 1300,
+          "maximum": 1410
+        },
+        "units": {
+          "type": "integer",
+          "title": "تعداد واحد",
+          "minimum": 1,
+          "maximum": 5000
+        }
+      },
+      "title": "پروژه‌های ساخت و ساز",
+      "required": [
+        "area_m2"
+      ]
+    }
+  },
+  "cars": {
+    "title": "خودرو",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "model": {
+          "type": "string",
+          "title": "مدل",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "year": {
+          "type": "integer",
+          "title": "سال",
+          "minimum": 1300,
+          "maximum": 1410
+        },
+        "mileage_km": {
+          "type": "integer",
+          "title": "کارکرد (کیلومتر)",
+          "minimum": 0,
+          "maximum": 2000000
+        },
+        "gearbox": {
+          "type": "string",
+          "title": "گیربکس",
+          "enum": [
+            "manual",
+            "automatic"
+          ],
+          "x-enumVocab": "gearbox"
+        },
+        "fuel": {
+          "type": "string",
+          "title": "سوخت",
+          "enum": [
+            "petrol",
+            "diesel",
+            "cng",
+            "hybrid",
+            "electric"
+          ],
+          "x-enumVocab": "fuel"
+        },
+        "color": {
+          "type": "string",
+          "title": "رنگ",
+          "minLength": 0,
+          "maxLength": 40
+        }
+      },
+      "title": "خودرو",
+      "required": [
+        "brand",
+        "year"
+      ]
+    }
+  },
+  "motorcycles": {
+    "title": "موتورسیکلت",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "cc": {
+          "type": "integer",
+          "title": "حجم موتور (سی‌سی)",
+          "minimum": 50,
+          "maximum": 2500
+        },
+        "year": {
+          "type": "integer",
+          "title": "سال",
+          "minimum": 1300,
+          "maximum": 1410
+        },
+        "mileage_km": {
+          "type": "integer",
+          "title": "کارکرد (کیلومتر)",
+          "minimum": 0,
+          "maximum": 500000
+        }
+      },
+      "title": "موتورسیکلت",
+      "required": [
+        "brand"
+      ]
+    }
+  },
+  "auto-parts": {
+    "title": "قطعات یدکی و لوازم جانبی",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "part": {
+          "type": "string",
+          "title": "نوع قطعه",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "fit": {
+          "type": "string",
+          "title": "سازگاری (خودرو)",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "condition": {
+          "type": "string",
+          "title": "وضعیت",
+          "enum": [
+            "new",
+            "used"
+          ],
+          "x-enumVocab": "condition"
+        }
+      },
+      "title": "قطعات یدکی و لوازم جانبی",
+      "required": [
+        "part"
+      ]
+    }
+  },
+  "boats": {
+    "title": "قایق و وسایل دریایی",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "نوع",
+          "enum": [
+            "boat",
+            "jetski",
+            "yacht",
+            "other"
+          ],
+          "x-enumVocab": "boat_type"
+        },
+        "length_m": {
+          "type": "number",
+          "title": "طول (متر)",
+          "minimum": 0
+        },
+        "year": {
+          "type": "integer",
+          "title": "سال",
+          "minimum": 1300,
+          "maximum": 1410
+        },
+        "engine_hp": {
+          "type": "integer",
+          "title": "قدرت موتور (اسب)",
+          "minimum": 0,
+          "maximum": 5000
+        }
+      },
+      "title": "قایق و وسایل دریایی",
+      "required": [
+        "type"
+      ]
+    }
+  },
+  "car-rental": {
+    "title": "اجاره خودرو",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "daily": {
+          "type": "boolean",
+          "title": "اجاره روزانه"
+        },
+        "gearbox": {
+          "type": "string",
+          "title": "گیربکس",
+          "enum": [
+            "manual",
+            "automatic"
+          ],
+          "x-enumVocab": "gearbox"
+        },
+        "with_driver": {
+          "type": "boolean",
+          "title": "با راننده"
+        },
+        "min_days": {
+          "type": "integer",
+          "title": "حداقل روز",
+          "minimum": 1,
+          "maximum": 365
+        }
+      },
+      "title": "اجاره خودرو",
+      "required": [
+        "gearbox"
+      ]
+    }
+  },
+  "mobile-tablet": {
+    "title": "موبایل و تبلت",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "model": {
+          "type": "string",
+          "title": "مدل",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "storage_gb": {
+          "type": "integer",
+          "title": "حافظه (گیگابایت)",
+          "minimum": 1,
+          "maximum": 2048
+        },
+        "color": {
+          "type": "string",
+          "title": "رنگ",
+          "minLength": 0,
+          "maxLength": 40
+        },
+        "sim_count": {
+          "type": "integer",
+          "title": "تعداد سیم‌کارت",
+          "minimum": 0,
+          "maximum": 4
+        }
+      },
+      "title": "موبایل و تبلت",
+      "required": [
+        "brand"
+      ]
+    }
+  },
+  "laptop": {
+    "title": "لپ‌تاپ",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "model": {
+          "type": "string",
+          "title": "مدل",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "ram_gb": {
+          "type": "integer",
+          "title": "رم (گیگابایت)",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "storage_gb": {
+          "type": "integer",
+          "title": "حافظه (گیگابایت)",
+          "minimum": 16,
+          "maximum": 8192
+        },
+        "cpu": {
+          "type": "string",
+          "title": "پردازنده",
+          "minLength": 0,
+          "maxLength": 120
+        }
+      },
+      "title": "لپ‌تاپ",
+      "required": [
+        "brand"
+      ]
+    }
+  },
+  "computers": {
+    "title": "کامپیوتر و تجهیزات",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cpu": {
+          "type": "string",
+          "title": "پردازنده",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "ram_gb": {
+          "type": "integer",
+          "title": "رم (گیگابایت)",
+          "minimum": 1,
+          "maximum": 512
+        },
+        "gpu": {
+          "type": "string",
+          "title": "کارت گرافیک",
+          "minLength": 0,
+          "maxLength": 120
+        },
+        "storage_gb": {
+          "type": "integer",
+          "title": "حافظه (گیگابایت)",
+          "minimum": 16,
+          "maximum": 16384
+        }
+      },
+      "title": "کامپیوتر و تجهیزات",
+      "required": [
+        "cpu"
+      ]
+    }
+  },
+  "gaming": {
+    "title": "کنسول بازی",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "enum": [
+            "sony",
+            "microsoft",
+            "nintendo",
+            "other"
+          ],
+          "x-enumVocab": "console_brand"
+        },
+        "model": {
+          "type": "string",
+          "title": "مدل",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "storage_tb": {
+          "type": "number",
+          "title": "حافظه (ترابایت)",
+          "minimum": 0
+        },
+        "with_controllers": {
+          "type": "integer",
+          "title": "تعداد دسته",
+          "minimum": 0,
+          "maximum": 8
+        }
+      },
+      "title": "کنسول بازی",
+      "required": [
+        "brand"
+      ]
+    }
+  },
+  "av": {
+    "title": "صوتی و تصویری",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "inches": {
+          "type": "integer",
+          "title": "اینچ",
+          "minimum": 5,
+          "maximum": 200
+        },
+        "resolution": {
+          "type": "string",
+          "title": "رزولوشن",
+          "enum": [
+            "hd",
+            "fhd",
+            "4k",
+            "8k"
+          ],
+          "x-enumVocab": "resolution"
+        },
+        "smart": {
+          "type": "boolean",
+          "title": "اسمارت"
+        }
+      },
+      "title": "صوتی و تصویری",
+      "required": [
+        "brand"
+      ]
+    }
+  },
+  "cameras": {
+    "title": "دوربین",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "model": {
+          "type": "string",
+          "title": "مدل",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "type": {
+          "type": "string",
+          "title": "نوع",
+          "enum": [
+            "dslr",
+            "mirrorless",
+            "compact",
+            "action",
+            "other"
+          ],
+          "x-enumVocab": "camera_type"
+        },
+        "megapixels": {
+          "type": "integer",
+          "title": "مگاپیکسل",
+          "minimum": 1,
+          "maximum": 200
+        }
+      },
+      "title": "دوربین",
+      "required": [
+        "brand"
+      ]
+    }
+  },
+  "phones": {
+    "title": "تلفن رومیزی",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "wired": {
+          "type": "boolean",
+          "title": "سیمی"
+        },
+        "lines": {
+          "type": "integer",
+          "title": "تعداد خط",
+          "minimum": 1,
+          "maximum": 16
+        }
+      },
+      "title": "تلفن رومیزی",
+      "required": [
+        "brand"
+      ]
+    }
+  },
+  "appliances": {
+    "title": "لوازم خانگی",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "type": {
+          "type": "string",
+          "title": "نوع دستگاه",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "energy_grade": {
+          "type": "string",
+          "title": "رده انرژی",
+          "enum": [
+            "A+++",
+            "A++",
+            "A+",
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "x-enumVocab": "energy_grade"
+        }
+      },
+      "title": "لوازم خانگی",
+      "required": [
+        "type"
+      ]
+    }
+  },
+  "kitchen": {
+    "title": "آشپزخانه",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "material": {
+          "type": "string",
+          "title": "جنس",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "seats": {
+          "type": "integer",
+          "title": "ظرفیت نفر",
+          "minimum": 0,
+          "maximum": 30
+        },
+        "set_pieces": {
+          "type": "integer",
+          "title": "تعداد قطعات",
+          "minimum": 1,
+          "maximum": 100
+        }
+      },
+      "title": "آشپزخانه"
+    }
+  },
+  "bedroom-bath": {
+    "title": "خواب و حمام",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "string",
+          "title": "ابعاد",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "material": {
+          "type": "string",
+          "title": "جنس",
+          "minLength": 0,
+          "maxLength": 120
+        },
+        "color": {
+          "type": "string",
+          "title": "رنگ",
+          "minLength": 0,
+          "maxLength": 40
+        }
+      },
+      "title": "خواب و حمام"
+    }
+  },
+  "decor": {
+    "title": "دکوراسیون و روشنایی",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "style": {
+          "type": "string",
+          "title": "سبک",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "material": {
+          "type": "string",
+          "title": "جنس",
+          "minLength": 0,
+          "maxLength": 120
+        },
+        "color": {
+          "type": "string",
+          "title": "رنگ",
+          "minLength": 0,
+          "maxLength": 40
+        }
+      },
+      "title": "دکوراسیون و روشنایی"
+    }
+  },
+  "hvac": {
+    "title": "تهویه و سرمایش",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "btu": {
+          "type": "integer",
+          "title": "ظرفیت (BTU)",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "type": {
+          "type": "string",
+          "title": "نوع",
+          "enum": [
+            "split",
+            "window",
+            "portable",
+            "central",
+            "other"
+          ],
+          "x-enumVocab": "hvac_type"
+        }
+      },
+      "title": "تهویه و سرمایش",
+      "required": [
+        "brand"
+      ]
+    }
+  },
+  "education": {
+    "title": "آموزشی",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "subject": {
+          "type": "string",
+          "title": "موضوع",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "online": {
+          "type": "boolean",
+          "title": "آنلاین"
+        },
+        "in_person": {
+          "type": "boolean",
+          "title": "حضوری"
+        },
+        "level": {
+          "type": "string",
+          "title": "سطح",
+          "enum": [
+            "beginner",
+            "intermediate",
+            "advanced",
+            "konkur",
+            "other"
+          ],
+          "x-enumVocab": "education_level"
+        }
+      },
+      "title": "آموزشی",
+      "required": [
+        "subject"
+      ]
+    }
+  },
+  "transport": {
+    "title": "حمل و نقل",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "citywide": {
+          "type": "boolean",
+          "title": "داخل شهر"
+        },
+        "intercity": {
+          "type": "boolean",
+          "title": "بین شهری"
+        },
+        "vehicle": {
+          "type": "string",
+          "title": "وسیله",
+          "enum": [
+            "van",
+            "truck",
+            "pickup",
+            "other"
+          ],
+          "x-enumVocab": "transport_vehicle"
+        }
+      },
+      "title": "حمل و نقل"
+    }
+  },
+  "beauty": {
+    "title": "زیبایی و سلامت",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "home_service": {
+          "type": "boolean",
+          "title": "سرویس در محل"
+        },
+        "service_type": {
+          "type": "string",
+          "title": "نوع خدمت",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "for": {
+          "type": "string",
+          "title": "مخاطب",
+          "enum": [
+            "women",
+            "men",
+            "unisex"
+          ],
+          "x-enumVocab": "audience"
+        }
+      },
+      "title": "زیبایی و سلامت",
+      "required": [
+        "service_type"
+      ]
+    }
+  },
+  "cleaning": {
+    "title": "نظافت",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hourly": {
+          "type": "boolean",
+          "title": "ساعتی"
+        },
+        "home": {
+          "type": "boolean",
+          "title": "منزل"
+        },
+        "office": {
+          "type": "boolean",
+          "title": "اداری"
+        }
+      },
+      "title": "نظافت"
+    }
+  },
+  "admin-jobs": {
+    "title": "اداری و مدیریت",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "employment_type": {
+          "type": "string",
+          "title": "نوع همکاری",
+          "enum": [
+            "full_time",
+            "part_time",
+            "contract",
+            "intern"
+          ],
+          "x-enumVocab": "employment_type"
+        },
+        "experience_years": {
+          "type": "integer",
+          "title": "سابقه (سال)",
+          "minimum": 0,
+          "maximum": 50
+        },
+        "remote": {
+          "type": "boolean",
+          "title": "دورکاری"
+        }
+      },
+      "title": "اداری و مدیریت",
+      "required": [
+        "employment_type"
+      ]
+    }
+  },
+  "sales-jobs": {
+    "title": "فروش و بازاریابی",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "employment_type": {
+          "type": "string",
+          "title": "نوع همکاری",
+          "enum": [
+            "full_time",
+            "part_time",
+            "contract",
+            "commission"
+          ],
+          "x-enumVocab": "employment_type"
+        },
+        "remote": {
+          "type": "boolean",
+          "title": "دورکاری"
+        },
+        "experience_years": {
+          "type": "integer",
+          "title": "سابقه (سال)",
+          "minimum": 0,
+          "maximum": 50
+        }
+      },
+      "title": "فروش و بازاریابی",
+      "required": [
+        "employment_type"
+      ]
+    }
+  },
+  "it-jobs": {
+    "title": "فناوری اطلاعات",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "employment_type": {
+          "type": "string",
+          "title": "نوع همکاری",
+          "enum": [
+            "full_time",
+            "part_time",
+            "contract",
+            "freelance"
+          ],
+          "x-enumVocab": "employment_type"
+        },
+        "remote": {
+          "type": "boolean",
+          "title": "دورکاری"
+        },
+        "stack": {
+          "type": "string",
+          "title": "تکنولوژی",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "experience_years": {
+          "type": "integer",
+          "title": "سابقه (سال)",
+          "minimum": 0,
+          "maximum": 50
+        }
+      },
+      "title": "فناوری اطلاعات",
+      "required": [
+        "employment_type"
+      ]
+    }
+  },
+  "finance-jobs": {
+    "title": "مالی و حسابداری",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "employment_type": {
+          "type": "string",
+          "title": "نوع همکاری",
+          "enum": [
+            "full_time",
+            "part_time",
+            "contract"
+          ],
+          "x-enumVocab": "employment_type"
+        },
+        "experience_years": {
+          "type": "integer",
+          "title": "سابقه (سال)",
+          "minimum": 0,
+          "maximum": 50
+        },
+        "software": {
+          "type": "string",
+          "title": "نرم‌افزار",
+          "minLength": 0,
+          "maxLength": 120
+        }
+      },
+      "title": "مالی و حسابداری",
+      "required": [
+        "employment_type"
+      ]
+    }
+  },
+  "fashion": {
+    "title": "کیف و کفش و لباس",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "size": {
+          "type": "string",
+          "title": "سایز",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "type": {
+          "type": "string",
+          "title": "نوع",
+          "enum": [
+            "shoes",
+            "clothing",
+            "bag",
+            "accessory",
+            "other"
+          ],
+          "x-enumVocab": "fashion_type"
+        },
+        "gender": {
+          "type": "string",
+          "title": "جنسیت",
+          "enum": [
+            "women",
+            "men",
+            "unisex",
+            "kids"
+          ],
+          "x-enumVocab": "gender"
+        }
+      },
+      "title": "کیف و کفش و لباس",
+      "required": [
+        "type"
+      ]
+    }
+  },
+  "jewelry": {
+    "title": "ساعت و جواهرات",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 0,
+          "maxLength": 120
+        },
+        "type": {
+          "type": "string",
+          "title": "نوع",
+          "enum": [
+            "watch",
+            "ring",
+            "necklace",
+            "bracelet",
+            "other"
+          ],
+          "x-enumVocab": "jewelry_type"
+        },
+        "material": {
+          "type": "string",
+          "title": "جنس",
+          "minLength": 0,
+          "maxLength": 120
+        }
+      },
+      "title": "ساعت و جواهرات",
+      "required": [
+        "type"
+      ]
+    }
+  },
+  "cosmetics": {
+    "title": "آرایشی و بهداشتی",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "نوع محصول",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "items": {
+          "type": "integer",
+          "title": "تعداد اقلام",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 0,
+          "maxLength": 120
+        },
+        "sealed": {
+          "type": "boolean",
+          "title": "پلمپ"
+        }
+      },
+      "title": "آرایشی و بهداشتی",
+      "required": [
+        "type"
+      ]
+    }
+  },
+  "sports": {
+    "title": "ورزش و تناسب اندام",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "weight_kg": {
+          "type": "number",
+          "title": "وزن (کیلوگرم)",
+          "minimum": 0
+        },
+        "sport": {
+          "type": "string",
+          "title": "رشته",
+          "minLength": 0,
+          "maxLength": 120
+        },
+        "condition": {
+          "type": "string",
+          "title": "وضعیت",
+          "enum": [
+            "new",
+            "used"
+          ],
+          "x-enumVocab": "condition"
+        }
+      },
+      "title": "ورزش و تناسب اندام"
+    }
+  },
+  "books": {
+    "title": "کتاب و مجله",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pages": {
+          "type": "integer",
+          "title": "تعداد صفحه",
+          "minimum": 1,
+          "maximum": 20000
+        },
+        "language": {
+          "type": "string",
+          "title": "زبان",
+          "enum": [
+            "fa",
+            "en",
+            "ar",
+            "other"
+          ],
+          "x-enumVocab": "book_language"
+        },
+        "author": {
+          "type": "string",
+          "title": "نویسنده",
+          "minLength": 0,
+          "maxLength": 120
+        },
+        "hardcover": {
+          "type": "boolean",
+          "title": "جلد سخت"
+        }
+      },
+      "title": "کتاب و مجله"
+    }
+  },
+  "bikes": {
+    "title": "دوچرخه و اسکوتر",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "wheel_inch": {
+          "type": "integer",
+          "title": "سایز طوقه (اینچ)",
+          "minimum": 12,
+          "maximum": 29
+        },
+        "gears": {
+          "type": "integer",
+          "title": "تعداد دنده",
+          "minimum": 1,
+          "maximum": 33
+        },
+        "type": {
+          "type": "string",
+          "title": "نوع",
+          "enum": [
+            "mountain",
+            "road",
+            "city",
+            "scooter",
+            "other"
+          ],
+          "x-enumVocab": "bike_type"
+        }
+      },
+      "title": "دوچرخه و اسکوتر"
+    }
+  },
+  "events": {
+    "title": "رویداد",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "event_type": {
+          "type": "string",
+          "title": "نوع رویداد",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "capacity": {
+          "type": "integer",
+          "title": "ظرفیت",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "online": {
+          "type": "boolean",
+          "title": "آنلاین"
+        }
+      },
+      "title": "رویداد",
+      "required": [
+        "event_type"
+      ]
+    }
+  },
+  "volunteer": {
+    "title": "داوطلبانه",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cause": {
+          "type": "string",
+          "title": "موضوع",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "hours_per_week": {
+          "type": "integer",
+          "title": "ساعت در هفته",
+          "minimum": 1,
+          "maximum": 168
+        },
+        "remote": {
+          "type": "boolean",
+          "title": "غیرحضوری"
+        }
+      },
+      "title": "داوطلبانه",
+      "required": [
+        "cause"
+      ]
+    }
+  },
+  "industrial-tools": {
+    "title": "ابزار صنعتی",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tool_type": {
+          "type": "string",
+          "title": "نوع ابزار",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 0,
+          "maxLength": 120
+        },
+        "condition": {
+          "type": "string",
+          "title": "وضعیت",
+          "enum": [
+            "new",
+            "used"
+          ],
+          "x-enumVocab": "condition"
+        },
+        "voltage": {
+          "type": "integer",
+          "title": "ولتاژ",
+          "minimum": 0,
+          "maximum": 1000
+        }
+      },
+      "title": "ابزار صنعتی",
+      "required": [
+        "tool_type"
+      ]
+    }
+  },
+  "machinery": {
+    "title": "ماشین‌آلات",
+    "jsonSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "machine_type": {
+          "type": "string",
+          "title": "نوع ماشین",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "brand": {
+          "type": "string",
+          "title": "برند",
+          "minLength": 0,
+          "maxLength": 120
+        },
+        "year": {
+          "type": "integer",
+          "title": "سال",
+          "minimum": 1300,
+          "maximum": 1410
+        },
+        "hours_used": {
+          "type": "integer",
+          "title": "ساعت کارکرد",
+          "minimum": 0,
+          "maximum": 1000000
+        }
+      },
+      "title": "ماشین‌آلات",
+      "required": [
+        "machine_type"
+      ]
+    }
+  }
+}

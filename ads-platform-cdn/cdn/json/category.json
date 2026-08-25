@@ -107,7 +107,7 @@
     "slug": "residential-sale",
     "path": "1,11",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "residential-sale"
   },
   {
     "id": 12,
@@ -117,7 +117,7 @@
     "slug": "residential-rent",
     "path": "1,12",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "residential-rent"
   },
   {
     "id": 21,
@@ -127,7 +127,7 @@
     "slug": "commercial-sale",
     "path": "1,21",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "commercial-sale"
   },
   {
     "id": 22,
@@ -137,7 +137,7 @@
     "slug": "commercial-rent",
     "path": "1,22",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "commercial-rent"
   },
   {
     "id": 23,
@@ -147,7 +147,7 @@
     "slug": "short-term-rent",
     "path": "1,23",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "short-term-rent"
   },
   {
     "id": 24,
@@ -157,7 +157,7 @@
     "slug": "construction",
     "path": "1,24",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "construction"
   },
   {
     "id": 13,
@@ -167,7 +167,7 @@
     "slug": "cars",
     "path": "2,13",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "cars"
   },
   {
     "id": 14,
@@ -177,7 +177,7 @@
     "slug": "motorcycles",
     "path": "2,14",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "motorcycles"
   },
   {
     "id": 25,
@@ -187,7 +187,7 @@
     "slug": "auto-parts",
     "path": "2,25",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "auto-parts"
   },
   {
     "id": 26,
@@ -197,7 +197,7 @@
     "slug": "boats",
     "path": "2,26",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "boats"
   },
   {
     "id": 27,
@@ -207,7 +207,7 @@
     "slug": "car-rental",
     "path": "2,27",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "car-rental"
   },
   {
     "id": 15,
@@ -217,7 +217,7 @@
     "slug": "mobile-tablet",
     "path": "3,15",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "mobile-tablet"
   },
   {
     "id": 16,
@@ -227,7 +227,7 @@
     "slug": "laptop",
     "path": "3,16",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "laptop"
   },
   {
     "id": 28,
@@ -237,7 +237,7 @@
     "slug": "computers",
     "path": "3,28",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "computers"
   },
   {
     "id": 29,
@@ -247,7 +247,7 @@
     "slug": "gaming",
     "path": "3,29",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "gaming"
   },
   {
     "id": 30,
@@ -257,7 +257,7 @@
     "slug": "av",
     "path": "3,30",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "av"
   },
   {
     "id": 31,
@@ -267,7 +267,7 @@
     "slug": "cameras",
     "path": "3,31",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "cameras"
   },
   {
     "id": 32,
@@ -277,7 +277,7 @@
     "slug": "phones",
     "path": "3,32",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "phones"
   },
   {
     "id": 17,
@@ -287,7 +287,7 @@
     "slug": "appliances",
     "path": "4,17",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "appliances"
   },
   {
     "id": 33,
@@ -297,7 +297,7 @@
     "slug": "kitchen",
     "path": "4,33",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "kitchen"
   },
   {
     "id": 34,
@@ -307,7 +307,7 @@
     "slug": "bedroom-bath",
     "path": "4,34",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "bedroom-bath"
   },
   {
     "id": 35,
@@ -317,7 +317,7 @@
     "slug": "decor",
     "path": "4,35",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "decor"
   },
   {
     "id": 36,
@@ -327,7 +327,7 @@
     "slug": "hvac",
     "path": "4,36",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "hvac"
   },
   {
     "id": 18,
@@ -337,7 +337,7 @@
     "slug": "education",
     "path": "5,18",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "education"
   },
   {
     "id": 37,
@@ -347,7 +347,7 @@
     "slug": "transport",
     "path": "5,37",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "transport"
   },
   {
     "id": 38,
@@ -357,7 +357,7 @@
     "slug": "beauty",
     "path": "5,38",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "beauty"
   },
   {
     "id": 39,
@@ -367,7 +367,7 @@
     "slug": "cleaning",
     "path": "5,39",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "cleaning"
   },
   {
     "id": 19,
@@ -377,7 +377,7 @@
     "slug": "admin-jobs",
     "path": "6,19",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "admin-jobs"
   },
   {
     "id": 40,
@@ -387,7 +387,7 @@
     "slug": "sales-jobs",
     "path": "6,40",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "sales-jobs"
   },
   {
     "id": 41,
@@ -397,7 +397,7 @@
     "slug": "it-jobs",
     "path": "6,41",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "it-jobs"
   },
   {
     "id": 42,
@@ -407,7 +407,7 @@
     "slug": "finance-jobs",
     "path": "6,42",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "finance-jobs"
   },
   {
     "id": 20,
@@ -417,7 +417,7 @@
     "slug": "fashion",
     "path": "7,20",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "fashion"
   },
   {
     "id": 43,
@@ -427,7 +427,7 @@
     "slug": "jewelry",
     "path": "7,43",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "jewelry"
   },
   {
     "id": 44,
@@ -437,7 +437,7 @@
     "slug": "cosmetics",
     "path": "7,44",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "cosmetics"
   },
   {
     "id": 45,
@@ -447,7 +447,7 @@
     "slug": "sports",
     "path": "8,45",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "sports"
   },
   {
     "id": 46,
@@ -457,7 +457,7 @@
     "slug": "books",
     "path": "8,46",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "books"
   },
   {
     "id": 47,
@@ -467,7 +467,7 @@
     "slug": "bikes",
     "path": "8,47",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "bikes"
   },
   {
     "id": 48,
@@ -477,7 +477,7 @@
     "slug": "events",
     "path": "9,48",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "events"
   },
   {
     "id": 49,
@@ -487,7 +487,7 @@
     "slug": "volunteer",
     "path": "9,49",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "volunteer"
   },
   {
     "id": 50,
@@ -497,7 +497,7 @@
     "slug": "industrial-tools",
     "path": "10,50",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "industrial-tools"
   },
   {
     "id": 51,
@@ -507,6 +507,6 @@
     "slug": "machinery",
     "path": "10,51",
     "isLeaf": true,
-    "adsAttrsJsonSchemaTemplateName": null
+    "adsAttrsJsonSchemaTemplateName": "machinery"
   }
 ]

@@ -50,6 +50,9 @@ func TestCategoriesByIDsAPI(t *testing.T) {
 		if cars.Slug != "cars" {
 			t.Fatalf("cars slug: got %q", cars.Slug)
 		}
+		if cars.AdsAttrsJSONSchemaTemplateName == nil || *cars.AdsAttrsJSONSchemaTemplateName != "cars" {
+			t.Fatalf("cars adsAttrsJsonSchemaTemplateName: got %v", cars.AdsAttrsJSONSchemaTemplateName)
+		}
 		if cars.Path != "2,13" {
 			t.Fatalf("cars path: got %q", cars.Path)
 		}
