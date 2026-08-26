@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"testing"
 
+	newadvm "ads-platform-ui/internal/business/newad/viewmodel"
 	"ads-platform-ui/internal/business/queryads/viewmodel"
 	"ads-platform-ui/internal/core/i18n"
 )
@@ -31,10 +32,41 @@ func TestQueryAdsTemplateRenders(t *testing.T) {
 		},
 	}
 
-	for name, data := range map[string]viewmodel.QueryAdsPage{"landing": landing, "search": search} {
+	for name, data := range map[string]any{
+		"landing": landing,
+		"search":  search,
+	} {
 		var buf bytes.Buffer
 		if err := tmpl.ExecuteTemplate(&buf, "query_ads", data); err != nil {
 			t.Fatalf("execute query_ads (%s): %v", name, err)
 		}
+	}
+}
+
+func TestNewAdTemplateRenders(t *testing.T) {
+	tmpl, err := template.New("").Funcs(FuncMap(nil)).ParseGlob("../../../templates/**/*.gohtml")
+	if err != nil {
+		t.Fatalf("parse templates: %v", err)
+	}
+
+	page := newadvm.NewAdPage{
+		Page: i18n.Page{
+			Title:           "t",
+			Heading:         "New ad",
+			CityDisplayName: "Tehran",
+			T: i18n.Messages{
+				NewAd: i18n.NewAdMessages{
+					Intro:        "intro",
+					PicturesHint: "Up to %d photos",
+					Submit:       "Publish",
+				},
+			},
+		},
+		Bootstrap: newadvm.Bootstrap{MaxPictures: 8, ChangeCityHref: "/location", Enums: []byte(`{}`)},
+	}
+
+	var buf bytes.Buffer
+	if err := tmpl.ExecuteTemplate(&buf, "new_ad", page); err != nil {
+		t.Fatalf("execute new_ad: %v", err)
 	}
 }

@@ -26,6 +26,10 @@ func NewClient(baseURL string, httpClient *http.Client) *Client {
 	}
 }
 
+func NewAdsClient(baseURL string) *Client {
+	return NewClient(baseURL, &http.Client{Timeout: 60 * time.Second})
+}
+
 type VerifyOtpRequest struct {
 	Otp string `json:"otp"`
 }
@@ -106,6 +110,31 @@ func (c *Client) RegisterUserByMobile(ctx context.Context, mobile string) (*User
 		return nil, status, respBody, fmt.Errorf("parse register response: %w", err)
 	}
 	return &user, status, respBody, nil
+}
+
+func (c *Client) CreateAd(ctx context.Context, body []byte, contentType string) (int, []byte, error) {
+	url := c.baseURL + "/api/v1/ads"
+	reader := bytes.NewReader(body)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, reader)
+	if err != nil {
+		return 0, nil, err
+	}
+	if contentType != "" {
+		req.Header.Set("Content-Type", contentType)
+	}
+	req.Header.Set("Accept", "application/json")
+
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return 0, nil, err
+	}
+	defer resp.Body.Close()
+
+	data, err := io.ReadAll(io.LimitReader(resp.Body, 1<<20))
+	if err != nil {
+		return 0, nil, err
+	}
+	return resp.StatusCode, data, nil
 }
 
 func (c *Client) post(ctx context.Context, url string, body []byte) (int, []byte, error) {

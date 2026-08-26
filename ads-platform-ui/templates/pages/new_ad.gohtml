@@ -1,5 +1,86 @@
 {{ define "new_ad" }}
 {{ template "page_open" . }}
-{{ template "section_stub" . }}
+<section class="new-ad container">
+  <header class="new-ad__intro">
+    <h1 class="new-ad__title">{{ .Heading }}</h1>
+    <p class="new-ad__desc">{{ .T.NewAd.Intro }}</p>
+  </header>
+
+  {{ if .LoadError }}
+  <p class="new-ad__error" role="alert">{{ .LoadError }}</p>
+  {{ else }}
+  <form id="new-ad-form" class="new-ad__form" novalidate
+    data-need-category="{{ .T.NewAd.NeedCategory }}"
+    data-need-title="{{ .T.NewAd.NeedTitle }}"
+    data-need-description="{{ .T.NewAd.NeedDescription }}"
+    data-too-many="{{ .T.NewAd.TooManyPictures }}"
+    data-city-required="{{ .T.NewAd.CityRequired }}"
+    data-submitting="{{ .T.NewAd.Submitting }}"
+    data-submit-label="{{ .T.NewAd.Submit }}"
+  >
+    <script type="application/json" id="new-ad-bootstrap">{{ json .Bootstrap }}</script>
+
+    <div class="new-ad__field">
+      <span class="new-ad__label">{{ .T.NewAd.City }}</span>
+      <div class="new-ad__city">
+        <strong>{{ .CityDisplayName }}</strong>
+        <a href="{{ .Bootstrap.ChangeCityHref }}">{{ .T.NewAd.ChangeCity }}</a>
+      </div>
+    </div>
+
+    <div class="new-ad__field">
+      <label class="new-ad__label" for="new-ad-category">{{ .T.NewAd.Category }}</label>
+      <select id="new-ad-category" name="category_id" required>
+        <option value="">{{ .T.NewAd.CategoryPlaceholder }}</option>
+      </select>
+    </div>
+
+    <div class="new-ad__field">
+      <label class="new-ad__label" for="new-ad-title">{{ .T.NewAd.Title }}</label>
+      <input id="new-ad-title" name="title" type="text" maxlength="120" required placeholder="{{ .T.NewAd.TitlePlaceholder }}" />
+    </div>
+
+    <div class="new-ad__field">
+      <label class="new-ad__label" for="new-ad-description">{{ .T.NewAd.Description }}</label>
+      <textarea id="new-ad-description" name="description" rows="6" required placeholder="{{ .T.NewAd.DescriptionPlaceholder }}"></textarea>
+    </div>
+
+    <div class="new-ad__row">
+      <div class="new-ad__field">
+        <label class="new-ad__label" for="new-ad-price">{{ .T.NewAd.Price }}</label>
+        <input id="new-ad-price" name="price_amount" type="number" min="0" step="1" />
+      </div>
+      <div class="new-ad__field">
+        <label class="new-ad__label" for="new-ad-price-type">{{ .T.NewAd.PriceType }}</label>
+        <select id="new-ad-price-type" name="price_type">
+          <option value="fixed">{{ .T.NewAd.PriceFixed }}</option>
+          <option value="negotiable">{{ .T.NewAd.PriceNegotiable }}</option>
+          <option value="free">{{ .T.NewAd.PriceFree }}</option>
+          <option value="salary">{{ .T.NewAd.PriceSalary }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="new-ad__field">
+      <label class="new-ad__label" for="new-ad-neighborhood">{{ .T.NewAd.Neighborhood }}</label>
+      <input id="new-ad-neighborhood" name="neighborhood" type="text" maxlength="80" placeholder="{{ .T.NewAd.NeighborhoodPlaceholder }}" />
+    </div>
+
+    <fieldset class="new-ad__attrs">
+      <legend>{{ .T.NewAd.Details }}</legend>
+      <div id="new-ad-attrs" class="new-ad__attrs-grid"></div>
+    </fieldset>
+
+    <div class="new-ad__field">
+      <label class="new-ad__label" for="new-ad-pictures">{{ .T.NewAd.Pictures }}</label>
+      <p class="new-ad__hint">{{ format .T.NewAd.PicturesHint .Bootstrap.MaxPictures }}</p>
+      <input id="new-ad-pictures" name="pictures" type="file" accept="image/jpeg,image/png,image/webp" multiple />
+    </div>
+
+    <p id="new-ad-message" class="new-ad__message" role="status"></p>
+    <button type="submit" class="btn btn--primary btn--lg" id="new-ad-submit">{{ .T.NewAd.Submit }}</button>
+  </form>
+  {{ end }}
+</section>
 {{ template "page_close" . }}
 {{ end }}

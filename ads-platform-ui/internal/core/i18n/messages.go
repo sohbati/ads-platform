@@ -14,24 +14,25 @@ type Messages struct {
 	Section       SectionMessages                 `json:"section"`
 	Footer        FooterMessages                  `json:"footer"`
 	Error         ErrorMessages                   `json:"error"`
+	NewAd         NewAdMessages                   `json:"new_ad"`
 	ApiErrors     map[string]string               `json:"api_errors"`
 	CategoryItems map[string]CategoryItemMessages `json:"category_items"`
 	CityNames     map[string]string               `json:"city_names"`
 }
 
 type NavMessages struct {
-	MenuAria     string `json:"menu_aria"`
-	QueryAds     string `json:"query_ads"`
-	MyInfo       string `json:"my_info"`
-	NewAd        string `json:"new_ad"`
-	Category     string `json:"category"`
-	Location     string `json:"location"`
-	UserDetails  string `json:"user_details"`
-	UserAds      string `json:"user_ads"`
-	MarkedAds    string `json:"marked_ads"`
-	Setting      string `json:"setting"`
-	Login        string `json:"login"`
-	Logout       string `json:"logout"`
+	MenuAria    string `json:"menu_aria"`
+	QueryAds    string `json:"query_ads"`
+	MyInfo      string `json:"my_info"`
+	NewAd       string `json:"new_ad"`
+	Category    string `json:"category"`
+	Location    string `json:"location"`
+	UserDetails string `json:"user_details"`
+	UserAds     string `json:"user_ads"`
+	MarkedAds   string `json:"marked_ads"`
+	Setting     string `json:"setting"`
+	Login       string `json:"login"`
+	Logout      string `json:"logout"`
 }
 
 type AuthMessages struct {
@@ -132,6 +133,38 @@ type ErrorMessages struct {
 	Description string `json:"description"`
 	BackHome    string `json:"back_home"`
 	Code        string `json:"code"`
+}
+
+type NewAdMessages struct {
+	Intro                   string `json:"intro"`
+	LoadError               string `json:"load_error"`
+	Category                string `json:"category"`
+	CategoryPlaceholder     string `json:"category_placeholder"`
+	City                    string `json:"city"`
+	ChangeCity              string `json:"change_city"`
+	CityRequired            string `json:"city_required"`
+	Title                   string `json:"title"`
+	TitlePlaceholder        string `json:"title_placeholder"`
+	Description             string `json:"description"`
+	DescriptionPlaceholder  string `json:"description_placeholder"`
+	Price                   string `json:"price"`
+	PriceType               string `json:"price_type"`
+	PriceFixed              string `json:"price_fixed"`
+	PriceNegotiable         string `json:"price_negotiable"`
+	PriceFree               string `json:"price_free"`
+	PriceSalary             string `json:"price_salary"`
+	Neighborhood            string `json:"neighborhood"`
+	NeighborhoodPlaceholder string `json:"neighborhood_placeholder"`
+	Details                 string `json:"details"`
+	Pictures                string `json:"pictures"`
+	PicturesHint            string `json:"pictures_hint"`
+	Submit                  string `json:"submit"`
+	Submitting              string `json:"submitting"`
+	Success                 string `json:"success"`
+	NeedCategory            string `json:"need_category"`
+	NeedTitle               string `json:"need_title"`
+	NeedDescription         string `json:"need_description"`
+	TooManyPictures         string `json:"too_many_pictures"`
 }
 
 type CategoryItemMessages struct {

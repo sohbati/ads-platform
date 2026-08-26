@@ -3,6 +3,7 @@ package container
 import (
 	"fmt"
 
+	adsContainer "ads-bff/internal/business/ads/container"
 	authContainer "ads-bff/internal/business/auth/container"
 	"ads-bff/internal/core/config"
 	"ads-bff/internal/core/proxy"
@@ -12,6 +13,7 @@ type AppContainer struct {
 	Config  *config.Config
 	Backend *proxy.BackendProxy
 	Auth    *authContainer.AuthContainer
+	Ads     *adsContainer.AdsContainer
 }
 
 func NewAppContainer(cfg *config.Config) (*AppContainer, error) {
@@ -20,9 +22,11 @@ func NewAppContainer(cfg *config.Config) (*AppContainer, error) {
 		return nil, fmt.Errorf("init backend proxy: %w", err)
 	}
 
+	auth := authContainer.NewAuthContainer(cfg)
 	return &AppContainer{
 		Config:  cfg,
 		Backend: backend,
-		Auth:    authContainer.NewAuthContainer(cfg),
+		Auth:    auth,
+		Ads:     adsContainer.NewAdsContainer(cfg, auth.AuthService),
 	}, nil
 }

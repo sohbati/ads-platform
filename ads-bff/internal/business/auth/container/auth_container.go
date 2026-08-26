@@ -10,6 +10,7 @@ import (
 
 type AuthContainer struct {
 	AuthHandler *handler.AuthHandler
+	AuthService service.AuthService
 }
 
 func NewAuthContainer(cfg *config.Config) *AuthContainer {
@@ -19,5 +20,6 @@ func NewAuthContainer(cfg *config.Config) *AuthContainer {
 
 	return &AuthContainer{
 		AuthHandler: handler.NewAuthHandler(cfg, authService),
+		AuthService: authService,
 	}
 }

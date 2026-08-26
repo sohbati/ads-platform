@@ -85,6 +85,8 @@ func (r *Router) SetupRoutes() *gin.Engine {
 			auth.GET("/me", r.container.Auth.AuthHandler.Me)
 			auth.POST("/logout", r.container.Auth.AuthHandler.Logout)
 		}
+
+		api.POST("/ads", r.container.Ads.AdHandler.Create)
 	}
 
 	return router

@@ -21,6 +21,13 @@ type Category struct {
 	AdsAttrsJSONSchemaTemplateName *string `json:"adsAttrsJsonSchemaTemplateName"`
 }
 
+// AttrSchema matches ads-platform-cdn GET /api/attr-schemas.
+type AttrSchema struct {
+	Name       string          `json:"name"`
+	Title      string          `json:"title"`
+	JSONSchema json.RawMessage `json:"jsonSchema"`
+}
+
 // City matches ads-platform-cdn GET /api/cities.
 type City struct {
 	ID          int    `json:"id"`
@@ -61,6 +68,25 @@ func (c *Client) GetCities(ctx context.Context) ([]City, error) {
 		return nil, err
 	}
 	return items, nil
+}
+
+func (c *Client) GetAttrSchemas(ctx context.Context) ([]AttrSchema, error) {
+	var items []AttrSchema
+	if err := c.getJSON(ctx, "/api/attr-schemas", &items); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+func (c *Client) GetAttrEnums(ctx context.Context) (json.RawMessage, error) {
+	var raw json.RawMessage
+	if err := c.getJSON(ctx, "/json/attr-enums.json", &raw); err != nil {
+		return nil, err
+	}
+	if len(raw) == 0 {
+		raw = json.RawMessage("{}")
+	}
+	return raw, nil
 }
 
 func (c *Client) getJSON(ctx context.Context, path string, dest any) error {

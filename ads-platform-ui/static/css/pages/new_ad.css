@@ -1,0 +1,137 @@
+.new-ad {
+  padding: var(--space-xl) 0 var(--space-2xl);
+  max-width: 42rem;
+}
+
+.new-ad__intro {
+  margin-bottom: var(--space-xl);
+}
+
+.new-ad__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.new-ad__desc {
+  margin-top: var(--space-sm);
+  color: var(--color-text-muted);
+}
+
+.new-ad__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.new-ad__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.new-ad__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.new-ad__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.new-ad__hint,
+.new-ad__city {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.new-ad__city {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.new-ad__city strong {
+  color: var(--color-text);
+}
+
+.new-ad__city a {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.new-ad__form input[type="text"],
+.new-ad__form input[type="number"],
+.new-ad__form select,
+.new-ad__form textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+}
+
+.new-ad__form textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.new-ad__attrs {
+  margin: 0;
+  padding: var(--space-md);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.new-ad__attrs legend {
+  padding: 0 var(--space-xs);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.new-ad__attrs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.new-ad__check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 2.5rem;
+}
+
+.new-ad__message {
+  min-height: 1.25rem;
+  font-size: 0.9375rem;
+}
+
+.new-ad__message.is-error {
+  color: var(--color-post);
+}
+
+.new-ad__error {
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-soft);
+  color: var(--color-post);
+}
+
+.new-ad__form button[type="submit"] {
+  align-self: flex-start;
+}
+
+@media (max-width: 640px) {
+  .new-ad__row,
+  .new-ad__attrs-grid {
+    grid-template-columns: 1fr;
+  }
+}
