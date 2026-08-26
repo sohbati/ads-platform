@@ -23,8 +23,8 @@
     <div class="new-ad__field">
       <span class="new-ad__label">{{ .T.NewAd.City }}</span>
       <div class="new-ad__city">
-        <strong>{{ .CityDisplayName }}</strong>
-        <a href="{{ .Bootstrap.ChangeCityHref }}">{{ .T.NewAd.ChangeCity }}</a>
+        <strong id="new-ad-city-name">{{ .Bootstrap.CityName }}</strong>
+        <button type="button" class="new-ad__change-city" id="new-ad-change-city">{{ .T.NewAd.ChangeCity }}</button>
       </div>
     </div>
 

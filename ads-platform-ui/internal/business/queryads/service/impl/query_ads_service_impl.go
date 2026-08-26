@@ -28,8 +28,8 @@ func NewQueryAdsService(reg *i18n.Registry, catalog *cities.Catalog, search *sea
 	return &QueryAdsServiceImpl{i18n: reg, cities: catalog, search: search}
 }
 
-func (s *QueryAdsServiceImpl) BuildPage(loc i18n.Locale, appName, citySlug, currentPath string) viewmodel.QueryAdsPage {
-	page := i18n.BuildPage(s.i18n, s.cities, loc, appName, citySlug, currentPath)
+func (s *QueryAdsServiceImpl) BuildPage(loc i18n.Locale, appName, citySlug, currentPath string, locationSlugs []string) viewmodel.QueryAdsPage {
+	page := i18n.BuildPage(s.i18n, s.cities, loc, appName, citySlug, currentPath, locationSlugs)
 	page.Title = appName + " — " + s.i18n.MessagesFor(loc).Nav.QueryAds
 	return viewmodel.QueryAdsPage{
 		Page:          page,
@@ -39,9 +39,9 @@ func (s *QueryAdsServiceImpl) BuildPage(loc i18n.Locale, appName, citySlug, curr
 }
 
 // BuildSearchPage calls the search API (via BFF) and renders results on the
-// query-ads page. The active city is the place; no category means "all".
-func (s *QueryAdsServiceImpl) BuildSearchPage(ctx context.Context, loc i18n.Locale, appName, citySlug, currentPath string, params service.SearchParams) viewmodel.QueryAdsPage {
-	page := i18n.BuildPage(s.i18n, s.cities, loc, appName, citySlug, currentPath)
+// query-ads page. Multiple selected cities are sent as iran + cities ids.
+func (s *QueryAdsServiceImpl) BuildSearchPage(ctx context.Context, loc i18n.Locale, appName, citySlug, currentPath string, locationSlugs []string, params service.SearchParams) viewmodel.QueryAdsPage {
+	page := i18n.BuildPage(s.i18n, s.cities, loc, appName, citySlug, currentPath, locationSlugs)
 	t := s.i18n.MessagesFor(loc)
 	page.Title = appName + " — " + t.Search.ResultsTitle
 	page.SearchQuery = params.Query
@@ -50,7 +50,7 @@ func (s *QueryAdsServiceImpl) BuildSearchPage(ctx context.Context, loc i18n.Loca
 	if category == "" {
 		category = "all"
 	}
-	place := page.CitySlug
+	place, citiesCSV := s.cities.SearchPlace(locationSlugs, page.CitySlug)
 	if place == "" {
 		place = "iran"
 	}
@@ -65,7 +65,7 @@ func (s *QueryAdsServiceImpl) BuildSearchPage(ctx context.Context, loc i18n.Loca
 	}
 	vm := viewmodel.QueryAdsPage{Page: page, Search: results}
 
-	resp, err := s.search.Search(ctx, place, category, params.Query, params.Page)
+	resp, err := s.search.Search(ctx, place, category, params.Query, params.Page, citiesCSV)
 	if err != nil {
 		// Unknown place/category reads as "no results"; everything else is an outage.
 		results.Unavailable = !errors.Is(err, searchclient.ErrNotFound)

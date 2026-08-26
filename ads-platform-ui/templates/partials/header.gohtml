@@ -29,13 +29,22 @@
       <a href="/location" class="site-nav__link{{ if eq .CurrentPath "/location" }} is-active{{ end }}">{{ .T.Nav.Location }}</a>
     </nav>
 
-    <a href="/location" class="header-city" aria-label="{{ .T.Header.CityAria }}">
+    <button
+      type="button"
+      class="header-city"
+      id="header-location-trigger"
+      data-location-open="multiple"
+      data-location-selected="{{ .LocationSlugsCSV }}"
+      aria-label="{{ .T.Header.CityAria }}"
+      aria-haspopup="dialog"
+      aria-controls="location-modal"
+    >
       <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M12 21s7-4.35 7-11a7 7 0 1 0-14 0c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="1.75"/>
         <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.75"/>
       </svg>
-      <span>{{ .CityDisplayName }}</span>
-    </a>
+      <span id="header-city-label">{{ .CityDisplayName }}</span>
+    </button>
 
     <a href="/new-ad" class="btn btn--post header-post{{ if eq .CurrentPath "/new-ad" }} is-active{{ end }}">{{ .T.Nav.NewAd }}</a>
     <button type="button" class="header-account{{ if hasPrefix .CurrentPath "/my-info" }} is-active{{ end }}" id="header-login-trigger" aria-label="{{ .T.Header.AccountAria }}">

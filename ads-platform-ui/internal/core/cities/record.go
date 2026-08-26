@@ -12,7 +12,8 @@ type Record struct {
 
 // Type values used in cities.json.
 const (
-	TypeCountry = "0"
-	TypeCity    = "2"
-	TypeArea    = "4"
+	TypeCountry  = "0"
+	TypeProvince = "1"
+	TypeCity     = "2"
+	TypeArea     = "4"
 )

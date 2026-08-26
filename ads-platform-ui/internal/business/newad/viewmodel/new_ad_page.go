@@ -15,13 +15,13 @@ type NewAdPage struct {
 }
 
 type Bootstrap struct {
-	Locale         string           `json:"locale"`
-	CityID         int              `json:"cityId"`
-	CityName       string           `json:"cityName"`
-	ChangeCityHref string           `json:"changeCityHref"`
-	MaxPictures    int              `json:"maxPictures"`
-	SuccessHref    string           `json:"successHref"`
-	Categories     []cdn.Category   `json:"categories"`
-	Schemas        []cdn.AttrSchema `json:"schemas"`
-	Enums          json.RawMessage  `json:"enums"`
+	Locale      string           `json:"locale"`
+	CityID      int              `json:"cityId"`
+	CitySlug    string           `json:"citySlug"`
+	CityName    string           `json:"cityName"`
+	MaxPictures int              `json:"maxPictures"`
+	SuccessHref string           `json:"successHref"`
+	Categories  []cdn.Category   `json:"categories"`
+	Schemas     []cdn.AttrSchema `json:"schemas"`
+	Enums       json.RawMessage  `json:"enums"`
 }

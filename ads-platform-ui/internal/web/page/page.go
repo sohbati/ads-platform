@@ -14,7 +14,7 @@ import (
 func Base(c *gin.Context, cfg *config.Config, reg *i18n.Registry, catalog *cities.Catalog, title, heading string) i18n.Page {
 	loc := i18n.FromContext(c)
 	city := i18n.CityFromContext(c)
-	p := i18n.BuildPage(reg, catalog, loc, cfg.AppName, city, c.Request.URL.Path)
+	p := i18n.BuildPage(reg, catalog, loc, cfg.AppName, city, c.Request.URL.Path, i18n.LocationsFromContext(c))
 	p.DefaultCountryCode = cfg.DefaultCountryCode
 	p.Title = title
 	p.Heading = heading

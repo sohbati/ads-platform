@@ -16,6 +16,22 @@
       "post_ad": "Post ad",
       "account_aria": "Account"
     },
+    "location": {
+      "title": "Select location",
+      "subtitle": "Select one or more cities, towns, or provinces.",
+      "subtitle_single": "Select a city, town, or province.",
+      "search_placeholder": "Search province, city, or town",
+      "popular": "Popular suggestions",
+      "your_selections": "Your selections",
+      "selected_count": "%d items selected",
+      "apply": "Apply selections (%d)",
+      "clear_all": "Clear all",
+      "city_suffix": "city",
+      "header_count": "%d cities",
+      "load_error": "Could not load cities. Please try again.",
+      "empty_search": "No locations matched your search.",
+      "close_aria": "Close"
+    },
     "nav": {
       "menu_aria": "Main menu",
       "query_ads": "Browse ads",

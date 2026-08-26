@@ -1,11 +1,4 @@
 (function () {
-  const cityPicker = document.querySelector("[data-city-picker]");
-  if (cityPicker) {
-    cityPicker.addEventListener("click", function () {
-      console.info("City picker — wire to city selection flow");
-    });
-  }
-
   function initMegaCat(root) {
     if (!root || root.dataset.megaReady === "1") return;
     root.dataset.megaReady = "1";

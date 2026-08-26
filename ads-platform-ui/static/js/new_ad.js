@@ -299,4 +299,37 @@
       submitBtn.textContent = form.dataset.submitLabel || submitBtn.textContent;
     }
   });
+
+  const changeCityBtn = document.getElementById("new-ad-change-city");
+  const cityNameEl = document.getElementById("new-ad-city-name");
+  if (changeCityBtn) {
+    changeCityBtn.addEventListener("click", function () {
+      if (typeof window.openLocationModal !== "function") return;
+      window.openLocationModal({
+        mode: "single",
+        selected: boot.citySlug ? [boot.citySlug] : [],
+        onApply: function (items) {
+          const city = pickCity(items);
+          if (!city || !city.id) {
+            setMessage(form.dataset.cityRequired || "", true);
+            return;
+          }
+          boot.cityId = city.id;
+          boot.citySlug = city.slug;
+          boot.cityName = city.name;
+          if (cityNameEl) cityNameEl.textContent = city.name;
+        },
+      });
+    });
+  }
+
+  function pickCity(items) {
+    if (!items || !items.length) return null;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i] && items[i].type === "2") return items[i];
+    }
+    const first = items[0];
+    if (first && first.firstCity) return first.firstCity;
+    return first;
+  }
 })();

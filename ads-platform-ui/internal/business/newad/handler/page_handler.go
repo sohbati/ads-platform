@@ -38,7 +38,7 @@ func (h *PageHandler) Index(c *gin.Context) {
 
 	loc := i18n.FromContext(c)
 	t := h.i18n.MessagesFor(loc)
-	pageData := i18n.BuildPage(h.i18n, h.cities, loc, h.config.AppName, i18n.CityFromContext(c), c.Request.URL.Path)
+	pageData := i18n.BuildPage(h.i18n, h.cities, loc, h.config.AppName, i18n.CityFromContext(c), c.Request.URL.Path, i18n.LocationsFromContext(c))
 	pageData.DefaultCountryCode = h.config.DefaultCountryCode
 	pageData.Title = h.config.AppName + " — " + t.Nav.NewAd
 	pageData.Heading = t.Nav.NewAd
@@ -63,8 +63,8 @@ func (h *PageHandler) Index(c *gin.Context) {
 	vm.Bootstrap = viewmodel.Bootstrap{
 		Locale:         string(loc),
 		CityID:         vm.CityID,
-		CityName:       pageData.CityDisplayName,
-		ChangeCityHref: "/location",
+		CitySlug:       pageData.CitySlug,
+		CityName:       i18n.CityDisplayName(h.i18n, h.cities, loc, pageData.CitySlug),
 		MaxPictures:    maxAdPictures,
 		SuccessHref:    "/my-info/user-ads",
 		Categories:     categories,

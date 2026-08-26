@@ -10,6 +10,7 @@ type Messages struct {
 	Search        SearchMessages                  `json:"search"`
 	Categories    CategoriesMessages              `json:"categories"`
 	Cities        CitiesMessages                  `json:"cities"`
+	Location      LocationMessages                `json:"location"`
 	CTA           CTAMessages                     `json:"cta"`
 	Section       SectionMessages                 `json:"section"`
 	Footer        FooterMessages                  `json:"footer"`
@@ -109,6 +110,23 @@ type CitiesMessages struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	AllCities   string `json:"all_cities"`
+}
+
+type LocationMessages struct {
+	Title             string `json:"title"`
+	Subtitle          string `json:"subtitle"`
+	SubtitleSingle    string `json:"subtitle_single"`
+	SearchPlaceholder string `json:"search_placeholder"`
+	Popular           string `json:"popular"`
+	YourSelections    string `json:"your_selections"`
+	SelectedCount     string `json:"selected_count"`
+	Apply             string `json:"apply"`
+	ClearAll          string `json:"clear_all"`
+	CitySuffix        string `json:"city_suffix"`
+	HeaderCount       string `json:"header_count"`
+	LoadError         string `json:"load_error"`
+	EmptySearch       string `json:"empty_search"`
+	CloseAria         string `json:"close_aria"`
 }
 
 type CTAMessages struct {

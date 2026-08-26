@@ -1,0 +1,83 @@
+{{ define "location_modal" }}
+<div
+  id="location-modal"
+  class="loc-modal"
+  hidden
+  aria-hidden="true"
+  data-cities-url="/api/v1/cities"
+  data-mode="multiple"
+  data-selected="{{ .LocationSlugsCSV }}"
+  data-popular="tehran,karaj,isfahan,shiraz,mashhad,tabriz"
+  data-i18n-apply="{{ .T.Location.Apply }}"
+  data-i18n-selected-count="{{ .T.Location.SelectedCount }}"
+  data-i18n-city-suffix="{{ .T.Location.CitySuffix }}"
+  data-i18n-load-error="{{ .T.Location.LoadError }}"
+  data-i18n-empty-search="{{ .T.Location.EmptySearch }}"
+>
+  <div class="loc-modal__backdrop" data-loc-close tabindex="-1"></div>
+  <div
+    class="loc-modal__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="location-modal-title"
+  >
+    <button type="button" class="loc-modal__close" data-loc-close aria-label="{{ .T.Location.CloseAria }}">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <header class="loc-modal__header">
+      <span class="loc-modal__pin" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 21s7-4.35 7-11a7 7 0 1 0-14 0c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="1.75"/>
+          <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.75"/>
+        </svg>
+      </span>
+      <div class="loc-modal__titles">
+        <h2 id="location-modal-title" class="loc-modal__title">{{ .T.Location.Title }}</h2>
+        <p class="loc-modal__subtitle" data-loc-subtitle-multi="{{ .T.Location.Subtitle }}" data-loc-subtitle-single="{{ .T.Location.SubtitleSingle }}">{{ .T.Location.Subtitle }}</p>
+      </div>
+    </header>
+
+    <label class="loc-modal__search">
+      <svg class="loc-modal__search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.75"/>
+        <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+      </svg>
+      <input
+        id="location-modal-search"
+        type="search"
+        autocomplete="off"
+        placeholder="{{ .T.Location.SearchPlaceholder }}"
+      />
+    </label>
+
+    <div class="loc-modal__popular">
+      <p class="loc-modal__popular-label">{{ .T.Location.Popular }}</p>
+      <div class="loc-modal__chips" id="location-modal-chips"></div>
+    </div>
+
+    <div class="loc-modal__tree-wrap">
+      <div class="loc-modal__tree-head">
+        <span>{{ .T.Location.YourSelections }}</span>
+        <span class="loc-modal__badge" id="location-modal-badge">0</span>
+      </div>
+      <div class="loc-modal__tree" id="location-modal-tree" role="tree"></div>
+    </div>
+
+    <p class="loc-modal__status" id="location-modal-status" role="status"></p>
+
+    <footer class="loc-modal__footer">
+      <div class="loc-modal__summary">
+        <p class="loc-modal__summary-count" id="location-modal-count"></p>
+        <p class="loc-modal__summary-names" id="location-modal-names"></p>
+      </div>
+      <div class="loc-modal__actions">
+        <button type="button" class="loc-modal__btn loc-modal__btn--ghost" id="location-modal-clear">{{ .T.Location.ClearAll }}</button>
+        <button type="button" class="loc-modal__btn loc-modal__btn--primary" id="location-modal-apply"></button>
+      </div>
+    </footer>
+  </div>
+</div>
+{{ end }}

@@ -48,14 +48,19 @@ func parseRecords(data []byte, source string) (*Catalog, error) {
 		return nil, fmt.Errorf("cities: parse %s: %w", source, err)
 	}
 	c := &Catalog{
-		bySlug: make(map[string]Record, len(records)),
-		all:    records,
+		bySlug:   make(map[string]Record, len(records)),
+		byID:     make(map[int]Record, len(records)),
+		children: make(map[int][]Record),
+		all:      records,
 	}
 	for _, r := range records {
-		if r.Slug == "" {
-			continue
+		c.byID[r.ID] = r
+		if r.Slug != "" {
+			c.bySlug[normalizeSlug(r.Slug)] = r
 		}
-		c.bySlug[normalizeSlug(r.Slug)] = r
+		if r.Parent != nil {
+			c.children[*r.Parent] = append(c.children[*r.Parent], r)
+		}
 	}
 	if len(c.bySlug) == 0 {
 		return nil, fmt.Errorf("cities: no entries in %s", source)

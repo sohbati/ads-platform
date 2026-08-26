@@ -24,12 +24,13 @@ func NewPageHandler(svc service.QueryAdsService, cfg *config.Config) *PageHandle
 func (h *PageHandler) Index(c *gin.Context) {
 	loc := i18n.FromContext(c)
 	city := i18n.CityFromContext(c)
+	locations := i18n.LocationsFromContext(c)
 
 	query := strings.TrimSpace(c.Query("q"))
 	category := strings.TrimSpace(c.Query("category"))
 	if query != "" || category != "" {
 		pageNum, _ := strconv.Atoi(c.Query("page"))
-		page := h.service.BuildSearchPage(c.Request.Context(), loc, h.config.AppName, city, c.Request.URL.Path, service.SearchParams{
+		page := h.service.BuildSearchPage(c.Request.Context(), loc, h.config.AppName, city, c.Request.URL.Path, locations, service.SearchParams{
 			Query:    query,
 			Category: category,
 			Page:     pageNum,
@@ -39,7 +40,7 @@ func (h *PageHandler) Index(c *gin.Context) {
 		return
 	}
 
-	page := h.service.BuildPage(loc, h.config.AppName, city, c.Request.URL.Path)
+	page := h.service.BuildPage(loc, h.config.AppName, city, c.Request.URL.Path, locations)
 	page.Page.DefaultCountryCode = h.config.DefaultCountryCode
 	c.HTML(http.StatusOK, "query_ads", page)
 }

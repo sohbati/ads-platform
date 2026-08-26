@@ -62,9 +62,16 @@
   color: var(--color-text);
 }
 
-.new-ad__city a {
+.new-ad__city a,
+.new-ad__change-city {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
   font-weight: 600;
   color: var(--color-primary);
+  cursor: pointer;
 }
 
 .new-ad__form input[type="text"],

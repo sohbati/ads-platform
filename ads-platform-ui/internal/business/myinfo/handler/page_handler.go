@@ -45,7 +45,7 @@ func (h *PageHandler) renderProtected(c *gin.Context, templateName, heading stri
 		return
 	}
 
-	pageData := i18n.BuildPage(h.i18n, h.cities, i18n.FromContext(c), h.config.AppName, i18n.CityFromContext(c), c.Request.URL.Path)
+	pageData := i18n.BuildPage(h.i18n, h.cities, i18n.FromContext(c), h.config.AppName, i18n.CityFromContext(c), c.Request.URL.Path, i18n.LocationsFromContext(c))
 	pageData.DefaultCountryCode = h.config.DefaultCountryCode
 	pageData.Title = h.config.AppName + " — " + heading
 	pageData.Heading = heading

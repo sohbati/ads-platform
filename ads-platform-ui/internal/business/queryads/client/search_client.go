@@ -52,13 +52,16 @@ func NewSearchClient(bffClient *bff.Client) *SearchClient {
 	return &SearchClient{bff: bffClient}
 }
 
-func (c *SearchClient) Search(ctx context.Context, place, category, query string, page int) (*SearchResponse, error) {
+func (c *SearchClient) Search(ctx context.Context, place, category, query string, page int, citiesCSV string) (*SearchResponse, error) {
 	q := url.Values{}
 	if query != "" {
 		q.Set("q", query)
 	}
 	if page > 1 {
 		q.Set("page", strconv.Itoa(page))
+	}
+	if citiesCSV != "" {
+		q.Set("cities", citiesCSV)
 	}
 
 	path := "/api/v1/q/" + url.PathEscape(place) + "/" + url.PathEscape(category)

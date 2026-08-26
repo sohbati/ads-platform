@@ -62,7 +62,7 @@ func TestNewAdTemplateRenders(t *testing.T) {
 				},
 			},
 		},
-		Bootstrap: newadvm.Bootstrap{MaxPictures: 8, ChangeCityHref: "/location", Enums: []byte(`{}`)},
+		Bootstrap: newadvm.Bootstrap{MaxPictures: 8, CityName: "Tehran", Enums: []byte(`{}`)},
 	}
 
 	var buf bytes.Buffer
