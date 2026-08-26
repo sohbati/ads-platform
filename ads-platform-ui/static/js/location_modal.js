@@ -325,7 +325,12 @@
     const primary = primaryCitySlug(items);
     setCookie(COOKIE_LOCATIONS, slugs.join(","));
     setCookie(COOKIE_CITY, primary || "tehran");
-    window.location.reload();
+    const reload = function () { window.location.reload(); };
+    if (window.locationProfile && typeof window.locationProfile.save === "function") {
+      window.locationProfile.save(slugs).then(reload, reload);
+      return;
+    }
+    reload();
   }
 
   function primaryCitySlug(items) {

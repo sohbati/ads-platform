@@ -10,10 +10,12 @@ import (
 
 type MyInfoContainer struct {
 	PageHandler *handler.PageHandler
+	APIHandler  *handler.APIHandler
 }
 
 func NewMyInfoContainer(cfg *config.Config, reg *i18n.Registry, catalog *cities.Catalog, bffClient *bff.Client) *MyInfoContainer {
 	return &MyInfoContainer{
 		PageHandler: handler.NewPageHandler(cfg, reg, catalog, bffClient),
+		APIHandler:  handler.NewAPIHandler(bffClient),
 	}
 }

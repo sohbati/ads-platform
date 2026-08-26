@@ -112,6 +112,43 @@ func (c *Client) RegisterUserByMobile(ctx context.Context, mobile string) (*User
 	return &user, status, respBody, nil
 }
 
+func (c *Client) GetUserProfile(ctx context.Context, userID int64) (int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/users/%d/profile", c.baseURL, userID)
+	return c.get(ctx, url)
+}
+
+func (c *Client) PutUserProfile(ctx context.Context, userID int64, body []byte) (int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/users/%d/profile", c.baseURL, userID)
+	return c.put(ctx, url, body)
+}
+
+func (c *Client) put(ctx context.Context, url string, body []byte) (int, []byte, error) {
+	var reader io.Reader
+	if len(body) > 0 {
+		reader = bytes.NewReader(body)
+	}
+	req, err := http.NewRequestWithContext(ctx, http.MethodPut, url, reader)
+	if err != nil {
+		return 0, nil, err
+	}
+	if len(body) > 0 {
+		req.Header.Set("Content-Type", "application/json")
+	}
+	req.Header.Set("Accept", "application/json")
+
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return 0, nil, err
+	}
+	defer resp.Body.Close()
+
+	data, err := io.ReadAll(io.LimitReader(resp.Body, 1<<20))
+	if err != nil {
+		return 0, nil, err
+	}
+	return resp.StatusCode, data, nil
+}
+
 func (c *Client) CreateAd(ctx context.Context, body []byte, contentType string) (int, []byte, error) {
 	url := c.baseURL + "/api/v1/ads"
 	reader := bytes.NewReader(body)

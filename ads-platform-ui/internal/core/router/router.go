@@ -81,6 +81,8 @@ func (r *Router) SetupRoutes() *gin.Engine {
 		api.GET("/categories", r.container.Category.APIHandler.List)
 		api.GET("/cities", r.container.Location.APIHandler.ListCities)
 		api.POST("/ads", r.container.NewAd.APIHandler.Create)
+		api.GET("/me/profile", r.container.MyInfo.APIHandler.GetProfile)
+		api.PUT("/me/profile", r.container.MyInfo.APIHandler.PutProfile)
 
 		auth := api.Group("/auth")
 		{

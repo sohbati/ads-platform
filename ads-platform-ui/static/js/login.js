@@ -277,6 +277,14 @@
           return;
         }
 
+        if (window.locationProfile && typeof window.locationProfile.syncAfterLogin === "function") {
+          try {
+            await window.locationProfile.syncAfterLogin();
+          } catch (_syncErr) {
+            // Cookies still apply for this visit if profile sync fails.
+          }
+        }
+
         closeModal();
         const next = (nextInput && nextInput.value) || "/my-info";
         window.location.assign(next);
