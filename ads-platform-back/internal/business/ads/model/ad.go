@@ -40,3 +40,21 @@ const (
 func (Ad) TableName() string {
 	return "ads"
 }
+
+// UserAdItem is a list-card projection of an ad owned by the current user.
+type UserAdItem struct {
+	ID           int64   `json:"id"`
+	Title        string  `json:"title"`
+	PriceAmount  *int64  `json:"price_amount"`
+	PriceType    string  `json:"price_type"`
+	Currency     string  `json:"currency"`
+	CityID       int     `json:"city_id"`
+	CityName     string  `json:"city_name,omitempty"`
+	Neighborhood string  `json:"neighborhood,omitempty"`
+	Thumbnail    string  `json:"thumbnail,omitempty"`
+	HasPhoto     bool    `json:"has_photo"`
+	CategoryID   int     `json:"category_id"`
+	Slug         string  `json:"slug,omitempty"`
+	Status       string  `json:"status"`
+	PublishedAt  *string `json:"published_at,omitempty"`
+}

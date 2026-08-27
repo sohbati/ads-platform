@@ -41,6 +41,20 @@ func (f *fakeAdRepo) UpdateMedia(_ context.Context, id int64, media json.RawMess
 	return nil
 }
 
+func (f *fakeAdRepo) ListByUserID(_ context.Context, userID int64, limit int) ([]model.Ad, error) {
+	out := make([]model.Ad, 0)
+	for _, ad := range f.ads {
+		if ad.UserID != userID || ad.Status == model.AdStatusDeleted {
+			continue
+		}
+		out = append(out, ad)
+		if limit > 0 && len(out) >= limit {
+			break
+		}
+	}
+	return out, nil
+}
+
 type fakeImageRepo struct {
 	nextID int64
 	rows   []model.AdImage
@@ -260,6 +274,48 @@ func TestCreateAdPicturesNeedStorage(t *testing.T) {
 	}}
 	_, err := svc.Create(context.Background(), in)
 	assertAppErrorCode(t, err, "AD_STORAGE_UNAVAILABLE")
+}
+
+func TestListByUserReturnsOnlyOwnerAds(t *testing.T) {
+	ads := newFakeAdRepo()
+	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+
+	mine, err := svc.Create(context.Background(), validInput())
+	if err != nil {
+		t.Fatal(err)
+	}
+	other := validInput()
+	other.UserID = 99
+	if _, err := svc.Create(context.Background(), other); err != nil {
+		t.Fatal(err)
+	}
+	deleted := ads.ads[mine.ID]
+	deleted.Status = model.AdStatusDeleted
+	ads.ads[mine.ID] = deleted
+
+	again := validInput()
+	again.Title = "Second listing"
+	live, err := svc.Create(context.Background(), again)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	items, err := svc.ListByUser(context.Background(), 7)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(items) != 1 || items[0].ID != live.ID {
+		t.Fatalf("items=%+v", items)
+	}
+	if items[0].CityName != "Tehran" || items[0].Neighborhood != "Vanak" {
+		t.Fatalf("projection=%+v", items[0])
+	}
+}
+
+func TestListByUserRejectsInvalidUser(t *testing.T) {
+	svc := NewAdService(newFakeAdRepo(), &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+	_, err := svc.ListByUser(context.Background(), 0)
+	assertAppErrorCode(t, err, "AD_INVALID_USER")
 }
 
 func TestCreateAdPreservesMultilineDescription(t *testing.T) {

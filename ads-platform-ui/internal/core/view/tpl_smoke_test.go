@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"testing"
 
+	myinfovm "ads-platform-ui/internal/business/myinfo/viewmodel"
 	newadvm "ads-platform-ui/internal/business/newad/viewmodel"
 	"ads-platform-ui/internal/business/queryads/viewmodel"
 	"ads-platform-ui/internal/core/i18n"
@@ -71,5 +72,60 @@ func TestNewAdTemplateRenders(t *testing.T) {
 	var buf bytes.Buffer
 	if err := tmpl.ExecuteTemplate(&buf, "new_ad", page); err != nil {
 		t.Fatalf("execute new_ad: %v", err)
+	}
+}
+
+func TestMyInfoUserAdsTemplateRenders(t *testing.T) {
+	tmpl, err := template.New("").Funcs(FuncMap(nil)).ParseGlob("../../../templates/**/*.gohtml")
+	if err != nil {
+		t.Fatalf("parse templates: %v", err)
+	}
+
+	empty := myinfovm.UserAdsPage{
+		Page: i18n.Page{
+			Title:           "t",
+			Heading:         "My ads",
+			IsAuthenticated: true,
+			T: i18n.Messages{
+				MyAds: i18n.MyAdsMessages{Empty: "no ads", PostCta: "post"},
+				Nav:   i18n.NavMessages{UserAds: "My ads", Logout: "Out"},
+			},
+		},
+	}
+	withAds := myinfovm.UserAdsPage{
+		Page: i18n.Page{
+			Title:           "t",
+			Heading:         "My ads",
+			IsAuthenticated: true,
+			T: i18n.Messages{
+				Nav: i18n.NavMessages{UserAds: "My ads", Logout: "Out"},
+			},
+		},
+		Ads: []viewmodel.SearchAd{
+			{Title: "Bike", Price: "1,000 IRR", Location: "Tehran", Thumbnail: "/t.jpg", PublishedAt: "2026-08-01"},
+		},
+	}
+	unavailable := myinfovm.UserAdsPage{
+		Page: i18n.Page{
+			Title:           "t",
+			Heading:         "My ads",
+			IsAuthenticated: true,
+			T: i18n.Messages{
+				MyAds: i18n.MyAdsMessages{Unavailable: "down"},
+				Nav:   i18n.NavMessages{UserAds: "My ads", Logout: "Out"},
+			},
+		},
+		Unavailable: true,
+	}
+
+	for name, data := range map[string]any{
+		"empty":       empty,
+		"ads":         withAds,
+		"unavailable": unavailable,
+	} {
+		var buf bytes.Buffer
+		if err := tmpl.ExecuteTemplate(&buf, "myinfo_user_ads", data); err != nil {
+			t.Fatalf("execute myinfo_user_ads (%s): %v", name, err)
+		}
 	}
 }

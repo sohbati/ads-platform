@@ -117,6 +117,11 @@ func (c *Client) GetUserProfile(ctx context.Context, userID int64) (int, []byte,
 	return c.get(ctx, url)
 }
 
+func (c *Client) GetUserAds(ctx context.Context, userID int64) (int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/users/%d/ads", c.baseURL, userID)
+	return c.get(ctx, url)
+}
+
 func (c *Client) PutUserProfile(ctx context.Context, userID int64, body []byte) (int, []byte, error) {
 	url := fmt.Sprintf("%s/api/v1/users/%d/profile", c.baseURL, userID)
 	return c.put(ctx, url, body)

@@ -112,6 +112,11 @@
     "section": {
       "coming_soon": "This section is coming soon."
     },
+    "my_ads": {
+      "empty": "You have not posted any ads yet.",
+      "unavailable": "Could not load your ads.",
+      "post_cta": "Post a new ad"
+    },
     "footer": {
       "tagline": "%s — buy and sell locally, without the hassle.",
       "nav_aria": "Footer",

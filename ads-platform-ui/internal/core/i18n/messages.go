@@ -16,6 +16,7 @@ type Messages struct {
 	Footer        FooterMessages                  `json:"footer"`
 	Error         ErrorMessages                   `json:"error"`
 	NewAd         NewAdMessages                   `json:"new_ad"`
+	MyAds         MyAdsMessages                   `json:"my_ads"`
 	ApiErrors     map[string]string               `json:"api_errors"`
 	CategoryItems map[string]CategoryItemMessages `json:"category_items"`
 	CityNames     map[string]string               `json:"city_names"`
@@ -188,6 +189,12 @@ type NewAdMessages struct {
 	NeedTitle               string `json:"need_title"`
 	NeedDescription         string `json:"need_description"`
 	TooManyPictures         string `json:"too_many_pictures"`
+}
+
+type MyAdsMessages struct {
+	Empty       string `json:"empty"`
+	Unavailable string `json:"unavailable"`
+	PostCta     string `json:"post_cta"`
 }
 
 type CategoryItemMessages struct {

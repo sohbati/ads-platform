@@ -19,9 +19,12 @@ import (
 )
 
 type fakeAdService struct {
-	got service.CreateAdInput
-	ad  *model.Ad
-	err error
+	got     service.CreateAdInput
+	ad      *model.Ad
+	err     error
+	list    []model.UserAdItem
+	listErr error
+	listID  int64
 }
 
 func (f *fakeAdService) Create(_ context.Context, in service.CreateAdInput) (*model.Ad, error) {
@@ -36,11 +39,17 @@ func (f *fakeAdService) Create(_ context.Context, in service.CreateAdInput) (*mo
 	return f.ad, f.err
 }
 
+func (f *fakeAdService) ListByUser(_ context.Context, userID int64) ([]model.UserAdItem, error) {
+	f.listID = userID
+	return f.list, f.listErr
+}
+
 func testRouter(h *AdHandler) *gin.Engine {
 	gin.SetMode(gin.TestMode)
 	r := gin.New()
 	r.Use(middleware.GlobalErrorHandler())
 	r.POST("/api/v1/ads", h.Create)
+	r.GET("/api/v1/users/:userId/ads", h.ListByUser)
 	return r
 }
 
@@ -130,5 +139,36 @@ func TestCreateAdHandlerServiceError(t *testing.T) {
 	}
 	if !bytes.Contains(rec.Body.Bytes(), []byte(`"AD_INVALID_TITLE"`)) {
 		t.Fatalf("body=%s", rec.Body.String())
+	}
+}
+
+func TestListByUserHandler(t *testing.T) {
+	fake := &fakeAdService{list: []model.UserAdItem{{ID: 3, Title: "Mine"}}}
+	r := testRouter(NewAdHandler(fake))
+
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/users/42/ads", nil)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	if fake.listID != 42 {
+		t.Fatalf("userID=%d", fake.listID)
+	}
+	if !bytes.Contains(rec.Body.Bytes(), []byte(`"Mine"`)) {
+		t.Fatalf("body=%s", rec.Body.String())
+	}
+}
+
+func TestListByUserHandlerInvalidID(t *testing.T) {
+	r := testRouter(NewAdHandler(&fakeAdService{}))
+
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/users/abc/ads", nil)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusBadRequest {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
 }

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"ads-platform/internal/business/ads/errorcode"
@@ -71,6 +72,30 @@ func (h *AdHandler) Create(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, ad)
+}
+
+// ListByUser handles GET /api/v1/users/:userId/ads
+func (h *AdHandler) ListByUser(c *gin.Context) {
+	userID, err := parseUserID(c.Param("userId"))
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+
+	items, err := h.ads.ListByUser(c.Request.Context(), userID)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"ads": items})
+}
+
+func parseUserID(raw string) (int64, error) {
+	id, err := strconv.ParseInt(raw, 10, 64)
+	if err != nil || id <= 0 {
+		return 0, exception.NewAppError(errorcode.ErrAdInvalidUser.Code, errorcode.ErrAdInvalidUser.HttpStatus, raw)
+	}
+	return id, nil
 }
 
 func parseCreateRequest(c *gin.Context) (createAdRequest, []service.PictureInput, error) {

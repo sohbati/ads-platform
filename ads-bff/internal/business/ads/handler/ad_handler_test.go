@@ -40,6 +40,7 @@ func testAdsRouter(h *AdHandler) *gin.Engine {
 	r := gin.New()
 	r.Use(middleware.GlobalErrorHandler())
 	r.POST("/api/v1/ads", h.Create)
+	r.GET("/api/v1/me/ads", h.ListMine)
 	return r
 }
 
@@ -148,5 +149,45 @@ func TestCreateAdMultipartInjectsSessionUserID(t *testing.T) {
 	}
 	if pictures != 1 {
 		t.Fatalf("pictures=%d", pictures)
+	}
+}
+
+func TestListMineRequiresAuth(t *testing.T) {
+	h := newHandler(t, &fakeAuth{err: cacheerr.ErrSessionNotFound}, func(w http.ResponseWriter, r *http.Request) {
+		t.Fatal("backend should not be called")
+	})
+	r := testAdsRouter(h)
+
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/me/ads", nil)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusUnauthorized {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+}
+
+func TestListMineUsesSessionUserID(t *testing.T) {
+	var gotPath string
+	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
+		gotPath = r.URL.Path
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"ads":[{"id":9,"title":"Mine"}]}`))
+	})
+	r := testAdsRouter(h)
+
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/me/ads", nil)
+	withSession(req)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	if gotPath != "/api/v1/users/42/ads" {
+		t.Fatalf("backend path=%s", gotPath)
+	}
+	if !bytes.Contains(rec.Body.Bytes(), []byte(`"Mine"`)) {
+		t.Fatalf("body=%s", rec.Body.String())
 	}
 }

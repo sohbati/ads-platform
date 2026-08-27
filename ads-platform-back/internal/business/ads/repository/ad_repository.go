@@ -10,4 +10,5 @@ import (
 type AdRepository interface {
 	Create(ctx context.Context, ad *model.Ad) error
 	UpdateMedia(ctx context.Context, id int64, media json.RawMessage) error
+	ListByUserID(ctx context.Context, userID int64, limit int) ([]model.Ad, error)
 }

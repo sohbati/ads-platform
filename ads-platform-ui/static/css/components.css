@@ -430,6 +430,22 @@
   background: #fff5f5;
 }
 
+.user-ads {
+  padding: var(--space-2xl) 0;
+}
+
+.user-ads .search-results__empty,
+.user-ads .ad-grid {
+  margin-top: var(--space-xl);
+}
+
+.user-ads__empty-cta {
+  display: inline-block;
+  margin-top: var(--space-md);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
 /* Category browse */
 .cat-browse {
   padding-bottom: var(--space-2xl);

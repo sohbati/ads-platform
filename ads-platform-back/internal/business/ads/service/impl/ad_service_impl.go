@@ -25,6 +25,7 @@ const (
 	maxTitleLen       = 120
 	maxDescriptionLen = 10000
 	maxFilenameLen    = 255
+	maxUserAdsList    = 200
 )
 
 var allowedPriceTypes = map[string]struct{}{
@@ -120,6 +121,98 @@ func (s *adService) Create(ctx context.Context, in service.CreateAdInput) (*mode
 	}
 	ad.Media = raw
 	return ad, nil
+}
+
+func (s *adService) ListByUser(ctx context.Context, userID int64) ([]model.UserAdItem, error) {
+	if userID <= 0 {
+		return nil, exception.NewAppError(errorcode.ErrAdInvalidUser.Code, errorcode.ErrAdInvalidUser.HttpStatus)
+	}
+
+	ads, err := s.ads.ListByUserID(ctx, userID, maxUserAdsList)
+	if err != nil {
+		return nil, err
+	}
+
+	cityNames := s.cityNames(ctx, ads)
+	items := make([]model.UserAdItem, 0, len(ads))
+	for _, ad := range ads {
+		items = append(items, toUserAdItem(ad, cityNames))
+	}
+	return items, nil
+}
+
+func (s *adService) cityNames(ctx context.Context, ads []model.Ad) map[int]string {
+	ids := uniqueCityIDs(ads)
+	if len(ids) == 0 || s.catalog == nil {
+		return map[int]string{}
+	}
+	cities, err := s.catalog.CitiesByIDs(ctx, ids)
+	if err != nil {
+		return map[int]string{}
+	}
+	out := make(map[int]string, len(cities))
+	for _, city := range cities {
+		out[city.ID] = city.Name
+	}
+	return out
+}
+
+func uniqueCityIDs(ads []model.Ad) []int {
+	seen := make(map[int]struct{}, len(ads))
+	ids := make([]int, 0, len(ads))
+	for _, ad := range ads {
+		if ad.CityID <= 0 {
+			continue
+		}
+		if _, ok := seen[ad.CityID]; ok {
+			continue
+		}
+		seen[ad.CityID] = struct{}{}
+		ids = append(ids, ad.CityID)
+	}
+	return ids
+}
+
+func toUserAdItem(ad model.Ad, cityNames map[int]string) model.UserAdItem {
+	item := model.UserAdItem{
+		ID:          ad.ID,
+		Title:       ad.Title,
+		PriceAmount: ad.PriceAmount,
+		PriceType:   ad.PriceType,
+		Currency:    ad.Currency,
+		CityID:      ad.CityID,
+		CategoryID:  ad.CategoryID,
+		Status:      ad.Status,
+		HasPhoto:    false,
+	}
+	if name, ok := cityNames[ad.CityID]; ok {
+		item.CityName = name
+	}
+	if ad.Slug != nil {
+		item.Slug = *ad.Slug
+	}
+	if ad.PublishedAt != nil {
+		s := ad.PublishedAt.UTC().Format(time.RFC3339)
+		item.PublishedAt = &s
+	}
+
+	var media []map[string]any
+	if len(ad.Media) > 0 && json.Unmarshal(ad.Media, &media) == nil && len(media) > 0 {
+		item.HasPhoto = true
+		if thumb, ok := media[0]["thumb"].(string); ok && thumb != "" {
+			item.Thumbnail = thumb
+		} else if u, ok := media[0]["url"].(string); ok {
+			item.Thumbnail = u
+		}
+	}
+
+	var loc map[string]any
+	if len(ad.Location) > 0 && json.Unmarshal(ad.Location, &loc) == nil {
+		if n, ok := loc["neighborhood"].(string); ok {
+			item.Neighborhood = n
+		}
+	}
+	return item
 }
 
 func (s *adService) validate(in service.CreateAdInput) error {

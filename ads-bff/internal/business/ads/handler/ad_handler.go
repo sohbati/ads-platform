@@ -57,6 +57,21 @@ func (h *AdHandler) Create(c *gin.Context) {
 	c.Data(status, ct, respBody)
 }
 
+func (h *AdHandler) ListMine(c *gin.Context) {
+	userID, err := h.sessionUserID(c)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+
+	status, respBody, err := h.backend.GetUserAds(c.Request.Context(), userID)
+	if err != nil {
+		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE", "statusCode": http.StatusBadGateway})
+		return
+	}
+	c.Data(status, "application/json", respBody)
+}
+
 func (h *AdHandler) sessionUserID(c *gin.Context) (int64, error) {
 	sessionID, err := c.Cookie(h.cfg.SessionCookieName)
 	if err != nil || sessionID == "" {

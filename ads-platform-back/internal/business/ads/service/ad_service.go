@@ -34,4 +34,5 @@ type PictureInput struct {
 
 type AdService interface {
 	Create(ctx context.Context, in CreateAdInput) (*model.Ad, error)
+	ListByUser(ctx context.Context, userID int64) ([]model.UserAdItem, error)
 }
