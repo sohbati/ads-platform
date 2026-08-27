@@ -41,6 +41,59 @@
     messageEl.classList.toggle("is-error", Boolean(isError));
   }
 
+  function asciiDigits(value) {
+    return String(value || "")
+      .replace(/[۰-۹]/g, function (d) { return String(d.charCodeAt(0) - 1776); })
+      .replace(/[٠-٩]/g, function (d) { return String(d.charCodeAt(0) - 1632); })
+      .replace(/\D/g, "");
+  }
+
+  function formatPriceGrouped(digits) {
+    if (!digits) return "";
+    digits = String(digits).replace(/^0+(?=\d)/, "");
+    return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  function parsePriceAmount(value) {
+    const digits = asciiDigits(value);
+    if (!digits) return null;
+    const n = parseInt(digits, 10);
+    return Number.isNaN(n) ? null : n;
+  }
+
+  function formatPriceInput(el) {
+    if (!el) return;
+    const caret = el.selectionStart;
+    const old = el.value;
+    const digitsBefore = asciiDigits(old.slice(0, caret)).length;
+    const formatted = formatPriceGrouped(asciiDigits(old));
+    if (formatted === old) return;
+    el.value = formatted;
+    if (document.activeElement !== el || caret == null) return;
+    if (digitsBefore === 0) {
+      el.setSelectionRange(0, 0);
+      return;
+    }
+    let seen = 0;
+    let pos = formatted.length;
+    for (let i = 0; i < formatted.length; i++) {
+      if (formatted[i] >= "0" && formatted[i] <= "9") {
+        seen++;
+        if (seen === digitsBefore) {
+          pos = i + 1;
+          break;
+        }
+      }
+    }
+    el.setSelectionRange(pos, pos);
+  }
+
+  function bindPriceField() {
+    const el = document.getElementById("new-ad-price");
+    if (!el) return;
+    el.addEventListener("input", function () { formatPriceInput(el); });
+  }
+
   function parentTitle(categories, parentId) {
     if (parentId == null) return "";
     for (let i = 0; i < categories.length; i++) {
@@ -210,6 +263,8 @@
 
   fillCategories();
   categorySelect.addEventListener("change", renderAttrs);
+  applyPrefill();
+  bindPriceField();
 
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -242,7 +297,12 @@
       return;
     }
 
-    const priceRaw = (document.getElementById("new-ad-price").value || "").trim();
+    const isEdit = boot.mode === "edit" && boot.adId;
+    const submitPath = isEdit ? "/api/v1/ads/" + boot.adId : "/api/v1/ads";
+    const method = isEdit ? "PUT" : "POST";
+    const loginNext = isEdit ? "/edit-ad/" + boot.adId : "/new-ad";
+
+    const priceAmount = parsePriceAmount(document.getElementById("new-ad-price").value);
     const payload = {
       category_id: categoryId,
       city_id: boot.cityId,
@@ -253,8 +313,8 @@
       neighborhood: (document.getElementById("new-ad-neighborhood").value || "").trim(),
       attrs: collectAttrs(selectedSchema()),
     };
-    if (priceRaw !== "") {
-      payload.price_amount = parseInt(priceRaw, 10);
+    if (priceAmount != null) {
+      payload.price_amount = priceAmount;
     }
 
     submitBtn.disabled = true;
@@ -266,10 +326,10 @@
         const fd = new FormData();
         fd.append("payload", JSON.stringify(payload));
         files.forEach(function (file) { fd.append("pictures", file); });
-        resp = await fetch("/api/v1/ads", { method: "POST", credentials: "same-origin", body: fd });
+        resp = await fetch(submitPath, { method: method, credentials: "same-origin", body: fd });
       } else {
-        resp = await fetch("/api/v1/ads", {
-          method: "POST",
+        resp = await fetch(submitPath, {
+          method: method,
           credentials: "same-origin",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -278,9 +338,9 @@
 
       if (resp.status === 401) {
         if (typeof window.openLoginModal === "function") {
-          window.openLoginModal("/new-ad");
+          window.openLoginModal(loginNext);
         } else {
-          window.location.assign("/query-ads?login=1&next=" + encodeURIComponent("/new-ad"));
+          window.location.assign("/query-ads?login=1&next=" + encodeURIComponent(loginNext));
         }
         return;
       }
@@ -331,5 +391,57 @@
     const first = items[0];
     if (first && first.firstCity) return first.firstCity;
     return first;
+  }
+
+  function applyPrefill() {
+    const p = boot.prefill;
+    if (!p) return;
+    if (p.category_id) {
+      categorySelect.value = String(p.category_id);
+      renderAttrs();
+    }
+    const titleEl = document.getElementById("new-ad-title");
+    const descEl = document.getElementById("new-ad-description");
+    const priceEl = document.getElementById("new-ad-price");
+    const priceTypeEl = document.getElementById("new-ad-price-type");
+    const neighborhoodEl = document.getElementById("new-ad-neighborhood");
+    if (titleEl && p.title) titleEl.value = p.title;
+    if (descEl && p.description) descEl.value = p.description;
+    if (priceEl && p.price_amount != null) priceEl.value = formatPriceGrouped(String(p.price_amount));
+    if (priceTypeEl && p.price_type) priceTypeEl.value = p.price_type;
+    if (neighborhoodEl && p.neighborhood) neighborhoodEl.value = p.neighborhood;
+    fillAttrs(p.attrs);
+    renderExistingMedia(p.media);
+  }
+
+  function fillAttrs(attrs) {
+    if (!attrs || typeof attrs !== "object") return;
+    Object.keys(attrs).forEach(function (name) {
+      const el = document.getElementById("attr-" + name);
+      if (!el) return;
+      const value = attrs[name];
+      if (el.dataset.type === "boolean") {
+        el.checked = Boolean(value);
+        return;
+      }
+      if (value != null && value !== "") {
+        el.value = String(value);
+      }
+    });
+  }
+
+  function renderExistingMedia(media) {
+    const root = document.getElementById("new-ad-existing-pictures");
+    if (!root || !media || !media.length) return;
+    root.innerHTML = "";
+    media.forEach(function (item) {
+      const src = (item && (item.thumb || item.url)) || "";
+      if (!src) return;
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = "";
+      root.appendChild(img);
+    });
+    if (root.childNodes.length) root.hidden = false;
   }
 })();

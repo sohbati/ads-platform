@@ -161,7 +161,13 @@
       "need_category": "Select a category.",
       "need_title": "Enter a title.",
       "need_description": "Enter a description.",
-      "too_many_pictures": "Too many photos."
+      "too_many_pictures": "Too many photos.",
+      "edit_heading": "Edit ad",
+      "edit_intro": "Update the details and save your listing.",
+      "submit_edit": "Save changes",
+      "submitting_edit": "Saving…",
+      "pictures_replace_hint": "Choose new photos to replace the current ones.",
+      "not_found": "This ad was not found or does not belong to you."
     },
     "api_errors": {
       "_default": "Something went wrong. Please try again.",
@@ -192,7 +198,8 @@
       "AD_INVALID_PICTURE": "That photo file is not valid.",
       "AD_PICTURE_TOO_LARGE": "That photo is too large.",
       "AD_CATALOG_UNAVAILABLE": "Categories or cities are unavailable.",
-      "AD_STORAGE_UNAVAILABLE": "Photo upload is temporarily unavailable."
+      "AD_STORAGE_UNAVAILABLE": "Photo upload is temporarily unavailable.",
+      "AD_NOT_FOUND": "Ad not found."
     },
     "category_items": {
       "real-estate": { "name": "Real Estate", "description": "Rent, buy & sell property" },

@@ -13,6 +13,8 @@ import (
 	"ads-platform/internal/business/ads/service"
 	searchclient "ads-platform/internal/business/search/client"
 	"ads-platform/internal/core/exception"
+
+	"gorm.io/gorm"
 )
 
 type fakeAdRepo struct {
@@ -27,6 +29,23 @@ func newFakeAdRepo() *fakeAdRepo {
 func (f *fakeAdRepo) Create(_ context.Context, ad *model.Ad) error {
 	ad.ID = f.nextID
 	f.nextID++
+	f.ads[ad.ID] = *ad
+	return nil
+}
+
+func (f *fakeAdRepo) GetByID(_ context.Context, id int64) (*model.Ad, error) {
+	ad, ok := f.ads[id]
+	if !ok {
+		return nil, gorm.ErrRecordNotFound
+	}
+	copy := ad
+	return &copy, nil
+}
+
+func (f *fakeAdRepo) Update(_ context.Context, ad *model.Ad) error {
+	if _, ok := f.ads[ad.ID]; !ok {
+		return gorm.ErrRecordNotFound
+	}
 	f.ads[ad.ID] = *ad
 	return nil
 }
@@ -329,4 +348,71 @@ func TestCreateAdPreservesMultilineDescription(t *testing.T) {
 	if ad.Description != "line one\n\nline three" {
 		t.Errorf("description = %q", ad.Description)
 	}
+}
+
+func TestGetForOwnerHidesOthersAndDeleted(t *testing.T) {
+	ads := newFakeAdRepo()
+	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+	ad, err := svc.Create(context.Background(), validInput())
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	got, err := svc.GetForOwner(context.Background(), 7, ad.ID)
+	if err != nil || got.ID != ad.ID {
+		t.Fatalf("owner get: %+v %v", got, err)
+	}
+	_, err = svc.GetForOwner(context.Background(), 8, ad.ID)
+	assertAppErrorCode(t, err, "AD_NOT_FOUND")
+
+	deleted := ads.ads[ad.ID]
+	deleted.Status = model.AdStatusDeleted
+	ads.ads[ad.ID] = deleted
+	_, err = svc.GetForOwner(context.Background(), 7, ad.ID)
+	assertAppErrorCode(t, err, "AD_NOT_FOUND")
+}
+
+func TestUpdateAdOwnerFields(t *testing.T) {
+	ads := newFakeAdRepo()
+	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+	ad, err := svc.Create(context.Background(), validInput())
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	in := validInput()
+	in.Title = "Edited title"
+	in.Description = "Edited body"
+	in.Neighborhood = "Jordan"
+	in.Latitude = nil
+	in.Longitude = nil
+	price := int64(2000)
+	in.PriceAmount = &price
+	updated, err := svc.Update(context.Background(), ad.ID, in)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if updated.Title != "Edited title" || updated.Description != "Edited body" {
+		t.Fatalf("updated=%+v", updated)
+	}
+	if !bytes.Contains(updated.Location, []byte("Jordan")) {
+		t.Fatalf("location=%s", updated.Location)
+	}
+	if !bytes.Contains(updated.Location, []byte("35.6892")) {
+		t.Fatalf("expected preserved coords, location=%s", updated.Location)
+	}
+}
+
+func TestUpdateAdRejectsOtherUser(t *testing.T) {
+	ads := newFakeAdRepo()
+	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+	ad, err := svc.Create(context.Background(), validInput())
+	if err != nil {
+		t.Fatal(err)
+	}
+	in := validInput()
+	in.UserID = 99
+	in.Title = "Hack"
+	_, err = svc.Update(context.Background(), ad.ID, in)
+	assertAppErrorCode(t, err, "AD_NOT_FOUND")
 }

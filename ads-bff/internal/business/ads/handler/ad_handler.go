@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/textproto"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"unicode/utf8"
 
@@ -70,6 +71,60 @@ func (h *AdHandler) ListMine(c *gin.Context) {
 		return
 	}
 	c.Data(status, "application/json", respBody)
+}
+
+func (h *AdHandler) GetMine(c *gin.Context) {
+	userID, err := h.sessionUserID(c)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	adID, err := parsePositiveID(c.Param("id"))
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+
+	status, respBody, err := h.backend.GetUserAd(c.Request.Context(), userID, adID)
+	if err != nil {
+		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE", "statusCode": http.StatusBadGateway})
+		return
+	}
+	c.Data(status, "application/json", respBody)
+}
+
+func (h *AdHandler) UpdateMine(c *gin.Context) {
+	userID, err := h.sessionUserID(c)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	adID, err := parsePositiveID(c.Param("id"))
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+
+	body, contentType, err := injectUserID(c, userID)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+
+	status, respBody, err := h.backend.UpdateUserAd(c.Request.Context(), userID, adID, body, contentType)
+	if err != nil {
+		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE", "statusCode": http.StatusBadGateway})
+		return
+	}
+	c.Data(status, "application/json", respBody)
+}
+
+func parsePositiveID(raw string) (int64, error) {
+	id, err := strconv.ParseInt(raw, 10, 64)
+	if err != nil || id <= 0 {
+		return 0, exception.NewAppError("INVALID_REQUEST", http.StatusBadRequest)
+	}
+	return id, nil
 }
 
 func (h *AdHandler) sessionUserID(c *gin.Context) (int64, error) {

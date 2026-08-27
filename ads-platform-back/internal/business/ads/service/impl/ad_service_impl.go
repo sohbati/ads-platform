@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"path"
@@ -19,6 +20,8 @@ import (
 	searchclient "ads-platform/internal/business/search/client"
 	"ads-platform/internal/core/exception"
 	"ads-platform/internal/core/storage"
+
+	"gorm.io/gorm"
 )
 
 const (
@@ -121,6 +124,110 @@ func (s *adService) Create(ctx context.Context, in service.CreateAdInput) (*mode
 	}
 	ad.Media = raw
 	return ad, nil
+}
+
+func (s *adService) GetForOwner(ctx context.Context, userID, adID int64) (*model.Ad, error) {
+	return s.loadOwned(ctx, userID, adID)
+}
+
+func (s *adService) Update(ctx context.Context, adID int64, in service.CreateAdInput) (*model.Ad, error) {
+	existing, err := s.loadOwned(ctx, in.UserID, adID)
+	if err != nil {
+		return nil, err
+	}
+	if err := s.validate(in); err != nil {
+		return nil, err
+	}
+	if err := s.resolveCatalog(ctx, in.CategoryID, in.CityID); err != nil {
+		return nil, err
+	}
+
+	lat, lng := in.Latitude, in.Longitude
+	if lat == nil || lng == nil {
+		existLat, existLng := coordsFromLocation(existing.Location)
+		if lat == nil {
+			lat = existLat
+		}
+		if lng == nil {
+			lng = existLng
+		}
+	}
+
+	existing.CategoryID = in.CategoryID
+	existing.CityID = in.CityID
+	existing.Title = strings.TrimSpace(in.Title)
+	existing.Description = strings.TrimSpace(in.Description)
+	existing.PriceAmount = in.PriceAmount
+	existing.PriceType = normalizePriceType(in.PriceType)
+	existing.Currency = normalizeCurrency(in.Currency)
+	existing.Attrs = normalizeJSONObject(in.Attrs)
+	if len(in.Contact) > 0 {
+		existing.Contact = normalizeJSONObject(in.Contact)
+	}
+	existing.Location = buildLocation(lat, lng, in.Neighborhood)
+
+	if len(in.Pictures) > 0 {
+		media, err := s.storePictures(ctx, existing, in.Pictures)
+		if err != nil {
+			return nil, err
+		}
+		raw, err := json.Marshal(media)
+		if err != nil {
+			return nil, err
+		}
+		existing.Media = raw
+	}
+
+	if err := s.ads.Update(ctx, existing); err != nil {
+		return nil, err
+	}
+	return existing, nil
+}
+
+func (s *adService) loadOwned(ctx context.Context, userID, adID int64) (*model.Ad, error) {
+	if userID <= 0 {
+		return nil, exception.NewAppError(errorcode.ErrAdInvalidUser.Code, errorcode.ErrAdInvalidUser.HttpStatus)
+	}
+	if adID <= 0 {
+		return nil, exception.NewAppError(errorcode.ErrAdNotFound.Code, errorcode.ErrAdNotFound.HttpStatus)
+	}
+
+	ad, err := s.ads.GetByID(ctx, adID)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, exception.NewAppError(errorcode.ErrAdNotFound.Code, errorcode.ErrAdNotFound.HttpStatus)
+		}
+		return nil, err
+	}
+	if ad == nil || ad.UserID != userID || ad.Status == model.AdStatusDeleted {
+		return nil, exception.NewAppError(errorcode.ErrAdNotFound.Code, errorcode.ErrAdNotFound.HttpStatus)
+	}
+	return ad, nil
+}
+
+func coordsFromLocation(raw json.RawMessage) (*float64, *float64) {
+	var loc map[string]any
+	if len(raw) == 0 || json.Unmarshal(raw, &loc) != nil {
+		return nil, nil
+	}
+	lat, okLat := jsonNumber(loc["lat"])
+	lng, okLng := jsonNumber(loc["lng"])
+	if !okLat || !okLng {
+		return nil, nil
+	}
+	return &lat, &lng
+}
+
+func jsonNumber(v any) (float64, bool) {
+	switch n := v.(type) {
+	case float64:
+		return n, true
+	case json.Number:
+		f, err := n.Float64()
+		return f, err == nil
+	default:
+		return 0, false
+	}
 }
 
 func (s *adService) ListByUser(ctx context.Context, userID int64) ([]model.UserAdItem, error) {

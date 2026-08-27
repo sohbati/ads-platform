@@ -122,6 +122,36 @@ func (c *Client) GetUserAds(ctx context.Context, userID int64) (int, []byte, err
 	return c.get(ctx, url)
 }
 
+func (c *Client) GetUserAd(ctx context.Context, userID, adID int64) (int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/users/%d/ads/%d", c.baseURL, userID, adID)
+	return c.get(ctx, url)
+}
+
+func (c *Client) UpdateUserAd(ctx context.Context, userID, adID int64, body []byte, contentType string) (int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/users/%d/ads/%d", c.baseURL, userID, adID)
+	reader := bytes.NewReader(body)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPut, url, reader)
+	if err != nil {
+		return 0, nil, err
+	}
+	if contentType != "" {
+		req.Header.Set("Content-Type", contentType)
+	}
+	req.Header.Set("Accept", "application/json")
+
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return 0, nil, err
+	}
+	defer resp.Body.Close()
+
+	data, err := io.ReadAll(io.LimitReader(resp.Body, 1<<20))
+	if err != nil {
+		return 0, nil, err
+	}
+	return resp.StatusCode, data, nil
+}
+
 func (c *Client) PutUserProfile(ctx context.Context, userID int64, body []byte) (int, []byte, error) {
 	url := fmt.Sprintf("%s/api/v1/users/%d/profile", c.baseURL, userID)
 	return c.put(ctx, url, body)

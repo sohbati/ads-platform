@@ -25,6 +25,8 @@ type SearchResults struct {
 
 // SearchAd is one result card.
 type SearchAd struct {
+	ID          int64  `json:"id,omitempty"`
+	Href        string `json:"href,omitempty"`
 	Title       string `json:"title"`
 	Price       string `json:"price"`
 	Location    string `json:"location"`

@@ -30,4 +30,5 @@ var (
 	ErrAdPictureTooLarge    = New("AD_PICTURE_TOO_LARGE", http.StatusRequestEntityTooLarge)
 	ErrAdCatalogUnavailable = New("AD_CATALOG_UNAVAILABLE", http.StatusServiceUnavailable)
 	ErrAdStorageUnavailable = New("AD_STORAGE_UNAVAILABLE", http.StatusServiceUnavailable)
+	ErrAdNotFound           = New("AD_NOT_FOUND", http.StatusNotFound)
 )

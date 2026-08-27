@@ -41,6 +41,8 @@ func testAdsRouter(h *AdHandler) *gin.Engine {
 	r.Use(middleware.GlobalErrorHandler())
 	r.POST("/api/v1/ads", h.Create)
 	r.GET("/api/v1/me/ads", h.ListMine)
+	r.GET("/api/v1/me/ads/:id", h.GetMine)
+	r.PUT("/api/v1/me/ads/:id", h.UpdateMine)
 	return r
 }
 
@@ -189,5 +191,57 @@ func TestListMineUsesSessionUserID(t *testing.T) {
 	}
 	if !bytes.Contains(rec.Body.Bytes(), []byte(`"Mine"`)) {
 		t.Fatalf("body=%s", rec.Body.String())
+	}
+}
+
+func TestGetMineUsesSessionUserID(t *testing.T) {
+	var gotPath string
+	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
+		gotPath = r.URL.Path
+		_, _ = w.Write([]byte(`{"id":9,"title":"Mine"}`))
+	})
+	r := testAdsRouter(h)
+
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/me/ads/9", nil)
+	withSession(req)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	if gotPath != "/api/v1/users/42/ads/9" {
+		t.Fatalf("backend path=%s", gotPath)
+	}
+}
+
+func TestUpdateMineUsesSessionUserID(t *testing.T) {
+	var gotPath string
+	var got map[string]any
+	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
+		gotPath = r.URL.Path
+		if r.Method != http.MethodPut {
+			t.Errorf("method=%s", r.Method)
+		}
+		body, _ := io.ReadAll(r.Body)
+		_ = json.Unmarshal(body, &got)
+		_, _ = w.Write([]byte(`{"id":9,"title":"Edited"}`))
+	})
+	r := testAdsRouter(h)
+
+	req := httptest.NewRequest(http.MethodPut, "/api/v1/me/ads/9", bytes.NewReader([]byte(`{"user_id":99,"title":"Edited","description":"ok","category_id":13,"city_id":1}`)))
+	req.Header.Set("Content-Type", "application/json")
+	withSession(req)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	if gotPath != "/api/v1/users/42/ads/9" {
+		t.Fatalf("backend path=%s", gotPath)
+	}
+	if got["user_id"] != float64(42) {
+		t.Fatalf("backend user_id=%v", got["user_id"])
 	}
 }

@@ -90,6 +90,79 @@ func (h *AdHandler) ListByUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"ads": items})
 }
 
+// GetForOwner handles GET /api/v1/users/:userId/ads/:adId
+func (h *AdHandler) GetForOwner(c *gin.Context) {
+	userID, adID, err := parseOwnerIDs(c)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	ad, err := h.ads.GetForOwner(c.Request.Context(), userID, adID)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	c.JSON(http.StatusOK, ad)
+}
+
+// Update handles PUT /api/v1/users/:userId/ads/:adId
+func (h *AdHandler) Update(c *gin.Context) {
+	userID, adID, err := parseOwnerIDs(c)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+
+	req, pics, err := parseCreateRequest(c)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	defer closePictures(pics)
+
+	ad, err := h.ads.Update(c.Request.Context(), adID, service.CreateAdInput{
+		UserID:       userID,
+		CategoryID:   req.CategoryID,
+		CityID:       req.CityID,
+		Title:        req.Title,
+		Description:  req.Description,
+		Latitude:     req.Latitude,
+		Longitude:    req.Longitude,
+		Neighborhood: req.Neighborhood,
+		PriceAmount:  req.PriceAmount,
+		PriceType:    req.PriceType,
+		Currency:     req.Currency,
+		Attrs:        req.Attrs,
+		Contact:      req.Contact,
+		Pictures:     pics,
+	})
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	c.JSON(http.StatusOK, ad)
+}
+
+func parseOwnerIDs(c *gin.Context) (int64, int64, error) {
+	userID, err := parseUserID(c.Param("userId"))
+	if err != nil {
+		return 0, 0, err
+	}
+	adID, err := parseAdID(c.Param("adId"))
+	if err != nil {
+		return 0, 0, err
+	}
+	return userID, adID, nil
+}
+
+func parseAdID(raw string) (int64, error) {
+	id, err := strconv.ParseInt(raw, 10, 64)
+	if err != nil || id <= 0 {
+		return 0, exception.NewAppError(errorcode.ErrAdNotFound.Code, errorcode.ErrAdNotFound.HttpStatus, raw)
+	}
+	return id, nil
+}
+
 func parseUserID(raw string) (int64, error) {
 	id, err := strconv.ParseInt(raw, 10, 64)
 	if err != nil || id <= 0 {

@@ -73,6 +73,25 @@ func TestNewAdTemplateRenders(t *testing.T) {
 	if err := tmpl.ExecuteTemplate(&buf, "new_ad", page); err != nil {
 		t.Fatalf("execute new_ad: %v", err)
 	}
+
+	edit := newadvm.NewAdPage{
+		Page: i18n.Page{
+			Title:   "t",
+			Heading: "Edit ad",
+			T: i18n.Messages{
+				NewAd: i18n.NewAdMessages{
+					EditIntro:           "edit intro",
+					SubmitEdit:          "Save",
+					PicturesReplaceHint: "replace photos",
+				},
+			},
+		},
+		Bootstrap: newadvm.Bootstrap{Mode: "edit", AdID: 9, MaxPictures: 8, CityName: "Tehran", Enums: []byte(`{}`)},
+	}
+	buf.Reset()
+	if err := tmpl.ExecuteTemplate(&buf, "new_ad", edit); err != nil {
+		t.Fatalf("execute new_ad edit: %v", err)
+	}
 }
 
 func TestMyInfoUserAdsTemplateRenders(t *testing.T) {
@@ -102,7 +121,7 @@ func TestMyInfoUserAdsTemplateRenders(t *testing.T) {
 			},
 		},
 		Ads: []viewmodel.SearchAd{
-			{Title: "Bike", Price: "1,000 IRR", Location: "Tehran", Thumbnail: "/t.jpg", PublishedAt: "2026-08-01"},
+			{ID: 9, Href: "/edit-ad/9", Title: "Bike", Price: "1,000 IRR", Location: "Tehran", Thumbnail: "/t.jpg", PublishedAt: "2026-08-01"},
 		},
 	}
 	unavailable := myinfovm.UserAdsPage{

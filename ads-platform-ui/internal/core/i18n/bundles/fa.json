@@ -161,7 +161,13 @@
       "need_category": "دسته را انتخاب کنید.",
       "need_title": "عنوان را وارد کنید.",
       "need_description": "توضیحات را وارد کنید.",
-      "too_many_pictures": "تعداد عکس‌ها بیشتر از حد مجاز است."
+      "too_many_pictures": "تعداد عکس‌ها بیشتر از حد مجاز است.",
+      "edit_heading": "ویرایش آگهی",
+      "edit_intro": "مشخصات آگهی را تغییر دهید و ذخیره کنید.",
+      "submit_edit": "ذخیره تغییرات",
+      "submitting_edit": "در حال ذخیره…",
+      "pictures_replace_hint": "عکس جدید انتخاب کنید تا جایگزین عکس‌های فعلی شود.",
+      "not_found": "این آگهی پیدا نشد یا متعلق به شما نیست."
     },
     "api_errors": {
       "_default": "خطایی رخ داد. لطفاً دوباره تلاش کنید.",
@@ -192,7 +198,8 @@
       "AD_INVALID_PICTURE": "فایل عکس معتبر نیست.",
       "AD_PICTURE_TOO_LARGE": "حجم عکس بیش از حد مجاز است.",
       "AD_CATALOG_UNAVAILABLE": "فهرست دسته‌ها یا شهرها در دسترس نیست.",
-      "AD_STORAGE_UNAVAILABLE": "آپلود عکس موقتاً در دسترس نیست."
+      "AD_STORAGE_UNAVAILABLE": "آپلود عکس موقتاً در دسترس نیست.",
+      "AD_NOT_FOUND": "آگهی پیدا نشد."
     },
     "category_items": {
       "real-estate": { "name": "املاک", "description": "اجاره، خرید و فروش" },

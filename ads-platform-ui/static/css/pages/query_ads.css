@@ -40,6 +40,12 @@
   border-color: var(--color-primary);
 }
 
+a.ad-card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 .ad-card__media {
   display: grid;
   place-items: center;

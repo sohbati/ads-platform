@@ -22,6 +22,22 @@ func (r *adRepository) Create(ctx context.Context, ad *model.Ad) error {
 	return r.db.WithContext(ctx).Create(ad).Error
 }
 
+func (r *adRepository) GetByID(ctx context.Context, id int64) (*model.Ad, error) {
+	var ad model.Ad
+	if err := r.db.WithContext(ctx).First(&ad, id).Error; err != nil {
+		return nil, err
+	}
+	return &ad, nil
+}
+
+func (r *adRepository) Update(ctx context.Context, ad *model.Ad) error {
+	return r.db.WithContext(ctx).Model(ad).Select(
+		"category_id", "city_id", "title", "description",
+		"price_amount", "price_type", "currency",
+		"attrs", "contact", "location", "media",
+	).Updates(ad).Error
+}
+
 func (r *adRepository) UpdateMedia(ctx context.Context, id int64, media json.RawMessage) error {
 	return r.db.WithContext(ctx).Model(&model.Ad{}).Where("id = ?", id).Update("media", media).Error
 }

@@ -25,9 +25,30 @@ type fakeAdService struct {
 	list    []model.UserAdItem
 	listErr error
 	listID  int64
+	gotID   int64
+	gotUID  int64
 }
 
 func (f *fakeAdService) Create(_ context.Context, in service.CreateAdInput) (*model.Ad, error) {
+	f.got = in
+	if in.Pictures != nil {
+		for _, p := range in.Pictures {
+			if p.Body != nil {
+				_, _ = io.Copy(io.Discard, p.Body)
+			}
+		}
+	}
+	return f.ad, f.err
+}
+
+func (f *fakeAdService) GetForOwner(_ context.Context, userID, adID int64) (*model.Ad, error) {
+	f.gotUID = userID
+	f.gotID = adID
+	return f.ad, f.err
+}
+
+func (f *fakeAdService) Update(_ context.Context, adID int64, in service.CreateAdInput) (*model.Ad, error) {
+	f.gotID = adID
 	f.got = in
 	if in.Pictures != nil {
 		for _, p := range in.Pictures {
@@ -50,6 +71,8 @@ func testRouter(h *AdHandler) *gin.Engine {
 	r.Use(middleware.GlobalErrorHandler())
 	r.POST("/api/v1/ads", h.Create)
 	r.GET("/api/v1/users/:userId/ads", h.ListByUser)
+	r.GET("/api/v1/users/:userId/ads/:adId", h.GetForOwner)
+	r.PUT("/api/v1/users/:userId/ads/:adId", h.Update)
 	return r
 }
 
@@ -170,5 +193,39 @@ func TestListByUserHandlerInvalidID(t *testing.T) {
 
 	if rec.Code != http.StatusBadRequest {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+}
+
+func TestGetForOwnerHandler(t *testing.T) {
+	fake := &fakeAdService{ad: &model.Ad{ID: 9, Title: "Mine"}}
+	r := testRouter(NewAdHandler(fake))
+
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/users/42/ads/9", nil)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	if fake.gotUID != 42 || fake.gotID != 9 {
+		t.Fatalf("ids user=%d ad=%d", fake.gotUID, fake.gotID)
+	}
+}
+
+func TestUpdateHandlerUsesPathUser(t *testing.T) {
+	fake := &fakeAdService{ad: &model.Ad{ID: 9, Title: "Updated"}}
+	r := testRouter(NewAdHandler(fake))
+
+	body := []byte(`{"user_id":99,"category_id":13,"city_id":1,"title":"Updated","description":"ok"}`)
+	req := httptest.NewRequest(http.MethodPut, "/api/v1/users/42/ads/9", bytes.NewReader(body))
+	req.Header.Set("Content-Type", "application/json")
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	if fake.got.UserID != 42 || fake.gotID != 9 || fake.got.Title != "Updated" {
+		t.Fatalf("input: %+v id=%d", fake.got, fake.gotID)
 	}
 }

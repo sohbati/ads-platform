@@ -73,6 +73,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 	router.GET("/my-info/setting", r.container.MyInfo.PageHandler.Setting)
 
 	router.GET("/new-ad", r.container.NewAd.PageHandler.Index)
+	router.GET("/edit-ad/:id", r.container.NewAd.PageHandler.Edit)
 	router.GET("/category", func(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/query-ads?open=category")
 	})
@@ -83,6 +84,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 		api.GET("/categories", r.container.Category.APIHandler.List)
 		api.GET("/cities", r.container.Location.APIHandler.ListCities)
 		api.POST("/ads", r.container.NewAd.APIHandler.Create)
+		api.PUT("/ads/:id", r.container.NewAd.APIHandler.Update)
 		api.GET("/me/profile", r.container.MyInfo.APIHandler.GetProfile)
 		api.PUT("/me/profile", r.container.MyInfo.APIHandler.PutProfile)
 

@@ -189,6 +189,12 @@ type NewAdMessages struct {
 	NeedTitle               string `json:"need_title"`
 	NeedDescription         string `json:"need_description"`
 	TooManyPictures         string `json:"too_many_pictures"`
+	EditHeading             string `json:"edit_heading"`
+	EditIntro               string `json:"edit_intro"`
+	SubmitEdit              string `json:"submit_edit"`
+	SubmittingEdit          string `json:"submitting_edit"`
+	PicturesReplaceHint     string `json:"pictures_replace_hint"`
+	NotFound                string `json:"not_found"`
 }
 
 type MyAdsMessages struct {

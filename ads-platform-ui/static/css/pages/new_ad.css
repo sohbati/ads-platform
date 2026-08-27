@@ -74,6 +74,12 @@
   cursor: pointer;
 }
 
+.new-ad__form .new-ad__price {
+  direction: ltr;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
 .new-ad__form input[type="text"],
 .new-ad__form input[type="number"],
 .new-ad__form select,
@@ -134,6 +140,22 @@
 
 .new-ad__form button[type="submit"] {
   align-self: flex-start;
+}
+
+.new-ad__existing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 var(--space-sm);
+}
+
+.new-ad__existing img {
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
 }
 
 @media (max-width: 640px) {

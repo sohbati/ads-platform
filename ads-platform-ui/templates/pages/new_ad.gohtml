@@ -3,7 +3,7 @@
 <section class="new-ad container">
   <header class="new-ad__intro">
     <h1 class="new-ad__title">{{ .Heading }}</h1>
-    <p class="new-ad__desc">{{ .T.NewAd.Intro }}</p>
+    <p class="new-ad__desc">{{ if eq .Bootstrap.Mode "edit" }}{{ .T.NewAd.EditIntro }}{{ else }}{{ .T.NewAd.Intro }}{{ end }}</p>
   </header>
 
   {{ if .LoadError }}
@@ -15,8 +15,8 @@
     data-need-description="{{ .T.NewAd.NeedDescription }}"
     data-too-many="{{ .T.NewAd.TooManyPictures }}"
     data-city-required="{{ .T.NewAd.CityRequired }}"
-    data-submitting="{{ .T.NewAd.Submitting }}"
-    data-submit-label="{{ .T.NewAd.Submit }}"
+    data-submitting="{{ if eq .Bootstrap.Mode "edit" }}{{ .T.NewAd.SubmittingEdit }}{{ else }}{{ .T.NewAd.Submitting }}{{ end }}"
+    data-submit-label="{{ if eq .Bootstrap.Mode "edit" }}{{ .T.NewAd.SubmitEdit }}{{ else }}{{ .T.NewAd.Submit }}{{ end }}"
   >
     <script type="application/json" id="new-ad-bootstrap">{{ json .Bootstrap }}</script>
 
@@ -48,7 +48,7 @@
     <div class="new-ad__row">
       <div class="new-ad__field">
         <label class="new-ad__label" for="new-ad-price">{{ .T.NewAd.Price }}</label>
-        <input id="new-ad-price" name="price_amount" type="number" min="0" step="1" />
+        <input id="new-ad-price" class="new-ad__price" name="price_amount" type="text" inputmode="numeric" autocomplete="off" dir="ltr" />
       </div>
       <div class="new-ad__field">
         <label class="new-ad__label" for="new-ad-price-type">{{ .T.NewAd.PriceType }}</label>
@@ -73,12 +73,17 @@
 
     <div class="new-ad__field">
       <label class="new-ad__label" for="new-ad-pictures">{{ .T.NewAd.Pictures }}</label>
+      {{ if eq .Bootstrap.Mode "edit" }}
+      <p class="new-ad__hint">{{ .T.NewAd.PicturesReplaceHint }}</p>
+      <div id="new-ad-existing-pictures" class="new-ad__existing" hidden></div>
+      {{ else }}
       <p class="new-ad__hint">{{ format .T.NewAd.PicturesHint .Bootstrap.MaxPictures }}</p>
+      {{ end }}
       <input id="new-ad-pictures" name="pictures" type="file" accept="image/jpeg,image/png,image/webp" multiple />
     </div>
 
     <p id="new-ad-message" class="new-ad__message" role="status"></p>
-    <button type="submit" class="btn btn--primary btn--lg" id="new-ad-submit">{{ .T.NewAd.Submit }}</button>
+    <button type="submit" class="btn btn--primary btn--lg" id="new-ad-submit">{{ if eq .Bootstrap.Mode "edit" }}{{ .T.NewAd.SubmitEdit }}{{ else }}{{ .T.NewAd.Submit }}{{ end }}</button>
   </form>
   {{ end }}
 </section>

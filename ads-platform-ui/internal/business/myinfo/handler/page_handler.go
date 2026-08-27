@@ -111,10 +111,14 @@ func (h *PageHandler) fetchUserAds(c *gin.Context, t i18n.Messages) ([]queryadsv
 
 func toSearchAd(ad userAdJSON, t i18n.Messages) queryadsvm.SearchAd {
 	out := queryadsvm.SearchAd{
+		ID:        ad.ID,
 		Title:     ad.Title,
 		Location:  ad.CityName,
 		Thumbnail: ad.Thumbnail,
 		HasPhoto:  ad.HasPhoto,
+	}
+	if ad.ID > 0 {
+		out.Href = "/edit-ad/" + strconv.FormatInt(ad.ID, 10)
 	}
 	if ad.Neighborhood != "" {
 		if out.Location != "" {
@@ -180,6 +184,7 @@ type userAdsResponse struct {
 }
 
 type userAdJSON struct {
+	ID           int64   `json:"id"`
 	Title        string  `json:"title"`
 	PriceAmount  *int64  `json:"price_amount"`
 	PriceType    string  `json:"price_type"`
