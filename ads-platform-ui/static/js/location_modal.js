@@ -343,6 +343,12 @@
 
   function openModal(options) {
     options = options || {};
+    if (document.body.classList.contains("category-modal-open") && typeof window.closeCategoryModal === "function") {
+      window.closeCategoryModal();
+    }
+    if (document.body.classList.contains("login-modal-open") && typeof window.closeLoginModal === "function") {
+      window.closeLoginModal();
+    }
     mode = options.mode === "single" ? "single" : "multiple";
     onApply = typeof options.onApply === "function" ? options.onApply : null;
     modal.dataset.mode = mode;

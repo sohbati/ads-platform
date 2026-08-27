@@ -605,7 +605,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(20, 24, 32, 0.45);
+  background: var(--modal-backdrop);
 }
 
 .login-modal__dialog {
@@ -778,6 +778,14 @@
 
 body.login-modal-open {
   overflow: hidden;
+}
+
+/* Keep a single dimmer when more than one modal is open. */
+body.category-modal-open .loc-modal__backdrop,
+body.category-modal-open .login-modal__backdrop,
+body.location-modal-open .login-modal__backdrop {
+  background: transparent;
+  pointer-events: none;
 }
 
 .user-details {

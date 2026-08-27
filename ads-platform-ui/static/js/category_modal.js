@@ -242,6 +242,12 @@
   }
 
   function openModal(slug) {
+    if (document.body.classList.contains("location-modal-open") && typeof window.closeLocationModal === "function") {
+      window.closeLocationModal();
+    }
+    if (document.body.classList.contains("login-modal-open") && typeof window.closeLoginModal === "function") {
+      window.closeLoginModal();
+    }
     lastFocused = document.activeElement;
     setStatus("");
     modal.hidden = false;

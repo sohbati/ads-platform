@@ -28,7 +28,7 @@
 .loc-modal__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(20, 24, 32, 0.45);
+  background: var(--modal-backdrop);
 }
 
 .loc-modal__dialog {

@@ -115,6 +115,12 @@
   }
 
   function openModal(nextPath) {
+    if (document.body.classList.contains("category-modal-open") && typeof window.closeCategoryModal === "function") {
+      window.closeCategoryModal();
+    }
+    if (document.body.classList.contains("location-modal-open") && typeof window.closeLocationModal === "function") {
+      window.closeLocationModal();
+    }
     if (nextInput && nextPath) {
       nextInput.value = nextPath;
     }
