@@ -103,6 +103,8 @@ type CategoriesMessages struct {
 	Description string `json:"description"`
 	ViewAll     string `json:"view_all"`
 	Empty       string `json:"empty"`
+	CloseAria   string `json:"close_aria"`
+	LoadError   string `json:"load_error"`
 }
 
 type CitiesMessages struct {

@@ -90,7 +90,9 @@
       "title": "Browse categories",
       "description": "Pick a category to explore listings in %s",
       "view_all": "All %s listings",
-      "empty": "No subcategories in this group yet."
+      "empty": "No subcategories in this group yet.",
+      "close_aria": "Close",
+      "load_error": "Could not load categories. Try again."
     },
     "cities": {
       "title": "Popular cities",

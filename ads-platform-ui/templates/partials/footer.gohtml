@@ -4,7 +4,7 @@
     <p class="site-footer__tagline">{{ format .T.Footer.Tagline .AppName }}</p>
     <nav class="site-footer__links" aria-label="{{ .T.Footer.NavAria }}">
       <a href="/query-ads">{{ .T.Nav.QueryAds }}</a>
-      <a href="/category">{{ .T.Nav.Category }}</a>
+      <a href="/query-ads?open=category" data-category-open>{{ .T.Nav.Category }}</a>
       <a href="/new-ad">{{ .T.Nav.NewAd }}</a>
       <a href="/my-info">{{ .T.Nav.MyInfo }}</a>
     </nav>

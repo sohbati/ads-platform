@@ -9,7 +9,7 @@
     <ul class="category-grid">
       {{- range .Categories }}
       <li>
-        <a href="{{ .Href }}" class="category-card">
+        <a href="{{ .Href }}" class="category-card" data-category-open="{{ .Slug }}">
           <span class="category-card__icon-wrap">
             {{ template "category_icon" .Icon }}
           </span>

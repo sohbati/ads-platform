@@ -1,0 +1,42 @@
+{{ define "category_modal" }}
+<div
+  id="category-modal"
+  class="cat-modal"
+  hidden
+  aria-hidden="true"
+  data-categories-url="/api/v1/categories"
+  data-i18n-view-all="{{ .T.Categories.ViewAll }}"
+  data-i18n-empty="{{ .T.Categories.Empty }}"
+  data-i18n-load-error="{{ .T.Categories.LoadError }}"
+>
+  <div class="cat-modal__backdrop" data-cat-close tabindex="-1"></div>
+  <div
+    class="cat-modal__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="category-modal-title"
+  >
+    <button type="button" class="cat-modal__close" data-cat-close aria-label="{{ .T.Categories.CloseAria }}">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <header class="cat-modal__header">
+      <div>
+        <h2 id="category-modal-title" class="cat-modal__title">{{ .T.Categories.Title }}</h2>
+        <p class="cat-modal__subtitle">{{ format .T.Categories.Description .CityDisplayName }}</p>
+      </div>
+    </header>
+
+    <div class="cat-modal__shell" data-mega-cat>
+      <aside class="cat-modal__sidebar" aria-label="{{ .T.Nav.Category }}">
+        <ul class="cat-modal__nav" id="category-modal-nav"></ul>
+      </aside>
+      <div class="cat-modal__panel" id="category-modal-panel"></div>
+    </div>
+
+    <p class="cat-modal__status" id="category-modal-status" role="status"></p>
+  </div>
+</div>
+{{ end }}

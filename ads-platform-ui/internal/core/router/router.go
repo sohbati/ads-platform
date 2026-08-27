@@ -73,7 +73,9 @@ func (r *Router) SetupRoutes() *gin.Engine {
 	router.GET("/my-info/setting", r.container.MyInfo.PageHandler.Setting)
 
 	router.GET("/new-ad", r.container.NewAd.PageHandler.Index)
-	router.GET("/category", r.container.Category.PageHandler.Index)
+	router.GET("/category", func(c *gin.Context) {
+		c.Redirect(http.StatusFound, "/query-ads?open=category")
+	})
 
 	api := router.Group("/api/v1")
 	{
