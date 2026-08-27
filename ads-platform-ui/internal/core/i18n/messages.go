@@ -27,7 +27,6 @@ type NavMessages struct {
 	MyInfo      string `json:"my_info"`
 	NewAd       string `json:"new_ad"`
 	Category    string `json:"category"`
-	Location    string `json:"location"`
 	UserDetails string `json:"user_details"`
 	UserAds     string `json:"user_ads"`
 	MarkedAds   string `json:"marked_ads"`

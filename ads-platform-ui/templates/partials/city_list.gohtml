@@ -6,7 +6,12 @@
         <h2 id="cities-heading" class="section-head__title">{{ .T.Cities.Title }}</h2>
         <p class="section-head__desc">{{ .T.Cities.Description }}</p>
       </div>
-      <a href="/location" class="section-head__link">{{ .T.Cities.AllCities }}</a>
+      <button
+        type="button"
+        class="section-head__link"
+        data-location-open="multiple"
+        data-location-selected="{{ .LocationSlugsCSV }}"
+      >{{ .T.Cities.AllCities }}</button>
     </div>
 
     <ul class="city-chips">

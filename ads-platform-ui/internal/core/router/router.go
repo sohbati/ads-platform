@@ -74,7 +74,6 @@ func (r *Router) SetupRoutes() *gin.Engine {
 
 	router.GET("/new-ad", r.container.NewAd.PageHandler.Index)
 	router.GET("/category", r.container.Category.PageHandler.Index)
-	router.GET("/location", r.container.Location.PageHandler.Index)
 
 	api := router.Group("/api/v1")
 	{
