@@ -32,3 +32,12 @@ func (r *adImageRepository) GetByID(ctx context.Context, id int64) (*model.AdIma
 func (r *adImageRepository) Update(ctx context.Context, image *model.AdImage) error {
 	return r.db.WithContext(ctx).Save(image).Error
 }
+
+func (r *adImageRepository) NextObjectSeq(ctx context.Context, userID int64) (int64, error) {
+	var n int64
+	err := r.db.WithContext(ctx).Model(&model.AdImage{}).Where("user_id = ?", userID).Count(&n).Error
+	if err != nil {
+		return 0, err
+	}
+	return n + 1, nil
+}

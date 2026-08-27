@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
-	"strings"
 	"testing"
 
 	"ads-platform/internal/business/ads/model"
@@ -95,6 +94,16 @@ func (f *fakeImageRepo) GetByID(context.Context, int64) (*model.AdImage, error) 
 
 func (f *fakeImageRepo) Update(context.Context, *model.AdImage) error {
 	return errors.New("unused")
+}
+
+func (f *fakeImageRepo) NextObjectSeq(_ context.Context, userID int64) (int64, error) {
+	var n int64
+	for i := range f.rows {
+		if f.rows[i].UserID == userID {
+			n++
+		}
+	}
+	return n + 1, nil
 }
 
 type fakeCatalog struct {
@@ -205,11 +214,55 @@ func TestCreateAdHappyPath(t *testing.T) {
 	if len(images.rows) != 1 || images.rows[0].AdID == nil || *images.rows[0].AdID != ad.ID {
 		t.Errorf("image row not linked to ad: %+v", images.rows)
 	}
-	if len(store.keys) != 1 || !strings.Contains(store.keys[0], "/7/") {
+	if len(store.keys) != 1 || store.keys[0] != "ads/7/7_1.jpg" {
 		t.Errorf("object keys = %v", store.keys)
 	}
 	if !bytes.Contains(ad.Media, []byte(`"is_cover":true`)) {
 		t.Errorf("media = %s", ad.Media)
+	}
+}
+
+func TestCreateAdPictureKeysFollowUserSequence(t *testing.T) {
+	ads := newFakeAdRepo()
+	images := &fakeImageRepo{}
+	store := &fakeStorage{}
+	svc := NewAdService(ads, images, leafCatalog(), store, 8, 10<<20)
+
+	first := validInput()
+	first.Pictures = []service.PictureInput{
+		{Filename: "a.jpg", ContentType: "image/jpeg", Size: 1, Body: bytes.NewReader([]byte("a"))},
+		{Filename: "b.png", ContentType: "image/png", Size: 1, Body: bytes.NewReader([]byte("b"))},
+	}
+	if _, err := svc.Create(context.Background(), first); err != nil {
+		t.Fatalf("first ad: %v", err)
+	}
+
+	second := validInput()
+	second.Title = "Second listing"
+	second.Pictures = []service.PictureInput{
+		{Filename: "c.webp", ContentType: "image/webp", Size: 1, Body: bytes.NewReader([]byte("c"))},
+	}
+	if _, err := svc.Create(context.Background(), second); err != nil {
+		t.Fatalf("second ad: %v", err)
+	}
+
+	other := validInput()
+	other.UserID = 99
+	other.Pictures = []service.PictureInput{
+		{Filename: "d.jpg", ContentType: "image/jpeg", Size: 1, Body: bytes.NewReader([]byte("d"))},
+	}
+	if _, err := svc.Create(context.Background(), other); err != nil {
+		t.Fatalf("other user: %v", err)
+	}
+
+	want := []string{"ads/7/7_1.jpg", "ads/7/7_2.png", "ads/7/7_3.webp", "ads/99/99_1.jpg"}
+	if len(store.keys) != len(want) {
+		t.Fatalf("keys=%v, want %v", store.keys, want)
+	}
+	for i, key := range want {
+		if store.keys[i] != key {
+			t.Fatalf("keys=%v, want %v", store.keys, want)
+		}
 	}
 }
 

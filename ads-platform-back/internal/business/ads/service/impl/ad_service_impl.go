@@ -2,7 +2,6 @@ package impl
 
 import (
 	"context"
-	"crypto/rand"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -438,13 +437,15 @@ func (s *adService) storePictures(ctx context.Context, ad *model.Ad, pics []serv
 	out := make([]mediaItem, 0, len(pics))
 	now := time.Now().UTC()
 
+	seq, err := s.images.NextObjectSeq(ctx, ad.UserID)
+	if err != nil {
+		return nil, err
+	}
+
 	for i, pic := range pics {
 		contentType := normalizeContentType(pic.ContentType, pic.Filename)
 		ext := extByContentType[contentType]
-		key, err := buildObjectKey(ad.UserID, ad.ID, ext)
-		if err != nil {
-			return nil, err
-		}
+		key := buildObjectKey(ad.UserID, seq+int64(i), ext)
 
 		hasher := sha256.New()
 		reader := io.TeeReader(pic.Body, hasher)
@@ -540,10 +541,6 @@ func normalizeContentType(ct, filename string) string {
 	}
 }
 
-func buildObjectKey(userID, adID int64, ext string) (string, error) {
-	buf := make([]byte, 16)
-	if _, err := rand.Read(buf); err != nil {
-		return "", fmt.Errorf("ad picture: generate object key: %w", err)
-	}
-	return fmt.Sprintf("ads/%d/%d/%s%s", userID, adID, hex.EncodeToString(buf), ext), nil
+func buildObjectKey(userID, seq int64, ext string) string {
+	return fmt.Sprintf("ads/%d/%d_%d%s", userID, userID, seq, ext)
 }

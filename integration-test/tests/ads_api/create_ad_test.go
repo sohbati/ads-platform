@@ -120,7 +120,7 @@ func TestCreateAdWithPicturesUploadsToMinio(t *testing.T) {
 		t.Fatalf("expected 1 media item, got %d (%s)", len(items), ad.Media)
 	}
 	item := items[0]
-	if item.ObjectKey == "" || !item.IsCover || item.ContentType != "image/jpeg" {
+	if item.ObjectKey != fmt.Sprintf("ads/%d/%d_1.jpg", userID, userID) || !item.IsCover || item.ContentType != "image/jpeg" {
 		t.Fatalf("media item: %+v", item)
 	}
 
