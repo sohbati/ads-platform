@@ -3,3 +3,7 @@
 
 # macOS
 .DS_Store
+
+# ads-media-cdn nginx runtime
+ads-media-cdn/logs/
+ads-media-cdn/.env
