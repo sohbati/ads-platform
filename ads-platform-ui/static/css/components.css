@@ -84,7 +84,17 @@
   max-width: 42rem;
   padding: 0 var(--space-sm);
   background: var(--color-search-bg);
+  border: 2px solid transparent;
   border-radius: var(--radius-sm);
+}
+
+.header-search:focus-within {
+  border-color: var(--color-primary);
+  background: #fff;
+}
+
+.header-search:focus-within .header-search__submit {
+  color: var(--color-primary);
 }
 
 .header-search__input {
@@ -93,6 +103,13 @@
   padding: 0.75rem var(--space-sm);
   border: none;
   background: transparent;
+}
+
+.header-search__input:focus,
+.header-search__input:focus-visible,
+.header-search__submit:focus,
+.header-search__submit:focus-visible {
+  outline: none;
 }
 
 .header-search__submit {

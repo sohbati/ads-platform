@@ -16,6 +16,5 @@ type SearchParams struct {
 }
 
 type QueryAdsService interface {
-	BuildPage(loc i18n.Locale, appName, citySlug, currentPath string, locationSlugs []string) viewmodel.QueryAdsPage
 	BuildSearchPage(ctx context.Context, loc i18n.Locale, appName, citySlug, currentPath string, locationSlugs []string, params SearchParams) viewmodel.QueryAdsPage
 }

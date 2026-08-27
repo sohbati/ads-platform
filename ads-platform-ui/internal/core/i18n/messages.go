@@ -86,16 +86,20 @@ type HeroMessages struct {
 }
 
 type SearchMessages struct {
-	ResultsTitle string `json:"results_title"`
-	ResultsFor   string `json:"results_for"`
-	ResultsCount string `json:"results_count"`
-	Empty        string `json:"empty"`
-	Unavailable  string `json:"unavailable"`
-	Negotiable   string `json:"negotiable"`
-	Currency     string `json:"currency"`
-	Prev         string `json:"prev"`
-	Next         string `json:"next"`
-	PageOf       string `json:"page_of"`
+	ResultsTitle  string `json:"results_title"`
+	ResultsFor    string `json:"results_for"`
+	ResultsCount  string `json:"results_count"`
+	Empty         string `json:"empty"`
+	EmptyBrowse   string `json:"empty_browse"`
+	Unavailable   string `json:"unavailable"`
+	Negotiable    string `json:"negotiable"`
+	Currency      string `json:"currency"`
+	Prev          string `json:"prev"`
+	Next          string `json:"next"`
+	PageOf        string `json:"page_of"`
+	LoadingMore   string `json:"loading_more"`
+	LoadMoreError string `json:"load_more_error"`
+	Retry         string `json:"retry"`
 }
 
 type CategoriesMessages struct {

@@ -16,7 +16,10 @@ func TestQueryAdsTemplateRenders(t *testing.T) {
 		t.Fatalf("parse templates: %v", err)
 	}
 
-	landing := viewmodel.QueryAdsPage{Page: i18n.Page{Title: "t"}}
+	landing := viewmodel.QueryAdsPage{
+		Page:   i18n.Page{Title: "t", CityDisplayName: "Tehran"},
+		Search: &viewmodel.SearchResults{},
+	}
 	search := viewmodel.QueryAdsPage{
 		Page: i18n.Page{Title: "t", SearchQuery: "bike"},
 		Search: &viewmodel.SearchResults{

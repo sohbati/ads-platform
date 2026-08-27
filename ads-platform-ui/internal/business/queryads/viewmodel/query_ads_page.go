@@ -1,39 +1,34 @@
 package viewmodel
 
-import (
-	"ads-platform-ui/internal/core/i18n"
-	"ads-platform-ui/internal/domain"
-)
+import "ads-platform-ui/internal/core/i18n"
 
-// QueryAdsPage is the browse/search ads page. Search is nil on the landing
-// page and set when the request carries a query or category.
+// QueryAdsPage is the browse/search ads page. Search is always set.
 type QueryAdsPage struct {
 	i18n.Page
-	Categories    []domain.Category
-	PopularCities []domain.City
-	Search        *SearchResults
+	Search *SearchResults
 }
 
 // SearchResults holds rendered search API results.
 type SearchResults struct {
-	Query         string
-	CategorySlug  string
-	CategoryTitle string
-	Total         int64
-	Page          int
-	TotalPages    int
-	PrevURL       string
-	NextURL       string
-	Ads           []SearchAd
-	Unavailable   bool
+	Query         string     `json:"query"`
+	CategorySlug  string     `json:"category"`
+	CategoryTitle string     `json:"category_title"`
+	Total         int64      `json:"total"`
+	Page          int        `json:"page"`
+	TotalPages    int        `json:"total_pages"`
+	HasMore       bool       `json:"has_more"`
+	PrevURL       string     `json:"-"`
+	NextURL       string     `json:"-"`
+	Ads           []SearchAd `json:"ads"`
+	Unavailable   bool       `json:"unavailable"`
 }
 
 // SearchAd is one result card.
 type SearchAd struct {
-	Title       string
-	Price       string
-	Location    string
-	Thumbnail   string
-	HasPhoto    bool
-	PublishedAt string
+	Title       string `json:"title"`
+	Price       string `json:"price"`
+	Location    string `json:"location"`
+	Thumbnail   string `json:"thumbnail"`
+	HasPhoto    bool   `json:"has_photo"`
+	PublishedAt string `json:"published_at"`
 }

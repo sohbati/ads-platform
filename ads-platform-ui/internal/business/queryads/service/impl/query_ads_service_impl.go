@@ -13,7 +13,6 @@ import (
 	"ads-platform-ui/internal/business/queryads/viewmodel"
 	"ads-platform-ui/internal/core/cities"
 	"ads-platform-ui/internal/core/i18n"
-	"ads-platform-ui/internal/domain"
 )
 
 const searchPageSize = 24
@@ -28,22 +27,16 @@ func NewQueryAdsService(reg *i18n.Registry, catalog *cities.Catalog, search *sea
 	return &QueryAdsServiceImpl{i18n: reg, cities: catalog, search: search}
 }
 
-func (s *QueryAdsServiceImpl) BuildPage(loc i18n.Locale, appName, citySlug, currentPath string, locationSlugs []string) viewmodel.QueryAdsPage {
-	page := i18n.BuildPage(s.i18n, s.cities, loc, appName, citySlug, currentPath, locationSlugs)
-	page.Title = appName + " — " + s.i18n.MessagesFor(loc).Nav.QueryAds
-	return viewmodel.QueryAdsPage{
-		Page:          page,
-		Categories:    s.categories(loc),
-		PopularCities: s.popularCities(loc),
-	}
-}
-
 // BuildSearchPage calls the search API (via BFF) and renders results on the
 // query-ads page. Multiple selected cities are sent as iran + cities ids.
 func (s *QueryAdsServiceImpl) BuildSearchPage(ctx context.Context, loc i18n.Locale, appName, citySlug, currentPath string, locationSlugs []string, params service.SearchParams) viewmodel.QueryAdsPage {
 	page := i18n.BuildPage(s.i18n, s.cities, loc, appName, citySlug, currentPath, locationSlugs)
 	t := s.i18n.MessagesFor(loc)
-	page.Title = appName + " — " + t.Search.ResultsTitle
+	if params.Query != "" {
+		page.Title = appName + " — " + t.Search.ResultsTitle
+	} else {
+		page.Title = appName + " — " + t.Nav.QueryAds
+	}
 	page.SearchQuery = params.Query
 
 	category := strings.ToLower(strings.TrimSpace(params.Category))
@@ -80,10 +73,11 @@ func (s *QueryAdsServiceImpl) BuildSearchPage(ctx context.Context, loc i18n.Loca
 		limit = searchPageSize
 	}
 	results.TotalPages = int((resp.Pagination.Total + int64(limit) - 1) / int64(limit))
+	results.HasMore = results.Page < results.TotalPages
 	if results.Page > 1 {
 		results.PrevURL = searchURL(params.Query, params.Category, results.Page-1)
 	}
-	if results.Page < results.TotalPages {
+	if results.HasMore {
 		results.NextURL = searchURL(params.Query, params.Category, results.Page+1)
 	}
 
@@ -156,48 +150,4 @@ func formatAmount(v int64) string {
 		return "-" + b.String()
 	}
 	return b.String()
-}
-
-func (s *QueryAdsServiceImpl) categories(loc i18n.Locale) []domain.Category {
-	t := s.i18n.MessagesFor(loc)
-	base := []struct {
-		id, icon, slug string
-	}{
-		{"real-estate", "home", "real-estate"},
-		{"vehicles", "car", "vehicles"},
-		{"digital", "device", "digital"},
-		{"home", "sofa", "home"},
-		{"services", "wrench", "services"},
-		{"jobs", "briefcase", "jobs"},
-		{"personal", "shirt", "personal"},
-		{"leisure", "ball", "leisure"},
-	}
-	out := make([]domain.Category, 0, len(base))
-	for _, c := range base {
-		item := t.CategoryItems[c.id]
-		out = append(out, domain.Category{
-			ID:          c.id,
-			Name:        item.Name,
-			Description: item.Description,
-			Icon:        c.icon,
-			Slug:        c.slug,
-			Href:        "/query-ads?category=" + c.slug,
-		})
-	}
-	return out
-}
-
-func (s *QueryAdsServiceImpl) popularCities(loc i18n.Locale) []domain.City {
-	records := s.cities.PopularRecords(8)
-	out := make([]domain.City, 0, len(records))
-	for _, r := range records {
-		slug := r.Slug
-		out = append(out, domain.City{
-			ID:   slug,
-			Name: i18n.CityDisplayName(s.i18n, s.cities, loc, slug),
-			Slug: slug,
-			Href: "/query-ads?city=" + slug,
-		})
-	}
-	return out
 }

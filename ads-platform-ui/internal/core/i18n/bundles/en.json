@@ -79,12 +79,16 @@
       "results_for": "Results for “%s”",
       "results_count": "%d ads found",
       "empty": "No ads matched your search. Try different words or another category.",
+      "empty_browse": "No ads in your selected cities yet.",
       "unavailable": "Search is temporarily unavailable. Please try again in a moment.",
       "negotiable": "Negotiable",
       "currency": "IRR",
       "prev": "Previous",
       "next": "Next",
-      "page_of": "Page %d of %d"
+      "page_of": "Page %d of %d",
+      "loading_more": "Loading more ads…",
+      "load_more_error": "Could not load more ads.",
+      "retry": "Try again"
     },
     "categories": {
       "title": "Browse categories",

@@ -1,25 +1,27 @@
 {{ define "query_ads" }}
 {{ template "page_open" . }}
-  {{ if .Search }}
-  <section class="search-results container" aria-labelledby="search-results-heading">
-    <header class="search-results__head">
-      <h1 id="search-results-heading" class="search-results__title">
-        {{- if .Search.Query }}{{ format .T.Search.ResultsFor .Search.Query }}
-        {{- else if .Search.CategoryTitle }}{{ .Search.CategoryTitle }}
-        {{- else }}{{ .T.Search.ResultsTitle }}{{ end -}}
-      </h1>
-      {{ if not .Search.Unavailable }}
-      <p class="search-results__count">{{ format .T.Search.ResultsCount .Search.Total }}</p>
-      {{ end }}
-    </header>
+  {{ $s := .Search }}
+  <section
+    class="search-results container"
+    id="ad-feed"
+    aria-label="{{ if and $s $s.Query }}{{ format .T.Search.ResultsFor $s.Query }}{{ else if and $s $s.CategoryTitle }}{{ $s.CategoryTitle }}{{ else }}{{ .CityDisplayName }}{{ end }}"
+    data-page="{{ if $s }}{{ $s.Page }}{{ else }}1{{ end }}"
+    data-has-more="{{ if and $s $s.HasMore }}true{{ else }}false{{ end }}"
+    data-query="{{ if $s }}{{ $s.Query }}{{ end }}"
+    data-category="{{ if and $s (ne $s.CategorySlug "all") }}{{ $s.CategorySlug }}{{ end }}"
+    data-feed-url="/api/v1/search"
+    data-i18n-loading="{{ .T.Search.LoadingMore }}"
+    data-i18n-error="{{ .T.Search.LoadMoreError }}"
+    data-i18n-retry="{{ .T.Search.Retry }}"
+  >
 
-    {{ if .Search.Unavailable }}
+    {{ if or (not $s) $s.Unavailable }}
     <p class="search-results__empty">{{ .T.Search.Unavailable }}</p>
-    {{ else if not .Search.Ads }}
-    <p class="search-results__empty">{{ .T.Search.Empty }}</p>
+    {{ else if not $s.Ads }}
+    <p class="search-results__empty">{{ if or $s.Query $s.CategoryTitle }}{{ .T.Search.Empty }}{{ else }}{{ .T.Search.EmptyBrowse }}{{ end }}</p>
     {{ else }}
-    <ul class="ad-grid">
-      {{ range .Search.Ads }}
+    <ul class="ad-grid" id="ad-grid">
+      {{ range $s.Ads }}
       <li class="ad-card">
         <div class="ad-card__media">
           {{ if .Thumbnail }}
@@ -42,30 +44,9 @@
       </li>
       {{ end }}
     </ul>
-
-    {{ if gt .Search.TotalPages 1 }}
-    <nav class="search-pagination" aria-label="{{ .T.Search.ResultsTitle }}">
-      {{ if .Search.PrevURL }}<a class="btn btn--sm" href="{{ .Search.PrevURL }}">{{ .T.Search.Prev }}</a>{{ end }}
-      <span class="search-pagination__status">{{ format .T.Search.PageOf .Search.Page .Search.TotalPages }}</span>
-      {{ if .Search.NextURL }}<a class="btn btn--sm" href="{{ .Search.NextURL }}">{{ .T.Search.Next }}</a>{{ end }}
-    </nav>
-    {{ end }}
+    <div class="ad-feed__status" id="ad-feed-status" hidden></div>
+    <div class="ad-feed__sentinel" id="ad-feed-sentinel" aria-hidden="true"></div>
     {{ end }}
   </section>
-  {{ else }}
-  {{ template "search_hero" . }}
-  {{ template "category_grid" . }}
-  {{ template "city_list" . }}
-
-  <section class="cta-banner container" aria-label="{{ .T.CTA.AriaLabel }}">
-    <div class="cta-banner__card">
-      <div class="cta-banner__text">
-        <h2 class="cta-banner__title">{{ .T.CTA.Title }}</h2>
-        <p class="cta-banner__desc">{{ .T.CTA.Description }}</p>
-      </div>
-      <a href="/new-ad" class="btn btn--primary btn--lg">{{ .T.CTA.Button }}</a>
-    </div>
-  </section>
-  {{ end }}
 {{ template "page_close" . }}
 {{ end }}
