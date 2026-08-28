@@ -41,6 +41,17 @@ func (f *fakeAdService) Create(_ context.Context, in service.CreateAdInput) (*mo
 	return f.ad, f.err
 }
 
+func (f *fakeAdService) GetPublic(_ context.Context, adID int64) (*model.PublicAd, error) {
+	f.gotID = adID
+	if f.err != nil {
+		return nil, f.err
+	}
+	if f.ad == nil {
+		return nil, nil
+	}
+	return &model.PublicAd{ID: f.ad.ID, Title: f.ad.Title, Description: f.ad.Description}, nil
+}
+
 func (f *fakeAdService) GetForOwner(_ context.Context, userID, adID int64) (*model.Ad, error) {
 	f.gotUID = userID
 	f.gotID = adID
@@ -70,6 +81,7 @@ func testRouter(h *AdHandler) *gin.Engine {
 	r := gin.New()
 	r.Use(middleware.GlobalErrorHandler())
 	r.POST("/api/v1/ads", h.Create)
+	r.GET("/api/v1/ads/:id", h.GetPublic)
 	r.GET("/api/v1/users/:userId/ads", h.ListByUser)
 	r.GET("/api/v1/users/:userId/ads/:adId", h.GetForOwner)
 	r.PUT("/api/v1/users/:userId/ads/:adId", h.Update)
@@ -193,6 +205,25 @@ func TestListByUserHandlerInvalidID(t *testing.T) {
 
 	if rec.Code != http.StatusBadRequest {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+}
+
+func TestGetPublicHandler(t *testing.T) {
+	fake := &fakeAdService{ad: &model.Ad{ID: 9, Title: "Used laptop"}}
+	r := testRouter(NewAdHandler(fake))
+
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/ads/9", nil)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	if fake.gotID != 9 {
+		t.Fatalf("id=%d", fake.gotID)
+	}
+	if !bytes.Contains(rec.Body.Bytes(), []byte(`"title":"Used laptop"`)) {
+		t.Fatalf("body=%s", rec.Body.String())
 	}
 }
 

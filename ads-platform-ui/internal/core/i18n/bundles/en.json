@@ -117,6 +117,14 @@
       "unavailable": "Could not load your ads.",
       "post_cta": "Post a new ad"
     },
+    "ad_detail": {
+      "not_found": "This ad was not found or is no longer available.",
+      "unavailable": "Could not load this ad. Please try again.",
+      "prev_photo": "Previous photo",
+      "next_photo": "Next photo",
+      "photo_counter": "%d / %d",
+      "no_photos": "No photos"
+    },
     "footer": {
       "tagline": "%s — buy and sell locally, without the hassle.",
       "nav_aria": "Footer",

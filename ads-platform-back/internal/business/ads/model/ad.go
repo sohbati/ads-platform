@@ -58,3 +58,25 @@ type UserAdItem struct {
 	Status       string  `json:"status"`
 	PublishedAt  *string `json:"published_at,omitempty"`
 }
+
+// PublicAd is the public details view of an active listing.
+type PublicAd struct {
+	ID           int64         `json:"id"`
+	Title        string        `json:"title"`
+	Description  string        `json:"description"`
+	PriceAmount  *int64        `json:"price_amount"`
+	PriceType    string        `json:"price_type"`
+	Currency     string        `json:"currency"`
+	CityID       int           `json:"city_id"`
+	CityName     string        `json:"city_name,omitempty"`
+	Neighborhood string        `json:"neighborhood,omitempty"`
+	Media        []PublicMedia `json:"media"`
+	PublishedAt  *string       `json:"published_at,omitempty"`
+}
+
+// PublicMedia is one photo on the public details page. URL is the full WebP.
+type PublicMedia struct {
+	URL     string `json:"url"`
+	Thumb   string `json:"thumb,omitempty"`
+	IsCover bool   `json:"is_cover"`
+}

@@ -39,6 +39,25 @@ type Ad struct {
 	PublishedAt  *string `json:"published_at"`
 }
 
+type PublicAd struct {
+	ID           int64         `json:"id"`
+	Title        string        `json:"title"`
+	Description  string        `json:"description"`
+	PriceAmount  *int64        `json:"price_amount"`
+	PriceType    string        `json:"price_type"`
+	Currency     string        `json:"currency"`
+	CityName     string        `json:"city_name"`
+	Neighborhood string        `json:"neighborhood"`
+	Media        []PublicMedia `json:"media"`
+	PublishedAt  *string       `json:"published_at"`
+}
+
+type PublicMedia struct {
+	URL     string `json:"url"`
+	Thumb   string `json:"thumb"`
+	IsCover bool   `json:"is_cover"`
+}
+
 // ErrNotFound marks 4xx responses (unknown place/category, bad params) so the
 // page can show an empty state instead of a service failure.
 var ErrNotFound = fmt.Errorf("search: no results for request")
@@ -83,6 +102,29 @@ func (c *SearchClient) Search(ctx context.Context, place, category, query string
 	var out SearchResponse
 	if err := json.Unmarshal(result.Body, &out); err != nil {
 		return nil, fmt.Errorf("search: parse %s: %w", path, err)
+	}
+	return &out, nil
+}
+
+func (c *SearchClient) GetAd(ctx context.Context, id int64) (*PublicAd, error) {
+	path := "/api/v1/ads/" + strconv.FormatInt(id, 10)
+	result, err := c.bff.Get(ctx, path, "")
+	if err != nil {
+		return nil, err
+	}
+	if result.StatusCode == http.StatusNotFound {
+		return nil, ErrNotFound
+	}
+	if result.StatusCode >= 400 && result.StatusCode < 500 {
+		return nil, ErrNotFound
+	}
+	if result.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("ad: %s: status %d", path, result.StatusCode)
+	}
+
+	var out PublicAd
+	if err := json.Unmarshal(result.Body, &out); err != nil {
+		return nil, fmt.Errorf("ad: parse %s: %w", path, err)
 	}
 	return &out, nil
 }

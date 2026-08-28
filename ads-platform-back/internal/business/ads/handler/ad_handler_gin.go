@@ -90,6 +90,21 @@ func (h *AdHandler) ListByUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"ads": items})
 }
 
+// GetPublic handles GET /api/v1/ads/:id
+func (h *AdHandler) GetPublic(c *gin.Context) {
+	adID, err := parseAdID(c.Param("id"))
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	ad, err := h.ads.GetPublic(c.Request.Context(), adID)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	c.JSON(http.StatusOK, ad)
+}
+
 // GetForOwner handles GET /api/v1/users/:userId/ads/:adId
 func (h *AdHandler) GetForOwner(c *gin.Context) {
 	userID, adID, err := parseOwnerIDs(c)

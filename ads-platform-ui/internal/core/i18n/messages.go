@@ -17,6 +17,7 @@ type Messages struct {
 	Error         ErrorMessages                   `json:"error"`
 	NewAd         NewAdMessages                   `json:"new_ad"`
 	MyAds         MyAdsMessages                   `json:"my_ads"`
+	AdDetail      AdDetailMessages                `json:"ad_detail"`
 	ApiErrors     map[string]string               `json:"api_errors"`
 	CategoryItems map[string]CategoryItemMessages `json:"category_items"`
 	CityNames     map[string]string               `json:"city_names"`
@@ -201,6 +202,15 @@ type MyAdsMessages struct {
 	Empty       string `json:"empty"`
 	Unavailable string `json:"unavailable"`
 	PostCta     string `json:"post_cta"`
+}
+
+type AdDetailMessages struct {
+	NotFound     string `json:"not_found"`
+	Unavailable  string `json:"unavailable"`
+	PrevPhoto    string `json:"prev_photo"`
+	NextPhoto    string `json:"next_photo"`
+	PhotoCounter string `json:"photo_counter"`
+	NoPhotos     string `json:"no_photos"`
 }
 
 type CategoryItemMessages struct {

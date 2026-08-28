@@ -34,3 +34,22 @@ type SearchAd struct {
 	HasPhoto    bool   `json:"has_photo"`
 	PublishedAt string `json:"published_at"`
 }
+
+// AdDetailPage is the public listing details page.
+type AdDetailPage struct {
+	i18n.Page
+	Ad          *AdDetail
+	NotFound    bool
+	Unavailable bool
+}
+
+// AdDetail is one public listing.
+type AdDetail struct {
+	ID          int64
+	Title       string
+	Price       string
+	Location    string
+	PublishedAt string
+	Description string
+	Images      []string
+}

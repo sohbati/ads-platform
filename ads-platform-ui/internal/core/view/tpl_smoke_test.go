@@ -30,7 +30,7 @@ func TestQueryAdsTemplateRenders(t *testing.T) {
 			TotalPages: 2,
 			NextURL:    "/query-ads?q=bike&page=2",
 			Ads: []viewmodel.SearchAd{
-				{Title: "Bike", Price: "1,000 IRR", Location: "Tehran", Thumbnail: "/t.jpg", HasPhoto: true, PublishedAt: "2026-08-01"},
+				{Title: "Bike", Price: "1,000 IRR", Location: "Tehran", Thumbnail: "/t.jpg", HasPhoto: true, PublishedAt: "2026-08-01", Href: "/ad/1"},
 				{Title: "Old bike", Price: "Negotiable"},
 			},
 		},
@@ -146,5 +146,52 @@ func TestMyInfoUserAdsTemplateRenders(t *testing.T) {
 		if err := tmpl.ExecuteTemplate(&buf, "myinfo_user_ads", data); err != nil {
 			t.Fatalf("execute myinfo_user_ads (%s): %v", name, err)
 		}
+	}
+}
+
+func TestAdDetailTemplateRenders(t *testing.T) {
+	tmpl, err := template.New("").Funcs(FuncMap(nil)).ParseGlob("../../../templates/**/*.gohtml")
+	if err != nil {
+		t.Fatalf("parse templates: %v", err)
+	}
+
+	withPhotos := viewmodel.AdDetailPage{
+		Page: i18n.Page{
+			Title: "t",
+			T: i18n.Messages{
+				AdDetail: i18n.AdDetailMessages{
+					PrevPhoto:    "Previous photo",
+					NextPhoto:    "Next photo",
+					PhotoCounter: "%d / %d",
+				},
+			},
+		},
+		Ad: &viewmodel.AdDetail{
+			Title:       "Bike",
+			Price:       "1,000 IRR",
+			Location:    "Tehran",
+			PublishedAt: "2026-08-01",
+			Description: "Nice bike",
+			Images:      []string{"/a.webp", "/b.webp"},
+		},
+	}
+	var buf bytes.Buffer
+	if err := tmpl.ExecuteTemplate(&buf, "ad_detail", withPhotos); err != nil {
+		t.Fatalf("execute ad_detail: %v", err)
+	}
+	if !bytes.Contains(buf.Bytes(), []byte("/a.webp")) || !bytes.Contains(buf.Bytes(), []byte("data-ad-next")) {
+		t.Fatalf("expected gallery markup, got %s", buf.String())
+	}
+
+	notFound := viewmodel.AdDetailPage{
+		Page: i18n.Page{
+			Title: "t",
+			T:     i18n.Messages{AdDetail: i18n.AdDetailMessages{NotFound: "missing"}},
+		},
+		NotFound: true,
+	}
+	buf.Reset()
+	if err := tmpl.ExecuteTemplate(&buf, "ad_detail", notFound); err != nil {
+		t.Fatalf("execute ad_detail not found: %v", err)
 	}
 }

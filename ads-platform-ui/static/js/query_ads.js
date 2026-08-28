@@ -42,15 +42,22 @@
     const media = ad.thumbnail
       ? '<img class="ad-card__img" src="' + escapeHtml(ad.thumbnail) + '" alt="" loading="lazy" />'
       : PLACEHOLDER;
+    const href = ad.href || (ad.id ? "/ad/" + ad.id : "");
+    const open = href
+      ? '<a class="ad-card is-appended" href="' + escapeHtml(href) + '">'
+      : '<div class="ad-card is-appended">';
+    const close = href ? "</a>" : "</div>";
     const meta = [ad.location, ad.published_at].filter(Boolean).join(" · ");
     return (
-      '<li class="ad-card is-appended">' +
+      "<li>" +
+        open +
         '<div class="ad-card__media">' + media + "</div>" +
         '<div class="ad-card__body">' +
           '<h2 class="ad-card__title">' + escapeHtml(ad.title) + "</h2>" +
           '<p class="ad-card__price">' + escapeHtml(ad.price) + "</p>" +
           '<p class="ad-card__meta">' + escapeHtml(meta) + "</p>" +
         "</div>" +
+        close +
       "</li>"
     );
   }

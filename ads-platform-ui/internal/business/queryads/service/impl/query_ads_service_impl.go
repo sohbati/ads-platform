@@ -90,12 +90,80 @@ func (s *QueryAdsServiceImpl) BuildSearchPage(ctx context.Context, loc i18n.Loca
 	return vm
 }
 
+func (s *QueryAdsServiceImpl) BuildDetailPage(ctx context.Context, loc i18n.Locale, appName, citySlug, currentPath string, locationSlugs []string, adID int64) viewmodel.AdDetailPage {
+	page := i18n.BuildPage(s.i18n, s.cities, loc, appName, citySlug, currentPath, locationSlugs)
+	t := s.i18n.MessagesFor(loc)
+	vm := viewmodel.AdDetailPage{Page: page}
+
+	if adID <= 0 {
+		vm.NotFound = true
+		page.Title = appName + " — " + t.AdDetail.NotFound
+		vm.Page = page
+		return vm
+	}
+
+	ad, err := s.search.GetAd(ctx, adID)
+	if err != nil {
+		if errors.Is(err, searchclient.ErrNotFound) {
+			vm.NotFound = true
+			page.Title = appName + " — " + t.AdDetail.NotFound
+		} else {
+			vm.Unavailable = true
+			page.Title = appName + " — " + t.AdDetail.Unavailable
+		}
+		vm.Page = page
+		return vm
+	}
+
+	page.Title = appName + " — " + ad.Title
+	vm.Page = page
+	vm.Ad = toAdDetail(ad, t, s.mediaCDN)
+	return vm
+}
+
+func toAdDetail(ad *searchclient.PublicAd, t i18n.Messages, mediaCDN string) *viewmodel.AdDetail {
+	out := &viewmodel.AdDetail{
+		ID:          ad.ID,
+		Title:       ad.Title,
+		Description: ad.Description,
+		Location:    ad.CityName,
+		Images:      make([]string, 0, len(ad.Media)),
+	}
+	if ad.Neighborhood != "" {
+		if out.Location != "" {
+			out.Location += "، " + ad.Neighborhood
+		} else {
+			out.Location = ad.Neighborhood
+		}
+	}
+	if ad.PriceAmount != nil {
+		out.Price = formatAmount(*ad.PriceAmount) + " " + t.Search.Currency
+	} else {
+		out.Price = t.Search.Negotiable
+	}
+	if ad.PublishedAt != nil {
+		if ts, err := time.Parse(time.RFC3339, *ad.PublishedAt); err == nil {
+			out.PublishedAt = ts.Format("2006-01-02")
+		}
+	}
+	for _, m := range ad.Media {
+		if u := media.PublicURL(mediaCDN, m.URL); u != "" {
+			out.Images = append(out.Images, u)
+		}
+	}
+	return out
+}
+
 func toSearchAd(ad searchclient.Ad, t i18n.Messages, mediaCDN string) viewmodel.SearchAd {
 	out := viewmodel.SearchAd{
+		ID:        ad.ID,
 		Title:     ad.Title,
 		Location:  ad.CityName,
 		Thumbnail: media.PublicURL(mediaCDN, ad.Thumbnail),
 		HasPhoto:  ad.HasPhoto,
+	}
+	if ad.ID > 0 {
+		out.Href = "/ad/" + strconv.FormatInt(ad.ID, 10)
 	}
 	if ad.Neighborhood != "" {
 		if out.Location != "" {

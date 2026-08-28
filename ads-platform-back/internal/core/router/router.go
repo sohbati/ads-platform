@@ -88,6 +88,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 		api.GET("/q/:place/:category", r.container.Search.SearchHandler.SearchAds)
 
 		api.POST("/ads", r.container.Ads.AdHandler.Create)
+		api.GET("/ads/:id", r.container.Ads.AdHandler.GetPublic)
 	}
 
 	return router

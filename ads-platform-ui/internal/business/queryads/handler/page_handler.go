@@ -36,6 +36,25 @@ func (h *PageHandler) Index(c *gin.Context) {
 	c.HTML(http.StatusOK, "query_ads", page)
 }
 
+func (h *PageHandler) Show(c *gin.Context) {
+	adID, _ := strconv.ParseInt(c.Param("id"), 10, 64)
+	page := h.service.BuildDetailPage(
+		c.Request.Context(),
+		i18n.FromContext(c),
+		h.config.AppName,
+		i18n.CityFromContext(c),
+		c.Request.URL.Path,
+		i18n.LocationsFromContext(c),
+		adID,
+	)
+	page.Page.DefaultCountryCode = h.config.DefaultCountryCode
+	status := http.StatusOK
+	if page.NotFound {
+		status = http.StatusNotFound
+	}
+	c.HTML(status, "ad_detail", page)
+}
+
 func searchParams(c *gin.Context, pageNum int) service.SearchParams {
 	return service.SearchParams{
 		Query:    strings.TrimSpace(c.Query("q")),

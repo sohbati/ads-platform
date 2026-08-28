@@ -131,6 +131,23 @@ func (s *adService) GetForOwner(ctx context.Context, userID, adID int64) (*model
 	return s.loadOwned(ctx, userID, adID)
 }
 
+func (s *adService) GetPublic(ctx context.Context, adID int64) (*model.PublicAd, error) {
+	if adID <= 0 {
+		return nil, exception.NewAppError(errorcode.ErrAdNotFound.Code, errorcode.ErrAdNotFound.HttpStatus)
+	}
+	ad, err := s.ads.GetByID(ctx, adID)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, exception.NewAppError(errorcode.ErrAdNotFound.Code, errorcode.ErrAdNotFound.HttpStatus)
+		}
+		return nil, err
+	}
+	if ad == nil || ad.Status != model.AdStatusActive {
+		return nil, exception.NewAppError(errorcode.ErrAdNotFound.Code, errorcode.ErrAdNotFound.HttpStatus)
+	}
+	return toPublicAd(ad, s.cityNames(ctx, []model.Ad{*ad})), nil
+}
+
 func (s *adService) Update(ctx context.Context, adID int64, in service.CreateAdInput) (*model.Ad, error) {
 	existing, err := s.loadOwned(ctx, in.UserID, adID)
 	if err != nil {
@@ -314,13 +331,63 @@ func toUserAdItem(ad model.Ad, cityNames map[int]string) model.UserAdItem {
 		}
 	}
 
+	item.Neighborhood = neighborhoodFromLocation(ad.Location)
+	return item
+}
+
+func toPublicAd(ad *model.Ad, cityNames map[int]string) *model.PublicAd {
+	out := &model.PublicAd{
+		ID:          ad.ID,
+		Title:       ad.Title,
+		Description: ad.Description,
+		PriceAmount: ad.PriceAmount,
+		PriceType:   ad.PriceType,
+		Currency:    ad.Currency,
+		CityID:      ad.CityID,
+		Media:       publicMedia(ad.Media),
+	}
+	if name, ok := cityNames[ad.CityID]; ok {
+		out.CityName = name
+	}
+	out.Neighborhood = neighborhoodFromLocation(ad.Location)
+	if ad.PublishedAt != nil {
+		s := ad.PublishedAt.UTC().Format(time.RFC3339)
+		out.PublishedAt = &s
+	}
+	return out
+}
+
+func neighborhoodFromLocation(raw json.RawMessage) string {
 	var loc map[string]any
-	if len(ad.Location) > 0 && json.Unmarshal(ad.Location, &loc) == nil {
+	if len(raw) > 0 && json.Unmarshal(raw, &loc) == nil {
 		if n, ok := loc["neighborhood"].(string); ok {
-			item.Neighborhood = n
+			return n
 		}
 	}
-	return item
+	return ""
+}
+
+func publicMedia(raw json.RawMessage) []model.PublicMedia {
+	var items []map[string]any
+	if len(raw) == 0 || json.Unmarshal(raw, &items) != nil || len(items) == 0 {
+		return []model.PublicMedia{}
+	}
+	out := make([]model.PublicMedia, 0, len(items))
+	for _, item := range items {
+		url, _ := item["url"].(string)
+		if url == "" {
+			continue
+		}
+		m := model.PublicMedia{URL: url}
+		if thumb, ok := item["thumb"].(string); ok {
+			m.Thumb = thumb
+		}
+		if cover, ok := item["is_cover"].(bool); ok {
+			m.IsCover = cover
+		}
+		out = append(out, m)
+	}
+	return out
 }
 
 func (s *adService) validate(in service.CreateAdInput) error {

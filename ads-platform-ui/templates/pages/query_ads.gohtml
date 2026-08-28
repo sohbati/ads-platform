@@ -22,7 +22,8 @@
     {{ else }}
     <ul class="ad-grid" id="ad-grid">
       {{ range $s.Ads }}
-      <li class="ad-card">
+      <li>
+        {{ if .Href }}<a class="ad-card" href="{{ .Href }}">{{ else }}<div class="ad-card">{{ end }}
         <div class="ad-card__media">
           {{ if .Thumbnail }}
           <img class="ad-card__img" src="{{ .Thumbnail }}" alt="" loading="lazy" />
@@ -41,6 +42,7 @@
             {{- .Location }}{{ if and .Location .PublishedAt }} · {{ end }}{{ .PublishedAt -}}
           </p>
         </div>
+        {{ if .Href }}</a>{{ else }}</div>{{ end }}
       </li>
       {{ end }}
     </ul>

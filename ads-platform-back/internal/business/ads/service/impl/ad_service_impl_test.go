@@ -442,6 +442,39 @@ func TestCreateAdPreservesMultilineDescription(t *testing.T) {
 	}
 }
 
+func TestGetPublicReturnsActiveWithFullMedia(t *testing.T) {
+	ads := newFakeAdRepo()
+	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+	ad, err := svc.Create(context.Background(), validInput())
+	if err != nil {
+		t.Fatal(err)
+	}
+	ad.Media = json.RawMessage(`[{"url":"/ads-media/ads/7/7_1.webp","thumb":"/ads-media/ads/7/7_1-t.webp","is_cover":true},{"url":"/ads-media/ads/7/7_2.webp","thumb":"/ads-media/ads/7/7_2-t.webp"}]`)
+	ads.ads[ad.ID] = *ad
+
+	got, err := svc.GetPublic(context.Background(), ad.ID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got.Title != ad.Title || got.Description != ad.Description || got.CityName != "Tehran" || got.Neighborhood != "Vanak" {
+		t.Fatalf("public ad: %+v", got)
+	}
+	if len(got.Media) != 2 || got.Media[0].URL != "/ads-media/ads/7/7_1.webp" || got.Media[1].URL != "/ads-media/ads/7/7_2.webp" {
+		t.Fatalf("media: %+v", got.Media)
+	}
+
+	_, err = svc.GetPublic(context.Background(), 0)
+	assertAppErrorCode(t, err, "AD_NOT_FOUND")
+	_, err = svc.GetPublic(context.Background(), 99)
+	assertAppErrorCode(t, err, "AD_NOT_FOUND")
+
+	deleted := ads.ads[ad.ID]
+	deleted.Status = model.AdStatusDeleted
+	ads.ads[ad.ID] = deleted
+	_, err = svc.GetPublic(context.Background(), ad.ID)
+	assertAppErrorCode(t, err, "AD_NOT_FOUND")
+}
+
 func TestGetForOwnerHidesOthersAndDeleted(t *testing.T) {
 	ads := newFakeAdRepo()
 	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)

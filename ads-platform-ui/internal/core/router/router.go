@@ -63,6 +63,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 	})
 
 	router.GET("/query-ads", r.container.QueryAds.PageHandler.Index)
+	router.GET("/ad/:id", r.container.QueryAds.PageHandler.Show)
 
 	router.GET("/login", r.container.Auth.PageHandler.Login)
 
