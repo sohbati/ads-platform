@@ -162,7 +162,11 @@
       "neighborhood_placeholder": "مثلاً ونک",
       "details": "ویژگی‌ها",
       "pictures": "عکس‌ها",
-      "pictures_hint": "حداکثر %d عکس، فرمت JPG، PNG یا WebP. با فرمت WebP ذخیره می‌شود.",
+      "pictures_hint": "حداکثر %d عکس، فرمت JPG، PNG یا WebP.",
+      "pictures_add": "افزودن عکس",
+      "picture_remove": "حذف عکس",
+      "picture_view": "مشاهده عکس",
+      "picture_close": "بستن",
       "submit": "ثبت آگهی",
       "submitting": "در حال ثبت…",
       "success": "آگهی ثبت شد",
@@ -174,7 +178,7 @@
       "edit_intro": "مشخصات آگهی را تغییر دهید و ذخیره کنید.",
       "submit_edit": "ذخیره تغییرات",
       "submitting_edit": "در حال ذخیره…",
-      "pictures_replace_hint": "عکس جدید انتخاب کنید تا جایگزین عکس‌های فعلی شود.",
+      "pictures_replace_hint": "هر عکس فعلی را حذف کنید یا عکس جدید اضافه کنید. عکس‌های جدید به عکس‌های باقی‌مانده اضافه می‌شوند.",
       "not_found": "این آگهی پیدا نشد یا متعلق به شما نیست."
     },
     "api_errors": {

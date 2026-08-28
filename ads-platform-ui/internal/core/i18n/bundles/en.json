@@ -162,7 +162,11 @@
       "neighborhood_placeholder": "e.g. Vanak",
       "details": "Attributes",
       "pictures": "Photos",
-      "pictures_hint": "Up to %d photos — JPG, PNG, or WebP. Stored as WebP.",
+      "pictures_hint": "Up to %d photos — JPG, PNG, or WebP. Add several at a time, then remove any photo before publishing.",
+      "pictures_add": "Add photos",
+      "picture_remove": "Remove photo",
+      "picture_view": "View photo",
+      "picture_close": "Close",
       "submit": "Publish ad",
       "submitting": "Publishing…",
       "success": "Ad published",
@@ -174,7 +178,7 @@
       "edit_intro": "Update the details and save your listing.",
       "submit_edit": "Save changes",
       "submitting_edit": "Saving…",
-      "pictures_replace_hint": "Choose new photos to replace the current ones.",
+      "pictures_replace_hint": "Remove any current photo, or add new ones. New photos are added to the remaining set.",
       "not_found": "This ad was not found or does not belong to you."
     },
     "api_errors": {

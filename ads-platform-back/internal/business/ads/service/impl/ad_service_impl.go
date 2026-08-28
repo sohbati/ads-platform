@@ -184,7 +184,17 @@ func (s *adService) Update(ctx context.Context, adID int64, in service.CreateAdI
 	}
 	existing.Location = buildLocation(lat, lng, in.Neighborhood)
 
-	if len(in.Pictures) > 0 {
+	if in.KeepMedia != nil {
+		media, err := s.mergeMedia(ctx, existing, *in.KeepMedia, in.Pictures)
+		if err != nil {
+			return nil, err
+		}
+		raw, err := json.Marshal(media)
+		if err != nil {
+			return nil, err
+		}
+		existing.Media = raw
+	} else if len(in.Pictures) > 0 {
 		media, err := s.storePictures(ctx, existing, in.Pictures)
 		if err != nil {
 			return nil, err
@@ -437,7 +447,11 @@ func (s *adService) validate(in service.CreateAdInput) error {
 		return exception.NewAppError(errorcode.ErrAdInvalidAttrs.Code, errorcode.ErrAdInvalidAttrs.HttpStatus)
 	}
 
-	if len(in.Pictures) > s.maxPics {
+	kept := 0
+	if in.KeepMedia != nil {
+		kept = len(*in.KeepMedia)
+	}
+	if len(in.Pictures)+kept > s.maxPics {
 		return exception.NewAppError(
 			errorcode.ErrAdTooManyPictures.Code, errorcode.ErrAdTooManyPictures.HttpStatus, fmt.Sprintf("%d", s.maxPics))
 	}
@@ -500,6 +514,53 @@ type mediaItem struct {
 	Thumb       string `json:"thumb"`
 	ContentType string `json:"content_type"`
 	IsCover     bool   `json:"is_cover"`
+}
+
+func (s *adService) mergeMedia(ctx context.Context, ad *model.Ad, keepURLs []string, pics []service.PictureInput) ([]mediaItem, error) {
+	kept := keepExistingMedia(ad.Media, keepURLs)
+	if len(pics) == 0 {
+		return markCover(kept), nil
+	}
+	added, err := s.storePictures(ctx, ad, pics)
+	if err != nil {
+		return nil, err
+	}
+	return markCover(append(kept, added...)), nil
+}
+
+func keepExistingMedia(raw json.RawMessage, keepURLs []string) []mediaItem {
+	var items []mediaItem
+	if len(raw) == 0 || json.Unmarshal(raw, &items) != nil {
+		return []mediaItem{}
+	}
+	byURL := make(map[string]mediaItem, len(items))
+	for _, item := range items {
+		if item.URL == "" {
+			continue
+		}
+		byURL[item.URL] = item
+	}
+	out := make([]mediaItem, 0, len(keepURLs))
+	seen := make(map[string]struct{}, len(keepURLs))
+	for _, u := range keepURLs {
+		item, ok := byURL[u]
+		if !ok {
+			continue
+		}
+		if _, dup := seen[u]; dup {
+			continue
+		}
+		seen[u] = struct{}{}
+		out = append(out, item)
+	}
+	return out
+}
+
+func markCover(items []mediaItem) []mediaItem {
+	for i := range items {
+		items[i].IsCover = i == 0
+	}
+	return items
 }
 
 func (s *adService) storePictures(ctx context.Context, ad *model.Ad, pics []service.PictureInput) ([]mediaItem, error) {

@@ -23,6 +23,7 @@ type CreateAdInput struct {
 	Attrs        json.RawMessage
 	Contact      json.RawMessage
 	Pictures     []PictureInput
+	KeepMedia    *[]string
 }
 
 type PictureInput struct {

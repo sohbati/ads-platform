@@ -528,6 +528,74 @@ func TestUpdateAdOwnerFields(t *testing.T) {
 	}
 }
 
+func TestUpdateKeepsAndDropsExistingMedia(t *testing.T) {
+	ads := newFakeAdRepo()
+	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+	ad, err := svc.Create(context.Background(), validInput())
+	if err != nil {
+		t.Fatal(err)
+	}
+	ad.Media = json.RawMessage(`[{"url":"/ads-media/ads/7/7_1.webp","thumb":"/ads-media/ads/7/7_1-t.webp","is_cover":true},{"url":"/ads-media/ads/7/7_2.webp","thumb":"/ads-media/ads/7/7_2-t.webp"}]`)
+	ads.ads[ad.ID] = *ad
+
+	keep := []string{"/ads-media/ads/7/7_2.webp"}
+	in := validInput()
+	in.KeepMedia = &keep
+	updated, err := svc.Update(context.Background(), ad.ID, in)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var media []map[string]any
+	if err := json.Unmarshal(updated.Media, &media); err != nil {
+		t.Fatal(err)
+	}
+	if len(media) != 1 || media[0]["url"] != "/ads-media/ads/7/7_2.webp" {
+		t.Fatalf("media=%s", updated.Media)
+	}
+	if media[0]["is_cover"] != true {
+		t.Fatalf("expected remaining photo to be cover, media=%s", updated.Media)
+	}
+
+	empty := []string{}
+	in.KeepMedia = &empty
+	updated, err = svc.Update(context.Background(), ad.ID, in)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := json.Unmarshal(updated.Media, &media); err != nil {
+		t.Fatal(err)
+	}
+	if len(media) != 0 {
+		t.Fatalf("expected no media, got %s", updated.Media)
+	}
+}
+
+func TestUpdateIgnoresKeepMediaFromOtherAd(t *testing.T) {
+	ads := newFakeAdRepo()
+	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+	ad, err := svc.Create(context.Background(), validInput())
+	if err != nil {
+		t.Fatal(err)
+	}
+	ad.Media = json.RawMessage(`[{"url":"/ads-media/ads/7/7_1.webp","is_cover":true}]`)
+	ads.ads[ad.ID] = *ad
+
+	keep := []string{"/ads-media/ads/99/99_1.webp"}
+	in := validInput()
+	in.KeepMedia = &keep
+	updated, err := svc.Update(context.Background(), ad.ID, in)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var media []map[string]any
+	if err := json.Unmarshal(updated.Media, &media); err != nil {
+		t.Fatal(err)
+	}
+	if len(media) != 0 {
+		t.Fatalf("foreign url should be dropped, media=%s", updated.Media)
+	}
+}
+
 func TestUpdateAdRejectsOtherUser(t *testing.T) {
 	ads := newFakeAdRepo()
 	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)

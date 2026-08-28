@@ -41,6 +41,8 @@ type Prefill struct {
 }
 
 type PrefillMedia struct {
-	URL   string `json:"url,omitempty"`
-	Thumb string `json:"thumb,omitempty"`
+	URL         string `json:"url,omitempty"`
+	Thumb       string `json:"thumb,omitempty"`
+	StoredURL   string `json:"stored_url,omitempty"`
+	StoredThumb string `json:"stored_thumb,omitempty"`
 }

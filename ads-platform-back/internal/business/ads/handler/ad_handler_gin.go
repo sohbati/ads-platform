@@ -37,6 +37,7 @@ type createAdRequest struct {
 	Currency     string          `json:"currency"`
 	Attrs        json.RawMessage `json:"attrs"`
 	Contact      json.RawMessage `json:"contact"`
+	KeepMedia    *[]string       `json:"keep_media"`
 }
 
 // Create handles POST /api/v1/ads
@@ -150,6 +151,7 @@ func (h *AdHandler) Update(c *gin.Context) {
 		Attrs:        req.Attrs,
 		Contact:      req.Contact,
 		Pictures:     pics,
+		KeepMedia:    req.KeepMedia,
 	})
 	if err != nil {
 		middleware.HandleError(c, err, 0)

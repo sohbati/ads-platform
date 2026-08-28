@@ -216,9 +216,11 @@ func mediaFromJSON(raw json.RawMessage, mediaCDN string) []viewmodel.PrefillMedi
 	for _, item := range items {
 		m := viewmodel.PrefillMedia{}
 		if u, ok := item["url"].(string); ok {
+			m.StoredURL = u
 			m.URL = media.PublicURL(mediaCDN, u)
 		}
 		if t, ok := item["thumb"].(string); ok {
+			m.StoredThumb = t
 			m.Thumb = media.PublicURL(mediaCDN, t)
 		}
 		if m.URL == "" && m.Thumb == "" {

@@ -23,6 +23,17 @@
   const messageEl = document.getElementById("new-ad-message");
   const submitBtn = document.getElementById("new-ad-submit");
   const picturesInput = document.getElementById("new-ad-pictures");
+  const photoGrid = document.getElementById("new-ad-photo-grid");
+  const addPhotosBtn = document.getElementById("new-ad-add-photos");
+  const lightbox = document.getElementById("new-ad-lightbox");
+  const lightboxImg = lightbox ? lightbox.querySelector("[data-photo-full]") : null;
+  const lightboxCount = lightbox ? lightbox.querySelector("[data-photo-count]") : null;
+  const lightboxPrev = lightbox ? lightbox.querySelector("[data-photo-prev]") : null;
+  const lightboxNext = lightbox ? lightbox.querySelector("[data-photo-next]") : null;
+
+  const pendingPhotos = [];
+  let existingPhotos = [];
+  let lightboxIndex = 0;
 
   const resolveError = typeof window.resolveApiError === "function"
     ? window.resolveApiError
@@ -290,9 +301,9 @@
       return;
     }
 
-    const files = picturesInput && picturesInput.files ? Array.from(picturesInput.files) : [];
+    const files = pendingPhotos.map(function (item) { return item.file; });
     const maxPics = boot.maxPictures || 8;
-    if (files.length > maxPics) {
+    if (files.length + existingPhotos.length > maxPics) {
       setMessage(form.dataset.tooMany || "", true);
       return;
     }
@@ -315,6 +326,9 @@
     };
     if (priceAmount != null) {
       payload.price_amount = priceAmount;
+    }
+    if (isEdit) {
+      payload.keep_media = existingPhotos.map(function (item) { return item.storedUrl; }).filter(Boolean);
     }
 
     submitBtn.disabled = true;
@@ -431,17 +445,200 @@
   }
 
   function renderExistingMedia(media) {
-    const root = document.getElementById("new-ad-existing-pictures");
-    if (!root || !media || !media.length) return;
-    root.innerHTML = "";
-    media.forEach(function (item) {
-      const src = (item && (item.thumb || item.url)) || "";
-      if (!src) return;
-      const img = document.createElement("img");
-      img.src = src;
-      img.alt = "";
-      root.appendChild(img);
+    existingPhotos = [];
+    (media || []).forEach(function (item) {
+      const full = (item && (item.url || item.thumb)) || "";
+      const thumb = (item && (item.thumb || item.url)) || "";
+      const storedUrl = (item && (item.stored_url || item.storedUrl)) || "";
+      if (!full && !thumb) return;
+      existingPhotos.push({
+        thumb: thumb || full,
+        full: full || thumb,
+        storedUrl: storedUrl,
+      });
     });
-    if (root.childNodes.length) root.hidden = false;
+    renderPhotoGrid();
   }
+
+  function tAttr(name, fallback) {
+    return form.getAttribute(name) || fallback || "";
+  }
+
+  function isAllowedImage(file) {
+    const type = (file.type || "").toLowerCase();
+    if (type === "image/jpeg" || type === "image/png" || type === "image/webp") return true;
+    return /\.(jpe?g|png|webp)$/i.test(file.name || "");
+  }
+
+  function alreadyPending(file) {
+    return pendingPhotos.some(function (item) {
+      return item.file.name === file.name &&
+        item.file.size === file.size &&
+        item.file.lastModified === file.lastModified;
+    });
+  }
+
+  function addPendingFiles(fileList) {
+    const maxPics = boot.maxPictures || 8;
+    const incoming = Array.prototype.slice.call(fileList || []);
+    let skipped = false;
+    incoming.forEach(function (file) {
+      if (!isAllowedImage(file) || alreadyPending(file)) return;
+      if (pendingPhotos.length + existingPhotos.length >= maxPics) {
+        skipped = true;
+        return;
+      }
+      pendingPhotos.push({
+        file: file,
+        url: URL.createObjectURL(file),
+      });
+    });
+    if (picturesInput) picturesInput.value = "";
+    renderPhotoGrid();
+    if (skipped) setMessage(form.dataset.tooMany || "", true);
+    else setMessage("");
+  }
+
+  function removePendingAt(index) {
+    const item = pendingPhotos[index];
+    if (!item) return;
+    if (item.url) URL.revokeObjectURL(item.url);
+    pendingPhotos.splice(index, 1);
+    afterPhotoRemoved();
+  }
+
+  function removeExistingAt(index) {
+    if (!existingPhotos[index]) return;
+    existingPhotos.splice(index, 1);
+    afterPhotoRemoved();
+  }
+
+  function afterPhotoRemoved() {
+    if (lightbox && !lightbox.hidden) {
+      const sources = lightboxSources();
+      if (!sources.length) closeLightbox();
+      else showLightbox(Math.min(lightboxIndex, sources.length - 1));
+    }
+    renderPhotoGrid();
+  }
+
+  function visiblePhotos() {
+    const out = [];
+    existingPhotos.forEach(function (item, index) {
+      out.push({ src: item.thumb, full: item.full, pending: false, existingIndex: index });
+    });
+    pendingPhotos.forEach(function (item, index) {
+      out.push({ src: item.url, full: item.url, pending: true, pendingIndex: index });
+    });
+    return out;
+  }
+
+  function lightboxSources() {
+    return visiblePhotos().map(function (item) { return item.full; });
+  }
+
+  function formatCounter(current, total) {
+    let used = 0;
+    const template = tAttr("data-photo-counter", "%d / %d");
+    return template.replace(/%d/g, function () {
+      used += 1;
+      return used === 1 ? String(current) : String(total);
+    });
+  }
+
+  function renderPhotoGrid() {
+    if (!photoGrid) return;
+    photoGrid.innerHTML = "";
+    const photos = visiblePhotos();
+    photos.forEach(function (item, index) {
+      const tile = document.createElement("div");
+      tile.className = "new-ad__photo";
+
+      const openBtn = document.createElement("button");
+      openBtn.type = "button";
+      openBtn.className = "new-ad__photo-open";
+      openBtn.setAttribute("aria-label", tAttr("data-picture-view", ""));
+      const img = document.createElement("img");
+      img.src = item.src;
+      img.alt = "";
+      openBtn.appendChild(img);
+      openBtn.addEventListener("click", function () { showLightbox(index); });
+      tile.appendChild(openBtn);
+
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "new-ad__photo-remove";
+      removeBtn.setAttribute("aria-label", tAttr("data-picture-remove", ""));
+      removeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/></svg>';
+      removeBtn.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (item.pending) removePendingAt(item.pendingIndex);
+        else removeExistingAt(item.existingIndex);
+      });
+      tile.appendChild(removeBtn);
+      photoGrid.appendChild(tile);
+    });
+
+    const maxPics = boot.maxPictures || 8;
+    if (addPhotosBtn) addPhotosBtn.disabled = (pendingPhotos.length + existingPhotos.length) >= maxPics;
+  }
+
+  function showLightbox(index) {
+    const sources = lightboxSources();
+    if (!lightbox || !lightboxImg || !sources.length) return;
+    lightboxIndex = (index + sources.length) % sources.length;
+    lightboxImg.src = sources[lightboxIndex];
+    if (lightboxCount) {
+      lightboxCount.textContent = formatCounter(lightboxIndex + 1, sources.length);
+      lightboxCount.hidden = sources.length < 2;
+    }
+    const many = sources.length > 1;
+    if (lightboxPrev) lightboxPrev.hidden = !many;
+    if (lightboxNext) lightboxNext.hidden = !many;
+    lightbox.hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.hidden = true;
+    if (lightboxImg) lightboxImg.removeAttribute("src");
+    document.body.style.overflow = "";
+  }
+
+  function stepLightbox(delta) {
+    const sources = lightboxSources();
+    if (sources.length < 2) return;
+    showLightbox(lightboxIndex + delta);
+  }
+
+  if (addPhotosBtn && picturesInput) {
+    addPhotosBtn.addEventListener("click", function () {
+      if (addPhotosBtn.disabled) return;
+      picturesInput.click();
+    });
+  }
+  if (picturesInput) {
+    picturesInput.addEventListener("change", function () {
+      addPendingFiles(picturesInput.files);
+    });
+  }
+  if (lightbox) {
+    const closeBtn = lightbox.querySelector("[data-photo-close]");
+    if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
+    if (lightboxPrev) lightboxPrev.addEventListener("click", function () { stepLightbox(-1); });
+    if (lightboxNext) lightboxNext.addEventListener("click", function () { stepLightbox(1); });
+    lightbox.addEventListener("click", function (ev) {
+      if (ev.target === lightbox) closeLightbox();
+    });
+  }
+  document.addEventListener("keydown", function (ev) {
+    if (!lightbox || lightbox.hidden) return;
+    if (ev.key === "Escape") closeLightbox();
+    if (ev.key === "ArrowLeft") stepLightbox(-1);
+    if (ev.key === "ArrowRight") stepLightbox(1);
+  });
+
+  renderPhotoGrid();
 })();

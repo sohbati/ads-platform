@@ -14,6 +14,13 @@
     data-need-title="{{ .T.NewAd.NeedTitle }}"
     data-need-description="{{ .T.NewAd.NeedDescription }}"
     data-too-many="{{ .T.NewAd.TooManyPictures }}"
+    data-pictures-add="{{ .T.NewAd.PicturesAdd }}"
+    data-picture-remove="{{ .T.NewAd.PictureRemove }}"
+    data-picture-view="{{ .T.NewAd.PictureView }}"
+    data-picture-close="{{ .T.NewAd.PictureClose }}"
+    data-photo-prev="{{ .T.AdDetail.PrevPhoto }}"
+    data-photo-next="{{ .T.AdDetail.NextPhoto }}"
+    data-photo-counter="{{ .T.AdDetail.PhotoCounter }}"
     data-city-required="{{ .T.NewAd.CityRequired }}"
     data-submitting="{{ if eq .Bootstrap.Mode "edit" }}{{ .T.NewAd.SubmittingEdit }}{{ else }}{{ .T.NewAd.Submitting }}{{ end }}"
     data-submit-label="{{ if eq .Bootstrap.Mode "edit" }}{{ .T.NewAd.SubmitEdit }}{{ else }}{{ .T.NewAd.Submit }}{{ end }}"
@@ -72,19 +79,39 @@
     </fieldset>
 
     <div class="new-ad__field">
-      <label class="new-ad__label" for="new-ad-pictures">{{ .T.NewAd.Pictures }}</label>
+      <span class="new-ad__label">{{ .T.NewAd.Pictures }}</span>
       {{ if eq .Bootstrap.Mode "edit" }}
       <p class="new-ad__hint">{{ .T.NewAd.PicturesReplaceHint }}</p>
-      <div id="new-ad-existing-pictures" class="new-ad__existing" hidden></div>
       {{ else }}
       <p class="new-ad__hint">{{ format .T.NewAd.PicturesHint .Bootstrap.MaxPictures }}</p>
       {{ end }}
-      <input id="new-ad-pictures" name="pictures" type="file" accept="image/jpeg,image/png,image/webp" multiple />
+      <div id="new-ad-photo-grid" class="new-ad__photo-grid"></div>
+      <input id="new-ad-pictures" class="visually-hidden" name="pictures" type="file" accept="image/jpeg,image/png,image/webp" multiple />
+      <button type="button" class="new-ad__add-photos" id="new-ad-add-photos">{{ .T.NewAd.PicturesAdd }}</button>
     </div>
 
     <p id="new-ad-message" class="new-ad__message" role="status"></p>
     <button type="submit" class="btn btn--primary btn--lg" id="new-ad-submit">{{ if eq .Bootstrap.Mode "edit" }}{{ .T.NewAd.SubmitEdit }}{{ else }}{{ .T.NewAd.Submit }}{{ end }}</button>
   </form>
+  <div id="new-ad-lightbox" class="photo-lightbox" hidden>
+    <button type="button" class="photo-lightbox__close" data-photo-close aria-label="{{ .T.NewAd.PictureClose }}">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <button type="button" class="photo-lightbox__nav photo-lightbox__nav--prev" data-photo-prev aria-label="{{ .T.AdDetail.PrevPhoto }}">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M14.5 5.5 8 12l6.5 6.5" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <img class="photo-lightbox__img" data-photo-full alt="" />
+    <button type="button" class="photo-lightbox__nav photo-lightbox__nav--next" data-photo-next aria-label="{{ .T.AdDetail.NextPhoto }}">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9.5 5.5 16 12l-6.5 6.5" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <span class="photo-lightbox__count" data-photo-count></span>
+  </div>
   {{ end }}
 </section>
 {{ template "page_close" . }}

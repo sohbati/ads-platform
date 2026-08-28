@@ -183,6 +183,10 @@ type NewAdMessages struct {
 	Details                 string `json:"details"`
 	Pictures                string `json:"pictures"`
 	PicturesHint            string `json:"pictures_hint"`
+	PicturesAdd             string `json:"pictures_add"`
+	PictureRemove           string `json:"picture_remove"`
+	PictureView             string `json:"picture_view"`
+	PictureClose            string `json:"picture_close"`
 	Submit                  string `json:"submit"`
 	Submitting              string `json:"submitting"`
 	Success                 string `json:"success"`

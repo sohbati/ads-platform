@@ -60,9 +60,18 @@ func TestNewAdTemplateRenders(t *testing.T) {
 			CityDisplayName: "Tehran",
 			T: i18n.Messages{
 				NewAd: i18n.NewAdMessages{
-					Intro:        "intro",
-					PicturesHint: "Up to %d photos",
-					Submit:       "Publish",
+					Intro:         "intro",
+					PicturesHint:  "Up to %d photos",
+					PicturesAdd:   "Add photos",
+					PictureRemove: "Remove photo",
+					PictureView:   "View photo",
+					PictureClose:  "Close",
+					Submit:        "Publish",
+				},
+				AdDetail: i18n.AdDetailMessages{
+					PrevPhoto:    "Previous photo",
+					NextPhoto:    "Next photo",
+					PhotoCounter: "%d / %d",
 				},
 			},
 		},
