@@ -10,6 +10,7 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  background-color: var(--color-bg);
 }
 
 body {
@@ -18,7 +19,9 @@ body {
   font-size: 1rem;
   line-height: 1.5;
   color: var(--color-text);
-  background: var(--color-bg);
+  background-color: var(--color-bg);
+  background-image: linear-gradient(180deg, var(--color-bg-top) 0%, var(--color-bg) 38%, var(--color-bg-mid) 100%);
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
 }
 

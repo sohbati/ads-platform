@@ -48,13 +48,15 @@
       : '<div class="ad-card is-appended">';
     const close = href ? "</a>" : "</div>";
     const meta = [ad.location, ad.published_at].filter(Boolean).join(" · ");
+    const price = ad.price
+      ? '<p class="ad-card__price">' + escapeHtml(ad.price) + "</p>"
+      : "";
     return (
       "<li>" +
         open +
-        '<div class="ad-card__media">' + media + "</div>" +
+        '<div class="ad-card__media">' + media + price + "</div>" +
         '<div class="ad-card__body">' +
           '<h2 class="ad-card__title">' + escapeHtml(ad.title) + "</h2>" +
-          '<p class="ad-card__price">' + escapeHtml(ad.price) + "</p>" +
           '<p class="ad-card__meta">' + escapeHtml(meta) + "</p>" +
         "</div>" +
         close +

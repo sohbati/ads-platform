@@ -1,15 +1,12 @@
 {{ define "brand_logo" }}
 <span class="brand__logo" aria-hidden="true">
   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="24" cy="24" r="22" fill="url(#brand_grad)"/>
-    <path d="M28 14c-4.5 0-8 3.2-8 8.5 0 3.2 1.8 5.5 4.5 6.8L22 38h4l2.2-8.2c3.8-.8 6.8-4 6.8-8.3C35 17.2 32 14 28 14Zm-1.2 12.5c-2 0-3.5-1.5-3.5-4s1.5-4 3.5-4 3.5 1.5 3.5 4-1.5 4-3.5 4Z" fill="#fff"/>
-    <defs>
-      <linearGradient id="brand_grad" x1="8" y1="6" x2="40" y2="42" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#0ea5e9"/>
-        <stop offset="1" stop-color="#0d9488"/>
-      </linearGradient>
-    </defs>
+    <circle cx="24" cy="24" r="22" fill="var(--color-brand-blue)"/>
+    <circle cx="24" cy="24" r="22" fill="var(--color-primary)" fill-opacity="0.42"/>
+    <circle cx="24" cy="24" r="17" stroke="#fff" stroke-opacity="0.55" stroke-width="1.75"/>
+    <circle cx="24" cy="24" r="11.5" stroke="#fff" stroke-opacity="0.8" stroke-width="1.6"/>
+    <rect x="19.5" y="20.5" width="9" height="6.5" rx="1.75" fill="#fff"/>
   </svg>
 </span>
-<span class="brand__wordmark">ru<span class="brand__wordmark-accent">AB</span></span>
+<span class="brand__wordmark" dir="ltr">ruab<span class="brand__tld">.ir</span></span>
 {{ end }}

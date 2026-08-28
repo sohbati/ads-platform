@@ -1,9 +1,25 @@
 {{ define "myinfo_setting" }}
 {{ template "page_open" . }}
-<section class="section-stub container">
+<section class="section-stub container appearance">
   <h1 class="section-stub__title">{{ .Heading }}</h1>
   {{ if .IsAuthenticated }}{{ template "myinfo_nav" . }}{{ end }}
-  <p class="section-stub__desc">{{ .T.Section.ComingSoon }}</p>
+  <p class="section-stub__desc">{{ .T.Appearance.Description }}</p>
+
+  <div class="sea-picker" id="sea-picker" role="radiogroup" aria-label="{{ .T.Appearance.GroupAria }}">
+    {{ range .Seas }}
+    <button
+      type="button"
+      class="sea-swatch"
+      role="radio"
+      data-sea-id="{{ .ID }}"
+      aria-pressed="false"
+      aria-checked="false"
+    >
+      <span class="sea-swatch__chip" style="background: {{ .Hex }}"></span>
+      <span class="sea-swatch__name">{{ .Name }}</span>
+    </button>
+    {{ end }}
+  </div>
 </section>
 {{ template "page_close" . }}
 {{ end }}

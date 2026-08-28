@@ -179,12 +179,56 @@
     }
   });
 
-  if (accountTrigger) {
-    accountTrigger.addEventListener("click", async function () {
-      if (await isAuthenticated()) {
-        window.location.assign("/my-info");
-        return;
-      }
+  const accountMenu = document.getElementById("account-menu");
+
+  function setAccountMenuAuth(authed) {
+    if (!accountMenu) return;
+    accountMenu.querySelectorAll("[data-account-authed]").forEach(function (el) {
+      el.hidden = !authed;
+    });
+    accountMenu.querySelectorAll("[data-account-guest]").forEach(function (el) {
+      el.hidden = authed;
+    });
+  }
+
+  function closeAccountMenu() {
+    if (!accountMenu) return;
+    accountMenu.hidden = true;
+    if (accountTrigger) accountTrigger.setAttribute("aria-expanded", "false");
+  }
+
+  function openAccountMenu() {
+    if (!accountMenu) return;
+    accountMenu.hidden = false;
+    if (accountTrigger) accountTrigger.setAttribute("aria-expanded", "true");
+  }
+
+  isAuthenticated().then(setAccountMenuAuth);
+
+  if (accountTrigger && accountMenu) {
+    accountTrigger.addEventListener("click", async function (event) {
+      event.stopPropagation();
+      const authed = await isAuthenticated();
+      setAccountMenuAuth(authed);
+      if (accountMenu.hidden) openAccountMenu();
+      else closeAccountMenu();
+    });
+
+    document.addEventListener("click", function (event) {
+      if (accountMenu.hidden) return;
+      if (accountMenu.contains(event.target) || accountTrigger.contains(event.target)) return;
+      closeAccountMenu();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeAccountMenu();
+    });
+  }
+
+  const accountLogin = document.querySelector("[data-account-login]");
+  if (accountLogin) {
+    accountLogin.addEventListener("click", function () {
+      closeAccountMenu();
       openModal("/my-info");
     });
   }

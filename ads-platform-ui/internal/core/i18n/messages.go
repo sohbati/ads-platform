@@ -18,6 +18,7 @@ type Messages struct {
 	NewAd         NewAdMessages                   `json:"new_ad"`
 	MyAds         MyAdsMessages                   `json:"my_ads"`
 	AdDetail      AdDetailMessages                `json:"ad_detail"`
+	Appearance    AppearanceMessages              `json:"appearance"`
 	ApiErrors     map[string]string               `json:"api_errors"`
 	CategoryItems map[string]CategoryItemMessages `json:"category_items"`
 	CityNames     map[string]string               `json:"city_names"`
@@ -215,6 +216,14 @@ type AdDetailMessages struct {
 	NextPhoto    string `json:"next_photo"`
 	PhotoCounter string `json:"photo_counter"`
 	NoPhotos     string `json:"no_photos"`
+}
+
+type AppearanceMessages struct {
+	Title       string            `json:"title"`
+	Description string            `json:"description"`
+	Reset       string            `json:"reset"`
+	GroupAria   string            `json:"group_aria"`
+	Seas        map[string]string `json:"seas"`
 }
 
 type CategoryItemMessages struct {

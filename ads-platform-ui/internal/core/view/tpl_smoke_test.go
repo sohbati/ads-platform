@@ -18,11 +18,23 @@ func TestQueryAdsTemplateRenders(t *testing.T) {
 	}
 
 	landing := viewmodel.QueryAdsPage{
-		Page:   i18n.Page{Title: "t", CityDisplayName: "Tehran"},
+		Page: i18n.Page{
+			Title:           "t",
+			CityDisplayName: "Tehran",
+			T: i18n.Messages{
+				Hero: i18n.HeroMessages{Title: "On the surface, in %s", Subtitle: "sub"},
+			},
+		},
 		Search: &viewmodel.SearchResults{},
 	}
 	search := viewmodel.QueryAdsPage{
-		Page: i18n.Page{Title: "t", SearchQuery: "bike"},
+		Page: i18n.Page{
+			Title:       "t",
+			SearchQuery: "bike",
+			T: i18n.Messages{
+				Hero: i18n.HeroMessages{Title: "On the surface, in %s", Subtitle: "sub"},
+			},
+		},
 		Search: &viewmodel.SearchResults{
 			Query:      "bike",
 			Total:      2,
@@ -43,6 +55,9 @@ func TestQueryAdsTemplateRenders(t *testing.T) {
 		var buf bytes.Buffer
 		if err := tmpl.ExecuteTemplate(&buf, "query_ads", data); err != nil {
 			t.Fatalf("execute query_ads (%s): %v", name, err)
+		}
+		if !bytes.Contains(buf.Bytes(), []byte("brand__wordmark")) || !bytes.Contains(buf.Bytes(), []byte(`class="brand__tld">.ir`)) {
+			t.Fatalf("query_ads (%s): expected ruab.ir brand lockup", name)
 		}
 	}
 }
@@ -155,6 +170,40 @@ func TestMyInfoUserAdsTemplateRenders(t *testing.T) {
 		if err := tmpl.ExecuteTemplate(&buf, "myinfo_user_ads", data); err != nil {
 			t.Fatalf("execute myinfo_user_ads (%s): %v", name, err)
 		}
+	}
+}
+
+func TestMyInfoSettingTemplateRenders(t *testing.T) {
+	tmpl, err := template.New("").Funcs(FuncMap(nil)).ParseGlob("../../../templates/**/*.gohtml")
+	if err != nil {
+		t.Fatalf("parse templates: %v", err)
+	}
+
+	page := myinfovm.SettingPage{
+		Page: i18n.Page{
+			Title:           "t",
+			Heading:         "Sea look",
+			IsAuthenticated: true,
+			T: i18n.Messages{
+				Appearance: i18n.AppearanceMessages{
+					Title:       "Sea look",
+					Description: "Pick a color",
+					GroupAria:   "palette",
+				},
+				Nav: i18n.NavMessages{Setting: "Settings", Logout: "Out"},
+			},
+		},
+		Seas: []myinfovm.SeaOption{
+			{ID: "ruab", Hex: "#0d9488", Name: "ruab surface"},
+			{ID: "teal", Hex: "#008080", Name: "Teal"},
+		},
+	}
+	var buf bytes.Buffer
+	if err := tmpl.ExecuteTemplate(&buf, "myinfo_setting", page); err != nil {
+		t.Fatalf("execute myinfo_setting: %v", err)
+	}
+	if !bytes.Contains(buf.Bytes(), []byte("data-sea-id=\"teal\"")) {
+		t.Fatalf("expected sea swatch markup, got %s", buf.String())
 	}
 }
 

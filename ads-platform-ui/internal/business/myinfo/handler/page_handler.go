@@ -165,7 +165,20 @@ func (h *PageHandler) MarkedAds(c *gin.Context) {
 }
 
 func (h *PageHandler) Setting(c *gin.Context) {
-	h.renderProtected(c, "myinfo_setting", h.i18n.MessagesFor(i18n.FromContext(c)).Nav.Setting)
+	t := h.i18n.MessagesFor(i18n.FromContext(c))
+	pageData := i18n.BuildPage(h.i18n, h.cities, i18n.FromContext(c), h.config.AppName, i18n.CityFromContext(c), c.Request.URL.Path, i18n.LocationsFromContext(c))
+	pageData.DefaultCountryCode = h.config.DefaultCountryCode
+	pageData.Title = h.config.AppName + " — " + t.Appearance.Title
+	pageData.Heading = t.Appearance.Title
+	if user, ok := h.currentUser(c); ok {
+		pageData.IsAuthenticated = true
+		pageData.SessionUserName = user.Name
+		pageData.SessionUserMobile = user.Mobile
+	}
+	c.HTML(http.StatusOK, "myinfo_setting", viewmodel.SettingPage{
+		Page: pageData,
+		Seas: viewmodel.SeasFor(t),
+	})
 }
 
 type meResponse struct {

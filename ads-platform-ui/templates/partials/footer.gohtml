@@ -1,6 +1,10 @@
 {{ define "footer" }}
 <footer class="site-footer">
+  {{ template "footer_life" . }}
   <div class="container site-footer__inner">
+    <a href="/query-ads" class="brand brand--on-dark" aria-label="{{ .AppName }}">
+      {{ template "brand_logo" . }}
+    </a>
     <p class="site-footer__tagline">{{ format .T.Footer.Tagline .AppName }}</p>
     <nav class="site-footer__links" aria-label="{{ .T.Footer.NavAria }}">
       <a href="/query-ads">{{ .T.Nav.QueryAds }}</a>

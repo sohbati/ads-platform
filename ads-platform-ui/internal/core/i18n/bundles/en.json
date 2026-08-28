@@ -4,7 +4,7 @@
   "label": "English",
   "messages": {
     "meta": {
-      "site_description": "Buy and sell locally — search listings and post your ad in minutes."
+      "site_description": "Buy and sell on the surface — put your listing on ruab.ir so it can be seen."
     },
     "header": {
       "home_aria": "Home",
@@ -71,15 +71,15 @@
       "welcome_user": "Hello %s"
     },
     "hero": {
-      "title": "Find what you need in %s",
-      "subtitle": "Browse categories or use the search bar above."
+      "title": "On the surface, in %s",
+      "subtitle": "Put it on ruab.ir so it can be found. Search or pick a category."
     },
     "search": {
       "results_title": "Search results",
       "results_for": "Results for “%s”",
       "results_count": "%d ads found",
       "empty": "No ads matched your search. Try different words or another category.",
-      "empty_browse": "No ads in your selected cities yet.",
+      "empty_browse": "Nothing on the surface yet. Be the first to list something.",
       "unavailable": "Search is temporarily unavailable. Please try again in a moment.",
       "negotiable": "Negotiable",
       "currency": "IRR",
@@ -106,14 +106,14 @@
     "cta": {
       "aria_label": "Post a listing",
       "title": "Have something to sell?",
-      "description": "Post your ad in a few steps — photos, price, and you are live.",
+      "description": "It gets seen on ruab.ir.",
       "button": "Post your ad"
     },
     "section": {
       "coming_soon": "This section is coming soon."
     },
     "my_ads": {
-      "empty": "You have not posted any ads yet.",
+      "empty": "You have not put anything on the surface yet.",
       "unavailable": "Could not load your ads.",
       "post_cta": "Post a new ad"
     },
@@ -125,8 +125,37 @@
       "photo_counter": "%d / %d",
       "no_photos": "No photos"
     },
+    "appearance": {
+      "title": "Sea look",
+      "description": "Pick a sea color to retint the surface of ruab.ir.",
+      "reset": "ruab surface",
+      "group_aria": "Sea color palette",
+      "seas": {
+        "pale-blue": "Pale Blue",
+        "sky-blue": "Sky Blue",
+        "aquamarine": "Aquamarine",
+        "aqua-blue": "Aqua Blue",
+        "cyan": "Cyan",
+        "azure": "Azure",
+        "deep-blue": "Deep Blue",
+        "turquoise": "Turquoise",
+        "deep-turquoise": "Deep Turquoise",
+        "teal": "Teal",
+        "dark-cyan": "Dark Cyan",
+        "cerulean": "Cerulean",
+        "sea-green": "Sea Green",
+        "deep-sea-blue": "Deep Sea Blue",
+        "steel-blue": "Steel Blue",
+        "royal-blue": "Royal Blue",
+        "cobalt-blue": "Cobalt Blue",
+        "ocean-blue": "Ocean Blue",
+        "indigo": "Indigo",
+        "navy-blue": "Navy Blue",
+        "midnight-blue": "Midnight Blue"
+      }
+    },
     "footer": {
-      "tagline": "%s — buy and sell locally, without the hassle.",
+      "tagline": "%s — on the surface, in sight.",
       "nav_aria": "Footer",
       "about": "About",
       "help": "Help",
@@ -141,7 +170,7 @@
       "code": "404"
     },
     "new_ad": {
-      "intro": "Choose a category, fill in the details, and add photos to publish.",
+      "intro": "Add photos, price, and details so your listing can surface.",
       "load_error": "Could not load categories. Refresh the page.",
       "category": "Category",
       "category_placeholder": "Select a leaf category",

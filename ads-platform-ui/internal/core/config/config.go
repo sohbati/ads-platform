@@ -21,7 +21,7 @@ func Load() *Config {
 
 	return &Config{
 		Port:        getEnv("PORT", "8094"),
-		AppName:     getEnv("APP_NAME", "Ruab"),
+		AppName:     getEnv("APP_NAME", "ruab.ir"),
 		DefaultCity: getEnv("DEFAULT_CITY", "tehran"),
 		CDNBaseURL:         getEnv("CDN_BASE_URL", "http://localhost:4000"),
 		MediaCDNURL:        getEnv("MEDIA_CDN_URL", "http://localhost:8098"),

@@ -63,7 +63,7 @@ ads-platform-ui/
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `PORT` | `8093` | HTTP port |
-| `APP_NAME` | `Ruab` | Brand name |
+| `APP_NAME` | `ruab.ir` | Brand name |
 | `DEFAULT_CITY` | `tehran` | Default city slug |
 | `CDN_BASE_URL` | `http://localhost:4000` | ads-platform-cdn |
 | `BFF_BASE_URL` | `http://localhost:8097` | ads-bff (auth + backend proxy) |

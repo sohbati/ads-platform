@@ -26,10 +26,10 @@
             <path d="m5 17 4.5-4 3.5 3 2.5-2 3.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
           {{ end }}
+          {{ if .Price }}<p class="ad-card__price">{{ .Price }}</p>{{ end }}
         </div>
         <div class="ad-card__body">
           <h2 class="ad-card__title">{{ .Title }}</h2>
-          <p class="ad-card__price">{{ .Price }}</p>
           <p class="ad-card__meta">
             {{- .Location }}{{ if and .Location .PublishedAt }} · {{ end }}{{ .PublishedAt -}}
           </p>
