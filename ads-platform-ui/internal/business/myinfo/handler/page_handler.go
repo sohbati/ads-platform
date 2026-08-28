@@ -14,6 +14,7 @@ import (
 	"ads-platform-ui/internal/core/cities"
 	"ads-platform-ui/internal/core/config"
 	"ads-platform-ui/internal/core/i18n"
+	"ads-platform-ui/internal/core/media"
 
 	"github.com/gin-gonic/gin"
 )
@@ -104,17 +105,17 @@ func (h *PageHandler) fetchUserAds(c *gin.Context, t i18n.Messages) ([]queryadsv
 
 	out := make([]queryadsvm.SearchAd, 0, len(resp.Ads))
 	for _, ad := range resp.Ads {
-		out = append(out, toSearchAd(ad, t))
+		out = append(out, toSearchAd(ad, t, h.config.MediaCDNURL))
 	}
 	return out, false
 }
 
-func toSearchAd(ad userAdJSON, t i18n.Messages) queryadsvm.SearchAd {
+func toSearchAd(ad userAdJSON, t i18n.Messages, mediaCDN string) queryadsvm.SearchAd {
 	out := queryadsvm.SearchAd{
 		ID:        ad.ID,
 		Title:     ad.Title,
 		Location:  ad.CityName,
-		Thumbnail: ad.Thumbnail,
+		Thumbnail: media.PublicURL(mediaCDN, ad.Thumbnail),
 		HasPhoto:  ad.HasPhoto,
 	}
 	if ad.ID > 0 {

@@ -1,6 +1,7 @@
 package impl
 
 import (
+	"bytes"
 	"context"
 	"crypto/sha256"
 	"encoding/hex"
@@ -18,6 +19,7 @@ import (
 	"ads-platform/internal/business/ads/service"
 	searchclient "ads-platform/internal/business/search/client"
 	"ads-platform/internal/core/exception"
+	"ads-platform/internal/core/imageconv"
 	"ads-platform/internal/core/storage"
 
 	"gorm.io/gorm"
@@ -444,27 +446,44 @@ func (s *adService) storePictures(ctx context.Context, ad *model.Ad, pics []serv
 
 	for i, pic := range pics {
 		contentType := normalizeContentType(pic.ContentType, pic.Filename)
-		ext := extByContentType[contentType]
-		key := buildObjectKey(ad.UserID, seq+int64(i), ext)
+		raw, err := io.ReadAll(io.LimitReader(pic.Body, s.maxPicBytes+1))
+		if err != nil {
+			return nil, exception.NewAppError(
+				errorcode.ErrAdInvalidPicture.Code, errorcode.ErrAdInvalidPicture.HttpStatus).WithCause(err)
+		}
+		variants, err := imageconv.FromUpload(bytes.NewReader(raw), contentType)
+		if err != nil {
+			return nil, exception.NewAppError(
+				errorcode.ErrAdInvalidPicture.Code, errorcode.ErrAdInvalidPicture.HttpStatus).WithCause(err)
+		}
 
-		hasher := sha256.New()
-		reader := io.TeeReader(pic.Body, hasher)
-		url, err := s.objects.Put(ctx, key, contentType, reader, pic.Size)
+		n := seq + int64(i)
+		fullKey := buildObjectKey(ad.UserID, n, ".webp")
+		thumbKey := buildObjectKey(ad.UserID, n, "-t.webp")
+
+		url, err := s.objects.Put(ctx, fullKey, "image/webp", bytes.NewReader(variants.Full), int64(len(variants.Full)))
 		if err != nil {
 			return nil, exception.NewAppError(
 				errorcode.ErrAdStorageUnavailable.Code, errorcode.ErrAdStorageUnavailable.HttpStatus).WithCause(err)
 		}
-		sum := hex.EncodeToString(hasher.Sum(nil))
+		thumbURL, err := s.objects.Put(ctx, thumbKey, "image/webp", bytes.NewReader(variants.Thumb), int64(len(variants.Thumb)))
+		if err != nil {
+			return nil, exception.NewAppError(
+				errorcode.ErrAdStorageUnavailable.Code, errorcode.ErrAdStorageUnavailable.HttpStatus).WithCause(err)
+		}
+
+		sum := sha256.Sum256(variants.Full)
+		checksum := hex.EncodeToString(sum[:])
 		adID := ad.ID
 		image := &model.AdImage{
 			UserID:           ad.UserID,
 			AdID:             &adID,
-			ObjectKey:        key,
+			ObjectKey:        fullKey,
 			OriginalFilename: strings.TrimSpace(pic.Filename),
-			ContentType:      contentType,
-			FileSize:         pic.Size,
+			ContentType:      "image/webp",
+			FileSize:         int64(len(variants.Full)),
 			Status:           model.ImageStatusUploaded,
-			Checksum:         &sum,
+			Checksum:         &checksum,
 			UploadedAt:       &now,
 		}
 		if err := s.images.Create(ctx, image); err != nil {
@@ -472,10 +491,10 @@ func (s *adService) storePictures(ctx context.Context, ad *model.Ad, pics []serv
 		}
 
 		out = append(out, mediaItem{
-			ObjectKey:   key,
+			ObjectKey:   fullKey,
 			URL:         url,
-			Thumb:       url,
-			ContentType: contentType,
+			Thumb:       thumbURL,
+			ContentType: "image/webp",
 			IsCover:     i == 0,
 		})
 	}

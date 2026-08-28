@@ -1,13 +1,15 @@
 FROM golang:1.25-alpine AS builder
 
+RUN apk add --no-cache gcc musl-dev libwebp-dev pkgconfig
+
 WORKDIR /src
 COPY ads-platform-back/go.mod ads-platform-back/go.sum ./
 RUN go mod download
 COPY ads-platform-back/ ./
-RUN CGO_ENABLED=0 go build -o /server ./cmd/server
+RUN CGO_ENABLED=1 go build -o /server ./cmd/server
 
 FROM alpine:3.20
-RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache ca-certificates libwebp
 WORKDIR /app
 COPY --from=builder /server ./server
 EXPOSE 8092

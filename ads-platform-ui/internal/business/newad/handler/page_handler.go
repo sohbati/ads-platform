@@ -12,6 +12,7 @@ import (
 	"ads-platform-ui/internal/core/cities"
 	"ads-platform-ui/internal/core/config"
 	"ads-platform-ui/internal/core/i18n"
+	"ads-platform-ui/internal/core/media"
 
 	"github.com/gin-gonic/gin"
 )
@@ -153,7 +154,7 @@ func (h *PageHandler) Edit(c *gin.Context) {
 		CityName:    cityName,
 		MaxPictures: maxAdPictures,
 		SuccessHref: "/my-info/user-ads",
-		Prefill:     adToPrefill(ad),
+		Prefill:     adToPrefill(ad, h.config.MediaCDNURL),
 		Categories:  categories,
 		Schemas:     schemas,
 		Enums:       enums,
@@ -181,7 +182,7 @@ func parseAdJSON(body []byte) (adJSON, error) {
 	return ad, err
 }
 
-func adToPrefill(ad adJSON) *viewmodel.Prefill {
+func adToPrefill(ad adJSON, mediaCDN string) *viewmodel.Prefill {
 	prefill := &viewmodel.Prefill{
 		CategoryID:   ad.CategoryID,
 		Title:        ad.Title,
@@ -190,7 +191,7 @@ func adToPrefill(ad adJSON) *viewmodel.Prefill {
 		PriceType:    ad.PriceType,
 		Neighborhood: neighborhoodFromLocation(ad.Location),
 		Attrs:        ad.Attrs,
-		Media:        mediaFromJSON(ad.Media),
+		Media:        mediaFromJSON(ad.Media, mediaCDN),
 	}
 	return prefill
 }
@@ -206,7 +207,7 @@ func neighborhoodFromLocation(raw json.RawMessage) string {
 	return ""
 }
 
-func mediaFromJSON(raw json.RawMessage) []viewmodel.PrefillMedia {
+func mediaFromJSON(raw json.RawMessage, mediaCDN string) []viewmodel.PrefillMedia {
 	var items []map[string]any
 	if len(raw) == 0 || json.Unmarshal(raw, &items) != nil {
 		return nil
@@ -215,10 +216,10 @@ func mediaFromJSON(raw json.RawMessage) []viewmodel.PrefillMedia {
 	for _, item := range items {
 		m := viewmodel.PrefillMedia{}
 		if u, ok := item["url"].(string); ok {
-			m.URL = u
+			m.URL = media.PublicURL(mediaCDN, u)
 		}
 		if t, ok := item["thumb"].(string); ok {
-			m.Thumb = t
+			m.Thumb = media.PublicURL(mediaCDN, t)
 		}
 		if m.URL == "" && m.Thumb == "" {
 			continue

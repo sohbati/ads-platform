@@ -5,6 +5,10 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"image"
+	"image/color"
+	"image/jpeg"
+	"image/png"
 	"io"
 	"testing"
 
@@ -140,7 +144,7 @@ func (f *fakeStorage) Put(_ context.Context, key, _ string, body io.Reader, _ in
 	}
 	_, _ = io.Copy(io.Discard, body)
 	f.keys = append(f.keys, key)
-	return "http://minio/" + key, nil
+	return "/ads-media/" + key, nil
 }
 
 func assertAppErrorCode(t *testing.T, err error, code string) {
@@ -184,6 +188,32 @@ func leafCatalog() *fakeCatalog {
 	}
 }
 
+func jpegPic(name string) service.PictureInput {
+	img := image.NewNRGBA(image.Rect(0, 0, 2, 2))
+	img.Set(0, 0, color.NRGBA{R: 200, A: 255})
+	var buf bytes.Buffer
+	_ = jpeg.Encode(&buf, img, &jpeg.Options{Quality: 90})
+	return service.PictureInput{
+		Filename:    name,
+		ContentType: "image/jpeg",
+		Size:        int64(buf.Len()),
+		Body:        bytes.NewReader(buf.Bytes()),
+	}
+}
+
+func pngPic(name string) service.PictureInput {
+	img := image.NewNRGBA(image.Rect(0, 0, 2, 2))
+	img.Set(0, 0, color.NRGBA{G: 180, A: 255})
+	var buf bytes.Buffer
+	_ = png.Encode(&buf, img)
+	return service.PictureInput{
+		Filename:    name,
+		ContentType: "image/png",
+		Size:        int64(buf.Len()),
+		Body:        bytes.NewReader(buf.Bytes()),
+	}
+}
+
 func TestCreateAdHappyPath(t *testing.T) {
 	ads := newFakeAdRepo()
 	images := &fakeImageRepo{}
@@ -191,12 +221,7 @@ func TestCreateAdHappyPath(t *testing.T) {
 	svc := NewAdService(ads, images, leafCatalog(), store, 8, 10<<20)
 
 	in := validInput()
-	in.Pictures = []service.PictureInput{{
-		Filename:    "cover.jpg",
-		ContentType: "image/jpeg",
-		Size:        12,
-		Body:        bytes.NewReader([]byte("fake-jpeg-bytes")),
-	}}
+	in.Pictures = []service.PictureInput{jpegPic("cover.jpg")}
 
 	ad, err := svc.Create(context.Background(), in)
 	if err != nil {
@@ -212,13 +237,19 @@ func TestCreateAdHappyPath(t *testing.T) {
 		t.Errorf("attrs = %s", ad.Attrs)
 	}
 	if len(images.rows) != 1 || images.rows[0].AdID == nil || *images.rows[0].AdID != ad.ID {
-		t.Errorf("image row not linked to ad: %+v", images.rows)
+		t.Fatalf("image row not linked to ad: %+v", images.rows)
 	}
-	if len(store.keys) != 1 || store.keys[0] != "ads/7/7_1.jpg" {
+	if len(store.keys) != 2 || store.keys[0] != "ads/7/7_1.webp" || store.keys[1] != "ads/7/7_1-t.webp" {
 		t.Errorf("object keys = %v", store.keys)
 	}
-	if !bytes.Contains(ad.Media, []byte(`"is_cover":true`)) {
+	if images.rows[0].ContentType != "image/webp" {
+		t.Errorf("stored content type = %s", images.rows[0].ContentType)
+	}
+	if !bytes.Contains(ad.Media, []byte(`"is_cover":true`)) || !bytes.Contains(ad.Media, []byte("/ads-media/ads/7/7_1-t.webp")) {
 		t.Errorf("media = %s", ad.Media)
+	}
+	if bytes.Contains(ad.Media, []byte("http://")) || bytes.Contains(ad.Media, []byte("https://")) {
+		t.Errorf("media URLs should be relative: %s", ad.Media)
 	}
 }
 
@@ -229,33 +260,31 @@ func TestCreateAdPictureKeysFollowUserSequence(t *testing.T) {
 	svc := NewAdService(ads, images, leafCatalog(), store, 8, 10<<20)
 
 	first := validInput()
-	first.Pictures = []service.PictureInput{
-		{Filename: "a.jpg", ContentType: "image/jpeg", Size: 1, Body: bytes.NewReader([]byte("a"))},
-		{Filename: "b.png", ContentType: "image/png", Size: 1, Body: bytes.NewReader([]byte("b"))},
-	}
+	first.Pictures = []service.PictureInput{jpegPic("a.jpg"), pngPic("b.png")}
 	if _, err := svc.Create(context.Background(), first); err != nil {
 		t.Fatalf("first ad: %v", err)
 	}
 
 	second := validInput()
 	second.Title = "Second listing"
-	second.Pictures = []service.PictureInput{
-		{Filename: "c.webp", ContentType: "image/webp", Size: 1, Body: bytes.NewReader([]byte("c"))},
-	}
+	second.Pictures = []service.PictureInput{jpegPic("c.jpg")}
 	if _, err := svc.Create(context.Background(), second); err != nil {
 		t.Fatalf("second ad: %v", err)
 	}
 
 	other := validInput()
 	other.UserID = 99
-	other.Pictures = []service.PictureInput{
-		{Filename: "d.jpg", ContentType: "image/jpeg", Size: 1, Body: bytes.NewReader([]byte("d"))},
-	}
+	other.Pictures = []service.PictureInput{jpegPic("d.jpg")}
 	if _, err := svc.Create(context.Background(), other); err != nil {
 		t.Fatalf("other user: %v", err)
 	}
 
-	want := []string{"ads/7/7_1.jpg", "ads/7/7_2.png", "ads/7/7_3.webp", "ads/99/99_1.jpg"}
+	want := []string{
+		"ads/7/7_1.webp", "ads/7/7_1-t.webp",
+		"ads/7/7_2.webp", "ads/7/7_2-t.webp",
+		"ads/7/7_3.webp", "ads/7/7_3-t.webp",
+		"ads/99/99_1.webp", "ads/99/99_1-t.webp",
+	}
 	if len(store.keys) != len(want) {
 		t.Fatalf("keys=%v, want %v", store.keys, want)
 	}
@@ -264,6 +293,16 @@ func TestCreateAdPictureKeysFollowUserSequence(t *testing.T) {
 			t.Fatalf("keys=%v, want %v", store.keys, want)
 		}
 	}
+}
+
+func TestCreateAdRejectsCorruptPicture(t *testing.T) {
+	svc := NewAdService(newFakeAdRepo(), &fakeImageRepo{}, leafCatalog(), &fakeStorage{}, 8, 10<<20)
+	in := validInput()
+	in.Pictures = []service.PictureInput{{
+		Filename: "cover.jpg", ContentType: "image/jpeg", Size: 4, Body: bytes.NewReader([]byte("nope")),
+	}}
+	_, err := svc.Create(context.Background(), in)
+	assertAppErrorCode(t, err, "AD_INVALID_PICTURE")
 }
 
 func TestCreateAdWithoutPictures(t *testing.T) {

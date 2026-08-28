@@ -154,7 +154,7 @@
       "neighborhood_placeholder": "e.g. Vanak",
       "details": "Attributes",
       "pictures": "Photos",
-      "pictures_hint": "Up to %d photos — JPG, PNG, or WebP",
+      "pictures_hint": "Up to %d photos — JPG, PNG, or WebP. Stored as WebP.",
       "submit": "Publish ad",
       "submitting": "Publishing…",
       "success": "Ad published",

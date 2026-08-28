@@ -7,6 +7,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 	"testing"
 	"time"
 
@@ -120,8 +121,13 @@ func TestCreateAdWithPicturesUploadsToMinio(t *testing.T) {
 		t.Fatalf("expected 1 media item, got %d (%s)", len(items), ad.Media)
 	}
 	item := items[0]
-	if item.ObjectKey != fmt.Sprintf("ads/%d/%d_1.jpg", userID, userID) || !item.IsCover || item.ContentType != "image/jpeg" {
+	wantKey := fmt.Sprintf("ads/%d/%d_1.webp", userID, userID)
+	wantThumb := fmt.Sprintf("ads/%d/%d_1-t.webp", userID, userID)
+	if item.ObjectKey != wantKey || item.URL != "/ads-media/"+wantKey || item.Thumb != "/ads-media/"+wantThumb || !item.IsCover || item.ContentType != "image/webp" {
 		t.Fatalf("media item: %+v", item)
+	}
+	if strings.HasPrefix(item.URL, "http://") || strings.HasPrefix(item.Thumb, "http://") {
+		t.Fatalf("stored URLs should be relative: %+v", item)
 	}
 
 	mc, err := minio.New(minioHost, &minio.Options{
@@ -135,8 +141,11 @@ func TestCreateAdWithPicturesUploadsToMinio(t *testing.T) {
 	if err != nil {
 		t.Fatalf("stat minio object %s: %v", item.ObjectKey, err)
 	}
-	if info.Size != int64(len(adsapi.JPEG1x1)) {
-		t.Fatalf("object size=%d, want %d", info.Size, len(adsapi.JPEG1x1))
+	if info.Size <= 0 || info.ContentType != "image/webp" {
+		t.Fatalf("full object size=%d contentType=%s", info.Size, info.ContentType)
+	}
+	if _, err := mc.StatObject(ctx, minioBucket, wantThumb, minio.StatObjectOptions{}); err != nil {
+		t.Fatalf("stat thumb object %s: %v", wantThumb, err)
 	}
 
 	conn, err := pgx.Connect(ctx, pgHostDSN)
@@ -158,7 +167,7 @@ func TestCreateAdWithPicturesUploadsToMinio(t *testing.T) {
 	if err != nil {
 		t.Fatalf("query ad_images: %v", err)
 	}
-	if imageAdID != ad.ID || statusRow != "uploaded" || fileSize != int64(len(adsapi.JPEG1x1)) {
+	if imageAdID != ad.ID || statusRow != "uploaded" || fileSize <= 0 {
 		t.Fatalf("ad_images row: ad_id=%d status=%q size=%d", imageAdID, statusRow, fileSize)
 	}
 }

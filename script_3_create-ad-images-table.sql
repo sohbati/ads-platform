@@ -20,7 +20,7 @@ COMMENT ON TABLE ads_platform_schema.ad_images IS 'متادیتای تصاویر
 COMMENT ON COLUMN ads_platform_schema.ad_images.id IS 'شناسه یکتای تصویر';
 COMMENT ON COLUMN ads_platform_schema.ad_images.user_id IS 'شناسه کاربر آپلودکننده (ارجاع به جدول user)';
 COMMENT ON COLUMN ads_platform_schema.ad_images.ad_id IS 'شناسه آگهی مرتبط؛ تا قبل از ثبت آگهی NULL است';
-COMMENT ON COLUMN ads_platform_schema.ad_images.object_key IS 'کلید یکتای فایل در object storage (مثلاً ads/1/1_1.jpg)';
+COMMENT ON COLUMN ads_platform_schema.ad_images.object_key IS 'کلید یکتای فایل در object storage (مثلاً ads/1/1_1.webp)';
 COMMENT ON COLUMN ads_platform_schema.ad_images.original_filename IS 'نام اصلی فایل هنگام آپلود توسط کاربر';
 COMMENT ON COLUMN ads_platform_schema.ad_images.content_type IS 'نوع MIME فایل: image/jpeg، image/png، image/webp';
 COMMENT ON COLUMN ads_platform_schema.ad_images.file_size IS 'حجم فایل به بایت';

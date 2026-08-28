@@ -188,9 +188,10 @@ func StartUI(ctx context.Context, net *testcontainers.DockerNetwork) (*ServiceCo
 		port:       "8094/tcp",
 		healthPath: "/health",
 		env: map[string]string{
-			"PORT":         "8094",
-			"CDN_BASE_URL": "http://ads-platform-cdn:4000",
-			"BFF_BASE_URL": "http://ads-bff:8097",
+			"PORT":           "8094",
+			"CDN_BASE_URL":   "http://ads-platform-cdn:4000",
+			"MEDIA_CDN_URL":  "http://localhost:8098",
+			"BFF_BASE_URL":   "http://ads-bff:8097",
 		},
 	})
 }

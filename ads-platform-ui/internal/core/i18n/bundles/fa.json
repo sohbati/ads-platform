@@ -154,7 +154,7 @@
       "neighborhood_placeholder": "مثلاً ونک",
       "details": "ویژگی‌ها",
       "pictures": "عکس‌ها",
-      "pictures_hint": "حداکثر %d عکس، فرمت JPG، PNG یا WebP",
+      "pictures_hint": "حداکثر %d عکس، فرمت JPG، PNG یا WebP. با فرمت WebP ذخیره می‌شود.",
       "submit": "ثبت آگهی",
       "submitting": "در حال ثبت…",
       "success": "آگهی ثبت شد",

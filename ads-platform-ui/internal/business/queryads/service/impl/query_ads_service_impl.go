@@ -13,18 +13,20 @@ import (
 	"ads-platform-ui/internal/business/queryads/viewmodel"
 	"ads-platform-ui/internal/core/cities"
 	"ads-platform-ui/internal/core/i18n"
+	"ads-platform-ui/internal/core/media"
 )
 
 const searchPageSize = 24
 
 type QueryAdsServiceImpl struct {
-	i18n   *i18n.Registry
-	cities *cities.Catalog
-	search *searchclient.SearchClient
+	i18n     *i18n.Registry
+	cities   *cities.Catalog
+	search   *searchclient.SearchClient
+	mediaCDN string
 }
 
-func NewQueryAdsService(reg *i18n.Registry, catalog *cities.Catalog, search *searchclient.SearchClient) *QueryAdsServiceImpl {
-	return &QueryAdsServiceImpl{i18n: reg, cities: catalog, search: search}
+func NewQueryAdsService(reg *i18n.Registry, catalog *cities.Catalog, search *searchclient.SearchClient, mediaCDN string) *QueryAdsServiceImpl {
+	return &QueryAdsServiceImpl{i18n: reg, cities: catalog, search: search, mediaCDN: mediaCDN}
 }
 
 // BuildSearchPage calls the search API (via BFF) and renders results on the
@@ -83,16 +85,16 @@ func (s *QueryAdsServiceImpl) BuildSearchPage(ctx context.Context, loc i18n.Loca
 
 	results.Ads = make([]viewmodel.SearchAd, 0, len(resp.Ads))
 	for _, ad := range resp.Ads {
-		results.Ads = append(results.Ads, toSearchAd(ad, t))
+		results.Ads = append(results.Ads, toSearchAd(ad, t, s.mediaCDN))
 	}
 	return vm
 }
 
-func toSearchAd(ad searchclient.Ad, t i18n.Messages) viewmodel.SearchAd {
+func toSearchAd(ad searchclient.Ad, t i18n.Messages, mediaCDN string) viewmodel.SearchAd {
 	out := viewmodel.SearchAd{
 		Title:     ad.Title,
 		Location:  ad.CityName,
-		Thumbnail: ad.Thumbnail,
+		Thumbnail: media.PublicURL(mediaCDN, ad.Thumbnail),
 		HasPhoto:  ad.HasPhoto,
 	}
 	if ad.Neighborhood != "" {
