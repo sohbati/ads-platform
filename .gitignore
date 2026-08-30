@@ -7,3 +7,7 @@
 # ads-media-cdn nginx runtime
 ads-media-cdn/logs/
 ads-media-cdn/.env
+
+# git-bug local binary and env
+git-bug/bin/
+git-bug/.env
