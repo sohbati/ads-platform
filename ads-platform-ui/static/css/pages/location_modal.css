@@ -6,6 +6,13 @@
   --loc-accent-text: #5b3fd6;
 }
 
+[data-theme="dark"] {
+  --loc-accent: #a78bfa;
+  --loc-accent-hover: #c4b5fd;
+  --loc-accent-soft: #2f2a45;
+  --loc-accent-text: #c4b5fd;
+}
+
 .loc-modal {
   position: fixed;
   inset: 0;
@@ -39,9 +46,11 @@
   width: min(100%, 36rem);
   max-height: min(46rem, calc(100vh - 2rem));
   overflow: hidden;
-  background: #fff;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
   border-radius: 1.25rem;
-  box-shadow: 0 24px 64px rgba(20, 24, 32, 0.18);
+  box-shadow: var(--shadow-lg);
 }
 
 .loc-modal__close {
@@ -57,7 +66,7 @@
   border: 0;
   border-radius: var(--radius-full);
   background: transparent;
-  color: #9aa3af;
+  color: var(--color-text-subtle);
   cursor: pointer;
 }
 
@@ -116,7 +125,7 @@
   padding: 0.65rem 0.9rem;
   border: 1px solid var(--color-border);
   border-radius: 0.85rem;
-  background: #fff;
+  background: var(--color-search-bg);
   flex-shrink: 0;
 }
 
@@ -129,7 +138,7 @@
   width: 1.15rem;
   height: 1.15rem;
   flex-shrink: 0;
-  color: #9aa3af;
+  color: var(--color-text-subtle);
 }
 
 .loc-modal__search input {
@@ -167,7 +176,7 @@
   padding: 0.28rem 0.75rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
-  background: #fff;
+  background: var(--color-surface);
   color: var(--loc-accent-text);
   font: inherit;
   font-size: 0.82rem;
@@ -206,6 +215,7 @@
   border-bottom: 1px solid var(--color-border);
   font-size: 0.88rem;
   font-weight: 600;
+  color: var(--color-text);
 }
 
 .loc-modal__badge {
@@ -236,9 +246,10 @@
   padding: 0.4rem 0.7rem;
   background: transparent;
   border: 0;
-  color: inherit;
+  color: var(--color-text);
   font: inherit;
   text-align: start;
+  color: var(--color-text);
 }
 
 .loc-tree__row.is-child {
@@ -255,7 +266,7 @@
   border: 0;
   border-radius: 0.35rem;
   background: transparent;
-  color: #8b939f;
+  color: var(--color-text-subtle);
   cursor: pointer;
 }
 
@@ -303,9 +314,9 @@
   width: 1.1rem;
   height: 1.1rem;
   flex-shrink: 0;
-  border: 1.5px solid #d0d5dd;
+  border: 1.5px solid var(--color-border-strong);
   border-radius: 0.28rem;
-  background: #fff;
+  background: var(--color-surface);
 }
 
 .loc-check input:checked + .loc-check__box {
@@ -334,13 +345,14 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 0.92rem;
+  color: var(--color-text);
 }
 
 .loc-modal__status {
   min-height: 1.1rem;
   margin: 0.35rem 1.25rem 0;
   font-size: 0.82rem;
-  color: #b42318;
+  color: var(--color-danger);
 }
 
 .loc-modal__footer {
@@ -351,7 +363,7 @@
   gap: 0.85rem;
   margin-top: 0.85rem;
   padding: 0.9rem 1.25rem 1.1rem;
-  background: #f6f7f9;
+  background: var(--color-surface-muted);
   flex-shrink: 0;
 }
 
@@ -359,6 +371,7 @@
   margin: 0;
   font-size: 0.92rem;
   font-weight: 700;
+  color: var(--color-text);
 }
 
 .loc-modal__summary-names {
@@ -385,7 +398,7 @@
 }
 
 .loc-modal__btn--ghost {
-  background: #fff;
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--loc-accent-text);
 }

@@ -177,7 +177,7 @@ func (h *PageHandler) Setting(c *gin.Context) {
 	}
 	c.HTML(http.StatusOK, "myinfo_setting", viewmodel.SettingPage{
 		Page: pageData,
-		Seas: viewmodel.SeasFor(t),
+		Themes: viewmodel.ThemesFor(t),
 	})
 }
 

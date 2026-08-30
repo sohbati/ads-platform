@@ -126,33 +126,12 @@
       "no_photos": "بدون عکس"
     },
     "appearance": {
-      "title": "ظاهر دریا",
-      "description": "یک رنگ از پالت دریا انتخاب کنید تا سطح ruab.ir همرنگ آن شود.",
-      "reset": "سطح ruab",
-      "group_aria": "پالت رنگ دریا",
-      "seas": {
-        "pale-blue": "آبی کم‌رنگ",
-        "sky-blue": "آبی آسمانی",
-        "aquamarine": "آکوامارین",
-        "aqua-blue": "آبی آکوا",
-        "cyan": "فیروزه‌ای روشن",
-        "azure": "آزور",
-        "deep-blue": "آبی عمیق",
-        "turquoise": "فیروزه‌ای",
-        "deep-turquoise": "فیروزه‌ای تیره",
-        "teal": "سبزآبی",
-        "dark-cyan": "کبود تیره",
-        "cerulean": "آبی دریایی",
-        "sea-green": "سبز دریایی",
-        "deep-sea-blue": "آبی ژرف",
-        "steel-blue": "آبی فولادی",
-        "royal-blue": "آبی سلطنتی",
-        "cobalt-blue": "آبی کبالتی",
-        "ocean-blue": "آبی اقیانوس",
-        "indigo": "نیلی",
-        "navy-blue": "سورمه‌ای",
-        "midnight-blue": "آبی نیمه‌شب"
-      }
+      "title": "ظاهر",
+      "description": "یک ظاهر انتخاب کنید. آگهی‌ها همان‌اند؛ فقط پوسته عوض می‌شود.",
+      "group_aria": "تم ظاهر",
+      "light": "روشن",
+      "dark": "تیره",
+      "tide": "جزر و مد"
     },
     "footer": {
       "tagline": "%s — روی سطح، پیدا می‌شود.",

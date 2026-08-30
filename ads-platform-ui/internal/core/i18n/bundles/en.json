@@ -126,33 +126,12 @@
       "no_photos": "No photos"
     },
     "appearance": {
-      "title": "Sea look",
-      "description": "Pick a sea color to retint the surface of ruab.ir.",
-      "reset": "ruab surface",
-      "group_aria": "Sea color palette",
-      "seas": {
-        "pale-blue": "Pale Blue",
-        "sky-blue": "Sky Blue",
-        "aquamarine": "Aquamarine",
-        "aqua-blue": "Aqua Blue",
-        "cyan": "Cyan",
-        "azure": "Azure",
-        "deep-blue": "Deep Blue",
-        "turquoise": "Turquoise",
-        "deep-turquoise": "Deep Turquoise",
-        "teal": "Teal",
-        "dark-cyan": "Dark Cyan",
-        "cerulean": "Cerulean",
-        "sea-green": "Sea Green",
-        "deep-sea-blue": "Deep Sea Blue",
-        "steel-blue": "Steel Blue",
-        "royal-blue": "Royal Blue",
-        "cobalt-blue": "Cobalt Blue",
-        "ocean-blue": "Ocean Blue",
-        "indigo": "Indigo",
-        "navy-blue": "Navy Blue",
-        "midnight-blue": "Midnight Blue"
-      }
+      "title": "Appearance",
+      "description": "Pick a look. Listings stay the same; only the chrome changes.",
+      "group_aria": "Color theme",
+      "light": "Light",
+      "dark": "Dark",
+      "tide": "Tide"
     },
     "footer": {
       "tagline": "%s — on the surface, in sight.",

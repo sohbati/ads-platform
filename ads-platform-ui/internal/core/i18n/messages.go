@@ -219,11 +219,12 @@ type AdDetailMessages struct {
 }
 
 type AppearanceMessages struct {
-	Title       string            `json:"title"`
-	Description string            `json:"description"`
-	Reset       string            `json:"reset"`
-	GroupAria   string            `json:"group_aria"`
-	Seas        map[string]string `json:"seas"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	GroupAria   string `json:"group_aria"`
+	Light       string `json:"light"`
+	Dark        string `json:"dark"`
+	Tide        string `json:"tide"`
 }
 
 type CategoryItemMessages struct {

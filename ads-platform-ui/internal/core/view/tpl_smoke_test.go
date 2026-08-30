@@ -182,28 +182,31 @@ func TestMyInfoSettingTemplateRenders(t *testing.T) {
 	page := myinfovm.SettingPage{
 		Page: i18n.Page{
 			Title:           "t",
-			Heading:         "Sea look",
+			Heading:         "Appearance",
 			IsAuthenticated: true,
 			T: i18n.Messages{
 				Appearance: i18n.AppearanceMessages{
-					Title:       "Sea look",
-					Description: "Pick a color",
-					GroupAria:   "palette",
+					Title:       "Appearance",
+					Description: "Light or dark",
+					GroupAria:   "theme",
+					Light:       "Light",
+					Dark:        "Dark",
 				},
 				Nav: i18n.NavMessages{Setting: "Settings", Logout: "Out"},
 			},
 		},
-		Seas: []myinfovm.SeaOption{
-			{ID: "ruab", Hex: "#0d9488", Name: "ruab surface"},
-			{ID: "teal", Hex: "#008080", Name: "Teal"},
+		Themes: []myinfovm.ThemeOption{
+			{ID: "light", Name: "Light"},
+			{ID: "tide", Name: "Tide"},
+			{ID: "dark", Name: "Dark"},
 		},
 	}
 	var buf bytes.Buffer
 	if err := tmpl.ExecuteTemplate(&buf, "myinfo_setting", page); err != nil {
 		t.Fatalf("execute myinfo_setting: %v", err)
 	}
-	if !bytes.Contains(buf.Bytes(), []byte("data-sea-id=\"teal\"")) {
-		t.Fatalf("expected sea swatch markup, got %s", buf.String())
+	if !bytes.Contains(buf.Bytes(), []byte("data-theme-id=\"tide\"")) {
+		t.Fatalf("expected tide swatch markup, got %s", buf.String())
 	}
 }
 

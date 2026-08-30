@@ -5,18 +5,18 @@
   {{ if .IsAuthenticated }}{{ template "myinfo_nav" . }}{{ end }}
   <p class="section-stub__desc">{{ .T.Appearance.Description }}</p>
 
-  <div class="sea-picker" id="sea-picker" role="radiogroup" aria-label="{{ .T.Appearance.GroupAria }}">
-    {{ range .Seas }}
+  <div class="theme-picker" id="theme-picker" role="radiogroup" aria-label="{{ .T.Appearance.GroupAria }}">
+    {{ range .Themes }}
     <button
       type="button"
-      class="sea-swatch"
+      class="theme-swatch"
       role="radio"
-      data-sea-id="{{ .ID }}"
+      data-theme-id="{{ .ID }}"
       aria-pressed="false"
       aria-checked="false"
     >
-      <span class="sea-swatch__chip" style="background: {{ .Hex }}"></span>
-      <span class="sea-swatch__name">{{ .Name }}</span>
+      <span class="theme-swatch__preview theme-swatch__preview--{{ .ID }}"></span>
+      <span class="theme-swatch__name">{{ .Name }}</span>
     </button>
     {{ end }}
   </div>
