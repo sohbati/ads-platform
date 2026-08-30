@@ -112,6 +112,14 @@ ensure_identity() {
 
 ensure_identity
 
+# Bugs live in refs/bugs and refs/identities, not in a normal commit.
+# Pull so a second laptop sees issues already pushed with: git bug push origin
+if git remote get-url origin >/dev/null 2>&1; then
+  echo "Pulling git-bug issues from origin..."
+  git bug pull origin || echo "Warning: could not pull git-bug issues from origin."
+fi
+
 echo "Starting git-bug web UI on http://127.0.0.1:${PORT}"
 echo "Issues are stored as git objects in $REPO_ROOT (not as working-tree files)."
+echo "After adding or editing bugs, publish them with: git bug push origin"
 exec git bug webui --host 127.0.0.1 --port "$PORT" --no-open
