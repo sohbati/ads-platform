@@ -234,6 +234,8 @@ func TestAdDetailTemplateRenders(t *testing.T) {
 			PublishedAt: "2026-08-01",
 			Description: "Nice bike",
 			Images:      []string{"/a.webp", "/b.webp"},
+			HasPhone:    true,
+			PhoneMasked: "09*********",
 		},
 	}
 	var buf bytes.Buffer
@@ -242,6 +244,12 @@ func TestAdDetailTemplateRenders(t *testing.T) {
 	}
 	if !bytes.Contains(buf.Bytes(), []byte("/a.webp")) || !bytes.Contains(buf.Bytes(), []byte("data-ad-next")) {
 		t.Fatalf("expected gallery markup, got %s", buf.String())
+	}
+	if !bytes.Contains(buf.Bytes(), []byte("09*********")) || !bytes.Contains(buf.Bytes(), []byte("data-ad-show-phone")) {
+		t.Fatalf("expected masked phone markup, got %s", buf.String())
+	}
+	if bytes.Contains(buf.Bytes(), []byte("09121110001")) {
+		t.Fatalf("full phone must not be in HTML: %s", buf.String())
 	}
 
 	notFound := viewmodel.AdDetailPage{

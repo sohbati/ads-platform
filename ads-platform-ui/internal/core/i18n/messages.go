@@ -216,6 +216,9 @@ type AdDetailMessages struct {
 	NextPhoto    string `json:"next_photo"`
 	PhotoCounter string `json:"photo_counter"`
 	NoPhotos     string `json:"no_photos"`
+	ContactLabel string `json:"contact_label"`
+	ShowPhone    string `json:"show_phone"`
+	CallPhone    string `json:"call_phone"`
 }
 
 type AppearanceMessages struct {

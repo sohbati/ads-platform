@@ -52,6 +52,14 @@ func (f *fakeAdService) GetPublic(_ context.Context, adID int64) (*model.PublicA
 	return &model.PublicAd{ID: f.ad.ID, Title: f.ad.Title, Description: f.ad.Description}, nil
 }
 
+func (f *fakeAdService) GetPublicContact(_ context.Context, adID int64) (*model.PublicContact, error) {
+	f.gotID = adID
+	if f.err != nil {
+		return nil, f.err
+	}
+	return &model.PublicContact{Phone: "09121110001"}, nil
+}
+
 func (f *fakeAdService) GetForOwner(_ context.Context, userID, adID int64) (*model.Ad, error) {
 	f.gotUID = userID
 	f.gotID = adID
@@ -82,6 +90,7 @@ func testRouter(h *AdHandler) *gin.Engine {
 	r.Use(middleware.GlobalErrorHandler())
 	r.POST("/api/v1/ads", h.Create)
 	r.GET("/api/v1/ads/:id", h.GetPublic)
+	r.GET("/api/v1/ads/:id/contact", h.GetPublicContact)
 	r.GET("/api/v1/users/:userId/ads", h.ListByUser)
 	r.GET("/api/v1/users/:userId/ads/:adId", h.GetForOwner)
 	r.PUT("/api/v1/users/:userId/ads/:adId", h.Update)
@@ -223,6 +232,25 @@ func TestGetPublicHandler(t *testing.T) {
 		t.Fatalf("id=%d", fake.gotID)
 	}
 	if !bytes.Contains(rec.Body.Bytes(), []byte(`"title":"Used laptop"`)) {
+		t.Fatalf("body=%s", rec.Body.String())
+	}
+}
+
+func TestGetPublicContactHandler(t *testing.T) {
+	fake := &fakeAdService{ad: &model.Ad{ID: 9}}
+	r := testRouter(NewAdHandler(fake))
+
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/ads/9/contact", nil)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	if fake.gotID != 9 {
+		t.Fatalf("id=%d", fake.gotID)
+	}
+	if !bytes.Contains(rec.Body.Bytes(), []byte(`"phone":"09121110001"`)) {
 		t.Fatalf("body=%s", rec.Body.String())
 	}
 }

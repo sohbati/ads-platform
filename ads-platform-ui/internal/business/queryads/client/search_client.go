@@ -50,6 +50,8 @@ type PublicAd struct {
 	Neighborhood string        `json:"neighborhood"`
 	Media        []PublicMedia `json:"media"`
 	PublishedAt  *string       `json:"published_at"`
+	HasPhone     bool          `json:"has_phone"`
+	PhoneMasked  string        `json:"phone_masked"`
 }
 
 type PublicMedia struct {

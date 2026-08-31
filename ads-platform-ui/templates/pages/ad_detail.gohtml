@@ -58,6 +58,24 @@
     {{ if .Ad.Description }}
     <p class="ad-detail__desc">{{ .Ad.Description }}</p>
     {{ end }}
+    {{ if .Ad.HasPhone }}
+    <div class="ad-contact" data-ad-contact data-ad-id="{{ .Ad.ID }}">
+      <p class="ad-contact__label">{{ .T.AdDetail.ContactLabel }}</p>
+      <button
+        type="button"
+        class="ad-contact__masked"
+        data-ad-phone-masked
+        aria-label="{{ .T.AdDetail.ShowPhone }}"
+      >
+        <span dir="ltr">{{ .Ad.PhoneMasked }}</span>
+      </button>
+      <a class="ad-contact__number" data-ad-phone-revealed hidden dir="ltr" href="#"></a>
+      <button type="button" class="btn btn--primary ad-contact__show" data-ad-show-phone>
+        {{ .T.AdDetail.ShowPhone }}
+      </button>
+      <a class="btn btn--primary ad-contact__call" data-ad-call-phone hidden href="#">{{ .T.AdDetail.CallPhone }}</a>
+    </div>
+    {{ end }}
   </div>
   {{ end }}
 </section>

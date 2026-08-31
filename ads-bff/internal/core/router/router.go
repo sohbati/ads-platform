@@ -87,6 +87,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 		}
 
 		api.POST("/ads", r.container.Ads.AdHandler.Create)
+		api.GET("/ads/:id/contact", r.container.Ads.AdHandler.GetContact)
 		api.GET("/me/ads", r.container.Ads.AdHandler.ListMine)
 		api.GET("/me/ads/:id", r.container.Ads.AdHandler.GetMine)
 		api.PUT("/me/ads/:id", r.container.Ads.AdHandler.UpdateMine)

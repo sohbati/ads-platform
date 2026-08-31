@@ -106,6 +106,21 @@ func (h *AdHandler) GetPublic(c *gin.Context) {
 	c.JSON(http.StatusOK, ad)
 }
 
+// GetPublicContact handles GET /api/v1/ads/:id/contact
+func (h *AdHandler) GetPublicContact(c *gin.Context) {
+	adID, err := parseAdID(c.Param("id"))
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	contact, err := h.ads.GetPublicContact(c.Request.Context(), adID)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	c.JSON(http.StatusOK, contact)
+}
+
 // GetForOwner handles GET /api/v1/users/:userId/ads/:adId
 func (h *AdHandler) GetForOwner(c *gin.Context) {
 	userID, adID, err := parseOwnerIDs(c)

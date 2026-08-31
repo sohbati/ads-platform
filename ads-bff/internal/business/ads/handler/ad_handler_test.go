@@ -40,6 +40,7 @@ func testAdsRouter(h *AdHandler) *gin.Engine {
 	r := gin.New()
 	r.Use(middleware.GlobalErrorHandler())
 	r.POST("/api/v1/ads", h.Create)
+	r.GET("/api/v1/ads/:id/contact", h.GetContact)
 	r.GET("/api/v1/me/ads", h.ListMine)
 	r.GET("/api/v1/me/ads/:id", h.GetMine)
 	r.PUT("/api/v1/me/ads/:id", h.UpdateMine)
@@ -243,5 +244,78 @@ func TestUpdateMineUsesSessionUserID(t *testing.T) {
 	}
 	if got["user_id"] != float64(42) {
 		t.Fatalf("backend user_id=%v", got["user_id"])
+	}
+}
+
+func TestGetContactRequiresAuth(t *testing.T) {
+	h := newHandler(t, &fakeAuth{err: cacheerr.ErrSessionNotFound}, func(w http.ResponseWriter, r *http.Request) {
+		t.Fatal("backend should not be called")
+	})
+	r := testAdsRouter(h)
+
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/ads/9/contact", nil)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusUnauthorized {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	if !bytes.Contains(rec.Body.Bytes(), []byte("AUTH_REQUIRED")) {
+		t.Fatalf("body=%s", rec.Body.String())
+	}
+}
+
+func TestGetContactProxiesWhenAuthenticated(t *testing.T) {
+	var gotPath string
+	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
+		gotPath = r.URL.Path
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"phone":"09121110001"}`))
+	})
+	r := testAdsRouter(h)
+
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/ads/9/contact", nil)
+	withSession(req)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	if gotPath != "/api/v1/ads/9/contact" {
+		t.Fatalf("backend path=%s", gotPath)
+	}
+	if !bytes.Contains(rec.Body.Bytes(), []byte(`"phone":"09121110001"`)) {
+		t.Fatalf("body=%s", rec.Body.String())
+	}
+}
+
+func TestCreateAdJSONInjectsSessionMobileWhenContactPhoneMissing(t *testing.T) {
+	var got map[string]any
+	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42, Mobile: "+989121110001"}}, func(w http.ResponseWriter, r *http.Request) {
+		body, _ := io.ReadAll(r.Body)
+		if err := json.Unmarshal(body, &got); err != nil {
+			t.Errorf("backend body: %v", err)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		_, _ = w.Write([]byte(`{"id":9,"user_id":42}`))
+	})
+	r := testAdsRouter(h)
+
+	req := httptest.NewRequest(http.MethodPost, "/api/v1/ads", bytes.NewReader([]byte(`{
+		"category_id":16,"city_id":1,"title":"Used laptop","description":"ok","contact":{"chat_enabled":true}
+	}`)))
+	req.Header.Set("Content-Type", "application/json")
+	withSession(req)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusCreated {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	contact, _ := got["contact"].(map[string]any)
+	if contact == nil || contact["phone"] != "+989121110001" {
+		t.Fatalf("contact=%v", got["contact"])
 	}
 }

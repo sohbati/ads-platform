@@ -128,6 +128,8 @@ func toAdDetail(ad *searchclient.PublicAd, t i18n.Messages, mediaCDN string) *vi
 		Description: ad.Description,
 		Location:    ad.CityName,
 		Images:      make([]string, 0, len(ad.Media)),
+		HasPhone:    ad.HasPhone,
+		PhoneMasked: ad.PhoneMasked,
 	}
 	if ad.Neighborhood != "" {
 		if out.Location != "" {

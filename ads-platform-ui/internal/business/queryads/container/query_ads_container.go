@@ -17,6 +17,6 @@ type QueryAdsContainer struct {
 func NewQueryAdsContainer(cfg *config.Config, reg *i18n.Registry, catalog *cities.Catalog, bffClient *bff.Client) *QueryAdsContainer {
 	svc := serviceimpl.NewQueryAdsService(reg, catalog, searchclient.NewSearchClient(bffClient), cfg.MediaCDNURL)
 	return &QueryAdsContainer{
-		PageHandler: handler.NewPageHandler(svc, cfg),
+		PageHandler: handler.NewPageHandler(svc, cfg, bffClient),
 	}
 }

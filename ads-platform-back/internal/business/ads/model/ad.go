@@ -72,6 +72,13 @@ type PublicAd struct {
 	Neighborhood string        `json:"neighborhood,omitempty"`
 	Media        []PublicMedia `json:"media"`
 	PublishedAt  *string       `json:"published_at,omitempty"`
+	HasPhone     bool          `json:"has_phone"`
+	PhoneMasked  string        `json:"phone_masked,omitempty"`
+}
+
+// PublicContact is the seller phone, returned only after the viewer is logged in.
+type PublicContact struct {
+	Phone string `json:"phone"`
 }
 
 // PublicMedia is one photo on the public details page. URL is the full WebP.

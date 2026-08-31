@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"ads-platform-ui/internal/business/queryads/service"
+	"ads-platform-ui/internal/core/bff"
 	"ads-platform-ui/internal/core/config"
 	"ads-platform-ui/internal/core/i18n"
 
@@ -15,10 +16,11 @@ import (
 type PageHandler struct {
 	service service.QueryAdsService
 	config  *config.Config
+	bff     *bff.Client
 }
 
-func NewPageHandler(svc service.QueryAdsService, cfg *config.Config) *PageHandler {
-	return &PageHandler{service: svc, config: cfg}
+func NewPageHandler(svc service.QueryAdsService, cfg *config.Config, bffClient *bff.Client) *PageHandler {
+	return &PageHandler{service: svc, config: cfg, bff: bffClient}
 }
 
 func (h *PageHandler) Index(c *gin.Context) {

@@ -10,6 +10,7 @@ import (
 	"image/jpeg"
 	"image/png"
 	"io"
+	"strings"
 	"testing"
 
 	"ads-platform/internal/business/ads/model"
@@ -472,6 +473,62 @@ func TestGetPublicReturnsActiveWithFullMedia(t *testing.T) {
 	deleted.Status = model.AdStatusDeleted
 	ads.ads[ad.ID] = deleted
 	_, err = svc.GetPublic(context.Background(), ad.ID)
+	assertAppErrorCode(t, err, "AD_NOT_FOUND")
+}
+
+func TestGetPublicMasksPhoneAndHidesFullNumber(t *testing.T) {
+	ads := newFakeAdRepo()
+	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+	in := validInput()
+	in.Contact = json.RawMessage(`{"phone":"+989121110001","chat_enabled":true}`)
+	ad, err := svc.Create(context.Background(), in)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	got, err := svc.GetPublic(context.Background(), ad.ID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !got.HasPhone || got.PhoneMasked != "09*********" {
+		t.Fatalf("masked=%q has_phone=%v", got.PhoneMasked, got.HasPhone)
+	}
+
+	raw, err := json.Marshal(got)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(string(raw), "9121110001") || strings.Contains(string(raw), "09121110001") {
+		t.Fatalf("full phone leaked: %s", raw)
+	}
+
+	contact, err := svc.GetPublicContact(context.Background(), ad.ID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if contact.Phone != "09121110001" {
+		t.Fatalf("contact phone=%q", contact.Phone)
+	}
+}
+
+func TestGetPublicHidesPhoneWhenShowPhoneFalse(t *testing.T) {
+	ads := newFakeAdRepo()
+	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+	in := validInput()
+	in.Contact = json.RawMessage(`{"phone":"09121110001","show_phone":false}`)
+	ad, err := svc.Create(context.Background(), in)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	got, err := svc.GetPublic(context.Background(), ad.ID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got.HasPhone || got.PhoneMasked != "" {
+		t.Fatalf("expected hidden phone: %+v", got)
+	}
+	_, err = svc.GetPublicContact(context.Background(), ad.ID)
 	assertAppErrorCode(t, err, "AD_NOT_FOUND")
 }
 

@@ -123,7 +123,10 @@
       "prev_photo": "Previous photo",
       "next_photo": "Next photo",
       "photo_counter": "%d / %d",
-      "no_photos": "No photos"
+      "no_photos": "No photos",
+      "contact_label": "Phone number",
+      "show_phone": "Show phone number",
+      "call_phone": "Call"
     },
     "appearance": {
       "title": "Appearance",

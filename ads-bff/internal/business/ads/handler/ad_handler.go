@@ -13,6 +13,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
+	"ads-bff/internal/business/auth/model"
 	"ads-bff/internal/business/auth/service"
 	backendclient "ads-bff/internal/core/client/backend"
 	cacheclient "ads-bff/internal/core/client/cache"
@@ -36,13 +37,13 @@ func NewAdHandler(cfg *config.Config, auth service.AuthService, backend *backend
 }
 
 func (h *AdHandler) Create(c *gin.Context) {
-	userID, err := h.sessionUserID(c)
+	user, err := h.sessionUser(c)
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
 	}
 
-	body, contentType, err := injectUserID(c, userID)
+	body, contentType, err := injectUserID(c, user.ID, user.Mobile)
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
@@ -94,7 +95,7 @@ func (h *AdHandler) GetMine(c *gin.Context) {
 }
 
 func (h *AdHandler) UpdateMine(c *gin.Context) {
-	userID, err := h.sessionUserID(c)
+	user, err := h.sessionUser(c)
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
@@ -105,13 +106,32 @@ func (h *AdHandler) UpdateMine(c *gin.Context) {
 		return
 	}
 
-	body, contentType, err := injectUserID(c, userID)
+	body, contentType, err := injectUserID(c, user.ID, user.Mobile)
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
 	}
 
-	status, respBody, err := h.backend.UpdateUserAd(c.Request.Context(), userID, adID, body, contentType)
+	status, respBody, err := h.backend.UpdateUserAd(c.Request.Context(), user.ID, adID, body, contentType)
+	if err != nil {
+		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE", "statusCode": http.StatusBadGateway})
+		return
+	}
+	c.Data(status, "application/json", respBody)
+}
+
+func (h *AdHandler) GetContact(c *gin.Context) {
+	if _, err := h.sessionUserID(c); err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	adID, err := parsePositiveID(c.Param("id"))
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+
+	status, respBody, err := h.backend.GetAdContact(c.Request.Context(), adID)
 	if err != nil {
 		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE", "statusCode": http.StatusBadGateway})
 		return
@@ -127,34 +147,42 @@ func parsePositiveID(raw string) (int64, error) {
 	return id, nil
 }
 
-func (h *AdHandler) sessionUserID(c *gin.Context) (int64, error) {
+func (h *AdHandler) sessionUser(c *gin.Context) (*model.SessionUser, error) {
 	sessionID, err := c.Cookie(h.cfg.SessionCookieName)
 	if err != nil || sessionID == "" {
-		return 0, exception.NewAppError("AUTH_REQUIRED", http.StatusUnauthorized)
+		return nil, exception.NewAppError("AUTH_REQUIRED", http.StatusUnauthorized)
 	}
 
 	user, err := h.auth.GetCurrentUser(c.Request.Context(), sessionID)
 	if err != nil {
 		if cacheclient.IsSessionNotFound(err) {
-			return 0, exception.NewAppError("AUTH_REQUIRED", http.StatusUnauthorized)
+			return nil, exception.NewAppError("AUTH_REQUIRED", http.StatusUnauthorized)
 		}
-		return 0, exception.NewAppError("SESSION_LOOKUP_FAILED", http.StatusBadGateway).WithCause(err)
+		return nil, exception.NewAppError("SESSION_LOOKUP_FAILED", http.StatusBadGateway).WithCause(err)
 	}
 	if user == nil || user.ID <= 0 {
-		return 0, exception.NewAppError("AUTH_REQUIRED", http.StatusUnauthorized)
+		return nil, exception.NewAppError("AUTH_REQUIRED", http.StatusUnauthorized)
+	}
+	return user, nil
+}
+
+func (h *AdHandler) sessionUserID(c *gin.Context) (int64, error) {
+	user, err := h.sessionUser(c)
+	if err != nil {
+		return 0, err
 	}
 	return user.ID, nil
 }
 
-func injectUserID(c *gin.Context, userID int64) ([]byte, string, error) {
+func injectUserID(c *gin.Context, userID int64, mobile string) ([]byte, string, error) {
 	ct := c.ContentType()
 	if strings.HasPrefix(ct, "multipart/form-data") {
-		return injectUserIDMultipart(c, userID)
+		return injectUserIDMultipart(c, userID, mobile)
 	}
-	return injectUserIDJSON(c, userID)
+	return injectUserIDJSON(c, userID, mobile)
 }
 
-func injectUserIDJSON(c *gin.Context, userID int64) ([]byte, string, error) {
+func injectUserIDJSON(c *gin.Context, userID int64, mobile string) ([]byte, string, error) {
 	raw, err := io.ReadAll(io.LimitReader(c.Request.Body, maxAdBody))
 	if err != nil {
 		return nil, "", exception.NewAppError("INVALID_REQUEST", http.StatusBadRequest).WithCause(err)
@@ -165,6 +193,7 @@ func injectUserIDJSON(c *gin.Context, userID int64) ([]byte, string, error) {
 		return nil, "", err
 	}
 	payload["user_id"] = userID
+	ensureContactPhone(payload, mobile)
 
 	out, err := json.Marshal(payload)
 	if err != nil {
@@ -173,7 +202,7 @@ func injectUserIDJSON(c *gin.Context, userID int64) ([]byte, string, error) {
 	return out, "application/json", nil
 }
 
-func injectUserIDMultipart(c *gin.Context, userID int64) ([]byte, string, error) {
+func injectUserIDMultipart(c *gin.Context, userID int64, mobile string) ([]byte, string, error) {
 	if err := c.Request.ParseMultipartForm(maxAdBody); err != nil {
 		return nil, "", exception.NewAppError("INVALID_REQUEST", http.StatusBadRequest).WithCause(err)
 	}
@@ -184,6 +213,7 @@ func injectUserIDMultipart(c *gin.Context, userID int64) ([]byte, string, error)
 		return nil, "", err
 	}
 	payload["user_id"] = userID
+	ensureContactPhone(payload, mobile)
 
 	payloadJSON, err := json.Marshal(payload)
 	if err != nil {
@@ -245,6 +275,23 @@ func decodePayload(raw []byte) (map[string]any, error) {
 	}
 	delete(payload, "user_id")
 	return payload, nil
+}
+
+func ensureContactPhone(payload map[string]any, mobile string) {
+	mobile = strings.TrimSpace(mobile)
+	if mobile == "" || payload == nil {
+		return
+	}
+	contact, _ := payload["contact"].(map[string]any)
+	if contact == nil {
+		contact = map[string]any{}
+	}
+	phone, _ := contact["phone"].(string)
+	if strings.TrimSpace(phone) != "" {
+		return
+	}
+	contact["phone"] = mobile
+	payload["contact"] = contact
 }
 
 func escapeQuotes(s string) string {

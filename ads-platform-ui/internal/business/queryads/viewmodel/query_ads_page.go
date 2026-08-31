@@ -52,4 +52,6 @@ type AdDetail struct {
 	PublishedAt string
 	Description string
 	Images      []string
+	HasPhone    bool
+	PhoneMasked string
 }

@@ -89,6 +89,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 
 		api.POST("/ads", r.container.Ads.AdHandler.Create)
 		api.GET("/ads/:id", r.container.Ads.AdHandler.GetPublic)
+		api.GET("/ads/:id/contact", r.container.Ads.AdHandler.GetPublicContact)
 	}
 
 	return router

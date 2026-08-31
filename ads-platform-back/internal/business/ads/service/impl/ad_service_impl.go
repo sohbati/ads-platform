@@ -132,6 +132,26 @@ func (s *adService) GetForOwner(ctx context.Context, userID, adID int64) (*model
 }
 
 func (s *adService) GetPublic(ctx context.Context, adID int64) (*model.PublicAd, error) {
+	ad, err := s.loadActive(ctx, adID)
+	if err != nil {
+		return nil, err
+	}
+	return toPublicAd(ad, s.cityNames(ctx, []model.Ad{*ad})), nil
+}
+
+func (s *adService) GetPublicContact(ctx context.Context, adID int64) (*model.PublicContact, error) {
+	ad, err := s.loadActive(ctx, adID)
+	if err != nil {
+		return nil, err
+	}
+	phone, ok := contactPhone(ad.Contact)
+	if !ok {
+		return nil, exception.NewAppError(errorcode.ErrAdNotFound.Code, errorcode.ErrAdNotFound.HttpStatus)
+	}
+	return &model.PublicContact{Phone: displayPhone(phone)}, nil
+}
+
+func (s *adService) loadActive(ctx context.Context, adID int64) (*model.Ad, error) {
 	if adID <= 0 {
 		return nil, exception.NewAppError(errorcode.ErrAdNotFound.Code, errorcode.ErrAdNotFound.HttpStatus)
 	}
@@ -145,7 +165,7 @@ func (s *adService) GetPublic(ctx context.Context, adID int64) (*model.PublicAd,
 	if ad == nil || ad.Status != model.AdStatusActive {
 		return nil, exception.NewAppError(errorcode.ErrAdNotFound.Code, errorcode.ErrAdNotFound.HttpStatus)
 	}
-	return toPublicAd(ad, s.cityNames(ctx, []model.Ad{*ad})), nil
+	return ad, nil
 }
 
 func (s *adService) Update(ctx context.Context, adID int64, in service.CreateAdInput) (*model.Ad, error) {
@@ -363,6 +383,10 @@ func toPublicAd(ad *model.Ad, cityNames map[int]string) *model.PublicAd {
 	if ad.PublishedAt != nil {
 		s := ad.PublishedAt.UTC().Format(time.RFC3339)
 		out.PublishedAt = &s
+	}
+	if phone, ok := contactPhone(ad.Contact); ok {
+		out.HasPhone = true
+		out.PhoneMasked = maskPhone(phone)
 	}
 	return out
 }

@@ -112,6 +112,11 @@ func (c *Client) RegisterUserByMobile(ctx context.Context, mobile string) (*User
 	return &user, status, respBody, nil
 }
 
+func (c *Client) GetAdContact(ctx context.Context, adID int64) (int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/ads/%d/contact", c.baseURL, adID)
+	return c.get(ctx, url)
+}
+
 func (c *Client) GetUserProfile(ctx context.Context, userID int64) (int, []byte, error) {
 	url := fmt.Sprintf("%s/api/v1/users/%d/profile", c.baseURL, userID)
 	return c.get(ctx, url)

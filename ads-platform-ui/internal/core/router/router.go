@@ -82,6 +82,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 	api := router.Group("/api/v1")
 	{
 		api.GET("/search", r.container.QueryAds.PageHandler.SearchJSON)
+		api.GET("/ads/:id/contact", r.container.QueryAds.PageHandler.ContactJSON)
 		api.GET("/categories", r.container.Category.APIHandler.List)
 		api.GET("/cities", r.container.Location.APIHandler.ListCities)
 		api.POST("/ads", r.container.NewAd.APIHandler.Create)
