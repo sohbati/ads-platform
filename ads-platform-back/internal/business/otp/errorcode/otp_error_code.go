@@ -15,7 +15,8 @@ var (
 	ErrInvalidOTP     = New("INVALID_OTP", http.StatusBadRequest)
 	ErrOTPNotFound    = New("OTP_NOT_FOUND", http.StatusNotFound)
 	ErrOTPExpired     = New("OTP_EXPIRED", http.StatusNotFound)
-	ErrOTPVerifyFailed = New("OTP_VERIFY_FAILED", http.StatusUnauthorized)
+	ErrOTPVerifyFailed  = New("OTP_VERIFY_FAILED", http.StatusUnauthorized)
+	ErrOTPResendWait    = New("OTP_RESEND_WAIT", http.StatusTooManyRequests)
 	ErrCacheUnavailable = New("CACHE_SERVICE_UNAVAILABLE", http.StatusServiceUnavailable)
 )
 

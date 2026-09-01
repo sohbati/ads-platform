@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -23,7 +24,8 @@ type ErrorResponse struct {
 }
 
 type SendOtpResponse struct {
-	Message string `json:"message"`
+	Message            string `json:"message"`
+	ResendAfterSeconds int    `json:"resend_after_seconds"`
 }
 
 type VerifyOtpResponse struct {
@@ -177,7 +179,7 @@ func GetCachedOTP(ctx context.Context, cacheURL, mobile string) (string, error) 
 func MustSendAndGetOTP(t *testing.T, ctx context.Context, backURL, cacheURL, mobile string) string {
 	t.Helper()
 
-	status, resp, errResp := SendOTP(ctx, backURL, mobile)
+	status, resp, errResp := SendOTPReady(ctx, backURL, mobile)
 	if status != http.StatusOK {
 		t.Fatalf("send otp: status=%d error=%+v", status, errResp)
 	}
@@ -194,4 +196,31 @@ func MustSendAndGetOTP(t *testing.T, ctx context.Context, backURL, cacheURL, mob
 	}
 
 	return otp
+}
+
+func SendOTPReady(ctx context.Context, backURL, mobile string) (int, SendOtpResponse, ErrorResponse) {
+	status, resp, errResp := SendOTP(ctx, backURL, mobile)
+	if status != http.StatusTooManyRequests {
+		return status, resp, errResp
+	}
+	wait := waitSeconds(errResp)
+	timer := time.NewTimer(time.Duration(wait+1) * time.Second)
+	defer timer.Stop()
+	select {
+	case <-ctx.Done():
+		return status, resp, errResp
+	case <-timer.C:
+	}
+	return SendOTP(ctx, backURL, mobile)
+}
+
+func waitSeconds(errResp ErrorResponse) int {
+	if len(errResp.Params) == 0 {
+		return 1
+	}
+	n, err := strconv.Atoi(errResp.Params[0])
+	if err != nil || n < 1 {
+		return 1
+	}
+	return n
 }

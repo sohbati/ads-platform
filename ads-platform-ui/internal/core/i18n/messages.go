@@ -61,6 +61,7 @@ type AuthMessages struct {
 	LoginFailed       string `json:"login_failed"`
 	OtpSent           string `json:"otp_sent"`
 	ResendOtp         string `json:"resend_otp"`
+	ResendWait        string `json:"resend_wait"`
 	WelcomeUser       string `json:"welcome_user"`
 }
 

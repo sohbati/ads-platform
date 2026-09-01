@@ -4,6 +4,8 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"strings"
+	"time"
 
 	"github.com/joho/godotenv"
 )
@@ -17,6 +19,7 @@ type Config struct {
 	NatsBrokerURL         string
 	OtpSubject            string
 	DefaultCountryCode    string
+	OtpResendAfter        time.Duration
 	MaxAdPictures         int
 	MaxAdPictureBytes     int64
 	MinioEndpoint         string
@@ -39,6 +42,7 @@ func Load() *Config {
 		NatsBrokerURL:         os.Getenv("NATS_BROKER_URL"),
 		OtpSubject:            os.Getenv("OTP_SUBJECT"),
 		DefaultCountryCode:    os.Getenv("DEFAULT_COUNTRY_CODE"),
+		OtpResendAfter:        envDurationSeconds("OTP_RESEND_SECONDS", 60),
 		MaxAdPictures:         envInt("ADS_MAX_PICTURES"),
 		MaxAdPictureBytes:     int64(envInt("ADS_MAX_PICTURE_BYTES")),
 		MinioEndpoint:         os.Getenv("MINIO_ENDPOINT"),
@@ -65,4 +69,16 @@ func Load() *Config {
 func envInt(key string) int {
 	v, _ := strconv.Atoi(os.Getenv(key))
 	return v
+}
+
+func envDurationSeconds(key string, defaultSeconds int) time.Duration {
+	raw := strings.TrimSpace(os.Getenv(key))
+	if raw == "" {
+		return time.Duration(defaultSeconds) * time.Second
+	}
+	n, err := strconv.Atoi(raw)
+	if err != nil || n < 0 {
+		return time.Duration(defaultSeconds) * time.Second
+	}
+	return time.Duration(n) * time.Second
 }

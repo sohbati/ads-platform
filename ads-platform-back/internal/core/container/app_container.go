@@ -23,7 +23,7 @@ func NewAppContainer(db *gorm.DB, cfg *config.Config) *AppContainer {
 	return &AppContainer{
 		User:        userContainer.NewUserContainer(db, cfg.DefaultCountryCode),
 		UserProfile: userprofileContainer.NewUserProfileContainer(db),
-		Otp:         otpContainer.NewOtpContainer(cfg.CacheServiceURL, cfg.NatsURL, cfg.OtpSubject, cfg.DefaultCountryCode),
+		Otp:         otpContainer.NewOtpContainer(cfg.CacheServiceURL, cfg.NatsURL, cfg.OtpSubject, cfg.DefaultCountryCode, cfg.OtpResendAfter),
 		Search:      searchContainer.NewSearchContainer(db, cfg.CacheServiceURL),
 		Ads:         adsContainer.NewAdsContainer(db, cfg),
 	}

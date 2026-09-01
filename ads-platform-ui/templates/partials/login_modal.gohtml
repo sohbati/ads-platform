@@ -61,6 +61,7 @@
           required
         />
         <div class="login-modal__actions">
+          <p class="login-modal__countdown" id="login-otp-countdown" hidden data-template="{{ .T.Auth.ResendWait }}"></p>
           <button type="button" id="login-resend-otp" class="btn btn--login-secondary login-modal__resend is-hidden" hidden>{{ .T.Auth.ResendOtp }}</button>
           <button type="button" id="login-verify-otp" class="btn btn--login">{{ .T.Auth.VerifyOtp }}</button>
         </div>

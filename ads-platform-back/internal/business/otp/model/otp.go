@@ -1,7 +1,8 @@
 package model
 
 type SendOtpResponse struct {
-	Message string `json:"message"`
+	Message            string `json:"message"`
+	ResendAfterSeconds int    `json:"resend_after_seconds"`
 }
 
 type VerifyOtpRequest struct {

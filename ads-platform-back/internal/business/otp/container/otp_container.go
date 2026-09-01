@@ -2,6 +2,7 @@ package container
 
 import (
 	"log"
+	"time"
 
 	"ads-platform/internal/business/otp/client"
 	"ads-platform/internal/business/otp/handler"
@@ -13,7 +14,7 @@ type OtpContainer struct {
 	OtpHandler *handler.OtpHandler
 }
 
-func NewOtpContainer(cacheServiceURL, natsURL, otpSubject, defaultCountryCode string) *OtpContainer {
+func NewOtpContainer(cacheServiceURL, natsURL, otpSubject, defaultCountryCode string, resendAfter time.Duration) *OtpContainer {
 	cacheClient := client.NewOtpCacheClient(cacheServiceURL, nil)
 
 	eventPublisher, err := client.NewOtpEventPublisher(natsURL, otpSubject)
@@ -22,7 +23,7 @@ func NewOtpContainer(cacheServiceURL, natsURL, otpSubject, defaultCountryCode st
 		eventPublisher, _ = client.NewOtpEventPublisher("", otpSubject)
 	}
 
-	otpService := serviceimpl.NewOtpService(cacheClient, eventPublisher)
+	otpService := serviceimpl.NewOtpService(cacheClient, eventPublisher, resendAfter)
 	mobileNorm := mobile.NewNormalizer(defaultCountryCode)
 	otpHandler := handler.NewOtpHandler(otpService, mobileNorm)
 

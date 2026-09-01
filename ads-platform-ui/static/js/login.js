@@ -13,9 +13,13 @@
   const stepOtp = document.getElementById("login-step-otp");
   const nextInput = document.getElementById("login-next");
   const otpHint = document.getElementById("login-otp-hint");
+  const countdownEl = document.getElementById("login-otp-countdown");
   const accountTrigger = document.getElementById("header-login-trigger");
   const loginForm = document.getElementById("login-form");
   const defaultCountryCode = (loginForm && loginForm.dataset.countryCode) || "+98";
+  const WAIT_KEY = "ruab-otp-wait";
+
+  let countdownTimer = 0;
 
   const resolveError = typeof window.resolveApiError === "function"
     ? window.resolveApiError
@@ -68,10 +72,103 @@
           params: Array.isArray(data.params) ? data.params : [],
         };
       }
+      return { code: "", params: [], data: data };
     } catch (_err) {
       // Plain-text error body.
     }
     return { code: "", params: [] };
+  }
+
+  function waitRecord(mobile, seconds) {
+    const secs = Number(seconds);
+    if (!mobile || !secs || secs < 1) return null;
+    return { mobile: mobile, until: Date.now() + secs * 1000 };
+  }
+
+  function saveWait(mobile, seconds) {
+    const rec = waitRecord(mobile, seconds);
+    if (!rec) return;
+    try {
+      localStorage.setItem(WAIT_KEY, JSON.stringify(rec));
+    } catch (_err) {}
+    return rec;
+  }
+
+  function loadWait() {
+    try {
+      const raw = localStorage.getItem(WAIT_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      if (!data || !data.mobile || !data.until) return null;
+      if (data.until <= Date.now()) {
+        localStorage.removeItem(WAIT_KEY);
+        return null;
+      }
+      return data;
+    } catch (_err) {
+      return null;
+    }
+  }
+
+  function clearWait() {
+    try {
+      localStorage.removeItem(WAIT_KEY);
+    } catch (_err) {}
+    stopCountdown();
+  }
+
+  function remainingSeconds(until) {
+    return Math.max(0, Math.ceil((until - Date.now()) / 1000));
+  }
+
+  function formatClock(total) {
+    const secs = Math.max(0, total);
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return m + ":" + (s < 10 ? "0" : "") + s;
+  }
+
+  function stopCountdown() {
+    if (countdownTimer) {
+      window.clearInterval(countdownTimer);
+      countdownTimer = 0;
+    }
+    if (countdownEl) {
+      countdownEl.hidden = true;
+      countdownEl.textContent = "";
+    }
+    if (resendBtn) resendBtn.disabled = false;
+  }
+
+  function startCountdown(until) {
+    stopCountdown();
+    if (!until) return;
+
+    function tick() {
+      const left = remainingSeconds(until);
+      if (left <= 0) {
+        stopCountdown();
+        showResendOtp();
+        if (resendBtn) resendBtn.disabled = false;
+        setMessage(messageForError("OTP_EXPIRED", []), true);
+        return;
+      }
+      if (countdownEl) {
+        const template = countdownEl.dataset.template || "%s";
+        countdownEl.textContent = template.replace("%s", formatClock(left));
+        countdownEl.hidden = false;
+      }
+      showResendOtp();
+      if (resendBtn) resendBtn.disabled = true;
+    }
+
+    tick();
+    countdownTimer = window.setInterval(tick, 250);
+  }
+
+  function applyOtpWait(mobile, seconds) {
+    const rec = saveWait(mobile, seconds);
+    if (rec) startCountdown(rec.until);
   }
 
   function messageForError(code, params) {
@@ -84,10 +181,30 @@
       credentials: "same-origin",
     });
 
-    if (!resp.ok) {
-      const err = await readErrorResponse(resp);
-      throw Object.assign(new Error(messageForError(err.code, err.params)), { code: err.code });
+    const text = await resp.text();
+    let data = {};
+    try {
+      data = JSON.parse(text);
+    } catch (_err) {}
+
+    if (resp.status === 429 || (data && data.error === "OTP_RESEND_WAIT")) {
+      const wait = Array.isArray(data.params) && data.params[0] ? data.params[0] : "60";
+      const err = Object.assign(new Error(messageForError("OTP_RESEND_WAIT", [wait])), {
+        code: "OTP_RESEND_WAIT",
+        waitSeconds: Number(wait) || 60,
+      });
+      throw err;
     }
+
+    if (!resp.ok) {
+      const code = data && typeof data.error === "string" ? data.error : "";
+      const params = data && Array.isArray(data.params) ? data.params : [];
+      throw Object.assign(new Error(messageForError(code, params)), { code: code });
+    }
+
+    return {
+      resendAfter: (data && data.resend_after_seconds) || 60,
+    };
   }
 
   function showStepMobile() {
@@ -97,6 +214,7 @@
     stepOtp.hidden = true;
     if (otpInput) otpInput.value = "";
     hideResendOtp();
+    stopCountdown();
     setMessage("");
   }
 
@@ -130,6 +248,15 @@
     modal.setAttribute("aria-hidden", "false");
     modal.classList.add("is-open");
     document.body.classList.add("login-modal-open");
+
+    const pending = loadWait();
+    if (pending) {
+      if (mobileInput) mobileInput.value = pending.mobile;
+      showStepOtp(pending.mobile);
+      startCountdown(pending.until);
+      if (otpInput) otpInput.focus();
+      return;
+    }
     if (mobileInput) mobileInput.focus();
   }
 
@@ -244,15 +371,28 @@
       return;
     }
     const mobile = mobileResult.mobile;
+    const pending = loadWait();
+    if (pending && pending.mobile === mobile && remainingSeconds(pending.until) > 0) {
+      showStepOtp(mobile);
+      startCountdown(pending.until);
+      return;
+    }
 
     setMessage("");
     sendBtn.disabled = true;
 
     try {
-      await requestOtp(mobile);
+      const result = await requestOtp(mobile);
       showStepOtp(mobile);
+      applyOtpWait(mobile, result.resendAfter);
       setMessage(messageEl.dataset.sent || resolveError("OTP_SENT", [], "Code sent."), false);
     } catch (err) {
+      if (err && err.code === "OTP_RESEND_WAIT") {
+        showStepOtp(mobile);
+        applyOtpWait(mobile, err.waitSeconds);
+        setMessage(err.message || messageForError("OTP_RESEND_WAIT", [String(err.waitSeconds || "")]), true);
+        return;
+      }
       setMessage(err.message || messageForError("_default", []), true);
     } finally {
       sendBtn.disabled = false;
@@ -270,20 +410,32 @@
       return;
     }
     const mobile = mobileResult.mobile;
+    const pending = loadWait();
+    if (pending && pending.mobile === mobile && remainingSeconds(pending.until) > 0) {
+      startCountdown(pending.until);
+      return;
+    }
 
     setMessage("");
     resendBtn.disabled = true;
 
     try {
-      await requestOtp(mobile);
+      const result = await requestOtp(mobile);
+      applyOtpWait(mobile, result.resendAfter);
       if (otpInput) otpInput.value = "";
-      hideResendOtp();
       setMessage(messageEl.dataset.sent || resolveError("OTP_SENT", [], "Code sent."), false);
       if (otpInput) otpInput.focus();
     } catch (err) {
+      if (err && err.code === "OTP_RESEND_WAIT") {
+        applyOtpWait(mobile, err.waitSeconds);
+        setMessage(err.message || messageForError("OTP_RESEND_WAIT", [String(err.waitSeconds || "")]), true);
+        return;
+      }
       setMessage(err.message || messageForError("_default", []), true);
     } finally {
-      resendBtn.disabled = false;
+      if (resendBtn && remainingSeconds((loadWait() || {}).until || 0) <= 0) {
+        resendBtn.disabled = false;
+      }
     }
   }
 
@@ -336,6 +488,7 @@
         }
 
         closeModal();
+        clearWait();
         const next = (nextInput && nextInput.value) || "/my-info";
         window.location.assign(next);
       } catch (_err) {

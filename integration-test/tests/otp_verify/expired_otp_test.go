@@ -12,14 +12,21 @@ import (
 )
 
 func TestExpiredOtp(t *testing.T) {
-	t.Skip("OTP TTL is 500s; run manually or reduce cache TTL for automated expiry test")
-
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	status, _, errResp := otptest.VerifyOTP(ctx, backURL, otptest.TestMobile, "123456")
+	otp := otptest.MustSendAndGetOTP(t, ctx, backURL, cacheURL, otptest.TestMobile)
+
+	status, _, errResp := otptest.VerifyOTP(ctx, backURL, otptest.TestMobile, otp)
+	if status != http.StatusOK {
+		t.Fatalf("otp should verify during the wait window: status=%d error=%+v", status, errResp)
+	}
+
+	time.Sleep(2 * time.Second)
+
+	status, _, errResp = otptest.VerifyOTP(ctx, backURL, otptest.TestMobile, otp)
 	if status != http.StatusNotFound {
-		t.Fatalf("expected 404, got %d", status)
+		t.Fatalf("expected 404 after timer, got %d error=%+v", status, errResp)
 	}
 	if errResp.Error != "OTP_EXPIRED" {
 		t.Fatalf("expected OTP_EXPIRED, got %q", errResp.Error)

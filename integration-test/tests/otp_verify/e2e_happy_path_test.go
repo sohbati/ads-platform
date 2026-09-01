@@ -16,7 +16,7 @@ func TestE2EHappyPath(t *testing.T) {
 	defer cancel()
 
 	// 1. Send OTP
-	sendStatus, sendResp, sendErr := otptest.SendOTP(ctx, backURL, otptest.TestMobile)
+	sendStatus, sendResp, sendErr := otptest.SendOTPReady(ctx, backURL, otptest.TestMobile)
 	if sendStatus != http.StatusOK || sendResp.Message != "otp_sent" {
 		t.Fatalf("send failed: status=%d resp=%+v err=%+v", sendStatus, sendResp, sendErr)
 	}

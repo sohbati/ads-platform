@@ -68,6 +68,7 @@
       "login_failed": "Sign in failed",
       "otp_sent": "Code sent",
       "resend_otp": "Resend code",
+      "resend_wait": "Code valid for %s",
       "welcome_user": "Hello %s"
     },
     "hero": {
@@ -198,6 +199,7 @@
       "OTP_VERIFY_FAILED": "The verification code is incorrect.",
       "OTP_EXPIRED": "This code has expired. Request a new one.",
       "OTP_NOT_FOUND": "No verification code found for this number. Request a new one.",
+      "OTP_RESEND_WAIT": "Please wait %s seconds before requesting another code.",
       "MOBILE_EMPTY": "Enter your mobile number.",
       "INVALID_MOBILE": "Enter a valid mobile number.",
       "INVALID_OTP": "Enter a valid 6-digit code.",

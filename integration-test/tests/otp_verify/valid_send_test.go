@@ -15,7 +15,7 @@ func TestValidSend(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	status, resp, errResp := otptest.SendOTP(ctx, backURL, otptest.TestMobile)
+	status, resp, errResp := otptest.SendOTPReady(ctx, backURL, otptest.TestMobile)
 	if status != http.StatusOK {
 		t.Fatalf("status=%d error=%+v", status, errResp)
 	}

@@ -5,4 +5,5 @@ CACHE_SERVICE_URL=http://localhost:8093
 NATS_URL=nats://127.0.0.1:4222
 NATS_BROKER_URL=http://localhost:8095
 OTP_SUBJECT=notifications.otp.send
+OTP_RESEND_SECONDS=120
 DEFAULT_COUNTRY_CODE=+98

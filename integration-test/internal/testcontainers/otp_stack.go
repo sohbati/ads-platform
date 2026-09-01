@@ -71,7 +71,9 @@ func StartOtpStack(ctx context.Context) (*OtpStack, error) {
 	}
 
 	stack.Back, err = start("ads-platform-back", func() (*ServiceContainer, error) {
-		return StartBack(ctx, net, pg)
+		return StartBackWithEnv(ctx, net, pg, map[string]string{
+			"OTP_RESEND_SECONDS": "1",
+		})
 	})
 	if err != nil {
 		return nil, err

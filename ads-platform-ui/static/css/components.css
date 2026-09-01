@@ -900,6 +900,24 @@
   display: none;
 }
 
+.login-modal__countdown {
+  margin: 0;
+  width: 100%;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+}
+
+.login-modal__countdown[hidden] {
+  display: none;
+}
+
+.login-modal__resend:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .btn--login-secondary {
   min-width: 6.5rem;
   background: transparent;
