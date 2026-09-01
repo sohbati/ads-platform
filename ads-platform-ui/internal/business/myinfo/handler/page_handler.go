@@ -103,11 +103,33 @@ func (h *PageHandler) fetchUserAds(c *gin.Context, t i18n.Messages) ([]queryadsv
 		return nil, true
 	}
 
+	statsByID := h.fetchUserAdStats(c)
 	out := make([]queryadsvm.SearchAd, 0, len(resp.Ads))
 	for _, ad := range resp.Ads {
-		out = append(out, toSearchAd(ad, t, h.config.MediaCDNURL))
+		item := toSearchAd(ad, t, h.config.MediaCDNURL)
+		if s, ok := statsByID[ad.ID]; ok {
+			item.Views = s.Views
+			item.Calls = s.Calls
+		}
+		out = append(out, item)
 	}
 	return out, false
+}
+
+func (h *PageHandler) fetchUserAdStats(c *gin.Context) map[int64]adStatsJSON {
+	result, err := h.bff.Get(c.Request.Context(), "/api/v1/me/ads/stats", bff.RequestCookies(c.Request))
+	if err != nil || result.StatusCode != http.StatusOK {
+		return nil
+	}
+	var resp userAdsStatsResponse
+	if err := json.Unmarshal(result.Body, &resp); err != nil {
+		return nil
+	}
+	out := make(map[int64]adStatsJSON, len(resp.Ads))
+	for _, row := range resp.Ads {
+		out[row.AdID] = row
+	}
+	return out
 }
 
 func toSearchAd(ad userAdJSON, t i18n.Messages, mediaCDN string) queryadsvm.SearchAd {
@@ -195,6 +217,16 @@ type sessionUser struct {
 
 type userAdsResponse struct {
 	Ads []userAdJSON `json:"ads"`
+}
+
+type userAdsStatsResponse struct {
+	Ads []adStatsJSON `json:"ads"`
+}
+
+type adStatsJSON struct {
+	AdID  int64 `json:"ad_id"`
+	Views int   `json:"views"`
+	Calls int   `json:"calls"`
 }
 
 type userAdJSON struct {

@@ -91,6 +91,22 @@ func (h *AdHandler) ListByUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"ads": items})
 }
 
+// ListStats handles GET /api/v1/users/:userId/ad-stats
+func (h *AdHandler) ListStats(c *gin.Context) {
+	userID, err := parseUserID(c.Param("userId"))
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+
+	result, err := h.ads.ListStats(c.Request.Context(), userID, c.Query("from"), c.Query("to"))
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+	c.JSON(http.StatusOK, result)
+}
+
 // GetPublic handles GET /api/v1/ads/:id
 func (h *AdHandler) GetPublic(c *gin.Context) {
 	adID, err := parseAdID(c.Param("id"))

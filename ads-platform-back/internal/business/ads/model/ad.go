@@ -81,6 +81,22 @@ type PublicContact struct {
 	Phone string `json:"phone"`
 }
 
+// AdStatsItem is owner-scoped totals for one ad over a day range.
+type AdStatsItem struct {
+	AdID           int64 `json:"ad_id"`
+	Views          int   `json:"views"`
+	UniqueViewers  int   `json:"unique_viewers"`
+	ContactReveals int   `json:"contact_reveals"`
+	Calls          int   `json:"calls"`
+}
+
+// AdStatsResponse is GET /api/v1/users/:userId/ad-stats.
+type AdStatsResponse struct {
+	From string        `json:"from"`
+	To   string        `json:"to"`
+	Ads  []AdStatsItem `json:"ads"`
+}
+
 // PublicMedia is one photo on the public details page. URL is the full WebP.
 type PublicMedia struct {
 	URL     string `json:"url"`

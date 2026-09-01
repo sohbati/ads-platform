@@ -27,6 +27,9 @@ type fakeAdService struct {
 	listID  int64
 	gotID   int64
 	gotUID  int64
+	stats   []model.AdStatsItem
+	statsFrom string
+	statsTo   string
 }
 
 func (f *fakeAdService) Create(_ context.Context, in service.CreateAdInput) (*model.Ad, error) {
@@ -84,6 +87,19 @@ func (f *fakeAdService) ListByUser(_ context.Context, userID int64) ([]model.Use
 	return f.list, f.listErr
 }
 
+func (f *fakeAdService) ListStats(_ context.Context, userID int64, from, to string) (*model.AdStatsResponse, error) {
+	f.listID = userID
+	f.statsFrom, f.statsTo = from, to
+	if f.err != nil {
+		return nil, f.err
+	}
+	ads := f.stats
+	if ads == nil {
+		ads = []model.AdStatsItem{}
+	}
+	return &model.AdStatsResponse{From: from, To: to, Ads: ads}, nil
+}
+
 func testRouter(h *AdHandler) *gin.Engine {
 	gin.SetMode(gin.TestMode)
 	r := gin.New()
@@ -92,6 +108,7 @@ func testRouter(h *AdHandler) *gin.Engine {
 	r.GET("/api/v1/ads/:id", h.GetPublic)
 	r.GET("/api/v1/ads/:id/contact", h.GetPublicContact)
 	r.GET("/api/v1/users/:userId/ads", h.ListByUser)
+	r.GET("/api/v1/users/:userId/ad-stats", h.ListStats)
 	r.GET("/api/v1/users/:userId/ads/:adId", h.GetForOwner)
 	r.PUT("/api/v1/users/:userId/ads/:adId", h.Update)
 	return r
@@ -214,6 +231,25 @@ func TestListByUserHandlerInvalidID(t *testing.T) {
 
 	if rec.Code != http.StatusBadRequest {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+}
+
+func TestListStatsHandler(t *testing.T) {
+	fake := &fakeAdService{stats: []model.AdStatsItem{{AdID: 9, Views: 3, Calls: 1}}}
+	r := testRouter(NewAdHandler(fake))
+
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/users/42/ad-stats?from=2026-08-01&to=2026-08-31", nil)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	if fake.listID != 42 || fake.statsFrom != "2026-08-01" || fake.statsTo != "2026-08-31" {
+		t.Fatalf("user=%d from=%s to=%s", fake.listID, fake.statsFrom, fake.statsTo)
+	}
+	if !bytes.Contains(rec.Body.Bytes(), []byte(`"ad_id":9`)) {
+		t.Fatalf("body=%s", rec.Body.String())
 	}
 }
 

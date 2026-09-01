@@ -141,11 +141,12 @@ func TestMyInfoUserAdsTemplateRenders(t *testing.T) {
 			Heading:         "My ads",
 			IsAuthenticated: true,
 			T: i18n.Messages{
-				Nav: i18n.NavMessages{UserAds: "My ads", Logout: "Out"},
+				Nav:   i18n.NavMessages{UserAds: "My ads", Logout: "Out"},
+				MyAds: i18n.MyAdsMessages{Stats: "%d views · %d calls"},
 			},
 		},
 		Ads: []viewmodel.SearchAd{
-			{ID: 9, Href: "/edit-ad/9", Title: "Bike", Price: "1,000 IRR", Location: "Tehran", Thumbnail: "/t.jpg", PublishedAt: "2026-08-01"},
+			{ID: 9, Href: "/edit-ad/9", Title: "Bike", Price: "1,000 IRR", Location: "Tehran", Thumbnail: "/t.jpg", PublishedAt: "2026-08-01", Views: 4, Calls: 1},
 		},
 	}
 	unavailable := myinfovm.UserAdsPage{
@@ -169,6 +170,9 @@ func TestMyInfoUserAdsTemplateRenders(t *testing.T) {
 		var buf bytes.Buffer
 		if err := tmpl.ExecuteTemplate(&buf, "myinfo_user_ads", data); err != nil {
 			t.Fatalf("execute myinfo_user_ads (%s): %v", name, err)
+		}
+		if name == "ads" && !bytes.Contains(buf.Bytes(), []byte("4 views · 1 calls")) {
+			t.Fatalf("expected stats line, got %s", buf.String())
 		}
 	}
 }
@@ -228,6 +232,7 @@ func TestAdDetailTemplateRenders(t *testing.T) {
 			},
 		},
 		Ad: &viewmodel.AdDetail{
+			ID:          55,
 			Title:       "Bike",
 			Price:       "1,000 IRR",
 			Location:    "Tehran",
@@ -250,6 +255,9 @@ func TestAdDetailTemplateRenders(t *testing.T) {
 	}
 	if bytes.Contains(buf.Bytes(), []byte("09121110001")) {
 		t.Fatalf("full phone must not be in HTML: %s", buf.String())
+	}
+	if !bytes.Contains(buf.Bytes(), []byte(`data-ad-id="55"`)) {
+		t.Fatalf("expected data-ad-id on detail, got %s", buf.String())
 	}
 
 	notFound := viewmodel.AdDetailPage{

@@ -58,7 +58,12 @@
       }
       if (!resp.ok) return;
       const data = await resp.json();
-      if (data && data.phone) showPhone(data.phone);
+      if (data && data.phone) {
+        showPhone(data.phone);
+        if (window.RuabStats && typeof window.RuabStats.send === "function") {
+          window.RuabStats.send("contact_reveal", adId);
+        }
+      }
     } catch (_err) {
       // Keep the masked number if the request fails.
     }
@@ -72,6 +77,14 @@
   }
 
   root.addEventListener("click", onRevealClick);
+
+  if (callLink) {
+    callLink.addEventListener("click", function () {
+      if (window.RuabStats && typeof window.RuabStats.send === "function") {
+        window.RuabStats.send("call", adId);
+      }
+    });
+  }
 
   const params = new URLSearchParams(window.location.search);
   if (params.get("reveal") === "1") {

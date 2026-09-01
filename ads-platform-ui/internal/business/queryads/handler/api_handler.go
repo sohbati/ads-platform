@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -36,6 +37,28 @@ func (h *PageHandler) ContactJSON(c *gin.Context) {
 	}
 	id := strings.TrimSpace(c.Param("id"))
 	result, err := h.bff.Get(c.Request.Context(), "/api/v1/ads/"+id+"/contact", bff.RequestCookies(c.Request))
+	if err != nil {
+		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE"})
+		return
+	}
+	bff.ForwardResponse(c.Writer, result)
+}
+
+func (h *PageHandler) StatsEvent(c *gin.Context) {
+	if h.bff == nil {
+		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE"})
+		return
+	}
+	raw, err := io.ReadAll(io.LimitReader(c.Request.Body, 8<<10))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "INVALID_REQUEST"})
+		return
+	}
+	ct := c.Request.Header.Get("Content-Type")
+	if ct == "" {
+		ct = "application/json"
+	}
+	result, err := h.bff.Do(c.Request.Context(), http.MethodPost, "/api/v1/stats/events", raw, ct, bff.RequestCookies(c.Request))
 	if err != nil {
 		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE"})
 		return

@@ -73,6 +73,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 			users.GET("/:userId/profile", r.container.UserProfile.Handler.Get)
 			users.PUT("/:userId/profile", r.container.UserProfile.Handler.Put)
 			users.GET("/:userId/ads", r.container.Ads.AdHandler.ListByUser)
+			users.GET("/:userId/ad-stats", r.container.Ads.AdHandler.ListStats)
 			users.GET("/:userId/ads/:adId", r.container.Ads.AdHandler.GetForOwner)
 			users.PUT("/:userId/ads/:adId", r.container.Ads.AdHandler.Update)
 		}

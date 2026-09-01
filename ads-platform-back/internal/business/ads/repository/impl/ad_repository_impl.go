@@ -3,6 +3,7 @@ package impl
 import (
 	"context"
 	"encoding/json"
+	"time"
 
 	"ads-platform/internal/business/ads/model"
 	"ads-platform/internal/business/ads/repository"
@@ -56,4 +57,30 @@ func (r *adRepository) ListByUserID(ctx context.Context, userID int64, limit int
 		Limit(limit).
 		Find(&ads).Error
 	return ads, err
+}
+
+func (r *adRepository) ListStats(ctx context.Context, userID int64, from, to time.Time) ([]model.AdStatsItem, error) {
+	var items []model.AdStatsItem
+	err := r.db.WithContext(ctx).Raw(
+		`SELECT d.ad_id,
+		        COALESCE(SUM(d.views), 0) AS views,
+		        COALESCE(SUM(d.unique_viewers), 0) AS unique_viewers,
+		        COALESCE(SUM(d.contact_reveals), 0) AS contact_reveals,
+		        COALESCE(SUM(d.calls), 0) AS calls
+		 FROM ad_stats_daily d
+		 INNER JOIN ads a ON a.id = d.ad_id
+		 WHERE a.user_id = ?
+		   AND a.status <> ?
+		   AND d.day >= ?
+		   AND d.day <= ?
+		 GROUP BY d.ad_id`,
+		userID, model.AdStatusDeleted, from, to,
+	).Scan(&items).Error
+	if err != nil {
+		return nil, err
+	}
+	if items == nil {
+		items = []model.AdStatsItem{}
+	}
+	return items, nil
 }

@@ -1,0 +1,7 @@
+PORT=8099
+DATABASE_URL=postgres://ads_platform_user:password@localhost:5432/ads_platform?search_path=ads_platform_schema&sslmode=disable&timezone=UTC
+DATABASE_TYPE=postgres
+NATS_URL=nats://127.0.0.1:4222
+NATS_BROKER_URL=http://localhost:8095
+STATS_SUBJECT=ads.stats.event
+STATS_QUEUE=ads-stats

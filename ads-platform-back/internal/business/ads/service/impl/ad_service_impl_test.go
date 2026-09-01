@@ -12,6 +12,7 @@ import (
 	"io"
 	"strings"
 	"testing"
+	"time"
 
 	"ads-platform/internal/business/ads/model"
 	"ads-platform/internal/business/ads/service"
@@ -24,6 +25,13 @@ import (
 type fakeAdRepo struct {
 	nextID int64
 	ads    map[int64]model.Ad
+	stats  []fakeStatRow
+}
+
+type fakeStatRow struct {
+	userID int64
+	day    time.Time
+	item   model.AdStatsItem
 }
 
 func newFakeAdRepo() *fakeAdRepo {
@@ -74,6 +82,20 @@ func (f *fakeAdRepo) ListByUserID(_ context.Context, userID int64, limit int) ([
 		if limit > 0 && len(out) >= limit {
 			break
 		}
+	}
+	return out, nil
+}
+
+func (f *fakeAdRepo) ListStats(_ context.Context, userID int64, from, to time.Time) ([]model.AdStatsItem, error) {
+	out := make([]model.AdStatsItem, 0)
+	for _, row := range f.stats {
+		if row.userID != userID {
+			continue
+		}
+		if row.day.Before(from) || row.day.After(to) {
+			continue
+		}
+		out = append(out, row.item)
 	}
 	return out, nil
 }
@@ -665,4 +687,33 @@ func TestUpdateAdRejectsOtherUser(t *testing.T) {
 	in.Title = "Hack"
 	_, err = svc.Update(context.Background(), ad.ID, in)
 	assertAppErrorCode(t, err, "AD_NOT_FOUND")
+}
+
+func TestListStatsDefaultsRangeAndFiltersOwner(t *testing.T) {
+	ads := newFakeAdRepo()
+	day := time.Date(2026, 8, 15, 0, 0, 0, 0, time.UTC)
+	ads.stats = []fakeStatRow{
+		{userID: 1, day: day, item: model.AdStatsItem{AdID: 9, Views: 4, UniqueViewers: 2, Calls: 1}},
+		{userID: 2, day: day, item: model.AdStatsItem{AdID: 8, Views: 99}},
+	}
+	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+
+	got, err := svc.ListStats(context.Background(), 1, "2026-08-01", "2026-08-31")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got.From != "2026-08-01" || got.To != "2026-08-31" {
+		t.Fatalf("range=%s..%s", got.From, got.To)
+	}
+	if len(got.Ads) != 1 || got.Ads[0].AdID != 9 || got.Ads[0].Views != 4 {
+		t.Fatalf("ads=%+v", got.Ads)
+	}
+
+	empty, err := svc.ListStats(context.Background(), 1, "", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if empty.From == "" || empty.To == "" {
+		t.Fatalf("default range missing: %+v", empty)
+	}
 }

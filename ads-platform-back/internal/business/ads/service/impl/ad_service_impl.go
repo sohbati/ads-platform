@@ -296,6 +296,51 @@ func (s *adService) ListByUser(ctx context.Context, userID int64) ([]model.UserA
 	return items, nil
 }
 
+func (s *adService) ListStats(ctx context.Context, userID int64, fromStr, toStr string) (*model.AdStatsResponse, error) {
+	if userID <= 0 {
+		return nil, exception.NewAppError(errorcode.ErrAdInvalidUser.Code, errorcode.ErrAdInvalidUser.HttpStatus)
+	}
+
+	from, to := parseStatsRange(fromStr, toStr)
+	items, err := s.ads.ListStats(ctx, userID, from, to)
+	if err != nil {
+		return nil, err
+	}
+	if items == nil {
+		items = []model.AdStatsItem{}
+	}
+	return &model.AdStatsResponse{
+		From: from.Format("2006-01-02"),
+		To:   to.Format("2006-01-02"),
+		Ads:  items,
+	}, nil
+}
+
+func parseStatsRange(fromStr, toStr string) (time.Time, time.Time) {
+	loc, err := time.LoadLocation("Asia/Tehran")
+	if err != nil {
+		loc = time.FixedZone("Tehran", 3*3600+30*60)
+	}
+	now := time.Now().In(loc)
+	to := calendarDate(now)
+	from := to.AddDate(0, 0, -29)
+
+	if t, err := time.ParseInLocation("2006-01-02", strings.TrimSpace(fromStr), loc); err == nil {
+		from = calendarDate(t)
+	}
+	if t, err := time.ParseInLocation("2006-01-02", strings.TrimSpace(toStr), loc); err == nil {
+		to = calendarDate(t)
+	}
+	if to.Before(from) {
+		from, to = to, from
+	}
+	return from, to
+}
+
+func calendarDate(t time.Time) time.Time {
+	return time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, time.UTC)
+}
+
 func (s *adService) cityNames(ctx context.Context, ads []model.Ad) map[int]string {
 	ids := uniqueCityIDs(ads)
 	if len(ids) == 0 || s.catalog == nil {

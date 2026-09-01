@@ -207,6 +207,7 @@ type MyAdsMessages struct {
 	Empty       string `json:"empty"`
 	Unavailable string `json:"unavailable"`
 	PostCta     string `json:"post_cta"`
+	Stats       string `json:"stats"`
 }
 
 type AdDetailMessages struct {

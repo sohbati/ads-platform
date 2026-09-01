@@ -1,6 +1,6 @@
 {{ define "ad_detail" }}
 {{ template "page_open" . }}
-<section class="ad-detail container">
+<section class="ad-detail container"{{ if .Ad }} data-ad-id="{{ .Ad.ID }}"{{ end }}>
   {{ if .NotFound }}
   <p class="search-results__empty">{{ .T.AdDetail.NotFound }}</p>
   {{ else if .Unavailable }}

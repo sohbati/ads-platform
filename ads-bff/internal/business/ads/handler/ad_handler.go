@@ -74,6 +74,21 @@ func (h *AdHandler) ListMine(c *gin.Context) {
 	c.Data(status, "application/json", respBody)
 }
 
+func (h *AdHandler) ListMineStats(c *gin.Context) {
+	userID, err := h.sessionUserID(c)
+	if err != nil {
+		middleware.HandleError(c, err, 0)
+		return
+	}
+
+	status, respBody, err := h.backend.GetUserAdStats(c.Request.Context(), userID, c.Query("from"), c.Query("to"))
+	if err != nil {
+		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE", "statusCode": http.StatusBadGateway})
+		return
+	}
+	c.Data(status, "application/json", respBody)
+}
+
 func (h *AdHandler) GetMine(c *gin.Context) {
 	userID, err := h.sessionUserID(c)
 	if err != nil {

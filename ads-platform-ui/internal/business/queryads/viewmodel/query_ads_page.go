@@ -33,6 +33,8 @@ type SearchAd struct {
 	Thumbnail   string `json:"thumbnail"`
 	HasPhoto    bool   `json:"has_photo"`
 	PublishedAt string `json:"published_at"`
+	Views       int    `json:"views,omitempty"`
+	Calls       int    `json:"calls,omitempty"`
 }
 
 // AdDetailPage is the public listing details page.

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 )
@@ -125,6 +126,22 @@ func (c *Client) GetUserProfile(ctx context.Context, userID int64) (int, []byte,
 func (c *Client) GetUserAds(ctx context.Context, userID int64) (int, []byte, error) {
 	url := fmt.Sprintf("%s/api/v1/users/%d/ads", c.baseURL, userID)
 	return c.get(ctx, url)
+}
+
+func (c *Client) GetUserAdStats(ctx context.Context, userID int64, from, to string) (int, []byte, error) {
+	u, err := url.Parse(fmt.Sprintf("%s/api/v1/users/%d/ad-stats", c.baseURL, userID))
+	if err != nil {
+		return 0, nil, err
+	}
+	q := u.Query()
+	if from != "" {
+		q.Set("from", from)
+	}
+	if to != "" {
+		q.Set("to", to)
+	}
+	u.RawQuery = q.Encode()
+	return c.get(ctx, u.String())
 }
 
 func (c *Client) GetUserAd(ctx context.Context, userID, adID int64) (int, []byte, error) {

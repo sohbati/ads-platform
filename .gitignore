@@ -11,3 +11,6 @@ ads-media-cdn/.env
 # git-bug local binary and env
 git-bug/bin/
 git-bug/.env
+
+# ads-platform-stats local env
+ads-platform-stats/.env

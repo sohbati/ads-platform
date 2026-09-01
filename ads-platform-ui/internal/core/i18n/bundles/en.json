@@ -115,7 +115,8 @@
     "my_ads": {
       "empty": "You have not put anything on the surface yet.",
       "unavailable": "Could not load your ads.",
-      "post_cta": "Post a new ad"
+      "post_cta": "Post a new ad",
+      "stats": "%d views · %d calls"
     },
     "ad_detail": {
       "not_found": "This ad was not found or is no longer available.",
