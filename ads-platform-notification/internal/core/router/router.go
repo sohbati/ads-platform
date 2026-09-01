@@ -1,11 +1,11 @@
 package router
 
 import (
-	"net/http"
 	appContainer "ads-platform-notification/internal/core/container"
+	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"ads-platform-notification/internal/core/middleware"
+	"github.com/gin-gonic/gin"
 )
 
 func corsMiddleware() gin.HandlerFunc {
@@ -48,16 +48,16 @@ func (r *Router) SetupRoutes() *gin.Engine {
 
 	router.GET("/health", func(c *gin.Context) {
 		status := "ok"
-		natsStatus := "connected"
-		if !r.container.Nats.IsConnected() {
+		brokerStatus := "connected"
+		if !r.container.Broker.IsConnected() {
 			status = "degraded"
-			natsStatus = "disconnected"
+			brokerStatus = "disconnected"
 		}
 
 		c.JSON(http.StatusOK, gin.H{
 			"status":  status,
 			"service": "ads-platform-notification",
-			"nats":    natsStatus,
+			"broker":  brokerStatus,
 		})
 	})
 

@@ -11,11 +11,11 @@ import (
 
 type Router struct {
 	container *appContainer.StatsContainer
-	natsOK    func() bool
+	brokerOK  func() bool
 }
 
-func NewRouter(c *appContainer.StatsContainer, natsOK func() bool) *Router {
-	return &Router{container: c, natsOK: natsOK}
+func NewRouter(c *appContainer.StatsContainer, brokerOK func() bool) *Router {
+	return &Router{container: c, brokerOK: brokerOK}
 }
 
 func (r *Router) SetupRoutes() *gin.Engine {
@@ -25,15 +25,15 @@ func (r *Router) SetupRoutes() *gin.Engine {
 
 	engine.GET("/health", func(c *gin.Context) {
 		status := "ok"
-		natsStatus := "connected"
-		if r.natsOK != nil && !r.natsOK() {
+		brokerStatus := "connected"
+		if r.brokerOK != nil && !r.brokerOK() {
 			status = "degraded"
-			natsStatus = "disconnected"
+			brokerStatus = "disconnected"
 		}
 		c.JSON(http.StatusOK, gin.H{
 			"status":  status,
 			"service": "ads-platform-stats",
-			"nats":    natsStatus,
+			"broker":  brokerStatus,
 		})
 	})
 	return engine

@@ -14,12 +14,12 @@ type OtpContainer struct {
 	OtpHandler *handler.OtpHandler
 }
 
-func NewOtpContainer(cacheServiceURL, natsURL, otpSubject, defaultCountryCode string, resendAfter time.Duration) *OtpContainer {
+func NewOtpContainer(cacheServiceURL, brokerURL, otpSubject, defaultCountryCode string, resendAfter time.Duration) *OtpContainer {
 	cacheClient := client.NewOtpCacheClient(cacheServiceURL, nil)
 
-	eventPublisher, err := client.NewOtpEventPublisher(natsURL, otpSubject)
+	eventPublisher, err := client.NewOtpEventPublisher(brokerURL, otpSubject)
 	if err != nil {
-		log.Printf("OTP NATS publisher disabled: %v", err)
+		log.Printf("OTP message broker publisher disabled: %v", err)
 		eventPublisher, _ = client.NewOtpEventPublisher("", otpSubject)
 	}
 

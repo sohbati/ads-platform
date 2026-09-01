@@ -13,31 +13,31 @@ type Publisher interface {
 	Publish(ctx context.Context, payload []byte) error
 }
 
-type natsPublisher struct {
+type brokerPublisher struct {
 	conn    *nats.Conn
 	subject string
 }
 
-func New(natsURL, subject string) (Publisher, error) {
-	if natsURL == "" {
+func New(brokerURL, subject string) (Publisher, error) {
+	if brokerURL == "" {
 		return Noop(), nil
 	}
 	if subject == "" {
 		subject = "ads.stats.event"
 	}
 
-	conn, err := nats.Connect(natsURL,
+	conn, err := nats.Connect(brokerURL,
 		nats.MaxReconnects(-1),
 		nats.ReconnectWait(2*time.Second),
 	)
 	if err != nil {
-		return nil, fmt.Errorf("connect to nats: %w", err)
+		return nil, fmt.Errorf("connect to message broker: %w", err)
 	}
-	log.Printf("stats publisher connected to NATS at %s", conn.ConnectedUrl())
-	return &natsPublisher{conn: conn, subject: subject}, nil
+	log.Printf("stats publisher connected to message broker at %s", conn.ConnectedUrl())
+	return &brokerPublisher{conn: conn, subject: subject}, nil
 }
 
-func (p *natsPublisher) Publish(_ context.Context, payload []byte) error {
+func (p *brokerPublisher) Publish(_ context.Context, payload []byte) error {
 	if err := p.conn.Publish(p.subject, payload); err != nil {
 		return fmt.Errorf("publish stats event: %w", err)
 	}

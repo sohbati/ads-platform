@@ -3,10 +3,10 @@ package main
 import (
 	"log"
 
+	"ads-platform-stats/internal/core/broker"
 	"ads-platform-stats/internal/core/config"
 	"ads-platform-stats/internal/core/container"
 	"ads-platform-stats/internal/core/db"
-	"ads-platform-stats/internal/core/natsconn"
 	"ads-platform-stats/internal/core/router"
 )
 
@@ -22,19 +22,19 @@ func main() {
 		log.Fatalf("Failed to connect database: %v", err)
 	}
 
-	natsConn, err := natsconn.Connect(cfg.NatsURL)
+	brokerConn, err := broker.Connect(cfg.BrokerURL)
 	if err != nil {
-		log.Fatalf("Failed to connect NATS: %v", err)
+		log.Fatalf("Failed to connect message broker: %v", err)
 	}
-	defer natsConn.Close()
+	defer brokerConn.Close()
 
-	stats, err := container.NewStatsContainer(cfg, natsConn, database)
+	stats, err := container.NewStatsContainer(cfg, brokerConn, database)
 	if err != nil {
 		log.Fatalf("Failed to start stats listener: %v", err)
 	}
 	defer stats.Listener.Stop()
 
-	r := router.NewRouter(stats, natsConn.IsConnected)
+	r := router.NewRouter(stats, brokerConn.IsConnected)
 	log.Printf("Starting ads-platform-stats on port %s", cfg.Port)
 	if err := r.SetupRoutes().Run(":" + cfg.Port); err != nil {
 		log.Fatalf("Failed to start: %v", err)

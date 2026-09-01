@@ -26,8 +26,8 @@ type otpEventPublisher struct {
 	subject string
 }
 
-func NewOtpEventPublisher(natsURL string, subject string) (OtpEventPublisher, error) {
-	if natsURL == "" {
+func NewOtpEventPublisher(brokerURL string, subject string) (OtpEventPublisher, error) {
+	if brokerURL == "" {
 		return &noopOtpEventPublisher{}, nil
 	}
 
@@ -35,15 +35,15 @@ func NewOtpEventPublisher(natsURL string, subject string) (OtpEventPublisher, er
 		subject = OtpSubject
 	}
 
-	conn, err := nats.Connect(natsURL,
+	conn, err := nats.Connect(brokerURL,
 		nats.MaxReconnects(-1),
 		nats.ReconnectWait(2*time.Second),
 	)
 	if err != nil {
-		return nil, fmt.Errorf("connect to nats: %w", err)
+		return nil, fmt.Errorf("connect to message broker: %w", err)
 	}
 
-	log.Printf("OTP event publisher connected to NATS at %s", conn.ConnectedUrl())
+	log.Printf("OTP event publisher connected to message broker at %s", conn.ConnectedUrl())
 
 	return &otpEventPublisher{
 		conn:    conn,

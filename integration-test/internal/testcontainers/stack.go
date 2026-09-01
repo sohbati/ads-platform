@@ -10,15 +10,15 @@ import (
 )
 
 type Stack struct {
-	Network      *testcontainers.DockerNetwork
-	Postgres     *PostgresContainer
-	NatsBroker   *ServiceContainer
-	Cache        *ServiceContainer
-	CDN          *ServiceContainer
-	Notification *ServiceContainer
-	Back         *ServiceContainer
-	BFF          *ServiceContainer
-	UI           *ServiceContainer
+	Network       *testcontainers.DockerNetwork
+	Postgres      *PostgresContainer
+	MessageBroker *ServiceContainer
+	Cache         *ServiceContainer
+	CDN           *ServiceContainer
+	Notification  *ServiceContainer
+	Back          *ServiceContainer
+	BFF           *ServiceContainer
+	UI            *ServiceContainer
 }
 
 func StartStack(ctx context.Context) (*Stack, error) {
@@ -51,8 +51,8 @@ func StartStack(ctx context.Context) (*Stack, error) {
 		return svc, nil
 	}
 
-	stack.NatsBroker, err = start("nats-message-broker", func() (*ServiceContainer, error) {
-		return StartNatsBroker(ctx, net)
+	stack.MessageBroker, err = start("message-broker", func() (*ServiceContainer, error) {
+		return StartMessageBroker(ctx, net)
 	})
 	if err != nil {
 		return nil, err
@@ -111,7 +111,7 @@ func (s *Stack) Terminate(ctx context.Context) {
 		serviceContainer(s.Notification),
 		serviceContainer(s.CDN),
 		serviceContainer(s.Cache),
-		serviceContainer(s.NatsBroker),
+		serviceContainer(s.MessageBroker),
 	)
 
 	if s.Postgres != nil && s.Postgres.Container != nil {
@@ -142,7 +142,7 @@ func (s *Stack) URLs(ctx context.Context) (map[string]string, error) {
 		"ads-platform-cache-service": s.Cache,
 		"ads-platform-cdn":           s.CDN,
 		"ads-platform-ui":            s.UI,
-		"nats-message-broker":        s.NatsBroker,
+		"message-broker":             s.MessageBroker,
 		"ads-platform-notification":  s.Notification,
 	}
 

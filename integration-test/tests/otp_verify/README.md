@@ -27,4 +27,4 @@ go test -tags=integration -timeout=45m -v ./tests/otp_verify/
 ## Shared helpers
 
 - `internal/otptest/helpers.go` — HTTP helpers
-- `internal/testcontainers/otp_stack.go` — back, cache, NATS, notification, postgres
+- `internal/testcontainers/otp_stack.go` — back, cache, message broker, notification, postgres

@@ -7,19 +7,17 @@ import (
 
 	"ads-platform-notification/internal/business/otp/model"
 	"ads-platform-notification/internal/business/otp/service"
-	"ads-platform-notification/internal/core/natsconn"
-
-	"github.com/nats-io/nats.go"
+	"ads-platform-notification/internal/core/broker"
 )
 
 type OtpListener struct {
-	subscription *nats.Subscription
+	subscription broker.Subscription
 }
 
-func NewOtpListener(natsConn *natsconn.Connection, subject string, otpService service.OtpNotificationService) (*OtpListener, error) {
-	sub, err := natsConn.Subscribe(subject, func(msg *nats.Msg) {
+func NewOtpListener(brokerConn *broker.Connection, subject string, otpService service.OtpNotificationService) (*OtpListener, error) {
+	sub, err := brokerConn.Subscribe(subject, func(data []byte) {
 		var event model.OtpEvent
-		if err := json.Unmarshal(msg.Data, &event); err != nil {
+		if err := json.Unmarshal(data, &event); err != nil {
 			log.Printf("[OTP] failed to parse message on %s: %v", subject, err)
 			return
 		}

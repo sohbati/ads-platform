@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# call "ads-platform-stats" — NATS worker that rolls up ad view/contact events
+# call "ads-platform-stats" — message-broker worker that rolls up ad view/contact events
 set -euo pipefail
 
 printf '\033]0;%s\007' 'ads-platform-stats'

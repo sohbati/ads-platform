@@ -1,16 +1,16 @@
 # ads-platform-notification
 
-Notification and SMS service for the ads platform. Consumes OTP events from NATS and sends SMS (log-only provider for now).
+Notification and SMS service for the ads platform. Consumes OTP events from the message broker and sends SMS (log-only provider for now).
 
 ## Quick Start
 
-1. **Start NATS broker** (`nats-message-broker` on port 8095)
+1. **Start message broker** (`message-broker` on port 8095)
 2. **Setup**:
    ```bash
    make setup
    cp config.example .env   # if .env does not exist
    ```
-3. **Configure** `NATS_BROKER_URL` (default `http://localhost:8095`) — NATS URL is resolved automatically from broker `/health`
+3. **Configure** `BROKER_HTTP_URL` (default `http://localhost:8095`) — broker URL is resolved automatically from broker `/health`
 4. **Run**:
    ```bash
    make run
@@ -20,12 +20,12 @@ Notification and SMS service for the ads platform. Consumes OTP events from NATS
 
 ## Configuration
 
-| Variable      | Default                          | Description                |
-|---------------|----------------------------------|----------------------------|
-| `PORT`        | `8096`                           | HTTP server port           |
-| `NATS_BROKER_URL` | `http://localhost:8095`          | Broker health URL for NATS discovery |
-| `NATS_URL`        | *(auto from broker)*             | Optional NATS URL override           |
-| `OTP_SUBJECT` | `notifications.otp.send`         | NATS subject for OTP events|
+| Variable          | Default                  | Description                              |
+|-------------------|--------------------------|------------------------------------------|
+| `PORT`            | `8096`                   | HTTP server port                         |
+| `BROKER_HTTP_URL` | `http://localhost:8095`  | Broker health URL for connection discovery |
+| `BROKER_URL`      | *(auto from broker)*     | Optional broker URL override             |
+| `OTP_SUBJECT`     | `notifications.otp.send` | Subject for OTP events                   |
 
 ## OTP Event Flow
 
@@ -47,12 +47,12 @@ ads-platform-notification/
     ├── core/
     │   ├── config/
     │   ├── container/
-    │   ├── natsconn/
+    │   ├── broker/
     │   ├── middleware/
     │   └── router/
     └── business/otp/
         ├── container/
-        ├── listener/      # NATS OTP subscriber
+        ├── listener/      # OTP subscriber
         ├── model/
         ├── service/
         └── sms/           # SMS provider interface

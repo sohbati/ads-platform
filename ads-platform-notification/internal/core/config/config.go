@@ -8,8 +8,8 @@ import (
 
 type Config struct {
 	Port          string
-	NatsURL       string
-	NatsBrokerURL string
+	BrokerURL     string
+	BrokerHTTPURL string
 	OtpSubject    string
 }
 
@@ -18,16 +18,16 @@ func Load() (*Config, error) {
 
 	cfg := &Config{
 		Port:          getEnv("PORT", "8096"),
-		NatsURL:       os.Getenv("NATS_URL"),
-		NatsBrokerURL: getEnv("NATS_BROKER_URL", "http://localhost:8095"),
+		BrokerURL:     os.Getenv("BROKER_URL"),
+		BrokerHTTPURL: getEnv("BROKER_HTTP_URL", "http://localhost:8095"),
 		OtpSubject:    getEnv("OTP_SUBJECT", "notifications.otp.send"),
 	}
 
-	natsURL, err := resolveNatsURL(cfg.NatsURL, cfg.NatsBrokerURL)
+	brokerURL, err := resolveBrokerURL(cfg.BrokerURL, cfg.BrokerHTTPURL)
 	if err != nil {
 		return nil, err
 	}
-	cfg.NatsURL = natsURL
+	cfg.BrokerURL = brokerURL
 
 	return cfg, nil
 }

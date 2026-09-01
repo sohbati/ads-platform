@@ -15,8 +15,8 @@ type Config struct {
 	DatabaseType          string
 	ApplicationServerPort string
 	CacheServiceURL       string
-	NatsURL               string
-	NatsBrokerURL         string
+	BrokerURL             string
+	BrokerHTTPURL         string
 	OtpSubject            string
 	DefaultCountryCode    string
 	OtpResendAfter        time.Duration
@@ -38,8 +38,8 @@ func Load() *Config {
 		DatabaseType:          os.Getenv("DATABASE_TYPE"),
 		ApplicationServerPort: os.Getenv("APPLICATION_SERVER_PORT"),
 		CacheServiceURL:       os.Getenv("CACHE_SERVICE_URL"),
-		NatsURL:               os.Getenv("NATS_URL"),
-		NatsBrokerURL:         os.Getenv("NATS_BROKER_URL"),
+		BrokerURL:             os.Getenv("BROKER_URL"),
+		BrokerHTTPURL:         os.Getenv("BROKER_HTTP_URL"),
 		OtpSubject:            os.Getenv("OTP_SUBJECT"),
 		DefaultCountryCode:    os.Getenv("DEFAULT_COUNTRY_CODE"),
 		OtpResendAfter:        envDurationSeconds("OTP_RESEND_SECONDS", 60),
@@ -53,13 +53,13 @@ func Load() *Config {
 		MinioPublicURL:        os.Getenv("MINIO_PUBLIC_URL"),
 	}
 
-	natsURL, err := resolveNatsURL(cfg.NatsURL, cfg.NatsBrokerURL)
+	brokerURL, err := resolveBrokerURL(cfg.BrokerURL, cfg.BrokerHTTPURL)
 	if err != nil {
-		log.Printf("NATS URL discovery failed: %v", err)
+		log.Printf("message broker URL discovery failed: %v", err)
 	} else {
-		cfg.NatsURL = natsURL
-		if natsURL != "" {
-			log.Printf("Using NATS at %s", natsURL)
+		cfg.BrokerURL = brokerURL
+		if brokerURL != "" {
+			log.Printf("Using message broker at %s", brokerURL)
 		}
 	}
 

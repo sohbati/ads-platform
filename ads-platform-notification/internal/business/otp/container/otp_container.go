@@ -4,18 +4,18 @@ import (
 	"ads-platform-notification/internal/business/otp/listener"
 	serviceimpl "ads-platform-notification/internal/business/otp/service/impl"
 	smsimpl "ads-platform-notification/internal/business/otp/sms/impl"
-	"ads-platform-notification/internal/core/natsconn"
+	"ads-platform-notification/internal/core/broker"
 )
 
 type OtpContainer struct {
 	OtpListener *listener.OtpListener
 }
 
-func NewOtpContainer(natsConn *natsconn.Connection, subject string) (*OtpContainer, error) {
+func NewOtpContainer(brokerConn *broker.Connection, subject string) (*OtpContainer, error) {
 	smsProvider := smsimpl.NewLogProvider()
 	otpService := serviceimpl.NewOtpNotificationService(smsProvider)
 
-	otpListener, err := listener.NewOtpListener(natsConn, subject, otpService)
+	otpListener, err := listener.NewOtpListener(brokerConn, subject, otpService)
 	if err != nil {
 		return nil, err
 	}

@@ -3,15 +3,15 @@ package main
 import (
 	"log"
 
+	"ads-platform-notification/internal/core/broker"
 	"ads-platform-notification/internal/core/config"
 	"ads-platform-notification/internal/core/container"
-	"ads-platform-notification/internal/core/natsconn"
 	"ads-platform-notification/internal/core/router"
 )
 
 type Application struct {
 	config    *config.Config
-	nats      *natsconn.Connection
+	broker    *broker.Connection
 	container *container.AppContainer
 	router    *router.Router
 }
@@ -27,17 +27,17 @@ func (app *Application) Initialize() error {
 	}
 	app.config = cfg
 	log.Println("Configuration loaded")
-	log.Printf("Using NATS at %s", app.config.NatsURL)
+	log.Printf("Using message broker at %s", app.config.BrokerURL)
 
-	natsConn, err := natsconn.Connect(app.config.NatsURL)
+	brokerConn, err := broker.Connect(app.config.BrokerURL)
 	if err != nil {
 		return err
 	}
-	app.nats = natsConn
+	app.broker = brokerConn
 
-	appContainer, err := container.NewAppContainer(app.config, app.nats)
+	appContainer, err := container.NewAppContainer(app.config, app.broker)
 	if err != nil {
-		natsConn.Close()
+		brokerConn.Close()
 		return err
 	}
 	app.container = appContainer
@@ -61,7 +61,7 @@ func main() {
 	}
 
 	defer app.container.Otp.OtpListener.Stop()
-	defer app.nats.Close()
+	defer app.broker.Close()
 
 	if err := app.Run(); err != nil {
 		log.Fatalf("Failed to start: %v", err)

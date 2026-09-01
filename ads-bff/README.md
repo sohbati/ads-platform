@@ -4,7 +4,7 @@ Backend-for-Frontend service. The UI talks to `ads-bff`; `ads-bff` proxies backe
 
 ## Quick start
 
-1. Start backend dependencies (cache, NATS, notification, back).
+1. Start backend dependencies (cache, message broker, notification, back).
 2. Run BFF:
    ```bash
    ./run.sh

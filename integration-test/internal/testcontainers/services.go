@@ -79,18 +79,18 @@ type serviceConfig struct {
 	env        map[string]string
 }
 
-func StartNatsBroker(ctx context.Context, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
+func StartMessageBroker(ctx context.Context, net *testcontainers.DockerNetwork) (*ServiceContainer, error) {
 	return startService(ctx, net, serviceConfig{
-		name:       "nats-message-broker",
-		alias:      "nats-message-broker",
-		dockerfile: "integration-test/docker/nats-message-broker.Dockerfile",
+		name:       "message-broker",
+		alias:      "message-broker",
+		dockerfile: "integration-test/docker/message-broker.Dockerfile",
 		port:       "8095/tcp",
 		healthPath: "/health",
 		env: map[string]string{
-			"PORT":           "8095",
-			"NATS_HOST":      "0.0.0.0",
-			"NATS_PORT":      "4222",
-			"NATS_HTTP_PORT": "8222",
+			"PORT":                "8095",
+			"BROKER_HOST":         "0.0.0.0",
+			"BROKER_PORT":         "4222",
+			"BROKER_MONITOR_PORT": "8222",
 		},
 	})
 }
@@ -131,8 +131,8 @@ func StartNotification(ctx context.Context, net *testcontainers.DockerNetwork) (
 		healthPath: "/health",
 		env: map[string]string{
 			"PORT":            "8096",
-			"NATS_URL":        "nats://nats-message-broker:4222",
-			"NATS_BROKER_URL": "http://nats-message-broker:8095",
+			"BROKER_URL":      "nats://message-broker:4222",
+			"BROKER_HTTP_URL": "http://message-broker:8095",
 			"OTP_SUBJECT":     "notifications.otp.send",
 		},
 	})
@@ -148,8 +148,8 @@ func StartBackWithEnv(ctx context.Context, net *testcontainers.DockerNetwork, pg
 		"DATABASE_URL":            pg.DSN,
 		"DATABASE_TYPE":           "postgres",
 		"CACHE_SERVICE_URL":       "http://ads-platform-cache-service:8093",
-		"NATS_URL":                "nats://nats-message-broker:4222",
-		"NATS_BROKER_URL":         "http://nats-message-broker:8095",
+		"BROKER_URL":              "nats://message-broker:4222",
+		"BROKER_HTTP_URL":         "http://message-broker:8095",
 		"OTP_SUBJECT":             "notifications.otp.send",
 	}
 	for k, v := range extraEnv {
@@ -188,10 +188,10 @@ func StartUI(ctx context.Context, net *testcontainers.DockerNetwork) (*ServiceCo
 		port:       "8094/tcp",
 		healthPath: "/health",
 		env: map[string]string{
-			"PORT":           "8094",
-			"CDN_BASE_URL":   "http://ads-platform-cdn:4000",
-			"MEDIA_CDN_URL":  "http://localhost:8098",
-			"BFF_BASE_URL":   "http://ads-bff:8097",
+			"PORT":          "8094",
+			"CDN_BASE_URL":  "http://ads-platform-cdn:4000",
+			"MEDIA_CDN_URL": "http://localhost:8098",
+			"BFF_BASE_URL":  "http://ads-bff:8097",
 		},
 	})
 }

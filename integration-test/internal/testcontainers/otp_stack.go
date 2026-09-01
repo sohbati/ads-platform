@@ -11,12 +11,12 @@ import (
 
 // OtpStack contains services required for OTP send/verify integration tests.
 type OtpStack struct {
-	Network      *testcontainers.DockerNetwork
-	Postgres     *PostgresContainer
-	NatsBroker   *ServiceContainer
-	Cache        *ServiceContainer
-	Notification *ServiceContainer
-	Back         *ServiceContainer
+	Network       *testcontainers.DockerNetwork
+	Postgres      *PostgresContainer
+	MessageBroker *ServiceContainer
+	Cache         *ServiceContainer
+	Notification  *ServiceContainer
+	Back          *ServiceContainer
 }
 
 func StartOtpStack(ctx context.Context) (*OtpStack, error) {
@@ -49,8 +49,8 @@ func StartOtpStack(ctx context.Context) (*OtpStack, error) {
 		return svc, nil
 	}
 
-	stack.NatsBroker, err = start("nats-message-broker", func() (*ServiceContainer, error) {
-		return StartNatsBroker(ctx, net)
+	stack.MessageBroker, err = start("message-broker", func() (*ServiceContainer, error) {
+		return StartMessageBroker(ctx, net)
 	})
 	if err != nil {
 		return nil, err
@@ -87,7 +87,7 @@ func (s *OtpStack) Terminate(ctx context.Context) {
 		serviceContainer(s.Back),
 		serviceContainer(s.Notification),
 		serviceContainer(s.Cache),
-		serviceContainer(s.NatsBroker),
+		serviceContainer(s.MessageBroker),
 	)
 
 	if s.Postgres != nil && s.Postgres.Container != nil {

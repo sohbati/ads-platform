@@ -7,19 +7,17 @@ import (
 
 	"ads-platform-stats/internal/business/stats/model"
 	"ads-platform-stats/internal/business/stats/service"
-	"ads-platform-stats/internal/core/natsconn"
-
-	"github.com/nats-io/nats.go"
+	"ads-platform-stats/internal/core/broker"
 )
 
 type StatsListener struct {
-	subscription *nats.Subscription
+	subscription broker.Subscription
 }
 
-func NewStatsListener(natsConn *natsconn.Connection, subject, queue string, svc service.StatsService) (*StatsListener, error) {
-	sub, err := natsConn.QueueSubscribe(subject, queue, func(msg *nats.Msg) {
+func NewStatsListener(brokerConn *broker.Connection, subject, queue string, svc service.StatsService) (*StatsListener, error) {
+	sub, err := brokerConn.QueueSubscribe(subject, queue, func(data []byte) {
 		var event model.Event
-		if err := json.Unmarshal(msg.Data, &event); err != nil {
+		if err := json.Unmarshal(data, &event); err != nil {
 			log.Printf("[stats] parse error: %v", err)
 			return
 		}

@@ -7,13 +7,13 @@ import (
 )
 
 type Config struct {
-	Port         string
-	DatabaseURL  string
-	DatabaseType string
-	NatsURL      string
-	NatsBrokerURL string
-	StatsSubject string
-	StatsQueue   string
+	Port          string
+	DatabaseURL   string
+	DatabaseType  string
+	BrokerURL     string
+	BrokerHTTPURL string
+	StatsSubject  string
+	StatsQueue    string
 }
 
 func Load() (*Config, error) {
@@ -23,17 +23,17 @@ func Load() (*Config, error) {
 		Port:          getEnv("PORT", "8099"),
 		DatabaseURL:   os.Getenv("DATABASE_URL"),
 		DatabaseType:  getEnv("DATABASE_TYPE", "postgres"),
-		NatsURL:       os.Getenv("NATS_URL"),
-		NatsBrokerURL: getEnv("NATS_BROKER_URL", "http://localhost:8095"),
+		BrokerURL:     os.Getenv("BROKER_URL"),
+		BrokerHTTPURL: getEnv("BROKER_HTTP_URL", "http://localhost:8095"),
 		StatsSubject:  getEnv("STATS_SUBJECT", "ads.stats.event"),
 		StatsQueue:    getEnv("STATS_QUEUE", "ads-stats"),
 	}
 
-	natsURL, err := resolveNatsURL(cfg.NatsURL, cfg.NatsBrokerURL)
+	brokerURL, err := resolveBrokerURL(cfg.BrokerURL, cfg.BrokerHTTPURL)
 	if err != nil {
 		return nil, err
 	}
-	cfg.NatsURL = natsURL
+	cfg.BrokerURL = brokerURL
 	return cfg, nil
 }
 

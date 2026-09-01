@@ -16,7 +16,7 @@ Integration tests for the ads platform using [Testcontainers for Go](https://gol
 | ads-platform-cache-service | Dockerfile | 8093 |
 | ads-platform-cdn | Dockerfile | 4000 |
 | ads-platform-ui | Dockerfile | 8094 |
-| nats-message-broker | Dockerfile | 8095 |
+| message-broker | Dockerfile | 8095 |
 | ads-platform-notification | Dockerfile | 8096 |
 
 All microservices are built from this repo and run on a shared Docker network.

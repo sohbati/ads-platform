@@ -16,8 +16,8 @@ type Config struct {
 	SessionTTL         time.Duration
 	CookieSecure       bool
 	DefaultCountryCode string
-	NatsURL            string
-	NatsBrokerURL      string
+	BrokerURL          string
+	BrokerHTTPURL      string
 	StatsSubject       string
 	StatsRatePerMin    int
 }
@@ -33,14 +33,14 @@ func Load() *Config {
 		SessionTTL:         getDurationEnv("SESSION_TTL", 24*time.Hour),
 		CookieSecure:       getBoolEnv("COOKIE_SECURE", false),
 		DefaultCountryCode: getEnv("DEFAULT_COUNTRY_CODE", "+98"),
-		NatsURL:            os.Getenv("NATS_URL"),
-		NatsBrokerURL:      getEnv("NATS_BROKER_URL", "http://localhost:8095"),
+		BrokerURL:          os.Getenv("BROKER_URL"),
+		BrokerHTTPURL:      getEnv("BROKER_HTTP_URL", "http://localhost:8095"),
 		StatsSubject:       getEnv("STATS_SUBJECT", "ads.stats.event"),
 		StatsRatePerMin:    getIntEnv("STATS_RATE_PER_MIN", 60),
 	}
 
-	if natsURL, err := resolveNatsURL(cfg.NatsURL, cfg.NatsBrokerURL); err == nil && natsURL != "" {
-		cfg.NatsURL = natsURL
+	if brokerURL, err := resolveBrokerURL(cfg.BrokerURL, cfg.BrokerHTTPURL); err == nil && brokerURL != "" {
+		cfg.BrokerURL = brokerURL
 	}
 	return cfg
 }

@@ -16,9 +16,9 @@ type StatsContainer struct {
 }
 
 func NewStatsContainer(cfg *config.Config, auth service.AuthService) *StatsContainer {
-	pub, err := publisher.New(cfg.NatsURL, cfg.StatsSubject)
+	pub, err := publisher.New(cfg.BrokerURL, cfg.StatsSubject)
 	if err != nil {
-		log.Printf("stats NATS publisher disabled: %v", err)
+		log.Printf("stats message broker publisher disabled: %v", err)
 		pub = publisher.Noop()
 	}
 	limiter := ratelimit.New(time.Minute, cfg.StatsRatePerMin)
