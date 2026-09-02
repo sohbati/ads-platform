@@ -63,15 +63,17 @@ func (h *PageHandler) Index(c *gin.Context) {
 	}
 
 	vm.Bootstrap = viewmodel.Bootstrap{
-		Locale:      string(loc),
-		CityID:      vm.CityID,
-		CitySlug:    pageData.CitySlug,
-		CityName:    i18n.CityDisplayName(h.i18n, h.cities, loc, pageData.CitySlug),
-		MaxPictures: maxAdPictures,
-		SuccessHref: "/my-info/user-ads",
-		Categories:  categories,
-		Schemas:     schemas,
-		Enums:       enums,
+		Locale:            string(loc),
+		CityID:            vm.CityID,
+		CitySlug:          pageData.CitySlug,
+		CityName:          i18n.CityDisplayName(h.i18n, h.cities, loc, pageData.CitySlug),
+		MaxPictures:       maxAdPictures,
+		SuccessHref:       "/my-info/user-ads",
+		TitlePlaceholder:  t.NewAd.TitlePlaceholder,
+		TitlePlaceholders: t.NewAd.TitlePlaceholders,
+		Categories:        categories,
+		Schemas:           schemas,
+		Enums:             enums,
 	}
 
 	c.HTML(http.StatusOK, "new_ad", vm)
@@ -146,18 +148,20 @@ func (h *PageHandler) Edit(c *gin.Context) {
 	vm.CityID = cityID
 
 	vm.Bootstrap = viewmodel.Bootstrap{
-		Locale:      string(loc),
-		Mode:        "edit",
-		AdID:        ad.ID,
-		CityID:      cityID,
-		CitySlug:    citySlug,
-		CityName:    cityName,
-		MaxPictures: maxAdPictures,
-		SuccessHref: "/my-info/user-ads",
-		Prefill:     adToPrefill(ad, h.config.MediaCDNURL),
-		Categories:  categories,
-		Schemas:     schemas,
-		Enums:       enums,
+		Locale:            string(loc),
+		Mode:              "edit",
+		AdID:              ad.ID,
+		CityID:            cityID,
+		CitySlug:          citySlug,
+		CityName:          cityName,
+		MaxPictures:       maxAdPictures,
+		SuccessHref:       "/my-info/user-ads",
+		TitlePlaceholder:  t.NewAd.TitlePlaceholder,
+		TitlePlaceholders: t.NewAd.TitlePlaceholders,
+		Prefill:           adToPrefill(ad, h.config.MediaCDNURL),
+		Categories:        categories,
+		Schemas:           schemas,
+		Enums:             enums,
 	}
 
 	c.HTML(http.StatusOK, "new_ad", vm)

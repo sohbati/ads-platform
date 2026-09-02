@@ -132,6 +132,7 @@
           const opt = document.createElement("option");
           opt.value = String(leaf.id);
           opt.textContent = leaf.title;
+          opt.dataset.slug = leaf.slug || "";
           opt.dataset.template = leaf.adsAttrsJsonSchemaTemplateName || leaf.slug || "";
           optgroup.appendChild(opt);
         });
@@ -163,6 +164,20 @@
     const item = schemasByName[opt.dataset.template];
     if (!item) return null;
     return parseSchema(item.jsonSchema);
+  }
+
+  function updateTitlePlaceholder() {
+    const titleEl = document.getElementById("new-ad-title");
+    if (!titleEl) return;
+    const opt = categorySelect.options[categorySelect.selectedIndex];
+    const slug = opt && opt.dataset.slug ? opt.dataset.slug : "";
+    const map = boot.titlePlaceholders || {};
+    titleEl.placeholder = (slug && map[slug]) || boot.titlePlaceholder || titleEl.placeholder;
+  }
+
+  function onCategoryChange() {
+    renderAttrs();
+    updateTitlePlaceholder();
   }
 
   function renderAttrs() {
@@ -273,8 +288,9 @@
   }
 
   fillCategories();
-  categorySelect.addEventListener("change", renderAttrs);
+  categorySelect.addEventListener("change", onCategoryChange);
   applyPrefill();
+  updateTitlePlaceholder();
   bindPriceField();
 
   form.addEventListener("submit", async function (event) {
@@ -412,7 +428,7 @@
     if (!p) return;
     if (p.category_id) {
       categorySelect.value = String(p.category_id);
-      renderAttrs();
+      onCategoryChange();
     }
     const titleEl = document.getElementById("new-ad-title");
     const descEl = document.getElementById("new-ad-description");
