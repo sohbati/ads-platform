@@ -69,6 +69,20 @@
     </div>
 
     <div class="new-ad__field">
+      <span class="new-ad__label">{{ .T.NewAd.Map }}</span>
+      <p class="new-ad__hint">{{ .T.NewAd.MapHint }}</p>
+      <div
+        id="new-ad-map"
+        class="new-ad__map"
+        role="application"
+        aria-label="{{ .T.NewAd.Map }}"
+        data-locate="{{ .T.NewAd.MapLocate }}"
+        data-locate-denied="{{ .T.NewAd.MapLocateDenied }}"
+        data-locate-failed="{{ .T.NewAd.MapLocateFailed }}"
+      ></div>
+    </div>
+
+    <div class="new-ad__field">
       <label class="new-ad__label" for="new-ad-neighborhood">{{ .T.NewAd.Neighborhood }}</label>
       <input id="new-ad-neighborhood" name="neighborhood" type="text" maxlength="80" placeholder="{{ .T.NewAd.NeighborhoodPlaceholder }}" />
     </div>
@@ -114,5 +128,7 @@
   </div>
   {{ end }}
 </section>
+<link rel="stylesheet" href="{{ asset "vendor/leaflet/leaflet.css" }}" />
+<script defer src="{{ asset "vendor/leaflet/leaflet.js" }}"></script>
 {{ template "page_close" . }}
 {{ end }}

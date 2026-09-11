@@ -59,7 +59,7 @@ func NewAppContainer(cfg *config.Config) (*AppContainer, error) {
 		MyInfo:   myinfoContainer.NewMyInfoContainer(cfg, reg, catalog, bffClient),
 		NewAd:    newadContainer.NewNewAdContainer(cfg, reg, catalog, cdnClient, bffClient),
 		Category: categoryContainer.NewCategoryContainer(cdnClient),
-		Location: locationContainer.NewLocationContainer(cdnClient),
+		Location: locationContainer.NewLocationContainer(cdnClient, cfg),
 		Auth:     authContainer.NewAuthContainer(cfg, reg, catalog, bffClient),
 	}, nil
 }

@@ -56,4 +56,7 @@ type AdDetail struct {
 	Images      []string
 	HasPhone    bool
 	PhoneMasked string
+	HasMap      bool
+	MapLat      float64
+	MapLng      float64
 }

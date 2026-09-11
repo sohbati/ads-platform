@@ -77,7 +77,27 @@
     </div>
     {{ end }}
   </div>
+  {{ if .Ad.HasMap }}
+  <div class="ad-detail__map-wrap">
+    <h2 class="ad-detail__map-title">{{ .T.AdDetail.Map }}</h2>
+    <p class="ad-detail__map-hint">{{ .T.AdDetail.MapHint }}</p>
+    <p class="ad-detail__map-status" id="ad-detail-map-status" role="status"></p>
+    <div
+      id="ad-detail-map"
+      class="ad-detail__map"
+      role="img"
+      aria-label="{{ .T.AdDetail.Map }}"
+      data-lat="{{ printf "%.5f" .Ad.MapLat }}"
+      data-lng="{{ printf "%.5f" .Ad.MapLng }}"
+      data-locate="{{ .T.AdDetail.MapLocate }}"
+      data-locate-denied="{{ .T.AdDetail.MapLocateDenied }}"
+      data-locate-failed="{{ .T.AdDetail.MapLocateFailed }}"
+    ></div>
+  </div>
+  {{ end }}
   {{ end }}
 </section>
+<link rel="stylesheet" href="{{ asset "vendor/leaflet/leaflet.css" }}" />
+<script defer src="{{ asset "vendor/leaflet/leaflet.js" }}"></script>
 {{ template "page_close" . }}
 {{ end }}

@@ -48,6 +48,8 @@ type PublicAd struct {
 	Currency     string        `json:"currency"`
 	CityName     string        `json:"city_name"`
 	Neighborhood string        `json:"neighborhood"`
+	MapLat       *float64      `json:"map_lat,omitempty"`
+	MapLng       *float64      `json:"map_lng,omitempty"`
 	Media        []PublicMedia `json:"media"`
 	PublishedAt  *string       `json:"published_at"`
 	HasPhone     bool          `json:"has_phone"`

@@ -38,6 +38,8 @@ type Prefill struct {
 	PriceAmount  *int64          `json:"price_amount,omitempty"`
 	PriceType    string          `json:"price_type,omitempty"`
 	Neighborhood string          `json:"neighborhood,omitempty"`
+	Latitude     *float64        `json:"latitude,omitempty"`
+	Longitude    *float64        `json:"longitude,omitempty"`
 	Attrs        json.RawMessage `json:"attrs,omitempty"`
 	Media        []PrefillMedia  `json:"media,omitempty"`
 }

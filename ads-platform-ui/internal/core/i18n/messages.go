@@ -183,6 +183,11 @@ type NewAdMessages struct {
 	PriceSalary             string            `json:"price_salary"`
 	Neighborhood            string            `json:"neighborhood"`
 	NeighborhoodPlaceholder string            `json:"neighborhood_placeholder"`
+	Map                     string            `json:"map"`
+	MapHint                 string            `json:"map_hint"`
+	MapLocate               string            `json:"map_locate"`
+	MapLocateDenied         string            `json:"map_locate_denied"`
+	MapLocateFailed         string            `json:"map_locate_failed"`
 	Details                 string            `json:"details"`
 	Pictures                string            `json:"pictures"`
 	PicturesHint            string            `json:"pictures_hint"`
@@ -213,15 +218,20 @@ type MyAdsMessages struct {
 }
 
 type AdDetailMessages struct {
-	NotFound     string `json:"not_found"`
-	Unavailable  string `json:"unavailable"`
-	PrevPhoto    string `json:"prev_photo"`
-	NextPhoto    string `json:"next_photo"`
-	PhotoCounter string `json:"photo_counter"`
-	NoPhotos     string `json:"no_photos"`
-	ContactLabel string `json:"contact_label"`
-	ShowPhone    string `json:"show_phone"`
-	CallPhone    string `json:"call_phone"`
+	NotFound        string `json:"not_found"`
+	Unavailable     string `json:"unavailable"`
+	PrevPhoto       string `json:"prev_photo"`
+	NextPhoto       string `json:"next_photo"`
+	PhotoCounter    string `json:"photo_counter"`
+	NoPhotos        string `json:"no_photos"`
+	ContactLabel    string `json:"contact_label"`
+	ShowPhone       string `json:"show_phone"`
+	CallPhone       string `json:"call_phone"`
+	Map             string `json:"map"`
+	MapHint         string `json:"map_hint"`
+	MapLocate       string `json:"map_locate"`
+	MapLocateDenied string `json:"map_locate_denied"`
+	MapLocateFailed string `json:"map_locate_failed"`
 }
 
 type AppearanceMessages struct {

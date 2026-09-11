@@ -131,6 +131,11 @@ func toAdDetail(ad *searchclient.PublicAd, t i18n.Messages, mediaCDN string) *vi
 		HasPhone:    ad.HasPhone,
 		PhoneMasked: ad.PhoneMasked,
 	}
+	if ad.MapLat != nil && ad.MapLng != nil {
+		out.HasMap = true
+		out.MapLat = *ad.MapLat
+		out.MapLng = *ad.MapLng
+	}
 	if ad.Neighborhood != "" {
 		if out.Location != "" {
 			out.Location += "، " + ad.Neighborhood

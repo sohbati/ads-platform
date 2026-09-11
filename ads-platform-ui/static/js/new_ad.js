@@ -34,6 +34,12 @@
   const pendingPhotos = [];
   let existingPhotos = [];
   let lightboxIndex = 0;
+  let pinLat = null;
+  let pinLng = null;
+  let adMap = null;
+  let adMarker = null;
+  let userEditedNeighborhood = false;
+  let reverseTimer = 0;
 
   const resolveError = typeof window.resolveApiError === "function"
     ? window.resolveApiError
@@ -288,10 +294,12 @@
   }
 
   fillCategories();
+  bindMap();
   categorySelect.addEventListener("change", onCategoryChange);
   applyPrefill();
   updateTitlePlaceholder();
   bindPriceField();
+  if (pinLat == null) centerMapOnCity(false);
 
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -340,6 +348,10 @@
       neighborhood: (document.getElementById("new-ad-neighborhood").value || "").trim(),
       attrs: collectAttrs(selectedSchema()),
     };
+    if (pinLat != null && pinLng != null) {
+      payload.latitude = pinLat;
+      payload.longitude = pinLng;
+    }
     if (priceAmount != null) {
       payload.price_amount = priceAmount;
     }
@@ -408,6 +420,10 @@
           boot.citySlug = city.slug;
           boot.cityName = city.name;
           if (cityNameEl) cityNameEl.textContent = city.name;
+          userEditedNeighborhood = false;
+          const neighborhoodEl = document.getElementById("new-ad-neighborhood");
+          if (neighborhoodEl) neighborhoodEl.value = "";
+          centerMapOnCity(true);
         },
       });
     });
@@ -421,6 +437,133 @@
     const first = items[0];
     if (first && first.firstCity) return first.firstCity;
     return first;
+  }
+
+  function bindMap() {
+    if (adMap) return;
+    if (typeof L === "undefined") {
+      window.addEventListener("load", bindMap);
+      return;
+    }
+    const el = document.getElementById("new-ad-map");
+    if (!el) return;
+    // Leaflet prefixes imagePath onto iconUrl. Hashed script URLs (?v=)
+    // break auto-detect, so use absolute icon URLs and skip that prefix.
+    delete L.Icon.Default.prototype._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: "/static/vendor/leaflet/images/marker-icon-2x.png",
+      iconUrl: "/static/vendor/leaflet/images/marker-icon.png",
+      shadowUrl: "/static/vendor/leaflet/images/marker-shadow.png",
+    });
+    adMap = L.map(el, { scrollWheelZoom: true }).setView([35.6892, 51.3890], 11);
+    adMap.attributionControl.setPrefix(
+      "<a href=\"https://leafletjs.com\" target=\"_blank\" rel=\"noopener noreferrer\">Leaflet</a>"
+    );
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferrer\">OpenStreetMap</a>",
+    }).addTo(adMap);
+    openAttributionInNewTab(el);
+    if (typeof window.addMapLocateButton === "function") {
+      window.addMapLocateButton(adMap, el, function (latlng) {
+        setMessage("");
+        setMapPin(latlng.lat, latlng.lng, true);
+        adMap.setView([latlng.lat, latlng.lng], 16);
+      }, function (message) {
+        if (message) setMessage(message, true);
+      });
+    }
+    adMap.on("click", function (e) {
+      setMapPin(e.latlng.lat, e.latlng.lng, true);
+    });
+    const neighborhoodEl = document.getElementById("new-ad-neighborhood");
+    if (neighborhoodEl) {
+      neighborhoodEl.addEventListener("input", function () {
+        userEditedNeighborhood = true;
+      });
+    }
+    window.setTimeout(function () {
+      if (adMap) adMap.invalidateSize();
+    }, 0);
+    if (pinLat != null && pinLng != null) {
+      setMapPin(pinLat, pinLng, false);
+    } else {
+      centerMapOnCity(false);
+    }
+  }
+
+  function openAttributionInNewTab(mapEl) {
+    if (!mapEl) return;
+    mapEl.querySelectorAll(".leaflet-control-attribution a").forEach(function (link) {
+      link.setAttribute("target", "_blank");
+      link.setAttribute("rel", "noopener noreferrer");
+    });
+  }
+
+  function clearMapPin() {
+    pinLat = null;
+    pinLng = null;
+    if (adMarker && adMap) {
+      adMap.removeLayer(adMarker);
+      adMarker = null;
+    }
+  }
+
+  function setMapPin(lat, lng, reverse) {
+    lat = Number(lat);
+    lng = Number(lng);
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+    pinLat = lat;
+    pinLng = lng;
+    if (!adMap || typeof L === "undefined") return;
+    if (!adMarker) {
+      adMarker = L.marker([lat, lng], { draggable: true }).addTo(adMap);
+      adMarker.on("dragend", function () {
+        const ll = adMarker.getLatLng();
+        setMapPin(ll.lat, ll.lng, true);
+      });
+      adMap.setView([lat, lng], 15);
+    } else {
+      adMarker.setLatLng([lat, lng]);
+      if (!reverse) adMap.setView([lat, lng], 15);
+    }
+    if (reverse) scheduleReverse(lat, lng);
+  }
+
+  function centerMapOnCity(clearPin) {
+    if (clearPin) clearMapPin();
+    if (!adMap) return;
+    const qs = "slug=" + encodeURIComponent(boot.citySlug || "") +
+      "&name=" + encodeURIComponent(boot.cityName || "") +
+      "&lang=" + encodeURIComponent(boot.locale || "fa");
+    fetch("/api/v1/geo/city?" + qs, { credentials: "same-origin" })
+      .then(function (resp) { return resp.ok ? resp.json() : null; })
+      .then(function (pt) {
+        if (!pt || pt.lat == null || pt.lng == null) return;
+        if (!clearPin && pinLat != null) return;
+        adMap.setView([pt.lat, pt.lng], 12);
+        adMap.invalidateSize();
+      })
+      .catch(function () {});
+  }
+
+  function scheduleReverse(lat, lng) {
+    if (reverseTimer) window.clearTimeout(reverseTimer);
+    reverseTimer = window.setTimeout(function () {
+      const qs = "lat=" + encodeURIComponent(lat) +
+        "&lng=" + encodeURIComponent(lng) +
+        "&lang=" + encodeURIComponent(boot.locale || "fa");
+      fetch("/api/v1/geo/reverse?" + qs, { credentials: "same-origin" })
+        .then(function (resp) { return resp.ok ? resp.json() : null; })
+        .then(function (data) {
+          if (!data) return;
+          const neighborhoodEl = document.getElementById("new-ad-neighborhood");
+          if (!neighborhoodEl) return;
+          if (userEditedNeighborhood && neighborhoodEl.value.trim()) return;
+          if (data.neighborhood) neighborhoodEl.value = data.neighborhood;
+        })
+        .catch(function () {});
+    }, 400);
   }
 
   function applyPrefill() {
@@ -440,6 +583,9 @@
     if (priceEl && p.price_amount != null) priceEl.value = formatPriceGrouped(String(p.price_amount));
     if (priceTypeEl && p.price_type) priceTypeEl.value = p.price_type;
     if (neighborhoodEl && p.neighborhood) neighborhoodEl.value = p.neighborhood;
+    if (p.latitude != null && p.longitude != null) {
+      setMapPin(Number(p.latitude), Number(p.longitude), false);
+    }
     fillAttrs(p.attrs);
     renderExistingMedia(p.media);
   }

@@ -128,7 +128,12 @@
       "no_photos": "بدون عکس",
       "contact_label": "شماره تماس",
       "show_phone": "نمایش شماره تماس",
-      "call_phone": "تماس"
+      "call_phone": "تماس",
+      "map": "موقعیت روی نقشه",
+      "map_hint": "موقعیت تقریبی است؛ پین دقیق آگهی نمایش داده نمی‌شود.",
+      "map_locate": "موقعیت من",
+      "map_locate_denied": "اجازهٔ دسترسی به موقعیت داده نشد.",
+      "map_locate_failed": "موقعیت شما پیدا نشد."
     },
     "appearance": {
       "title": "ظاهر",
@@ -216,6 +221,11 @@
       "price_salary": "حقوق",
       "neighborhood": "محله",
       "neighborhood_placeholder": "مثلاً ونک",
+      "map": "موقعیت روی نقشه",
+      "map_hint": "روی نقشه بزنید یا پین را بکشید. محله از روی پین پیشنهاد می‌شود.",
+      "map_locate": "موقعیت من",
+      "map_locate_denied": "اجازهٔ دسترسی به موقعیت داده نشد.",
+      "map_locate_failed": "موقعیت شما پیدا نشد.",
       "details": "ویژگی‌ها",
       "pictures": "عکس‌ها",
       "pictures_hint": "حداکثر %d عکس، فرمت JPG، PNG یا WebP.",

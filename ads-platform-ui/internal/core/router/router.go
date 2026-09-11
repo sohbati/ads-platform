@@ -86,6 +86,8 @@ func (r *Router) SetupRoutes() *gin.Engine {
 		api.POST("/stats/events", r.container.QueryAds.PageHandler.StatsEvent)
 		api.GET("/categories", r.container.Category.APIHandler.List)
 		api.GET("/cities", r.container.Location.APIHandler.ListCities)
+		api.GET("/geo/city", r.container.Location.GeoHandler.CityCenter)
+		api.GET("/geo/reverse", r.container.Location.GeoHandler.Reverse)
 		api.POST("/ads", r.container.NewAd.APIHandler.Create)
 		api.PUT("/ads/:id", r.container.NewAd.APIHandler.Update)
 		api.GET("/me/profile", r.container.MyInfo.APIHandler.GetProfile)

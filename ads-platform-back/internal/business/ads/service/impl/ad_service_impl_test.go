@@ -482,6 +482,12 @@ func TestGetPublicReturnsActiveWithFullMedia(t *testing.T) {
 	if got.Title != ad.Title || got.Description != ad.Description || got.CityName != "Tehran" || got.Neighborhood != "Vanak" {
 		t.Fatalf("public ad: %+v", got)
 	}
+	if got.MapLat == nil || got.MapLng == nil {
+		t.Fatal("expected approximate map coords")
+	}
+	if *got.MapLat == 35.6892 && *got.MapLng == 51.3890 {
+		t.Fatal("public map coords must not be the exact pin")
+	}
 	if len(got.Media) != 2 || got.Media[0].URL != "/ads-media/ads/7/7_1.webp" || got.Media[1].URL != "/ads-media/ads/7/7_2.webp" {
 		t.Fatalf("media: %+v", got.Media)
 	}

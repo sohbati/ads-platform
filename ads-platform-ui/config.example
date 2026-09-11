@@ -5,3 +5,4 @@ CDN_BASE_URL=http://localhost:4000
 MEDIA_CDN_URL=http://localhost:8098
 BFF_BASE_URL=http://localhost:8097
 DEFAULT_COUNTRY_CODE=+98
+NOMINATIM_BASE_URL=https://nominatim.openstreetmap.org

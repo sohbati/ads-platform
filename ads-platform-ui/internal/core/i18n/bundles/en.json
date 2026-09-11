@@ -128,7 +128,12 @@
       "no_photos": "No photos",
       "contact_label": "Phone number",
       "show_phone": "Show phone number",
-      "call_phone": "Call"
+      "call_phone": "Call",
+      "map": "Location on the map",
+      "map_hint": "Approximate area — the exact pin is not shown.",
+      "map_locate": "My location",
+      "map_locate_denied": "Location permission was denied.",
+      "map_locate_failed": "Could not find your location."
     },
     "appearance": {
       "title": "Appearance",
@@ -216,6 +221,11 @@
       "price_salary": "Salary",
       "neighborhood": "Neighborhood",
       "neighborhood_placeholder": "e.g. Vanak",
+      "map": "Location on the map",
+      "map_hint": "Click the map or drag the pin. Neighborhood is suggested from the pin.",
+      "map_locate": "My location",
+      "map_locate_denied": "Location permission was denied.",
+      "map_locate_failed": "Could not find your location.",
       "details": "Attributes",
       "pictures": "Photos",
       "pictures_hint": "Up to %d photos — JPG, PNG, or WebP. Add several at a time, then remove any photo before publishing.",

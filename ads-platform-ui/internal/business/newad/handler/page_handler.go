@@ -194,6 +194,8 @@ func adToPrefill(ad adJSON, mediaCDN string) *viewmodel.Prefill {
 		PriceAmount:  ad.PriceAmount,
 		PriceType:    ad.PriceType,
 		Neighborhood: neighborhoodFromLocation(ad.Location),
+		Latitude:     latFromLocation(ad.Location),
+		Longitude:    lngFromLocation(ad.Location),
 		Attrs:        ad.Attrs,
 		Media:        mediaFromJSON(ad.Media, mediaCDN),
 	}
@@ -201,14 +203,43 @@ func adToPrefill(ad adJSON, mediaCDN string) *viewmodel.Prefill {
 }
 
 func neighborhoodFromLocation(raw json.RawMessage) string {
-	var loc map[string]any
-	if len(raw) == 0 || json.Unmarshal(raw, &loc) != nil {
-		return ""
-	}
+	loc := locationMap(raw)
 	if n, ok := loc["neighborhood"].(string); ok {
 		return n
 	}
 	return ""
+}
+
+func latFromLocation(raw json.RawMessage) *float64 {
+	return floatFromLocation(raw, "lat")
+}
+
+func lngFromLocation(raw json.RawMessage) *float64 {
+	return floatFromLocation(raw, "lng")
+}
+
+func floatFromLocation(raw json.RawMessage, key string) *float64 {
+	loc := locationMap(raw)
+	switch v := loc[key].(type) {
+	case float64:
+		return &v
+	case json.Number:
+		n, err := v.Float64()
+		if err != nil {
+			return nil
+		}
+		return &n
+	default:
+		return nil
+	}
+}
+
+func locationMap(raw json.RawMessage) map[string]any {
+	var loc map[string]any
+	if len(raw) == 0 || json.Unmarshal(raw, &loc) != nil {
+		return map[string]any{}
+	}
+	return loc
 }
 
 func mediaFromJSON(raw json.RawMessage, mediaCDN string) []viewmodel.PrefillMedia {

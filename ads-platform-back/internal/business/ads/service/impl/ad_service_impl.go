@@ -425,6 +425,11 @@ func toPublicAd(ad *model.Ad, cityNames map[int]string) *model.PublicAd {
 		out.CityName = name
 	}
 	out.Neighborhood = neighborhoodFromLocation(ad.Location)
+	if lat, lng := coordsFromLocation(ad.Location); lat != nil && lng != nil {
+		mapLat, mapLng := approximatePublicCoords(ad.ID, *lat, *lng)
+		out.MapLat = &mapLat
+		out.MapLng = &mapLng
+	}
 	if ad.PublishedAt != nil {
 		s := ad.PublishedAt.UTC().Format(time.RFC3339)
 		out.PublishedAt = &s

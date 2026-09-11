@@ -260,6 +260,23 @@ func TestAdDetailTemplateRenders(t *testing.T) {
 		t.Fatalf("expected data-ad-id on detail, got %s", buf.String())
 	}
 
+	lat, lng := 35.68900, 51.38900
+	withMap := withPhotos
+	withMap.Ad = &viewmodel.AdDetail{
+		ID:     55,
+		Title:  "Bike",
+		HasMap: true,
+		MapLat: lat,
+		MapLng: lng,
+	}
+	buf.Reset()
+	if err := tmpl.ExecuteTemplate(&buf, "ad_detail", withMap); err != nil {
+		t.Fatalf("execute ad_detail map: %v", err)
+	}
+	if !bytes.Contains(buf.Bytes(), []byte(`id="ad-detail-map"`)) || !bytes.Contains(buf.Bytes(), []byte("35.68900")) {
+		t.Fatalf("expected map markup, got %s", buf.String())
+	}
+
 	notFound := viewmodel.AdDetailPage{
 		Page: i18n.Page{
 			Title: "t",
