@@ -11,6 +11,78 @@
     "cooperative": {
       "fa": "تعاونی",
       "en": "Cooperative"
+    },
+    "booklet": {
+      "fa": "منگوله‌دار",
+      "en": "Booklet"
+    },
+    "promissory": {
+      "fa": "قولنامه",
+      "en": "Promissory"
+    }
+  },
+  "orientation": {
+    "north": {
+      "fa": "شمالی",
+      "en": "North"
+    },
+    "south": {
+      "fa": "جنوبی",
+      "en": "South"
+    }
+  },
+  "flooring": {
+    "ceramic": {
+      "fa": "سرامیک",
+      "en": "Ceramic"
+    },
+    "parquet": {
+      "fa": "پارکت",
+      "en": "Parquet"
+    },
+    "laminate": {
+      "fa": "لمینت",
+      "en": "Laminate"
+    },
+    "mosaic": {
+      "fa": "سنگ موزاییک",
+      "en": "Mosaic stone"
+    }
+  },
+  "hot_water": {
+    "water_heater": {
+      "fa": "آب گرمکن",
+      "en": "Water heater"
+    },
+    "package": {
+      "fa": "پکیج",
+      "en": "Package boiler"
+    },
+    "boiler_room": {
+      "fa": "موتورخانه",
+      "en": "Boiler room"
+    }
+  },
+  "facade": {
+    "stone": {
+      "fa": "سنگ",
+      "en": "Stone"
+    },
+    "brick": {
+      "fa": "آجر",
+      "en": "Brick"
+    },
+    "cement": {
+      "fa": "سیمان",
+      "en": "Cement"
+    },
+    "glass": {
+      "fa": "شیشه",
+      "en": "Glass"
+    },
+    "other": {
+      "fa": "سایر",
+      "en": "Other"
     }
   },
   "commercial_usage": {

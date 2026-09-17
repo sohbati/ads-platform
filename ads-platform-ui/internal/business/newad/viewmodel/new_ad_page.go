@@ -15,20 +15,21 @@ type NewAdPage struct {
 }
 
 type Bootstrap struct {
-	Locale            string            `json:"locale"`
-	Mode              string            `json:"mode,omitempty"`
-	AdID              int64             `json:"adId,omitempty"`
-	CityID            int               `json:"cityId"`
-	CitySlug          string            `json:"citySlug"`
-	CityName          string            `json:"cityName"`
-	MaxPictures       int               `json:"maxPictures"`
-	SuccessHref       string            `json:"successHref"`
-	TitlePlaceholder  string            `json:"titlePlaceholder"`
-	TitlePlaceholders map[string]string `json:"titlePlaceholders"`
-	Prefill           *Prefill          `json:"prefill,omitempty"`
-	Categories        []cdn.Category    `json:"categories"`
-	Schemas           []cdn.AttrSchema  `json:"schemas"`
-	Enums             json.RawMessage   `json:"enums"`
+	Locale              string            `json:"locale"`
+	Mode                string            `json:"mode,omitempty"`
+	AdID                int64             `json:"adId,omitempty"`
+	CityID              int               `json:"cityId"`
+	CitySlug            string            `json:"citySlug"`
+	CityName            string            `json:"cityName"`
+	MaxPictures         int               `json:"maxPictures"`
+	PicturesUnavailable bool              `json:"picturesUnavailable,omitempty"`
+	SuccessHref         string            `json:"successHref"`
+	TitlePlaceholder    string            `json:"titlePlaceholder"`
+	TitlePlaceholders   map[string]string `json:"titlePlaceholders"`
+	Prefill             *Prefill          `json:"prefill,omitempty"`
+	Categories          []cdn.Category    `json:"categories"`
+	Schemas             []cdn.AttrSchema  `json:"schemas"`
+	Enums               json.RawMessage   `json:"enums"`
 }
 
 type Prefill struct {

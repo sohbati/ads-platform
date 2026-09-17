@@ -191,6 +191,9 @@ type NewAdMessages struct {
 	Details                 string            `json:"details"`
 	Pictures                string            `json:"pictures"`
 	PicturesHint            string            `json:"pictures_hint"`
+	PicturesUnavailableHint string            `json:"pictures_unavailable_hint"`
+	PicturesStorageContinue string            `json:"pictures_storage_continue"`
+	ContinueWithoutPhotos   string            `json:"continue_without_photos"`
 	PicturesAdd             string            `json:"pictures_add"`
 	PictureRemove           string            `json:"picture_remove"`
 	PictureView             string            `json:"picture_view"`
@@ -232,6 +235,9 @@ type AdDetailMessages struct {
 	MapLocate       string `json:"map_locate"`
 	MapLocateDenied string `json:"map_locate_denied"`
 	MapLocateFailed string `json:"map_locate_failed"`
+	Features        string `json:"features"`
+	Yes             string `json:"yes"`
+	No              string `json:"no"`
 }
 
 type AppearanceMessages struct {

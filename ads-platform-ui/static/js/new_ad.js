@@ -11,6 +11,7 @@
     schemas: [],
     enums: {},
     successHref: "/my-info/user-ads",
+    picturesUnavailable: false,
   };
   try {
     boot = Object.assign(boot, JSON.parse(bootstrapEl.textContent || "{}"));
@@ -25,6 +26,10 @@
   const picturesInput = document.getElementById("new-ad-pictures");
   const photoGrid = document.getElementById("new-ad-photo-grid");
   const addPhotosBtn = document.getElementById("new-ad-add-photos");
+  const picturesHint = document.getElementById("new-ad-pictures-hint");
+  const picturesUnavailableHint = document.getElementById("new-ad-pictures-unavailable");
+  const storageContinue = document.getElementById("new-ad-storage-continue");
+  const continueWithoutPhotosBtn = document.getElementById("new-ad-continue-without-photos");
   const lightbox = document.getElementById("new-ad-lightbox");
   const lightboxImg = lightbox ? lightbox.querySelector("[data-photo-full]") : null;
   const lightboxCount = lightbox ? lightbox.querySelector("[data-photo-count]") : null;
@@ -40,6 +45,7 @@
   let adMarker = null;
   let userEditedNeighborhood = false;
   let reverseTimer = 0;
+  let publishWithoutPhotos = false;
 
   const resolveError = typeof window.resolveApiError === "function"
     ? window.resolveApiError
@@ -217,7 +223,7 @@
         const select = document.createElement("select");
         select.id = id;
         select.dataset.attr = name;
-        select.dataset.type = "string";
+        select.dataset.type = (prop.type === "integer" || prop.type === "number") ? prop.type : "string";
         if (required[name]) select.required = true;
         const empty = document.createElement("option");
         empty.value = "";
@@ -241,6 +247,7 @@
           if (prop.minimum != null) input.min = prop.minimum;
           if (prop.maximum != null) input.max = prop.maximum;
           if (prop.type === "integer") input.step = "1";
+          else input.step = "any";
         } else {
           input.type = "text";
           input.dataset.type = "string";
@@ -300,6 +307,7 @@
   updateTitlePlaceholder();
   bindPriceField();
   if (pinLat == null) centerMapOnCity(false);
+  syncPictureAvailability();
 
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -325,11 +333,21 @@
       return;
     }
 
-    const files = pendingPhotos.map(function (item) { return item.file; });
+    const files = publishWithoutPhotos
+      ? []
+      : pendingPhotos.map(function (item) { return item.file; });
     const maxPics = boot.maxPictures || 8;
     if (files.length + existingPhotos.length > maxPics) {
       setMessage(form.dataset.tooMany || "", true);
       return;
+    }
+
+    if (files.length && !publishWithoutPhotos) {
+      const uploadOk = await picturesUploadAvailable();
+      if (!uploadOk) {
+        showStorageContinue();
+        return;
+      }
     }
 
     const isEdit = boot.mode === "edit" && boot.adId;
@@ -389,6 +407,10 @@
 
       if (!resp.ok) {
         const err = await readError(resp);
+        if (err.code === "AD_STORAGE_UNAVAILABLE" && pendingPhotos.length && !publishWithoutPhotos) {
+          showStorageContinue();
+          return;
+        }
         setMessage(resolveError(err.code, err.params, resolveError("_default", [], err.code)), true);
         return;
       }
@@ -622,6 +644,40 @@
     renderPhotoGrid();
   }
 
+  async function picturesUploadAvailable() {
+    try {
+      const resp = await fetch("/api/v1/media/status", { credentials: "same-origin" });
+      if (!resp.ok) return false;
+      const body = await resp.json();
+      return body && body.pictures_upload === true;
+    } catch (_err) {
+      return false;
+    }
+  }
+
+  function showStorageContinue() {
+    if (submitBtn) submitBtn.hidden = true;
+    if (storageContinue) storageContinue.hidden = false;
+    if (addPhotosBtn) addPhotosBtn.disabled = true;
+    if (continueWithoutPhotosBtn) continueWithoutPhotosBtn.focus();
+  }
+
+  function applyPictureAvailability(ok) {
+    boot.picturesUnavailable = !ok;
+    if (picturesUnavailableHint) picturesUnavailableHint.hidden = ok;
+    if (picturesHint) picturesHint.hidden = !ok;
+    if (picturesInput) picturesInput.disabled = !ok;
+    if (addPhotosBtn) {
+      addPhotosBtn.hidden = !ok;
+      addPhotosBtn.disabled = !ok ||
+        (pendingPhotos.length + existingPhotos.length) >= (boot.maxPictures || 8);
+    }
+  }
+
+  async function syncPictureAvailability() {
+    applyPictureAvailability(await picturesUploadAvailable());
+  }
+
   function tAttr(name, fallback) {
     return form.getAttribute(name) || fallback || "";
   }
@@ -641,6 +697,7 @@
   }
 
   function addPendingFiles(fileList) {
+    if (boot.picturesUnavailable) return;
     const maxPics = boot.maxPictures || 8;
     const incoming = Array.prototype.slice.call(fileList || []);
     let skipped = false;
@@ -743,7 +800,11 @@
     });
 
     const maxPics = boot.maxPictures || 8;
-    if (addPhotosBtn) addPhotosBtn.disabled = (pendingPhotos.length + existingPhotos.length) >= maxPics;
+    if (addPhotosBtn) {
+      addPhotosBtn.hidden = !!boot.picturesUnavailable;
+      addPhotosBtn.disabled = boot.picturesUnavailable ||
+        (pendingPhotos.length + existingPhotos.length) >= maxPics;
+    }
   }
 
   function showLightbox(index) {
@@ -784,6 +845,15 @@
   if (picturesInput) {
     picturesInput.addEventListener("change", function () {
       addPendingFiles(picturesInput.files);
+    });
+  }
+  if (continueWithoutPhotosBtn) {
+    continueWithoutPhotosBtn.addEventListener("click", function () {
+      publishWithoutPhotos = true;
+      if (storageContinue) storageContinue.hidden = true;
+      if (submitBtn) submitBtn.hidden = false;
+      if (typeof form.requestSubmit === "function") form.requestSubmit();
+      else form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
     });
   }
   if (lightbox) {

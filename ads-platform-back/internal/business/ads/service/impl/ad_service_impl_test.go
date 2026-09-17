@@ -138,6 +138,8 @@ type fakeCatalog struct {
 	categoriesErr error
 	cities        []searchclient.City
 	citiesErr     error
+	schemas       []searchclient.AttrSchema
+	schemasErr    error
 }
 
 func (f *fakeCatalog) CategoriesBySlugs(context.Context, []string, bool) ([]searchclient.Category, error) {
@@ -152,13 +154,30 @@ func (f *fakeCatalog) CitiesBySlugs(context.Context, []string) ([]searchclient.C
 func (f *fakeCatalog) CitiesByIDs(context.Context, []int) ([]searchclient.City, error) {
 	return f.cities, f.citiesErr
 }
-func (f *fakeCatalog) AttrSchemasByNames(context.Context, []string) ([]searchclient.AttrSchema, error) {
-	return nil, nil
+func (f *fakeCatalog) AttrSchemasByNames(_ context.Context, names []string) ([]searchclient.AttrSchema, error) {
+	if f.schemasErr != nil {
+		return nil, f.schemasErr
+	}
+	if len(f.schemas) == 0 {
+		return nil, nil
+	}
+	want := make(map[string]struct{}, len(names))
+	for _, name := range names {
+		want[name] = struct{}{}
+	}
+	out := make([]searchclient.AttrSchema, 0, len(f.schemas))
+	for _, schema := range f.schemas {
+		if _, ok := want[schema.Name]; ok || len(want) == 0 {
+			out = append(out, schema)
+		}
+	}
+	return out, nil
 }
 
 type fakeStorage struct {
-	keys []string
-	err  error
+	keys        []string
+	err         error
+	unavailable bool
 }
 
 func (f *fakeStorage) Put(_ context.Context, key, _ string, body io.Reader, _ int64) (string, error) {
@@ -168,6 +187,10 @@ func (f *fakeStorage) Put(_ context.Context, key, _ string, body io.Reader, _ in
 	_, _ = io.Copy(io.Discard, body)
 	f.keys = append(f.keys, key)
 	return "/ads-media/" + key, nil
+}
+
+func (f *fakeStorage) Available(_ context.Context) bool {
+	return !f.unavailable
 }
 
 func assertAppErrorCode(t *testing.T, err error, code string) {
@@ -400,13 +423,55 @@ func TestCreateAdUnknownCategory(t *testing.T) {
 	assertAppErrorCode(t, err, "AD_INVALID_CATEGORY")
 }
 
-func TestCreateAdPicturesNeedStorage(t *testing.T) {
+func TestCreateAdRejectsPicturesWhenStorageUnavailable(t *testing.T) {
 	svc := NewAdService(newFakeAdRepo(), &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
 	in := validInput()
-	in.Pictures = []service.PictureInput{{
-		Filename: "a.jpg", ContentType: "image/jpeg", Size: 1, Body: bytes.NewReader([]byte("a")),
-	}}
+	in.Pictures = []service.PictureInput{jpegPic("a.jpg")}
 	_, err := svc.Create(context.Background(), in)
+	assertAppErrorCode(t, err, "AD_STORAGE_UNAVAILABLE")
+}
+
+func TestCreateAdRejectsPicturesWhenStoragePingFails(t *testing.T) {
+	store := &fakeStorage{unavailable: true}
+	svc := NewAdService(newFakeAdRepo(), &fakeImageRepo{}, leafCatalog(), store, 8, 10<<20)
+	in := validInput()
+	in.Pictures = []service.PictureInput{jpegPic("a.jpg")}
+	_, err := svc.Create(context.Background(), in)
+	assertAppErrorCode(t, err, "AD_STORAGE_UNAVAILABLE")
+}
+
+func TestCreateAdSkipsPicturesWhenPutFailsAfterCreate(t *testing.T) {
+	store := &fakeStorage{err: errors.New("minio down")}
+	svc := NewAdService(newFakeAdRepo(), &fakeImageRepo{}, leafCatalog(), store, 8, 10<<20)
+	in := validInput()
+	in.Pictures = []service.PictureInput{jpegPic("cover.jpg")}
+	ad, err := svc.Create(context.Background(), in)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !ad.PhotosSkipped {
+		t.Fatal("expected photos_skipped")
+	}
+	if string(ad.Media) != "[]" {
+		t.Fatalf("media=%s", ad.Media)
+	}
+}
+
+func TestUpdateRejectsNewPicturesWhenStorageUnavailable(t *testing.T) {
+	ads := newFakeAdRepo()
+	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+	ad, err := svc.Create(context.Background(), validInput())
+	if err != nil {
+		t.Fatal(err)
+	}
+	ad.Media = json.RawMessage(`[{"url":"/ads-media/ads/7/7_1.webp","thumb":"/ads-media/ads/7/7_1-t.webp","is_cover":true}]`)
+	ads.ads[ad.ID] = *ad
+
+	keep := []string{"/ads-media/ads/7/7_1.webp"}
+	in := validInput()
+	in.KeepMedia = &keep
+	in.Pictures = []service.PictureInput{jpegPic("new.jpg")}
+	_, err = svc.Update(context.Background(), ad.ID, in)
 	assertAppErrorCode(t, err, "AD_STORAGE_UNAVAILABLE")
 }
 
@@ -487,6 +552,12 @@ func TestGetPublicReturnsActiveWithFullMedia(t *testing.T) {
 	}
 	if *got.MapLat == 35.6892 && *got.MapLng == 51.3890 {
 		t.Fatal("public map coords must not be the exact pin")
+	}
+	if got.CategoryID != ad.CategoryID {
+		t.Fatalf("category_id=%d want %d", got.CategoryID, ad.CategoryID)
+	}
+	if !bytes.Contains(got.Attrs, []byte(`"rooms":2`)) {
+		t.Fatalf("attrs=%s", got.Attrs)
 	}
 	if len(got.Media) != 2 || got.Media[0].URL != "/ads-media/ads/7/7_1.webp" || got.Media[1].URL != "/ads-media/ads/7/7_2.webp" {
 		t.Fatalf("media: %+v", got.Media)

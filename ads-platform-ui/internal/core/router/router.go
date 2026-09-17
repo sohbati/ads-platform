@@ -90,6 +90,7 @@ func (r *Router) SetupRoutes() *gin.Engine {
 		api.GET("/geo/reverse", r.container.Location.GeoHandler.Reverse)
 		api.POST("/ads", r.container.NewAd.APIHandler.Create)
 		api.PUT("/ads/:id", r.container.NewAd.APIHandler.Update)
+		api.GET("/media/status", r.container.NewAd.APIHandler.MediaStatus)
 		api.GET("/me/profile", r.container.MyInfo.APIHandler.GetProfile)
 		api.PUT("/me/profile", r.container.MyInfo.APIHandler.PutProfile)
 

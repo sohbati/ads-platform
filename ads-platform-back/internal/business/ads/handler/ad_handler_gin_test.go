@@ -19,17 +19,18 @@ import (
 )
 
 type fakeAdService struct {
-	got     service.CreateAdInput
-	ad      *model.Ad
-	err     error
-	list    []model.UserAdItem
-	listErr error
-	listID  int64
-	gotID   int64
-	gotUID  int64
-	stats   []model.AdStatsItem
-	statsFrom string
-	statsTo   string
+	got              service.CreateAdInput
+	ad               *model.Ad
+	err              error
+	list             []model.UserAdItem
+	listErr          error
+	listID           int64
+	gotID            int64
+	gotUID           int64
+	stats            []model.AdStatsItem
+	statsFrom        string
+	statsTo          string
+	noPicturesUpload bool
 }
 
 func (f *fakeAdService) Create(_ context.Context, in service.CreateAdInput) (*model.Ad, error) {
@@ -100,10 +101,15 @@ func (f *fakeAdService) ListStats(_ context.Context, userID int64, from, to stri
 	return &model.AdStatsResponse{From: from, To: to, Ads: ads}, nil
 }
 
+func (f *fakeAdService) PicturesUploadAvailable(_ context.Context) bool {
+	return !f.noPicturesUpload
+}
+
 func testRouter(h *AdHandler) *gin.Engine {
 	gin.SetMode(gin.TestMode)
 	r := gin.New()
 	r.Use(middleware.GlobalErrorHandler())
+	r.GET("/api/v1/media/status", h.MediaStatus)
 	r.POST("/api/v1/ads", h.Create)
 	r.GET("/api/v1/ads/:id", h.GetPublic)
 	r.GET("/api/v1/ads/:id/contact", h.GetPublicContact)
@@ -322,5 +328,19 @@ func TestUpdateHandlerUsesPathUser(t *testing.T) {
 	}
 	if fake.got.UserID != 42 || fake.gotID != 9 || fake.got.Title != "Updated" {
 		t.Fatalf("input: %+v id=%d", fake.got, fake.gotID)
+	}
+}
+
+func TestMediaStatusHandler(t *testing.T) {
+	r := testRouter(NewAdHandler(&fakeAdService{noPicturesUpload: true}))
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/media/status", nil)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
+	}
+	if !bytes.Contains(rec.Body.Bytes(), []byte(`"pictures_upload":false`)) {
+		t.Fatalf("body=%s", rec.Body.String())
 	}
 }

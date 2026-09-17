@@ -75,6 +75,11 @@ func (h *AdHandler) Create(c *gin.Context) {
 	c.JSON(http.StatusCreated, ad)
 }
 
+// MediaStatus handles GET /api/v1/media/status
+func (h *AdHandler) MediaStatus(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"pictures_upload": h.ads.PicturesUploadAvailable(c.Request.Context())})
+}
+
 // ListByUser handles GET /api/v1/users/:userId/ads
 func (h *AdHandler) ListByUser(c *gin.Context) {
 	userID, err := parseUserID(c.Param("userId"))

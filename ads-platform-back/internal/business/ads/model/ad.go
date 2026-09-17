@@ -26,6 +26,8 @@ type Ad struct {
 	ExpiresAt   *time.Time      `json:"expires_at"`
 	CreatedAt   time.Time       `json:"created_at" gorm:"autoCreateTime"`
 	UpdatedAt   time.Time       `json:"updated_at" gorm:"autoUpdateTime"`
+	// PhotosSkipped is set on create/update when pictures were sent but not stored.
+	PhotosSkipped bool `json:"photos_skipped,omitempty" gorm:"-"`
 }
 
 const (
@@ -61,21 +63,23 @@ type UserAdItem struct {
 
 // PublicAd is the public details view of an active listing.
 type PublicAd struct {
-	ID           int64         `json:"id"`
-	Title        string        `json:"title"`
-	Description  string        `json:"description"`
-	PriceAmount  *int64        `json:"price_amount"`
-	PriceType    string        `json:"price_type"`
-	Currency     string        `json:"currency"`
-	CityID       int           `json:"city_id"`
-	CityName     string        `json:"city_name,omitempty"`
-	Neighborhood string        `json:"neighborhood,omitempty"`
-	MapLat       *float64      `json:"map_lat,omitempty"`
-	MapLng       *float64      `json:"map_lng,omitempty"`
-	Media        []PublicMedia `json:"media"`
-	PublishedAt  *string       `json:"published_at,omitempty"`
-	HasPhone     bool          `json:"has_phone"`
-	PhoneMasked  string        `json:"phone_masked,omitempty"`
+	ID           int64           `json:"id"`
+	Title        string          `json:"title"`
+	Description  string          `json:"description"`
+	PriceAmount  *int64          `json:"price_amount"`
+	PriceType    string          `json:"price_type"`
+	Currency     string          `json:"currency"`
+	CityID       int             `json:"city_id"`
+	CategoryID   int             `json:"category_id"`
+	CityName     string          `json:"city_name,omitempty"`
+	Neighborhood string          `json:"neighborhood,omitempty"`
+	MapLat       *float64        `json:"map_lat,omitempty"`
+	MapLng       *float64        `json:"map_lng,omitempty"`
+	Attrs        json.RawMessage `json:"attrs,omitempty"`
+	Media        []PublicMedia   `json:"media"`
+	PublishedAt  *string         `json:"published_at,omitempty"`
+	HasPhone     bool            `json:"has_phone"`
+	PhoneMasked  string          `json:"phone_masked,omitempty"`
 }
 
 // PublicContact is the seller phone, returned only after the viewer is logged in.

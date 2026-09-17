@@ -94,11 +94,10 @@
 
     <div class="new-ad__field">
       <span class="new-ad__label">{{ .T.NewAd.Pictures }}</span>
-      {{ if eq .Bootstrap.Mode "edit" }}
-      <p class="new-ad__hint">{{ .T.NewAd.PicturesReplaceHint }}</p>
-      {{ else }}
-      <p class="new-ad__hint">{{ format .T.NewAd.PicturesHint .Bootstrap.MaxPictures }}</p>
-      {{ end }}
+      <p id="new-ad-pictures-unavailable" class="new-ad__hint" hidden>{{ .T.NewAd.PicturesUnavailableHint }}</p>
+      <p id="new-ad-pictures-hint" class="new-ad__hint">
+        {{ if eq .Bootstrap.Mode "edit" }}{{ .T.NewAd.PicturesReplaceHint }}{{ else }}{{ format .T.NewAd.PicturesHint .Bootstrap.MaxPictures }}{{ end }}
+      </p>
       <div id="new-ad-photo-grid" class="new-ad__photo-grid"></div>
       <input id="new-ad-pictures" class="visually-hidden" name="pictures" type="file" accept="image/jpeg,image/png,image/webp" multiple />
       <button type="button" class="new-ad__add-photos" id="new-ad-add-photos">{{ .T.NewAd.PicturesAdd }}</button>
@@ -106,6 +105,10 @@
 
     <p id="new-ad-message" class="new-ad__message" role="status"></p>
     <button type="submit" class="btn btn--primary btn--lg" id="new-ad-submit">{{ if eq .Bootstrap.Mode "edit" }}{{ .T.NewAd.SubmitEdit }}{{ else }}{{ .T.NewAd.Submit }}{{ end }}</button>
+    <div id="new-ad-storage-continue" class="new-ad__storage-continue" hidden>
+      <p>{{ .T.NewAd.PicturesStorageContinue }}</p>
+      <button type="button" class="btn btn--primary btn--lg" id="new-ad-continue-without-photos">{{ .T.NewAd.ContinueWithoutPhotos }}</button>
+    </div>
   </form>
   <div id="new-ad-lightbox" class="photo-lightbox" hidden>
     <button type="button" class="photo-lightbox__close" data-photo-close aria-label="{{ .T.NewAd.PictureClose }}">

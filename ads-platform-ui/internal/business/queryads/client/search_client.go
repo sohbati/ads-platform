@@ -47,10 +47,12 @@ type PublicAd struct {
 	PriceType    string        `json:"price_type"`
 	Currency     string        `json:"currency"`
 	CityName     string        `json:"city_name"`
-	Neighborhood string        `json:"neighborhood"`
-	MapLat       *float64      `json:"map_lat,omitempty"`
-	MapLng       *float64      `json:"map_lng,omitempty"`
-	Media        []PublicMedia `json:"media"`
+	Neighborhood string          `json:"neighborhood"`
+	MapLat       *float64        `json:"map_lat,omitempty"`
+	MapLng       *float64        `json:"map_lng,omitempty"`
+	CategoryID   int             `json:"category_id"`
+	Attrs        json.RawMessage `json:"attrs,omitempty"`
+	Media        []PublicMedia   `json:"media"`
 	PublishedAt  *string       `json:"published_at"`
 	HasPhone     bool          `json:"has_phone"`
 	PhoneMasked  string        `json:"phone_masked"`

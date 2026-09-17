@@ -133,7 +133,10 @@
       "map_hint": "موقعیت تقریبی است؛ پین دقیق آگهی نمایش داده نمی‌شود.",
       "map_locate": "موقعیت من",
       "map_locate_denied": "اجازهٔ دسترسی به موقعیت داده نشد.",
-      "map_locate_failed": "موقعیت شما پیدا نشد."
+      "map_locate_failed": "موقعیت شما پیدا نشد.",
+      "features": "ویژگی‌ها",
+      "yes": "بله",
+      "no": "خیر"
     },
     "appearance": {
       "title": "ظاهر",
@@ -229,6 +232,9 @@
       "details": "ویژگی‌ها",
       "pictures": "عکس‌ها",
       "pictures_hint": "حداکثر %d عکس، فرمت JPG، PNG یا WebP.",
+      "pictures_unavailable_hint": "فعلاً امکان افزودن عکس نیست. آگهی را بدون عکس ثبت کنید؛ بعداً می‌توانید از ویرایش آگهی عکس اضافه کنید.",
+      "pictures_storage_continue": "الان امکان ذخیره عکس نیست. می‌توانید بعداً از ویرایش آگهی عکس اضافه کنید.",
+      "continue_without_photos": "ادامه",
       "pictures_add": "افزودن عکس",
       "picture_remove": "حذف عکس",
       "picture_view": "مشاهده عکس",

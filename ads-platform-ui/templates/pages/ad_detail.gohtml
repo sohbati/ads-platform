@@ -58,6 +58,19 @@
     {{ if .Ad.Description }}
     <p class="ad-detail__desc">{{ .Ad.Description }}</p>
     {{ end }}
+    {{ if .Ad.Attrs }}
+    <section class="ad-detail__attrs">
+      <h2 class="ad-detail__attrs-title">{{ .T.AdDetail.Features }}</h2>
+      <dl class="ad-detail__attrs-list">
+        {{ range .Ad.Attrs }}
+        <div class="ad-detail__attr">
+          <dt>{{ .Label }}</dt>
+          <dd>{{ .Value }}</dd>
+        </div>
+        {{ end }}
+      </dl>
+    </section>
+    {{ end }}
     {{ if .Ad.HasPhone }}
     <div class="ad-contact" data-ad-contact data-ad-id="{{ .Ad.ID }}">
       <p class="ad-contact__label">{{ .T.AdDetail.ContactLabel }}</p>

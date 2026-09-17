@@ -12,11 +12,19 @@
           "minimum": 1,
           "maximum": 100000
         },
+        "parking": {
+          "type": "boolean",
+          "title": "پارکینگ"
+        },
         "rooms": {
           "type": "integer",
           "title": "تعداد اتاق",
           "minimum": 0,
           "maximum": 50
+        },
+        "elevator": {
+          "type": "boolean",
+          "title": "آسانسور"
         },
         "floor": {
           "type": "integer",
@@ -24,19 +32,92 @@
           "minimum": -5,
           "maximum": 200
         },
-        "parking": {
+        "balcony": {
           "type": "boolean",
-          "title": "پارکینگ"
-        },
-        "elevator": {
-          "type": "boolean",
-          "title": "آسانسور"
+          "title": "بالکن"
         },
         "year_built": {
           "type": "integer",
-          "title": "سال",
+          "title": "سال ساخت",
           "minimum": 1300,
           "maximum": 1410
+        },
+        "has_storage": {
+          "type": "boolean",
+          "title": "انباری"
+        },
+        "storage_m2": {
+          "type": "number",
+          "title": "متراژ انباری",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "floors": {
+          "type": "integer",
+          "title": "تعداد طبقات",
+          "minimum": 1,
+          "maximum": 200
+        },
+        "units": {
+          "type": "integer",
+          "title": "تعداد واحدها",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "orientation": {
+          "type": "string",
+          "title": "جهت ساختمان",
+          "enum": [
+            "north",
+            "south"
+          ],
+          "x-enumVocab": "orientation"
+        },
+        "flooring": {
+          "type": "string",
+          "title": "کف",
+          "enum": [
+            "ceramic",
+            "parquet",
+            "laminate",
+            "mosaic"
+          ],
+          "x-enumVocab": "flooring"
+        },
+        "carpeted": {
+          "type": "boolean",
+          "title": "موکت"
+        },
+        "toilets_iranian": {
+          "type": "integer",
+          "title": "سرویس ایرانی",
+          "enum": [0, 1, 2, 3, 4, 5, 6],
+          "minimum": 0,
+          "maximum": 6
+        },
+        "toilets_western": {
+          "type": "integer",
+          "title": "سرویس فرنگی",
+          "enum": [0, 1, 2, 3, 4, 5, 6],
+          "minimum": 0,
+          "maximum": 6
+        },
+        "bathrooms": {
+          "type": "integer",
+          "title": "حمام",
+          "enum": [0, 1, 2, 3, 4, 5, 6],
+          "minimum": 0,
+          "maximum": 6
+        },
+        "hot_water": {
+          "type": "string",
+          "title": "آب گرم",
+          "enum": [
+            "water_heater",
+            "package",
+            "boiler_room"
+          ],
+          "x-enumVocab": "hot_water"
         },
         "deed_type": {
           "type": "string",
@@ -44,9 +125,23 @@
           "enum": [
             "single",
             "joint",
-            "cooperative"
+            "cooperative",
+            "booklet",
+            "promissory"
           ],
           "x-enumVocab": "deed_type"
+        },
+        "facade": {
+          "type": "string",
+          "title": "نمای ساختمان",
+          "enum": [
+            "stone",
+            "brick",
+            "cement",
+            "glass",
+            "other"
+          ],
+          "x-enumVocab": "facade"
         }
       },
       "title": "فروش مسکونی",

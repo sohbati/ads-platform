@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"path"
 	"strings"
 	"time"
@@ -79,10 +80,14 @@ func NewAdService(
 }
 
 func (s *adService) Create(ctx context.Context, in service.CreateAdInput) (*model.Ad, error) {
-	if err := s.validate(in); err != nil {
+	if err := s.validate(ctx, in); err != nil {
 		return nil, err
 	}
 	if err := s.resolveCatalog(ctx, in.CategoryID, in.CityID); err != nil {
+		return nil, err
+	}
+	attrs, err := s.prepareAttrs(ctx, in.CategoryID, in.Attrs)
+	if err != nil {
 		return nil, err
 	}
 
@@ -97,7 +102,7 @@ func (s *adService) Create(ctx context.Context, in service.CreateAdInput) (*mode
 		PriceAmount: in.PriceAmount,
 		PriceType:   normalizePriceType(in.PriceType),
 		Currency:    normalizeCurrency(in.Currency),
-		Attrs:       normalizeJSONObject(in.Attrs),
+		Attrs:       attrs,
 		Media:       json.RawMessage("[]"),
 		Contact:     normalizeJSONObject(in.Contact),
 		Location:    buildLocation(in.Latitude, in.Longitude, in.Neighborhood),
@@ -108,13 +113,12 @@ func (s *adService) Create(ctx context.Context, in service.CreateAdInput) (*mode
 		return nil, err
 	}
 
-	if len(in.Pictures) == 0 {
-		return ad, nil
-	}
-
-	media, err := s.storePictures(ctx, ad, in.Pictures)
+	media, err := s.attachPictures(ctx, ad, in.Pictures, true)
 	if err != nil {
 		return nil, err
+	}
+	if len(media) == 0 {
+		return ad, nil
 	}
 	raw, err := json.Marshal(media)
 	if err != nil {
@@ -125,6 +129,18 @@ func (s *adService) Create(ctx context.Context, in service.CreateAdInput) (*mode
 	}
 	ad.Media = raw
 	return ad, nil
+}
+
+func (s *adService) PicturesUploadAvailable(ctx context.Context) bool {
+	if s.objects == nil {
+		return false
+	}
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	pingCtx, cancel := context.WithTimeout(ctx, 2*time.Second)
+	defer cancel()
+	return s.objects.Available(pingCtx)
 }
 
 func (s *adService) GetForOwner(ctx context.Context, userID, adID int64) (*model.Ad, error) {
@@ -173,10 +189,14 @@ func (s *adService) Update(ctx context.Context, adID int64, in service.CreateAdI
 	if err != nil {
 		return nil, err
 	}
-	if err := s.validate(in); err != nil {
+	if err := s.validate(ctx, in); err != nil {
 		return nil, err
 	}
 	if err := s.resolveCatalog(ctx, in.CategoryID, in.CityID); err != nil {
+		return nil, err
+	}
+	attrs, err := s.prepareAttrs(ctx, in.CategoryID, in.Attrs)
+	if err != nil {
 		return nil, err
 	}
 
@@ -198,7 +218,7 @@ func (s *adService) Update(ctx context.Context, adID int64, in service.CreateAdI
 	existing.PriceAmount = in.PriceAmount
 	existing.PriceType = normalizePriceType(in.PriceType)
 	existing.Currency = normalizeCurrency(in.Currency)
-	existing.Attrs = normalizeJSONObject(in.Attrs)
+	existing.Attrs = attrs
 	if len(in.Contact) > 0 {
 		existing.Contact = normalizeJSONObject(in.Contact)
 	}
@@ -215,15 +235,17 @@ func (s *adService) Update(ctx context.Context, adID int64, in service.CreateAdI
 		}
 		existing.Media = raw
 	} else if len(in.Pictures) > 0 {
-		media, err := s.storePictures(ctx, existing, in.Pictures)
+		media, err := s.attachPictures(ctx, existing, in.Pictures, false)
 		if err != nil {
 			return nil, err
 		}
-		raw, err := json.Marshal(media)
-		if err != nil {
-			return nil, err
+		if len(media) > 0 {
+			raw, err := json.Marshal(media)
+			if err != nil {
+				return nil, err
+			}
+			existing.Media = raw
 		}
-		existing.Media = raw
 	}
 
 	if err := s.ads.Update(ctx, existing); err != nil {
@@ -419,7 +441,9 @@ func toPublicAd(ad *model.Ad, cityNames map[int]string) *model.PublicAd {
 		PriceType:   ad.PriceType,
 		Currency:    ad.Currency,
 		CityID:      ad.CityID,
+		CategoryID:  ad.CategoryID,
 		Media:       publicMedia(ad.Media),
+		Attrs:       publicAttrs(ad.Attrs),
 	}
 	if name, ok := cityNames[ad.CityID]; ok {
 		out.CityName = name
@@ -439,6 +463,14 @@ func toPublicAd(ad *model.Ad, cityNames map[int]string) *model.PublicAd {
 		out.PhoneMasked = maskPhone(phone)
 	}
 	return out
+}
+
+func publicAttrs(raw json.RawMessage) json.RawMessage {
+	cleaned := normalizeJSONObject(raw)
+	if len(cleaned) == 0 || bytes.Equal(bytes.TrimSpace(cleaned), []byte("{}")) || bytes.Equal(bytes.TrimSpace(cleaned), []byte("null")) {
+		return nil
+	}
+	return cleaned
 }
 
 func neighborhoodFromLocation(raw json.RawMessage) string {
@@ -474,7 +506,7 @@ func publicMedia(raw json.RawMessage) []model.PublicMedia {
 	return out
 }
 
-func (s *adService) validate(in service.CreateAdInput) error {
+func (s *adService) validate(ctx context.Context, in service.CreateAdInput) error {
 	if in.UserID <= 0 {
 		return exception.NewAppError(errorcode.ErrAdInvalidUser.Code, errorcode.ErrAdInvalidUser.HttpStatus)
 	}
@@ -525,6 +557,9 @@ func (s *adService) validate(in service.CreateAdInput) error {
 	if in.KeepMedia != nil {
 		kept = len(*in.KeepMedia)
 	}
+	if len(in.Pictures) > 0 && !s.PicturesUploadAvailable(ctx) {
+		return exception.NewAppError(errorcode.ErrAdStorageUnavailable.Code, errorcode.ErrAdStorageUnavailable.HttpStatus)
+	}
 	if len(in.Pictures)+kept > s.maxPics {
 		return exception.NewAppError(
 			errorcode.ErrAdTooManyPictures.Code, errorcode.ErrAdTooManyPictures.HttpStatus, fmt.Sprintf("%d", s.maxPics))
@@ -533,9 +568,6 @@ func (s *adService) validate(in service.CreateAdInput) error {
 		if err := s.validatePicture(pic); err != nil {
 			return err
 		}
-	}
-	if len(in.Pictures) > 0 && s.objects == nil {
-		return exception.NewAppError(errorcode.ErrAdStorageUnavailable.Code, errorcode.ErrAdStorageUnavailable.HttpStatus)
 	}
 	return nil
 }
@@ -595,11 +627,41 @@ func (s *adService) mergeMedia(ctx context.Context, ad *model.Ad, keepURLs []str
 	if len(pics) == 0 {
 		return markCover(kept), nil
 	}
-	added, err := s.storePictures(ctx, ad, pics)
+	added, err := s.attachPictures(ctx, ad, pics, false)
 	if err != nil {
 		return nil, err
 	}
 	return markCover(append(kept, added...)), nil
+}
+
+func (s *adService) attachPictures(ctx context.Context, ad *model.Ad, pics []service.PictureInput, skipOnStorageFail bool) ([]mediaItem, error) {
+	if len(pics) == 0 {
+		return nil, nil
+	}
+	if s.objects == nil {
+		err := exception.NewAppError(errorcode.ErrAdStorageUnavailable.Code, errorcode.ErrAdStorageUnavailable.HttpStatus)
+		if skipOnStorageFail {
+			log.Printf("ad %d: skipped pictures (storage unavailable)", ad.ID)
+			ad.PhotosSkipped = true
+			return nil, nil
+		}
+		return nil, err
+	}
+	media, err := s.storePictures(ctx, ad, pics)
+	if err != nil {
+		if skipOnStorageFail && isStorageUnavailable(err) {
+			log.Printf("ad %d: skipped pictures (storage unavailable): %v", ad.ID, err)
+			ad.PhotosSkipped = true
+			return nil, nil
+		}
+		return nil, err
+	}
+	return media, nil
+}
+
+func isStorageUnavailable(err error) bool {
+	app, ok := exception.AsAppError(err)
+	return ok && app.ErrorCode == errorcode.ErrAdStorageUnavailable.Code
 }
 
 func keepExistingMedia(raw json.RawMessage, keepURLs []string) []mediaItem {

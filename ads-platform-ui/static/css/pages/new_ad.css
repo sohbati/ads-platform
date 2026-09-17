@@ -153,7 +153,9 @@
 .new-ad__attrs-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-md);
+  gap: var(--space-md) var(--space-lg);
+  align-items: end;
+  grid-auto-flow: dense;
 }
 
 .new-ad__check {
@@ -161,6 +163,8 @@
   align-items: center;
   gap: var(--space-sm);
   min-height: 2.5rem;
+  grid-column: 2;
+  padding-bottom: 0.2rem;
 }
 
 .new-ad__message {
@@ -181,6 +185,29 @@
 
 .new-ad__form button[type="submit"] {
   align-self: flex-start;
+}
+
+.new-ad__storage-continue {
+  display: grid;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-soft);
+  color: var(--color-text);
+}
+
+.new-ad__storage-continue[hidden] {
+  display: none;
+}
+
+.new-ad__storage-continue p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.new-ad__storage-continue .btn {
+  justify-self: start;
 }
 
 .new-ad__photo-grid {
@@ -357,5 +384,11 @@
   .new-ad__row,
   .new-ad__attrs-grid {
     grid-template-columns: 1fr;
+  }
+
+  .new-ad__check {
+    grid-column: auto;
+    min-height: 2.25rem;
+    padding-bottom: 0;
   }
 }

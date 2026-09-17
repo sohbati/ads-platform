@@ -41,4 +41,5 @@ type AdService interface {
 	Update(ctx context.Context, adID int64, in CreateAdInput) (*model.Ad, error)
 	ListByUser(ctx context.Context, userID int64) ([]model.UserAdItem, error)
 	ListStats(ctx context.Context, userID int64, from, to string) (*model.AdStatsResponse, error)
+	PicturesUploadAvailable(ctx context.Context) bool
 }

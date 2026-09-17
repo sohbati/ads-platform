@@ -75,13 +75,15 @@ func TestNewAdTemplateRenders(t *testing.T) {
 			CityDisplayName: "Tehran",
 			T: i18n.Messages{
 				NewAd: i18n.NewAdMessages{
-					Intro:         "intro",
-					PicturesHint:  "Up to %d photos",
-					PicturesAdd:   "Add photos",
-					PictureRemove: "Remove photo",
-					PictureView:   "View photo",
-					PictureClose:  "Close",
-					Submit:        "Publish",
+					Intro:                   "intro",
+					PicturesHint:            "Up to %d photos",
+					PicturesAdd:             "Add photos",
+					PictureRemove:           "Remove photo",
+					PictureView:             "View photo",
+					PictureClose:            "Close",
+					Submit:                  "Publish",
+					PicturesStorageContinue: "storage down",
+					ContinueWithoutPhotos:   "Continue",
 				},
 				AdDetail: i18n.AdDetailMessages{
 					PrevPhoto:    "Previous photo",
@@ -96,6 +98,9 @@ func TestNewAdTemplateRenders(t *testing.T) {
 	var buf bytes.Buffer
 	if err := tmpl.ExecuteTemplate(&buf, "new_ad", page); err != nil {
 		t.Fatalf("execute new_ad: %v", err)
+	}
+	if !bytes.Contains(buf.Bytes(), []byte("storage down")) || !bytes.Contains(buf.Bytes(), []byte("Continue")) {
+		t.Fatalf("expected storage continue prompt, got %s", buf.String())
 	}
 
 	edit := newadvm.NewAdPage{
@@ -115,6 +120,9 @@ func TestNewAdTemplateRenders(t *testing.T) {
 	buf.Reset()
 	if err := tmpl.ExecuteTemplate(&buf, "new_ad", edit); err != nil {
 		t.Fatalf("execute new_ad edit: %v", err)
+	}
+	if !bytes.Contains(buf.Bytes(), []byte("new-ad-add-photos")) {
+		t.Fatal("expected add-photos control")
 	}
 }
 
@@ -241,6 +249,9 @@ func TestAdDetailTemplateRenders(t *testing.T) {
 			Images:      []string{"/a.webp", "/b.webp"},
 			HasPhone:    true,
 			PhoneMasked: "09*********",
+			Attrs: []viewmodel.AdAttr{
+				{Label: "Storage", Value: "Yes"},
+			},
 		},
 	}
 	var buf bytes.Buffer
@@ -258,6 +269,9 @@ func TestAdDetailTemplateRenders(t *testing.T) {
 	}
 	if !bytes.Contains(buf.Bytes(), []byte(`data-ad-id="55"`)) {
 		t.Fatalf("expected data-ad-id on detail, got %s", buf.String())
+	}
+	if !bytes.Contains(buf.Bytes(), []byte("Storage")) || !bytes.Contains(buf.Bytes(), []byte("Yes")) {
+		t.Fatalf("expected attr rows, got %s", buf.String())
 	}
 
 	lat, lng := 35.68900, 51.38900

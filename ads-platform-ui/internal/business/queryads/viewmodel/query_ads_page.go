@@ -59,4 +59,11 @@ type AdDetail struct {
 	HasMap      bool
 	MapLat      float64
 	MapLng      float64
+	Attrs       []AdAttr
+}
+
+// AdAttr is one labeled listing feature from the category schema.
+type AdAttr struct {
+	Label string
+	Value string
 }

@@ -16,6 +16,10 @@ type minioStorage struct {
 }
 
 func NewMinio(endpoint, accessKey, secretKey, bucket, publicURL string, useSSL bool) (ObjectStorage, error) {
+	return newMinio(context.Background(), endpoint, accessKey, secretKey, bucket, publicURL, useSSL)
+}
+
+func newMinio(ctx context.Context, endpoint, accessKey, secretKey, bucket, publicURL string, useSSL bool) (ObjectStorage, error) {
 	endpoint = strings.TrimSpace(endpoint)
 	bucket = strings.TrimSpace(bucket)
 	if endpoint == "" || bucket == "" {
@@ -30,7 +34,9 @@ func NewMinio(endpoint, accessKey, secretKey, bucket, publicURL string, useSSL b
 		return nil, fmt.Errorf("minio: connect %s: %w", endpoint, err)
 	}
 
-	ctx := context.Background()
+	if ctx == nil {
+		ctx = context.Background()
+	}
 	exists, err := client.BucketExists(ctx, bucket)
 	if err != nil {
 		return nil, fmt.Errorf("minio: bucket %s: %w", bucket, err)
@@ -55,4 +61,12 @@ func (s *minioStorage) Put(ctx context.Context, key, contentType string, body io
 		return "", fmt.Errorf("minio: put %s: %w", key, err)
 	}
 	return "/" + s.bucket + "/" + key, nil
+}
+
+func (s *minioStorage) Available(ctx context.Context) bool {
+	if s == nil || s.client == nil || s.bucket == "" {
+		return false
+	}
+	exists, err := s.client.BucketExists(ctx, s.bucket)
+	return err == nil && exists
 }

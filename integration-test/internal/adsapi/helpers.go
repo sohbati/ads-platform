@@ -8,6 +8,8 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"net/url"
+	"strconv"
 	"time"
 )
 
@@ -34,6 +36,52 @@ type Ad struct {
 	Location    json.RawMessage `json:"location"`
 }
 
+type PublicAd struct {
+	ID           int64           `json:"id"`
+	Title        string          `json:"title"`
+	Description  string          `json:"description"`
+	PriceAmount  *int64          `json:"price_amount"`
+	PriceType    string          `json:"price_type"`
+	Currency     string          `json:"currency"`
+	CityID       int             `json:"city_id"`
+	CategoryID   int             `json:"category_id"`
+	CityName     string          `json:"city_name,omitempty"`
+	Neighborhood string          `json:"neighborhood,omitempty"`
+	MapLat       *float64        `json:"map_lat,omitempty"`
+	MapLng       *float64        `json:"map_lng,omitempty"`
+	Attrs        json.RawMessage `json:"attrs,omitempty"`
+	Media        []PublicMedia   `json:"media"`
+	PublishedAt  *string         `json:"published_at,omitempty"`
+	HasPhone     bool            `json:"has_phone"`
+	PhoneMasked  string          `json:"phone_masked,omitempty"`
+}
+
+type PublicMedia struct {
+	URL     string `json:"url"`
+	Thumb   string `json:"thumb"`
+	IsCover bool   `json:"is_cover"`
+}
+
+type SearchResponse struct {
+	Place         string         `json:"place"`
+	Category      string         `json:"category"`
+	CategoryTitle string         `json:"category_title"`
+	Pagination    Pagination     `json:"pagination"`
+	Ads           []SearchAdItem `json:"ads"`
+}
+
+type Pagination struct {
+	Page  int   `json:"page"`
+	Limit int   `json:"limit"`
+	Total int64 `json:"total"`
+}
+
+type SearchAdItem struct {
+	ID         int64  `json:"id"`
+	Title      string `json:"title"`
+	CategoryID int    `json:"category_id"`
+}
+
 type MediaItem struct {
 	ObjectKey   string `json:"object_key"`
 	URL         string `json:"url"`
@@ -43,16 +91,59 @@ type MediaItem struct {
 }
 
 func PostJSON(ctx context.Context, backURL string, payload any) (int, Ad, ErrorResponse, error) {
-	body, err := json.Marshal(payload)
+	req, err := newJSONRequest(ctx, http.MethodPost, backURL+"/api/v1/ads", payload)
 	if err != nil {
 		return 0, Ad{}, ErrorResponse{}, err
 	}
+	var ad Ad
+	status, failure, err := doJSON(req, http.StatusCreated, &ad)
+	return status, ad, failure, err
+}
+
+func PostRawJSON(ctx context.Context, backURL string, body []byte) (int, Ad, ErrorResponse, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, backURL+"/api/v1/ads", bytes.NewReader(body))
 	if err != nil {
 		return 0, Ad{}, ErrorResponse{}, err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	return doCreate(req)
+	var ad Ad
+	status, failure, err := doJSON(req, http.StatusCreated, &ad)
+	return status, ad, failure, err
+}
+
+func PutJSON(ctx context.Context, backURL string, userID, adID int64, payload any) (int, Ad, ErrorResponse, error) {
+	path := backURL + "/api/v1/users/" + strconv.FormatInt(userID, 10) + "/ads/" + strconv.FormatInt(adID, 10)
+	req, err := newJSONRequest(ctx, http.MethodPut, path, payload)
+	if err != nil {
+		return 0, Ad{}, ErrorResponse{}, err
+	}
+	var ad Ad
+	status, failure, err := doJSON(req, http.StatusOK, &ad)
+	return status, ad, failure, err
+}
+
+func GetPublic(ctx context.Context, backURL string, adID int64) (int, PublicAd, ErrorResponse, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, backURL+"/api/v1/ads/"+strconv.FormatInt(adID, 10), nil)
+	if err != nil {
+		return 0, PublicAd{}, ErrorResponse{}, err
+	}
+	var ad PublicAd
+	status, failure, err := doJSON(req, http.StatusOK, &ad)
+	return status, ad, failure, err
+}
+
+func Search(ctx context.Context, backURL, place, category, query string) (int, SearchResponse, ErrorResponse, error) {
+	u := backURL + "/api/v1/q/" + url.PathEscape(place) + "/" + url.PathEscape(category)
+	if query != "" {
+		u += "?q=" + url.QueryEscape(query)
+	}
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u, nil)
+	if err != nil {
+		return 0, SearchResponse{}, ErrorResponse{}, err
+	}
+	var out SearchResponse
+	status, failure, err := doJSON(req, http.StatusOK, &out)
+	return status, out, failure, err
 }
 
 func PostMultipart(ctx context.Context, backURL string, payload any, files map[string][]byte) (int, Ad, ErrorResponse, error) {
@@ -84,33 +175,49 @@ func PostMultipart(ctx context.Context, backURL string, payload any, files map[s
 		return 0, Ad{}, ErrorResponse{}, err
 	}
 	req.Header.Set("Content-Type", w.FormDataContentType())
-	return doCreate(req)
+	var ad Ad
+	status, failure, err := doJSON(req, http.StatusCreated, &ad)
+	return status, ad, failure, err
 }
 
-func doCreate(req *http.Request) (int, Ad, ErrorResponse, error) {
+func newJSONRequest(ctx context.Context, method, url string, payload any) (*http.Request, error) {
+	body, err := json.Marshal(payload)
+	if err != nil {
+		return nil, err
+	}
+	req, err := http.NewRequestWithContext(ctx, method, url, bytes.NewReader(body))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	return req, nil
+}
+
+func doJSON(req *http.Request, okStatus int, dest any) (int, ErrorResponse, error) {
 	client := &http.Client{Timeout: 60 * time.Second}
 	resp, err := client.Do(req)
 	if err != nil {
-		return 0, Ad{}, ErrorResponse{}, err
+		return 0, ErrorResponse{}, err
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return resp.StatusCode, Ad{}, ErrorResponse{}, err
+		return resp.StatusCode, ErrorResponse{}, err
 	}
 
-	if resp.StatusCode != http.StatusCreated {
+	if resp.StatusCode != okStatus {
 		var failure ErrorResponse
 		_ = json.Unmarshal(body, &failure)
-		return resp.StatusCode, Ad{}, failure, nil
+		return resp.StatusCode, failure, nil
 	}
 
-	var ad Ad
-	if err := json.Unmarshal(body, &ad); err != nil {
-		return resp.StatusCode, Ad{}, ErrorResponse{}, fmt.Errorf("decode ad: %w; body=%s", err, string(body))
+	if dest != nil {
+		if err := json.Unmarshal(body, dest); err != nil {
+			return resp.StatusCode, ErrorResponse{}, fmt.Errorf("decode: %w; body=%s", err, string(body))
+		}
 	}
-	return resp.StatusCode, ad, ErrorResponse{}, nil
+	return resp.StatusCode, ErrorResponse{}, nil
 }
 
 func ParseMedia(raw json.RawMessage) ([]MediaItem, error) {
@@ -122,6 +229,20 @@ func ParseMedia(raw json.RawMessage) ([]MediaItem, error) {
 		return nil, err
 	}
 	return items, nil
+}
+
+func ParseAttrs(raw json.RawMessage) (map[string]any, error) {
+	if len(raw) == 0 {
+		return map[string]any{}, nil
+	}
+	var attrs map[string]any
+	if err := json.Unmarshal(raw, &attrs); err != nil {
+		return nil, err
+	}
+	if attrs == nil {
+		attrs = map[string]any{}
+	}
+	return attrs, nil
 }
 
 // JPEG1x1 is a valid 1×1 JPEG used as a picture upload fixture.

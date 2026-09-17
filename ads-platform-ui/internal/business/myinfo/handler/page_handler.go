@@ -198,7 +198,7 @@ func (h *PageHandler) Setting(c *gin.Context) {
 		pageData.SessionUserMobile = user.Mobile
 	}
 	c.HTML(http.StatusOK, "myinfo_setting", viewmodel.SettingPage{
-		Page: pageData,
+		Page:   pageData,
 		Themes: viewmodel.ThemesFor(t),
 	})
 }

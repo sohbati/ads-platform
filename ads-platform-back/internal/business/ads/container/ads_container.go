@@ -1,8 +1,6 @@
 package container
 
 import (
-	"log"
-
 	"ads-platform/internal/business/ads/handler"
 	repoimpl "ads-platform/internal/business/ads/repository/impl"
 	serviceimpl "ads-platform/internal/business/ads/service/impl"
@@ -18,7 +16,7 @@ type AdsContainer struct {
 }
 
 func NewAdsContainer(db *gorm.DB, cfg *config.Config) *AdsContainer {
-	objects, err := storage.NewMinio(
+	objects := storage.NewLazyMinio(
 		cfg.MinioEndpoint,
 		cfg.MinioAccessKey,
 		cfg.MinioSecretKey,
@@ -26,10 +24,6 @@ func NewAdsContainer(db *gorm.DB, cfg *config.Config) *AdsContainer {
 		cfg.MinioPublicURL,
 		cfg.MinioUseSSL,
 	)
-	if err != nil {
-		log.Printf("minio unavailable (ads can still be created without pictures): %v", err)
-		objects = nil
-	}
 
 	catalog := searchclient.NewCatalogClient(cfg.CacheServiceURL, nil)
 	adRepo := repoimpl.NewAdRepository(db)

@@ -47,3 +47,12 @@ func (h *APIHandler) Update(c *gin.Context) {
 	}
 	bff.ForwardResponse(c.Writer, result)
 }
+
+func (h *APIHandler) MediaStatus(c *gin.Context) {
+	result, err := h.bff.Get(c.Request.Context(), "/api/v1/media/status", "")
+	if err != nil {
+		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE", "statusCode": http.StatusBadGateway})
+		return
+	}
+	bff.ForwardResponse(c.Writer, result)
+}

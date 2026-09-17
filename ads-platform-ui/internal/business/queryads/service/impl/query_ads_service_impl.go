@@ -2,6 +2,7 @@ package impl
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"net/url"
 	"strconv"
@@ -11,6 +12,7 @@ import (
 	searchclient "ads-platform-ui/internal/business/queryads/client"
 	"ads-platform-ui/internal/business/queryads/service"
 	"ads-platform-ui/internal/business/queryads/viewmodel"
+	"ads-platform-ui/internal/core/cdn"
 	"ads-platform-ui/internal/core/cities"
 	"ads-platform-ui/internal/core/i18n"
 	"ads-platform-ui/internal/core/media"
@@ -22,11 +24,12 @@ type QueryAdsServiceImpl struct {
 	i18n     *i18n.Registry
 	cities   *cities.Catalog
 	search   *searchclient.SearchClient
+	cdn      *cdn.Client
 	mediaCDN string
 }
 
-func NewQueryAdsService(reg *i18n.Registry, catalog *cities.Catalog, search *searchclient.SearchClient, mediaCDN string) *QueryAdsServiceImpl {
-	return &QueryAdsServiceImpl{i18n: reg, cities: catalog, search: search, mediaCDN: mediaCDN}
+func NewQueryAdsService(reg *i18n.Registry, catalog *cities.Catalog, search *searchclient.SearchClient, cdnClient *cdn.Client, mediaCDN string) *QueryAdsServiceImpl {
+	return &QueryAdsServiceImpl{i18n: reg, cities: catalog, search: search, cdn: cdnClient, mediaCDN: mediaCDN}
 }
 
 // BuildSearchPage calls the search API (via BFF) and renders results on the
@@ -118,6 +121,9 @@ func (s *QueryAdsServiceImpl) BuildDetailPage(ctx context.Context, loc i18n.Loca
 	page.Title = appName + " — " + ad.Title
 	vm.Page = page
 	vm.Ad = toAdDetail(ad, t, s.mediaCDN)
+	if vm.Ad != nil {
+		vm.Ad.Attrs = s.labeledAdAttrs(ctx, loc, t, ad)
+	}
 	return vm
 }
 
@@ -159,6 +165,25 @@ func toAdDetail(ad *searchclient.PublicAd, t i18n.Messages, mediaCDN string) *vi
 		}
 	}
 	return out
+}
+
+func (s *QueryAdsServiceImpl) labeledAdAttrs(ctx context.Context, loc i18n.Locale, t i18n.Messages, ad *searchclient.PublicAd) []viewmodel.AdAttr {
+	if s.cdn == nil || ad == nil {
+		return nil
+	}
+	categories, err := s.cdn.GetCategories(ctx)
+	if err != nil {
+		return nil
+	}
+	schemas, err := s.cdn.GetAttrSchemas(ctx)
+	if err != nil {
+		return nil
+	}
+	enums, enumErr := s.cdn.GetAttrEnums(ctx)
+	if enumErr != nil || len(enums) == 0 {
+		enums = json.RawMessage("{}")
+	}
+	return labeledAttrs(loc, t, ad.CategoryID, ad.Attrs, categories, schemas, enums)
 }
 
 func toSearchAd(ad searchclient.Ad, t i18n.Messages, mediaCDN string) viewmodel.SearchAd {

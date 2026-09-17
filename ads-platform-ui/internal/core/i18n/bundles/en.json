@@ -133,7 +133,10 @@
       "map_hint": "Approximate area — the exact pin is not shown.",
       "map_locate": "My location",
       "map_locate_denied": "Location permission was denied.",
-      "map_locate_failed": "Could not find your location."
+      "map_locate_failed": "Could not find your location.",
+      "features": "Details",
+      "yes": "Yes",
+      "no": "No"
     },
     "appearance": {
       "title": "Appearance",
@@ -229,6 +232,9 @@
       "details": "Attributes",
       "pictures": "Photos",
       "pictures_hint": "Up to %d photos — JPG, PNG, or WebP. Add several at a time, then remove any photo before publishing.",
+      "pictures_unavailable_hint": "Photos cannot be added right now. Publish without photos; you can add them later from Edit ad.",
+      "pictures_storage_continue": "Photo storage is not available right now. You can add photos later from Edit ad.",
+      "continue_without_photos": "Continue",
       "pictures_add": "Add photos",
       "picture_remove": "Remove photo",
       "picture_view": "View photo",
