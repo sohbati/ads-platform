@@ -12,6 +12,8 @@ From the repo root:
 
 Dev server: `http://localhost:8100`
 
+UI components: [Ant Design](https://ant.design/). `AntdRegistry` + `ConfigProvider` wrap the app in `src/app/layout.tsx`.
+
 ## Config
 
 | Variable | Default | Meaning |

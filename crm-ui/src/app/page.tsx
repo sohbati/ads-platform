@@ -1,7 +1,11 @@
+"use client";
+
+import { Typography } from "antd";
+
 export default function Home() {
   return (
     <main>
-      <div>Hello world!</div>
+      <Typography.Title level={3}>crm-ui</Typography.Title>
     </main>
   );
 }
