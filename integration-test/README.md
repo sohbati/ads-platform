@@ -32,7 +32,7 @@ make test-integration
 Or from repo root:
 
 ```bash
-./9-integration-test.sh
+./11-integration-test.sh
 ```
 
 ## Project layout

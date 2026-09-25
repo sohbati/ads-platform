@@ -14,3 +14,6 @@ git-bug/.env
 
 # ads-platform-stats local env
 ads-platform-stats/.env
+
+# ads-platform-crm local env
+ads-platform-crm/.env
