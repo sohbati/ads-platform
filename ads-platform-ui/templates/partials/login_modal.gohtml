@@ -13,6 +13,9 @@
       </svg>
     </button>
 
+    <div class="login-modal__brand" aria-hidden="true">
+      {{ template "brand_logo" . }}
+    </div>
     <h2 id="login-modal-title" class="login-modal__title">{{ .T.Auth.ModalTitle }}</h2>
 
     <form id="login-form" class="login-modal__form" novalidate data-country-code="{{ .DefaultCountryCode }}">

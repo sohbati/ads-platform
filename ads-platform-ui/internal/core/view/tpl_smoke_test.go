@@ -56,7 +56,9 @@ func TestQueryAdsTemplateRenders(t *testing.T) {
 		if err := tmpl.ExecuteTemplate(&buf, "query_ads", data); err != nil {
 			t.Fatalf("execute query_ads (%s): %v", name, err)
 		}
-		if !bytes.Contains(buf.Bytes(), []byte("brand__wordmark")) || !bytes.Contains(buf.Bytes(), []byte(`class="brand__tld">.ir`)) {
+		if !bytes.Contains(buf.Bytes(), []byte("brand__wordmark")) ||
+			!bytes.Contains(buf.Bytes(), []byte(`class="brand__tld">.ir`)) ||
+			!bytes.Contains(buf.Bytes(), []byte("img/logo.png")) {
 			t.Fatalf("query_ads (%s): expected ruab.ir brand lockup", name)
 		}
 	}

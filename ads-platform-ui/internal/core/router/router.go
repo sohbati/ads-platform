@@ -42,6 +42,8 @@ func (r *Router) SetupRoutes() *gin.Engine {
 		c.Header("Cache-Control", "public, max-age=31536000, immutable")
 	})
 	static.Static("/", "./static")
+	router.StaticFile("/favicon.ico", "./static/img/favicon.ico")
+	router.StaticFile("/apple-touch-icon.png", "./static/img/apple-touch-icon.png")
 
 	router.NoRoute(func(c *gin.Context) {
 		cfg := r.container.Config
