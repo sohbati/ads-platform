@@ -1,7 +1,7 @@
 package container
 
 import (
-	userrepoimpl "ads-platform/internal/business/user/repository/impl"
+	userrepoimpl "ads-platform/internal/business/iam/user/repository/impl"
 	"ads-platform/internal/business/userprofile/handler"
 	repoimpl "ads-platform/internal/business/userprofile/repository/impl"
 	serviceimpl "ads-platform/internal/business/userprofile/service/impl"

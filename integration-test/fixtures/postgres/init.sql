@@ -93,3 +93,49 @@ COMMENT ON COLUMN ads_platform_schema.ad_images.status IS 'وضعیت تصویر
 CREATE INDEX IF NOT EXISTS ad_images_user_id_idx ON ads_platform_schema.ad_images (user_id);
 CREATE INDEX IF NOT EXISTS ad_images_ad_id_idx ON ads_platform_schema.ad_images (ad_id) WHERE ad_id IS NOT NULL;
 CREATE INDEX IF NOT EXISTS ad_images_pending_created_idx ON ads_platform_schema.ad_images (created_at) WHERE status = 'pending';
+
+CREATE TABLE IF NOT EXISTS ads_platform_schema.action (
+    id BIGSERIAL PRIMARY KEY,
+    code VARCHAR(80) NOT NULL UNIQUE,
+    name VARCHAR(120) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS ads_platform_schema."role" (
+    id BIGSERIAL PRIMARY KEY,
+    code VARCHAR(80) NOT NULL UNIQUE,
+    name VARCHAR(120) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS ads_platform_schema.role_action (
+    role_id BIGINT NOT NULL REFERENCES ads_platform_schema."role"(id) ON DELETE CASCADE,
+    action_id BIGINT NOT NULL REFERENCES ads_platform_schema.action(id) ON DELETE CASCADE,
+    PRIMARY KEY (role_id, action_id)
+);
+
+CREATE TABLE IF NOT EXISTS ads_platform_schema.user_role (
+    user_id BIGINT NOT NULL REFERENCES ads_platform_schema."user"(id) ON DELETE CASCADE,
+    role_id BIGINT NOT NULL REFERENCES ads_platform_schema."role"(id) ON DELETE CASCADE,
+    PRIMARY KEY (user_id, role_id)
+);
+
+CREATE INDEX IF NOT EXISTS user_role_role_id_idx ON ads_platform_schema.user_role (role_id);
+
+CREATE TABLE IF NOT EXISTS ads_platform_schema.user_group (
+    id BIGSERIAL PRIMARY KEY,
+    code VARCHAR(80) NOT NULL UNIQUE,
+    name VARCHAR(120) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS ads_platform_schema.user_group_member (
+    group_id BIGINT NOT NULL REFERENCES ads_platform_schema.user_group(id) ON DELETE CASCADE,
+    user_id BIGINT NOT NULL REFERENCES ads_platform_schema."user"(id) ON DELETE CASCADE,
+    PRIMARY KEY (group_id, user_id)
+);
+
+CREATE INDEX IF NOT EXISTS user_group_member_user_id_idx ON ads_platform_schema.user_group_member (user_id);

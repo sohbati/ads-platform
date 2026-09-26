@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"strings"
 
-	usermodel "ads-platform/internal/business/user/model"
-	userrepo "ads-platform/internal/business/user/repository"
+	usermodel "ads-platform/internal/business/iam/user/model"
+	userrepo "ads-platform/internal/business/iam/user/repository"
 	"ads-platform/internal/business/userprofile/errorcode"
 	"ads-platform/internal/business/userprofile/model"
 	"ads-platform/internal/business/userprofile/repository"

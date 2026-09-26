@@ -21,3 +21,6 @@ test-cache-catalog: ## Run city+category+attr-schema cache suite (one shared CDN
 
 test-ads-api: ## Run POST /ads suite (postgres+cdn+cache+minio+back)
 	go test -tags=integration -timeout=45m -v ./tests/ads_api/
+
+test-iam: ## Run IAM suite (postgres+back)
+	go test -tags=integration -timeout=45m -v ./tests/iam/

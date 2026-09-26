@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	usermodel "ads-platform/internal/business/user/model"
+	usermodel "ads-platform/internal/business/iam/user/model"
 	"ads-platform/internal/business/userprofile/model"
 	"ads-platform/internal/core/exception"
 
