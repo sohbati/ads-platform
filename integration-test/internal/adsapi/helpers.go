@@ -91,7 +91,7 @@ type MediaItem struct {
 }
 
 func PostJSON(ctx context.Context, backURL string, payload any) (int, Ad, ErrorResponse, error) {
-	req, err := newJSONRequest(ctx, http.MethodPost, backURL+"/api/v1/ads", payload)
+	req, err := newJSONRequest(ctx, http.MethodPost, backURL+"/api/v1/self/ads", payload)
 	if err != nil {
 		return 0, Ad{}, ErrorResponse{}, err
 	}
@@ -101,7 +101,7 @@ func PostJSON(ctx context.Context, backURL string, payload any) (int, Ad, ErrorR
 }
 
 func PostRawJSON(ctx context.Context, backURL string, body []byte) (int, Ad, ErrorResponse, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, backURL+"/api/v1/ads", bytes.NewReader(body))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, backURL+"/api/v1/self/ads", bytes.NewReader(body))
 	if err != nil {
 		return 0, Ad{}, ErrorResponse{}, err
 	}
@@ -112,7 +112,7 @@ func PostRawJSON(ctx context.Context, backURL string, body []byte) (int, Ad, Err
 }
 
 func PutJSON(ctx context.Context, backURL string, userID, adID int64, payload any) (int, Ad, ErrorResponse, error) {
-	path := backURL + "/api/v1/users/" + strconv.FormatInt(userID, 10) + "/ads/" + strconv.FormatInt(adID, 10)
+	path := backURL + "/api/v1/self/" + strconv.FormatInt(userID, 10) + "/ads/" + strconv.FormatInt(adID, 10)
 	req, err := newJSONRequest(ctx, http.MethodPut, path, payload)
 	if err != nil {
 		return 0, Ad{}, ErrorResponse{}, err
@@ -170,7 +170,7 @@ func PostMultipart(ctx context.Context, backURL string, payload any, files map[s
 		return 0, Ad{}, ErrorResponse{}, err
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, backURL+"/api/v1/ads", &buf)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, backURL+"/api/v1/self/ads", &buf)
 	if err != nil {
 		return 0, Ad{}, ErrorResponse{}, err
 	}

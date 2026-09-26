@@ -16,11 +16,11 @@ func TestUserRoleGrantsActions(t *testing.T) {
 	defer cancel()
 
 	userID := insertUser(t, ctx)
-	_, action, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/actions", uniqueCode("ad.approve"), "Approve")
+	_, action, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/actions", uniqueCode("ad.approve"), "Approve")
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, role, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/roles", uniqueCode("moderator"), "Moderator")
+	_, role, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/roles", uniqueCode("moderator"), "Moderator")
 	if err != nil {
 		t.Fatal(err)
 	}

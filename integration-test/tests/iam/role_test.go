@@ -17,7 +17,7 @@ func TestCreateAndGetRole(t *testing.T) {
 	defer cancel()
 
 	code := uniqueCode("moderator")
-	status, created, errResp, err := iamapi.PostNamed(ctx, backURL, "/api/v1/roles", code, "Moderator")
+	status, created, errResp, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/roles", code, "Moderator")
 	if err != nil {
 		t.Fatalf("create: %v", err)
 	}
@@ -25,7 +25,7 @@ func TestCreateAndGetRole(t *testing.T) {
 		t.Fatalf("create status=%d item=%+v error=%+v", status, created, errResp)
 	}
 
-	status, got, errResp, err := iamapi.GetNamed(ctx, backURL, "/api/v1/roles/"+strconv.FormatInt(created.ID, 10))
+	status, got, errResp, err := iamapi.GetNamed(ctx, backURL, "/api/v1/panel/roles/"+strconv.FormatInt(created.ID, 10))
 	if err != nil {
 		t.Fatalf("get: %v", err)
 	}
@@ -38,7 +38,7 @@ func TestCreateRoleRejectsInvalidCode(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	status, _, errResp, err := iamapi.PostNamed(ctx, backURL, "/api/v1/roles", "Mod Role", "Moderator")
+	status, _, errResp, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/roles", "Mod Role", "Moderator")
 	if err != nil {
 		t.Fatalf("request: %v", err)
 	}

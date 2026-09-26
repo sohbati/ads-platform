@@ -119,17 +119,17 @@ func (c *Client) GetAdContact(ctx context.Context, adID int64) (int, []byte, err
 }
 
 func (c *Client) GetUserProfile(ctx context.Context, userID int64) (int, []byte, error) {
-	url := fmt.Sprintf("%s/api/v1/users/%d/profile", c.baseURL, userID)
+	url := fmt.Sprintf("%s/api/v1/self/%d/profile", c.baseURL, userID)
 	return c.get(ctx, url)
 }
 
 func (c *Client) GetUserAds(ctx context.Context, userID int64) (int, []byte, error) {
-	url := fmt.Sprintf("%s/api/v1/users/%d/ads", c.baseURL, userID)
+	url := fmt.Sprintf("%s/api/v1/self/%d/ads", c.baseURL, userID)
 	return c.get(ctx, url)
 }
 
 func (c *Client) GetUserAdStats(ctx context.Context, userID int64, from, to string) (int, []byte, error) {
-	u, err := url.Parse(fmt.Sprintf("%s/api/v1/users/%d/ad-stats", c.baseURL, userID))
+	u, err := url.Parse(fmt.Sprintf("%s/api/v1/self/%d/ad-stats", c.baseURL, userID))
 	if err != nil {
 		return 0, nil, err
 	}
@@ -145,12 +145,12 @@ func (c *Client) GetUserAdStats(ctx context.Context, userID int64, from, to stri
 }
 
 func (c *Client) GetUserAd(ctx context.Context, userID, adID int64) (int, []byte, error) {
-	url := fmt.Sprintf("%s/api/v1/users/%d/ads/%d", c.baseURL, userID, adID)
+	url := fmt.Sprintf("%s/api/v1/self/%d/ads/%d", c.baseURL, userID, adID)
 	return c.get(ctx, url)
 }
 
 func (c *Client) UpdateUserAd(ctx context.Context, userID, adID int64, body []byte, contentType string) (int, []byte, error) {
-	url := fmt.Sprintf("%s/api/v1/users/%d/ads/%d", c.baseURL, userID, adID)
+	url := fmt.Sprintf("%s/api/v1/self/%d/ads/%d", c.baseURL, userID, adID)
 	reader := bytes.NewReader(body)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPut, url, reader)
 	if err != nil {
@@ -175,7 +175,7 @@ func (c *Client) UpdateUserAd(ctx context.Context, userID, adID int64, body []by
 }
 
 func (c *Client) PutUserProfile(ctx context.Context, userID int64, body []byte) (int, []byte, error) {
-	url := fmt.Sprintf("%s/api/v1/users/%d/profile", c.baseURL, userID)
+	url := fmt.Sprintf("%s/api/v1/self/%d/profile", c.baseURL, userID)
 	return c.put(ctx, url, body)
 }
 
@@ -207,7 +207,7 @@ func (c *Client) put(ctx context.Context, url string, body []byte) (int, []byte,
 }
 
 func (c *Client) CreateAd(ctx context.Context, body []byte, contentType string) (int, []byte, error) {
-	url := c.baseURL + "/api/v1/ads"
+	url := c.baseURL + "/api/v1/self/ads"
 	reader := bytes.NewReader(body)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, reader)
 	if err != nil {

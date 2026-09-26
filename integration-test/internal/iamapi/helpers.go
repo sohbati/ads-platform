@@ -23,6 +23,8 @@ type Named struct {
 	Name string `json:"name"`
 }
 
+const panelRoot = "/api/v1/panel"
+
 func PostNamed(ctx context.Context, backURL, path, code, name string) (int, Named, ErrorResponse, error) {
 	req, err := newJSONRequest(ctx, http.MethodPost, backURL+path, map[string]string{"code": code, "name": name})
 	if err != nil {
@@ -79,7 +81,7 @@ func PutRoleActions(ctx context.Context, backURL string, roleID int64, actionIDs
 	if actionIDs == nil {
 		actionIDs = []int64{}
 	}
-	path := backURL + "/api/v1/roles/" + strconv.FormatInt(roleID, 10) + "/actions"
+	path := backURL + panelRoot + "/roles/" + strconv.FormatInt(roleID, 10) + "/actions"
 	req, err := newJSONRequest(ctx, http.MethodPut, path, map[string]any{"action_ids": actionIDs})
 	if err != nil {
 		return 0, nil, ErrorResponse{}, err
@@ -93,7 +95,7 @@ func PutRoleActions(ctx context.Context, backURL string, roleID int64, actionIDs
 }
 
 func PostRoleAction(ctx context.Context, backURL string, roleID, actionID int64) (int, []Named, ErrorResponse, error) {
-	path := backURL + "/api/v1/roles/" + strconv.FormatInt(roleID, 10) + "/actions/" + strconv.FormatInt(actionID, 10)
+	path := backURL + panelRoot + "/roles/" + strconv.FormatInt(roleID, 10) + "/actions/" + strconv.FormatInt(actionID, 10)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, path, nil)
 	if err != nil {
 		return 0, nil, ErrorResponse{}, err
@@ -107,16 +109,16 @@ func PostRoleAction(ctx context.Context, backURL string, roleID, actionID int64)
 }
 
 func DeleteRoleAction(ctx context.Context, backURL string, roleID, actionID int64) (int, ErrorResponse, error) {
-	path := "/api/v1/roles/" + strconv.FormatInt(roleID, 10) + "/actions/" + strconv.FormatInt(actionID, 10)
+	path := panelRoot + "/roles/" + strconv.FormatInt(roleID, 10) + "/actions/" + strconv.FormatInt(actionID, 10)
 	return Delete(ctx, backURL, path)
 }
 
 func ListRoleActions(ctx context.Context, backURL string, roleID int64) (int, []Named, ErrorResponse, error) {
-	return ListNamed(ctx, backURL, "/api/v1/roles/"+strconv.FormatInt(roleID, 10)+"/actions")
+	return ListNamed(ctx, backURL, panelRoot+"/roles/"+strconv.FormatInt(roleID, 10)+"/actions")
 }
 
 func PostUserRole(ctx context.Context, backURL string, userID, roleID int64) (int, []Named, ErrorResponse, error) {
-	path := backURL + "/api/v1/users/" + strconv.FormatInt(userID, 10) + "/roles/" + strconv.FormatInt(roleID, 10)
+	path := backURL + panelRoot + "/users/" + strconv.FormatInt(userID, 10) + "/roles/" + strconv.FormatInt(roleID, 10)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, path, nil)
 	if err != nil {
 		return 0, nil, ErrorResponse{}, err
@@ -130,24 +132,24 @@ func PostUserRole(ctx context.Context, backURL string, userID, roleID int64) (in
 }
 
 func DeleteUserRole(ctx context.Context, backURL string, userID, roleID int64) (int, ErrorResponse, error) {
-	path := "/api/v1/users/" + strconv.FormatInt(userID, 10) + "/roles/" + strconv.FormatInt(roleID, 10)
+	path := panelRoot + "/users/" + strconv.FormatInt(userID, 10) + "/roles/" + strconv.FormatInt(roleID, 10)
 	return Delete(ctx, backURL, path)
 }
 
 func ListUserRoles(ctx context.Context, backURL string, userID int64) (int, []Named, ErrorResponse, error) {
-	return ListNamed(ctx, backURL, "/api/v1/users/"+strconv.FormatInt(userID, 10)+"/roles")
+	return ListNamed(ctx, backURL, panelRoot+"/users/"+strconv.FormatInt(userID, 10)+"/roles")
 }
 
 func ListUserActions(ctx context.Context, backURL string, userID int64) (int, []Named, ErrorResponse, error) {
-	return ListNamed(ctx, backURL, "/api/v1/users/"+strconv.FormatInt(userID, 10)+"/actions")
+	return ListNamed(ctx, backURL, panelRoot+"/users/"+strconv.FormatInt(userID, 10)+"/actions")
 }
 
 func ListUserGroups(ctx context.Context, backURL string, userID int64) (int, []Named, ErrorResponse, error) {
-	return ListNamed(ctx, backURL, "/api/v1/users/"+strconv.FormatInt(userID, 10)+"/groups")
+	return ListNamed(ctx, backURL, panelRoot+"/users/"+strconv.FormatInt(userID, 10)+"/groups")
 }
 
 func PostGroupUser(ctx context.Context, backURL string, groupID, userID int64) (int, ErrorResponse, error) {
-	path := backURL + "/api/v1/user-groups/" + strconv.FormatInt(groupID, 10) + "/users/" + strconv.FormatInt(userID, 10)
+	path := backURL + panelRoot + "/user-groups/" + strconv.FormatInt(groupID, 10) + "/users/" + strconv.FormatInt(userID, 10)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, path, nil)
 	if err != nil {
 		return 0, ErrorResponse{}, err
@@ -157,7 +159,7 @@ func PostGroupUser(ctx context.Context, backURL string, groupID, userID int64) (
 }
 
 func ListGroupUsers(ctx context.Context, backURL string, groupID int64) (int, []int64, ErrorResponse, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, backURL+"/api/v1/user-groups/"+strconv.FormatInt(groupID, 10)+"/users", nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, backURL+panelRoot+"/user-groups/"+strconv.FormatInt(groupID, 10)+"/users", nil)
 	if err != nil {
 		return 0, nil, ErrorResponse{}, err
 	}

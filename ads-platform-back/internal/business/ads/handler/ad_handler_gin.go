@@ -40,7 +40,7 @@ type createAdRequest struct {
 	KeepMedia    *[]string       `json:"keep_media"`
 }
 
-// Create handles POST /api/v1/ads
+// Create handles POST /api/v1/self/ads
 // JSON body for ads without pictures, or multipart with a "payload" JSON field
 // and "pictures" files.
 func (h *AdHandler) Create(c *gin.Context) {
@@ -80,7 +80,7 @@ func (h *AdHandler) MediaStatus(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"pictures_upload": h.ads.PicturesUploadAvailable(c.Request.Context())})
 }
 
-// ListByUser handles GET /api/v1/users/:userId/ads
+// ListByUser handles GET /api/v1/self/:userId/ads
 func (h *AdHandler) ListByUser(c *gin.Context) {
 	userID, err := parseUserID(c.Param("userId"))
 	if err != nil {
@@ -96,7 +96,7 @@ func (h *AdHandler) ListByUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"ads": items})
 }
 
-// ListStats handles GET /api/v1/users/:userId/ad-stats
+// ListStats handles GET /api/v1/self/:userId/ad-stats
 func (h *AdHandler) ListStats(c *gin.Context) {
 	userID, err := parseUserID(c.Param("userId"))
 	if err != nil {
@@ -142,7 +142,7 @@ func (h *AdHandler) GetPublicContact(c *gin.Context) {
 	c.JSON(http.StatusOK, contact)
 }
 
-// GetForOwner handles GET /api/v1/users/:userId/ads/:adId
+// GetForOwner handles GET /api/v1/self/:userId/ads/:adId
 func (h *AdHandler) GetForOwner(c *gin.Context) {
 	userID, adID, err := parseOwnerIDs(c)
 	if err != nil {
@@ -157,7 +157,7 @@ func (h *AdHandler) GetForOwner(c *gin.Context) {
 	c.JSON(http.StatusOK, ad)
 }
 
-// Update handles PUT /api/v1/users/:userId/ads/:adId
+// Update handles PUT /api/v1/self/:userId/ads/:adId
 func (h *AdHandler) Update(c *gin.Context) {
 	userID, adID, err := parseOwnerIDs(c)
 	if err != nil {

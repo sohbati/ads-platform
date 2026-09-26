@@ -110,13 +110,13 @@ func testRouter(h *AdHandler) *gin.Engine {
 	r := gin.New()
 	r.Use(middleware.GlobalErrorHandler())
 	r.GET("/api/v1/media/status", h.MediaStatus)
-	r.POST("/api/v1/ads", h.Create)
+	r.POST("/api/v1/self/ads", h.Create)
 	r.GET("/api/v1/ads/:id", h.GetPublic)
 	r.GET("/api/v1/ads/:id/contact", h.GetPublicContact)
-	r.GET("/api/v1/users/:userId/ads", h.ListByUser)
-	r.GET("/api/v1/users/:userId/ad-stats", h.ListStats)
-	r.GET("/api/v1/users/:userId/ads/:adId", h.GetForOwner)
-	r.PUT("/api/v1/users/:userId/ads/:adId", h.Update)
+	r.GET("/api/v1/self/:userId/ads", h.ListByUser)
+	r.GET("/api/v1/self/:userId/ad-stats", h.ListStats)
+	r.GET("/api/v1/self/:userId/ads/:adId", h.GetForOwner)
+	r.PUT("/api/v1/self/:userId/ads/:adId", h.Update)
 	return r
 }
 
@@ -130,7 +130,7 @@ func TestCreateAdJSONHandler(t *testing.T) {
 		"latitude":35.6,"longitude":51.4,
 		"attrs":{"brand":"lenovo"}
 	}`)
-	req := httptest.NewRequest(http.MethodPost, "/api/v1/ads", bytes.NewReader(body))
+	req := httptest.NewRequest(http.MethodPost, "/api/v1/self/ads", bytes.NewReader(body))
 	req.Header.Set("Content-Type", "application/json")
 	rec := httptest.NewRecorder()
 	r.ServeHTTP(rec, req)
@@ -173,7 +173,7 @@ func TestCreateAdMultipartHandler(t *testing.T) {
 	_, _ = part.Write([]byte("fake-jpeg"))
 	_ = w.Close()
 
-	req := httptest.NewRequest(http.MethodPost, "/api/v1/ads", &buf)
+	req := httptest.NewRequest(http.MethodPost, "/api/v1/self/ads", &buf)
 	req.Header.Set("Content-Type", w.FormDataContentType())
 	rec := httptest.NewRecorder()
 	r.ServeHTTP(rec, req)
@@ -196,7 +196,7 @@ func TestCreateAdHandlerServiceError(t *testing.T) {
 	fake := &fakeAdService{err: exception.NewAppError("AD_INVALID_TITLE", http.StatusBadRequest)}
 	r := testRouter(NewAdHandler(fake))
 
-	req := httptest.NewRequest(http.MethodPost, "/api/v1/ads", bytes.NewReader([]byte(`{"user_id":1,"title":"x"}`)))
+	req := httptest.NewRequest(http.MethodPost, "/api/v1/self/ads", bytes.NewReader([]byte(`{"user_id":1,"title":"x"}`)))
 	req.Header.Set("Content-Type", "application/json")
 	rec := httptest.NewRecorder()
 	r.ServeHTTP(rec, req)
@@ -213,7 +213,7 @@ func TestListByUserHandler(t *testing.T) {
 	fake := &fakeAdService{list: []model.UserAdItem{{ID: 3, Title: "Mine"}}}
 	r := testRouter(NewAdHandler(fake))
 
-	req := httptest.NewRequest(http.MethodGet, "/api/v1/users/42/ads", nil)
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/self/42/ads", nil)
 	rec := httptest.NewRecorder()
 	r.ServeHTTP(rec, req)
 
@@ -231,7 +231,7 @@ func TestListByUserHandler(t *testing.T) {
 func TestListByUserHandlerInvalidID(t *testing.T) {
 	r := testRouter(NewAdHandler(&fakeAdService{}))
 
-	req := httptest.NewRequest(http.MethodGet, "/api/v1/users/abc/ads", nil)
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/self/abc/ads", nil)
 	rec := httptest.NewRecorder()
 	r.ServeHTTP(rec, req)
 
@@ -244,7 +244,7 @@ func TestListStatsHandler(t *testing.T) {
 	fake := &fakeAdService{stats: []model.AdStatsItem{{AdID: 9, Views: 3, Calls: 1}}}
 	r := testRouter(NewAdHandler(fake))
 
-	req := httptest.NewRequest(http.MethodGet, "/api/v1/users/42/ad-stats?from=2026-08-01&to=2026-08-31", nil)
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/self/42/ad-stats?from=2026-08-01&to=2026-08-31", nil)
 	rec := httptest.NewRecorder()
 	r.ServeHTTP(rec, req)
 
@@ -301,7 +301,7 @@ func TestGetForOwnerHandler(t *testing.T) {
 	fake := &fakeAdService{ad: &model.Ad{ID: 9, Title: "Mine"}}
 	r := testRouter(NewAdHandler(fake))
 
-	req := httptest.NewRequest(http.MethodGet, "/api/v1/users/42/ads/9", nil)
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/self/42/ads/9", nil)
 	rec := httptest.NewRecorder()
 	r.ServeHTTP(rec, req)
 
@@ -318,7 +318,7 @@ func TestUpdateHandlerUsesPathUser(t *testing.T) {
 	r := testRouter(NewAdHandler(fake))
 
 	body := []byte(`{"user_id":99,"category_id":13,"city_id":1,"title":"Updated","description":"ok"}`)
-	req := httptest.NewRequest(http.MethodPut, "/api/v1/users/42/ads/9", bytes.NewReader(body))
+	req := httptest.NewRequest(http.MethodPut, "/api/v1/self/42/ads/9", bytes.NewReader(body))
 	req.Header.Set("Content-Type", "application/json")
 	rec := httptest.NewRecorder()
 	r.ServeHTTP(rec, req)

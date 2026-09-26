@@ -17,7 +17,7 @@ func TestCreateAndGetAction(t *testing.T) {
 	defer cancel()
 
 	code := uniqueCode("ad.approve")
-	status, created, errResp, err := iamapi.PostNamed(ctx, backURL, "/api/v1/actions", code, "Approve ad")
+	status, created, errResp, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/actions", code, "Approve ad")
 	if err != nil {
 		t.Fatalf("create: %v", err)
 	}
@@ -28,7 +28,7 @@ func TestCreateAndGetAction(t *testing.T) {
 		t.Fatalf("created=%+v", created)
 	}
 
-	status, got, errResp, err := iamapi.GetNamed(ctx, backURL, "/api/v1/actions/"+strconv.FormatInt(created.ID, 10))
+	status, got, errResp, err := iamapi.GetNamed(ctx, backURL, "/api/v1/panel/actions/"+strconv.FormatInt(created.ID, 10))
 	if err != nil {
 		t.Fatalf("get: %v", err)
 	}
@@ -36,7 +36,7 @@ func TestCreateAndGetAction(t *testing.T) {
 		t.Fatalf("get status=%d item=%+v error=%+v", status, got, errResp)
 	}
 
-	status, listed, errResp, err := iamapi.ListNamed(ctx, backURL, "/api/v1/actions")
+	status, listed, errResp, err := iamapi.ListNamed(ctx, backURL, "/api/v1/panel/actions")
 	if err != nil {
 		t.Fatalf("list: %v", err)
 	}
@@ -50,12 +50,12 @@ func TestUpdateActionName(t *testing.T) {
 	defer cancel()
 
 	code := uniqueCode("ad.reject")
-	_, created, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/actions", code, "Reject")
+	_, created, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/actions", code, "Reject")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	status, updated, errResp, err := iamapi.PutName(ctx, backURL, "/api/v1/actions/"+strconv.FormatInt(created.ID, 10), "Reject ad")
+	status, updated, errResp, err := iamapi.PutName(ctx, backURL, "/api/v1/panel/actions/"+strconv.FormatInt(created.ID, 10), "Reject ad")
 	if err != nil {
 		t.Fatalf("update: %v", err)
 	}
@@ -68,7 +68,7 @@ func TestCreateActionRejectsInvalidCode(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	status, _, errResp, err := iamapi.PostNamed(ctx, backURL, "/api/v1/actions", "Approve Ad", "Approve")
+	status, _, errResp, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/actions", "Approve Ad", "Approve")
 	if err != nil {
 		t.Fatalf("request: %v", err)
 	}
@@ -82,12 +82,12 @@ func TestCreateActionDuplicateCode(t *testing.T) {
 	defer cancel()
 
 	code := uniqueCode("ad.list")
-	status, _, errResp, err := iamapi.PostNamed(ctx, backURL, "/api/v1/actions", code, "List")
+	status, _, errResp, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/actions", code, "List")
 	if err != nil || status != http.StatusCreated {
 		t.Fatalf("first create status=%d error=%+v err=%v", status, errResp, err)
 	}
 
-	status, _, errResp, err = iamapi.PostNamed(ctx, backURL, "/api/v1/actions", code, "List again")
+	status, _, errResp, err = iamapi.PostNamed(ctx, backURL, "/api/v1/panel/actions", code, "List again")
 	if err != nil {
 		t.Fatalf("second create: %v", err)
 	}

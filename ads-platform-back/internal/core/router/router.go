@@ -62,75 +62,83 @@ func (r *Router) SetupRoutes() *gin.Engine {
 	// Swagger
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	// Business API routes
+	// Business API routes.
+	// Public: catalog + identity. Self: owner resources, no IAM. Panel: CRM, IAM only.
 	api := router.Group("/api/v1")
 	{
-		// User routes
 		users := api.Group("/users")
 		{
 			users.GET("/mobile/:mobile", r.container.User.UserHandler.GetUserByMobile)
 			users.POST("/register-by-mobile/:mobile", r.container.User.UserHandler.RegisterByMobile)
-			users.GET("/:userId/profile", r.container.UserProfile.Handler.Get)
-			users.PUT("/:userId/profile", r.container.UserProfile.Handler.Put)
-			users.GET("/:userId/roles", r.container.UserRole.Handler.ListRoles)
-			users.POST("/:userId/roles/:roleId", r.container.UserRole.Handler.Add)
-			users.DELETE("/:userId/roles/:roleId", r.container.UserRole.Handler.Remove)
-			users.GET("/:userId/groups", r.container.UserGroup.Handler.ListByUser)
-			users.GET("/:userId/actions", r.container.UserRole.Handler.ListActions)
-			users.GET("/:userId/ads", r.container.Ads.AdHandler.ListByUser)
-			users.GET("/:userId/ad-stats", r.container.Ads.AdHandler.ListStats)
-			users.GET("/:userId/ads/:adId", r.container.Ads.AdHandler.GetForOwner)
-			users.PUT("/:userId/ads/:adId", r.container.Ads.AdHandler.Update)
 		}
 
-		// OTP routes
 		otp := api.Group("/otp")
 		{
 			otp.POST("/:mobile/send", r.container.Otp.OtpHandler.SendOTP)
 			otp.POST("/:mobile/verify", r.container.Otp.OtpHandler.VerifyOTP)
 		}
 
-		// Search routes
 		api.GET("/q/:place/:category", r.container.Search.SearchHandler.SearchAds)
-
-		actions := api.Group("/actions")
-		{
-			actions.GET("", r.container.Action.Handler.List)
-			actions.POST("", r.container.Action.Handler.Create)
-			actions.GET("/:id", r.container.Action.Handler.Get)
-			actions.PUT("/:id", r.container.Action.Handler.Update)
-			actions.DELETE("/:id", r.container.Action.Handler.Delete)
-		}
-
-		roles := api.Group("/roles")
-		{
-			roles.GET("", r.container.Role.Handler.List)
-			roles.POST("", r.container.Role.Handler.Create)
-			roles.GET("/:id", r.container.Role.Handler.Get)
-			roles.PUT("/:id", r.container.Role.Handler.Update)
-			roles.DELETE("/:id", r.container.Role.Handler.Delete)
-			roles.GET("/:id/actions", r.container.RoleAction.Handler.List)
-			roles.PUT("/:id/actions", r.container.RoleAction.Handler.Set)
-			roles.POST("/:id/actions/:actionId", r.container.RoleAction.Handler.Add)
-			roles.DELETE("/:id/actions/:actionId", r.container.RoleAction.Handler.Remove)
-		}
-
-		groups := api.Group("/user-groups")
-		{
-			groups.GET("", r.container.UserGroup.Handler.List)
-			groups.POST("", r.container.UserGroup.Handler.Create)
-			groups.GET("/:id", r.container.UserGroup.Handler.Get)
-			groups.PUT("/:id", r.container.UserGroup.Handler.Update)
-			groups.DELETE("/:id", r.container.UserGroup.Handler.Delete)
-			groups.GET("/:id/users", r.container.UserGroup.Handler.ListUsers)
-			groups.POST("/:id/users/:userId", r.container.UserGroup.Handler.AddUser)
-			groups.DELETE("/:id/users/:userId", r.container.UserGroup.Handler.RemoveUser)
-		}
-
 		api.GET("/media/status", r.container.Ads.AdHandler.MediaStatus)
-		api.POST("/ads", r.container.Ads.AdHandler.Create)
 		api.GET("/ads/:id", r.container.Ads.AdHandler.GetPublic)
 		api.GET("/ads/:id/contact", r.container.Ads.AdHandler.GetPublicContact)
+
+		self := api.Group("/self")
+		{
+			self.POST("/ads", r.container.Ads.AdHandler.Create)
+			self.GET("/:userId/profile", r.container.UserProfile.Handler.Get)
+			self.PUT("/:userId/profile", r.container.UserProfile.Handler.Put)
+			self.GET("/:userId/ads", r.container.Ads.AdHandler.ListByUser)
+			self.GET("/:userId/ad-stats", r.container.Ads.AdHandler.ListStats)
+			self.GET("/:userId/ads/:adId", r.container.Ads.AdHandler.GetForOwner)
+			self.PUT("/:userId/ads/:adId", r.container.Ads.AdHandler.Update)
+		}
+
+		panel := api.Group("/panel")
+		{
+			panelUsers := panel.Group("/users")
+			{
+				panelUsers.GET("/:userId/roles", r.container.UserRole.Handler.ListRoles)
+				panelUsers.POST("/:userId/roles/:roleId", r.container.UserRole.Handler.Add)
+				panelUsers.DELETE("/:userId/roles/:roleId", r.container.UserRole.Handler.Remove)
+				panelUsers.GET("/:userId/groups", r.container.UserGroup.Handler.ListByUser)
+				panelUsers.GET("/:userId/actions", r.container.UserRole.Handler.ListActions)
+			}
+
+			actions := panel.Group("/actions")
+			{
+				actions.GET("", r.container.Action.Handler.List)
+				actions.POST("", r.container.Action.Handler.Create)
+				actions.GET("/:id", r.container.Action.Handler.Get)
+				actions.PUT("/:id", r.container.Action.Handler.Update)
+				actions.DELETE("/:id", r.container.Action.Handler.Delete)
+			}
+
+			roles := panel.Group("/roles")
+			{
+				roles.GET("", r.container.Role.Handler.List)
+				roles.POST("", r.container.Role.Handler.Create)
+				roles.GET("/:id", r.container.Role.Handler.Get)
+				roles.PUT("/:id", r.container.Role.Handler.Update)
+				roles.DELETE("/:id", r.container.Role.Handler.Delete)
+				roles.GET("/:id/actions", r.container.RoleAction.Handler.List)
+				roles.PUT("/:id/actions", r.container.RoleAction.Handler.Set)
+				roles.POST("/:id/actions/:actionId", r.container.RoleAction.Handler.Add)
+				roles.DELETE("/:id/actions/:actionId", r.container.RoleAction.Handler.Remove)
+			}
+
+			groups := panel.Group("/user-groups")
+			{
+				groups.GET("", r.container.UserGroup.Handler.List)
+				groups.POST("", r.container.UserGroup.Handler.Create)
+				groups.GET("/:id", r.container.UserGroup.Handler.Get)
+				groups.PUT("/:id", r.container.UserGroup.Handler.Update)
+				groups.DELETE("/:id", r.container.UserGroup.Handler.Delete)
+				groups.GET("/:id/users", r.container.UserGroup.Handler.ListUsers)
+				groups.POST("/:id/users/:userId", r.container.UserGroup.Handler.AddUser)
+				groups.DELETE("/:id/users/:userId", r.container.UserGroup.Handler.RemoveUser)
+			}
+		}
 	}
 
 	return router

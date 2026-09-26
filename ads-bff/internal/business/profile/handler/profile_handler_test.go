@@ -83,7 +83,7 @@ func TestGetProfileUsesSessionUserID(t *testing.T) {
 	if rec.Code != http.StatusOK {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
-	if path != "/api/v1/users/42/profile" {
+	if path != "/api/v1/self/42/profile" {
 		t.Fatalf("path=%s", path)
 	}
 	if !bytes.Contains(rec.Body.Bytes(), []byte("tehran")) {
@@ -110,7 +110,7 @@ func TestPutProfileForwardsBodyToSessionUser(t *testing.T) {
 	if rec.Code != http.StatusOK {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
-	if method != http.MethodPut || path != "/api/v1/users/7/profile" {
+	if method != http.MethodPut || path != "/api/v1/self/7/profile" {
 		t.Fatalf("method=%s path=%s", method, path)
 	}
 	if !bytes.Contains(body, []byte("karaj")) {

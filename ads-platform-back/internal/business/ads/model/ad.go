@@ -96,7 +96,7 @@ type AdStatsItem struct {
 	Calls          int   `json:"calls"`
 }
 
-// AdStatsResponse is GET /api/v1/users/:userId/ad-stats.
+// AdStatsResponse is GET /api/v1/self/:userId/ad-stats.
 type AdStatsResponse struct {
 	From string        `json:"from"`
 	To   string        `json:"to"`

@@ -188,7 +188,7 @@ func TestListMineUsesSessionUserID(t *testing.T) {
 	if rec.Code != http.StatusOK {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
-	if gotPath != "/api/v1/users/42/ads" {
+	if gotPath != "/api/v1/self/42/ads" {
 		t.Fatalf("backend path=%s", gotPath)
 	}
 	if !bytes.Contains(rec.Body.Bytes(), []byte(`"Mine"`)) {
@@ -228,7 +228,7 @@ func TestListMineStatsUsesSessionUserID(t *testing.T) {
 	if rec.Code != http.StatusOK {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
-	if gotPath != "/api/v1/users/42/ad-stats" {
+	if gotPath != "/api/v1/self/42/ad-stats" {
 		t.Fatalf("backend path=%s", gotPath)
 	}
 	if !bytes.Contains(rec.Body.Bytes(), []byte(`"ad_id":9`)) {
@@ -252,7 +252,7 @@ func TestGetMineUsesSessionUserID(t *testing.T) {
 	if rec.Code != http.StatusOK {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
-	if gotPath != "/api/v1/users/42/ads/9" {
+	if gotPath != "/api/v1/self/42/ads/9" {
 		t.Fatalf("backend path=%s", gotPath)
 	}
 }
@@ -280,7 +280,7 @@ func TestUpdateMineUsesSessionUserID(t *testing.T) {
 	if rec.Code != http.StatusOK {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
-	if gotPath != "/api/v1/users/42/ads/9" {
+	if gotPath != "/api/v1/self/42/ads/9" {
 		t.Fatalf("backend path=%s", gotPath)
 	}
 	if got["user_id"] != float64(42) {

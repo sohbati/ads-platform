@@ -15,15 +15,15 @@ func TestAssignActionsToRole(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	_, approve, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/actions", uniqueCode("ad.approve"), "Approve")
+	_, approve, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/actions", uniqueCode("ad.approve"), "Approve")
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, reject, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/actions", uniqueCode("ad.reject"), "Reject")
+	_, reject, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/actions", uniqueCode("ad.reject"), "Reject")
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, role, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/roles", uniqueCode("moderator"), "Moderator")
+	_, role, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/roles", uniqueCode("moderator"), "Moderator")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -65,11 +65,11 @@ func TestAddRoleActionIdempotent(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	_, action, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/actions", uniqueCode("user.read"), "Read user")
+	_, action, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/actions", uniqueCode("user.read"), "Read user")
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, role, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/roles", uniqueCode("support"), "Support")
+	_, role, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/roles", uniqueCode("support"), "Support")
 	if err != nil {
 		t.Fatal(err)
 	}

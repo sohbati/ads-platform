@@ -16,7 +16,7 @@ func TestUserGroupCategorizesUsers(t *testing.T) {
 	defer cancel()
 
 	userID := insertUser(t, ctx)
-	status, group, errResp, err := iamapi.PostNamed(ctx, backURL, "/api/v1/user-groups", uniqueCode("tehran-moderators"), "Tehran")
+	status, group, errResp, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/user-groups", uniqueCode("tehran-moderators"), "Tehran")
 	if err != nil || status != http.StatusCreated {
 		t.Fatalf("create group status=%d error=%+v err=%v", status, errResp, err)
 	}
@@ -48,11 +48,11 @@ func TestUserGroupDoesNotGrantActions(t *testing.T) {
 	defer cancel()
 
 	userID := insertUser(t, ctx)
-	_, action, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/actions", uniqueCode("ad.approve"), "Approve")
+	_, action, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/actions", uniqueCode("ad.approve"), "Approve")
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, role, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/roles", uniqueCode("moderator"), "Moderator")
+	_, role, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/roles", uniqueCode("moderator"), "Moderator")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -60,7 +60,7 @@ func TestUserGroupDoesNotGrantActions(t *testing.T) {
 		t.Fatalf("role actions status=%d error=%+v err=%v", status, errResp, err)
 	}
 
-	_, group, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/user-groups", uniqueCode("tehran-moderators"), "Tehran")
+	_, group, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/user-groups", uniqueCode("tehran-moderators"), "Tehran")
 	if err != nil {
 		t.Fatal(err)
 	}
