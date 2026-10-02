@@ -31,15 +31,15 @@ UI  →  GET  /api/v1/auth/me                 →  cache lookup via cookie
 UI  →  POST /api/v1/auth/logout             →  delete session + clear cookie
 ```
 
-UI  →  POST /api/v1/ads                     →  session cookie → inject user_id → back
+UI  →  POST /api/v1/ads                     →  session cookie → inject customer_id → back
 
 Session data is stored in cache-service under key `session:{uuid}`.
 
-`POST /api/v1/ads` requires a session. The BFF overwrites `user_id` from the session so the client cannot post as another user. JSON bodies and multipart (`payload` + `pictures`) are both supported.
+`POST /api/v1/ads` requires a session. The BFF overwrites `customer_id` from the session so the client cannot post as another customer. JSON bodies and multipart (`payload` + `pictures`) are both supported.
 
 Other backend routes remain available via proxy:
 
-- `GET /api/v1/users/mobile/:mobile`
+- `GET /api/v1/customers/mobile/:mobile`
 - etc.
 
 ## Architecture

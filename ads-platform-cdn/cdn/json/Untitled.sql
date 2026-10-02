@@ -1,4 +1,4 @@
-CREATE TABLE ads_platform_schema.user (
+CREATE TABLE ads_platform_schema.customer (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     mobile VARCHAR(100) NOT NULL UNIQUE,

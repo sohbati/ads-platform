@@ -8,8 +8,8 @@ UI service for the ads platform, structured around the site map in `ads-platform
 /  →  /query-ads
 ├── /query-ads              Browse / search ads
 ├── /my-info                Account hub
-│   ├── /my-info/user-details
-│   ├── /my-info/user-ads
+│   ├── /my-info/customer-details
+│   ├── /my-info/customer-ads
 │   ├── /my-info/marked-ads
 │   └── /my-info/setting
 ├── /new-ad                 Post a new ad
@@ -77,7 +77,7 @@ ads-platform-ui/
 | GET | `/api/v1/cities` | Proxies CDN `GET /api/cities` |
 | POST | `/api/v1/auth/otp/:mobile/send` | Via ads-bff — send OTP |
 | POST | `/api/v1/auth/otp/:mobile/verify` | Via ads-bff — verify OTP, create session cookie |
-| GET | `/api/v1/auth/me` | Via ads-bff — current session user |
+| GET | `/api/v1/auth/me` | Via ads-bff — current session customer |
 | POST | `/api/v1/auth/logout` | Via ads-bff — destroy session |
 
 CDN base URL is configured via `CDN_BASE_URL` (default `http://localhost:4000`).

@@ -52,7 +52,7 @@
                         <mxPoint x="482.03999999999996" y="137" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="20" value="user-details" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="20" value="customer-details" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry y="220" width="100" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="21" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;html=1;rounded=1;curved=0;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;startSize=6;endSize=6;entryX=0.39;entryY=-0.025;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
@@ -61,7 +61,7 @@
                         <mxPoint x="39" y="219" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="22" value="user-ads" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="22" value="customer-ads" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="119" y="219" width="100" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="23" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;html=1;rounded=1;curved=0;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;startSize=6;endSize=6;exitX=0.4;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1">

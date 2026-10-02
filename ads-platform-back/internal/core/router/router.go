@@ -66,10 +66,10 @@ func (r *Router) SetupRoutes() *gin.Engine {
 	// Public: catalog + identity. Self: owner resources, no IAM. Panel: CRM, IAM only.
 	api := router.Group("/api/v1")
 	{
-		users := api.Group("/users")
+		customers := api.Group("/customers")
 		{
-			users.GET("/mobile/:mobile", r.container.User.UserHandler.GetUserByMobile)
-			users.POST("/register-by-mobile/:mobile", r.container.User.UserHandler.RegisterByMobile)
+			customers.GET("/mobile/:mobile", r.container.Customer.Handler.GetCustomerByMobile)
+			customers.POST("/register-by-mobile/:mobile", r.container.Customer.Handler.RegisterByMobile)
 		}
 
 		otp := api.Group("/otp")
@@ -86,23 +86,23 @@ func (r *Router) SetupRoutes() *gin.Engine {
 		self := api.Group("/self")
 		{
 			self.POST("/ads", r.container.Ads.AdHandler.Create)
-			self.GET("/:userId/profile", r.container.UserProfile.Handler.Get)
-			self.PUT("/:userId/profile", r.container.UserProfile.Handler.Put)
-			self.GET("/:userId/ads", r.container.Ads.AdHandler.ListByUser)
-			self.GET("/:userId/ad-stats", r.container.Ads.AdHandler.ListStats)
-			self.GET("/:userId/ads/:adId", r.container.Ads.AdHandler.GetForOwner)
-			self.PUT("/:userId/ads/:adId", r.container.Ads.AdHandler.Update)
+			self.GET("/:customerId/profile", r.container.CustomerProfile.Handler.Get)
+			self.PUT("/:customerId/profile", r.container.CustomerProfile.Handler.Put)
+			self.GET("/:customerId/ads", r.container.Ads.AdHandler.ListByCustomer)
+			self.GET("/:customerId/ad-stats", r.container.Ads.AdHandler.ListStats)
+			self.GET("/:customerId/ads/:adId", r.container.Ads.AdHandler.GetForOwner)
+			self.PUT("/:customerId/ads/:adId", r.container.Ads.AdHandler.Update)
 		}
 
 		panel := api.Group("/panel")
 		{
-			panelUsers := panel.Group("/users")
+			panelStaff := panel.Group("/staff")
 			{
-				panelUsers.GET("/:userId/roles", r.container.UserRole.Handler.ListRoles)
-				panelUsers.POST("/:userId/roles/:roleId", r.container.UserRole.Handler.Add)
-				panelUsers.DELETE("/:userId/roles/:roleId", r.container.UserRole.Handler.Remove)
-				panelUsers.GET("/:userId/groups", r.container.UserGroup.Handler.ListByUser)
-				panelUsers.GET("/:userId/actions", r.container.UserRole.Handler.ListActions)
+				panelStaff.GET("/:staffId/roles", r.container.StaffRole.Handler.ListRoles)
+				panelStaff.POST("/:staffId/roles/:roleId", r.container.StaffRole.Handler.Add)
+				panelStaff.DELETE("/:staffId/roles/:roleId", r.container.StaffRole.Handler.Remove)
+				panelStaff.GET("/:staffId/groups", r.container.StaffGroup.Handler.ListByStaff)
+				panelStaff.GET("/:staffId/actions", r.container.StaffRole.Handler.ListActions)
 			}
 
 			actions := panel.Group("/actions")
@@ -127,16 +127,16 @@ func (r *Router) SetupRoutes() *gin.Engine {
 				roles.DELETE("/:id/actions/:actionId", r.container.RoleAction.Handler.Remove)
 			}
 
-			groups := panel.Group("/user-groups")
+			groups := panel.Group("/staff-groups")
 			{
-				groups.GET("", r.container.UserGroup.Handler.List)
-				groups.POST("", r.container.UserGroup.Handler.Create)
-				groups.GET("/:id", r.container.UserGroup.Handler.Get)
-				groups.PUT("/:id", r.container.UserGroup.Handler.Update)
-				groups.DELETE("/:id", r.container.UserGroup.Handler.Delete)
-				groups.GET("/:id/users", r.container.UserGroup.Handler.ListUsers)
-				groups.POST("/:id/users/:userId", r.container.UserGroup.Handler.AddUser)
-				groups.DELETE("/:id/users/:userId", r.container.UserGroup.Handler.RemoveUser)
+				groups.GET("", r.container.StaffGroup.Handler.List)
+				groups.POST("", r.container.StaffGroup.Handler.Create)
+				groups.GET("/:id", r.container.StaffGroup.Handler.Get)
+				groups.PUT("/:id", r.container.StaffGroup.Handler.Update)
+				groups.DELETE("/:id", r.container.StaffGroup.Handler.Delete)
+				groups.GET("/:id/staff", r.container.StaffGroup.Handler.ListStaff)
+				groups.POST("/:id/staff/:staffId", r.container.StaffGroup.Handler.AddStaff)
+				groups.DELETE("/:id/staff/:staffId", r.container.StaffGroup.Handler.RemoveStaff)
 			}
 		}
 	}

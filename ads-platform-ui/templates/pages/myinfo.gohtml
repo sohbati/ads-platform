@@ -3,7 +3,7 @@
 <section class="section-stub container">
   <h1 class="section-stub__title">{{ .T.Nav.MyInfo }}</h1>
   {{ if .IsAuthenticated }}
-  <p class="myinfo-welcome">{{ format .T.Auth.WelcomeUser .SessionUserName }}</p>
+  <p class="myinfo-welcome">{{ format .T.Auth.WelcomeCustomer .SessionCustomerName }}</p>
   {{ template "myinfo_nav" . }}
   {{ end }}
 </section>

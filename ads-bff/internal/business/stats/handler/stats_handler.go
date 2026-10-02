@@ -32,7 +32,7 @@ type outboundEvent struct {
 	Event         string    `json:"event"`
 	ViewerID      string    `json:"viewer_id"`
 	OccurredAt    time.Time `json:"occurred_at"`
-	SessionUserID *int64    `json:"session_user_id,omitempty"`
+	SessionCustomerID *int64    `json:"session_customer_id,omitempty"`
 }
 
 type StatsHandler struct {
@@ -92,7 +92,7 @@ func (h *StatsHandler) Ingest(c *gin.Context) {
 		Event:         req.Event,
 		ViewerID:      req.ViewerID,
 		OccurredAt:    occurredAt.UTC(),
-		SessionUserID: h.optionalSessionUserID(c),
+		SessionCustomerID: h.optionalSessionCustomerID(c),
 	})
 	if err != nil {
 		middleware.HandleError(c, exception.NewAppError("INVALID_REQUEST", http.StatusBadRequest), 0)
@@ -103,7 +103,7 @@ func (h *StatsHandler) Ingest(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
 
-func (h *StatsHandler) optionalSessionUserID(c *gin.Context) *int64 {
+func (h *StatsHandler) optionalSessionCustomerID(c *gin.Context) *int64 {
 	if h.auth == nil || h.cfg == nil {
 		return nil
 	}
@@ -111,17 +111,17 @@ func (h *StatsHandler) optionalSessionUserID(c *gin.Context) *int64 {
 	if err != nil || sessionID == "" {
 		return nil
 	}
-	user, err := h.auth.GetCurrentUser(c.Request.Context(), sessionID)
+	customer, err := h.auth.GetCurrentCustomer(c.Request.Context(), sessionID)
 	if err != nil {
 		if cacheclient.IsSessionNotFound(err) {
 			return nil
 		}
 		return nil
 	}
-	if user == nil || user.ID <= 0 {
+	if customer == nil || customer.ID <= 0 {
 		return nil
 	}
-	id := user.ID
+	id := customer.ID
 	return &id
 }
 

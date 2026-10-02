@@ -38,8 +38,8 @@
       "my_info": "My info",
       "new_ad": "New ad",
       "category": "Category",
-      "user_details": "User details",
-      "user_ads": "My ads",
+      "customer_details": "Account details",
+      "customer_ads": "My ads",
       "marked_ads": "Saved ads",
       "setting": "Settings",
       "login": "Login",
@@ -69,7 +69,7 @@
       "otp_sent": "Code sent",
       "resend_otp": "Resend code",
       "resend_wait": "Code valid for %s",
-      "welcome_user": "Hello %s"
+      "welcome_customer": "Hello %s"
     },
     "hero": {
       "title": "On the surface, in %s",
@@ -267,10 +267,11 @@
       "BACKEND_UNAVAILABLE": "Service is temporarily unavailable. Try again later.",
       "NETWORK_ERROR": "Network error. Check your connection and try again.",
       "AUTH_REQUIRED": "Sign in to post an ad.",
-      "PROFILE_INVALID_USER": "That user id is not valid.",
+      "PROFILE_INVALID_CUSTOMER": "That customer id is not valid.",
       "PROFILE_INVALID_LOCATION": "That location is not valid.",
       "PROFILE_TOO_MANY_LOCATIONS": "Too many locations selected.",
-      "USER_NOT_FOUND": "User not found.",
+      "CUSTOMER_NOT_FOUND": "Customer not found.",
+      "STAFF_NOT_FOUND": "Staff not found.",
       "AD_INVALID_TITLE": "Enter a valid title.",
       "AD_INVALID_DESCRIPTION": "Enter a valid description.",
       "AD_INVALID_CATEGORY": "Choose a valid category.",

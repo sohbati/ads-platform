@@ -128,30 +128,30 @@ func TestNewAdTemplateRenders(t *testing.T) {
 	}
 }
 
-func TestMyInfoUserAdsTemplateRenders(t *testing.T) {
+func TestMyInfoCustomerAdsTemplateRenders(t *testing.T) {
 	tmpl, err := template.New("").Funcs(FuncMap(nil)).ParseGlob("../../../templates/**/*.gohtml")
 	if err != nil {
 		t.Fatalf("parse templates: %v", err)
 	}
 
-	empty := myinfovm.UserAdsPage{
+	empty := myinfovm.CustomerAdsPage{
 		Page: i18n.Page{
 			Title:           "t",
 			Heading:         "My ads",
 			IsAuthenticated: true,
 			T: i18n.Messages{
 				MyAds: i18n.MyAdsMessages{Empty: "no ads", PostCta: "post"},
-				Nav:   i18n.NavMessages{UserAds: "My ads", Logout: "Out"},
+				Nav:   i18n.NavMessages{CustomerAds: "My ads", Logout: "Out"},
 			},
 		},
 	}
-	withAds := myinfovm.UserAdsPage{
+	withAds := myinfovm.CustomerAdsPage{
 		Page: i18n.Page{
 			Title:           "t",
 			Heading:         "My ads",
 			IsAuthenticated: true,
 			T: i18n.Messages{
-				Nav:   i18n.NavMessages{UserAds: "My ads", Logout: "Out"},
+				Nav:   i18n.NavMessages{CustomerAds: "My ads", Logout: "Out"},
 				MyAds: i18n.MyAdsMessages{Stats: "%d views · %d calls"},
 			},
 		},
@@ -159,14 +159,14 @@ func TestMyInfoUserAdsTemplateRenders(t *testing.T) {
 			{ID: 9, Href: "/edit-ad/9", Title: "Bike", Price: "1,000 IRR", Location: "Tehran", Thumbnail: "/t.jpg", PublishedAt: "2026-08-01", Views: 4, Calls: 1},
 		},
 	}
-	unavailable := myinfovm.UserAdsPage{
+	unavailable := myinfovm.CustomerAdsPage{
 		Page: i18n.Page{
 			Title:           "t",
 			Heading:         "My ads",
 			IsAuthenticated: true,
 			T: i18n.Messages{
 				MyAds: i18n.MyAdsMessages{Unavailable: "down"},
-				Nav:   i18n.NavMessages{UserAds: "My ads", Logout: "Out"},
+				Nav:   i18n.NavMessages{CustomerAds: "My ads", Logout: "Out"},
 			},
 		},
 		Unavailable: true,
@@ -178,8 +178,8 @@ func TestMyInfoUserAdsTemplateRenders(t *testing.T) {
 		"unavailable": unavailable,
 	} {
 		var buf bytes.Buffer
-		if err := tmpl.ExecuteTemplate(&buf, "myinfo_user_ads", data); err != nil {
-			t.Fatalf("execute myinfo_user_ads (%s): %v", name, err)
+		if err := tmpl.ExecuteTemplate(&buf, "myinfo_customer_ads", data); err != nil {
+			t.Fatalf("execute myinfo_customer_ads (%s): %v", name, err)
 		}
 		if name == "ads" && !bytes.Contains(buf.Bytes(), []byte("4 views · 1 calls")) {
 			t.Fatalf("expected stats line, got %s", buf.String())

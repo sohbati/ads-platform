@@ -69,9 +69,9 @@ message-broker/
 
 **Publish example:**
 ```bash
-curl -X POST http://localhost:8095/api/v1/events/user.registered \
+curl -X POST http://localhost:8095/api/v1/events/customer.registered \
   -H "Content-Type: application/json" \
-  -d '{"data": {"userId": 1, "mobile": "09123456789"}}'
+  -d '{"data": {"customerId": 1, "mobile": "09123456789"}}'
 ```
 
 ## Available Commands

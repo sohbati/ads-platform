@@ -9,7 +9,7 @@ import (
 )
 
 type CreateAdInput struct {
-	UserID       int64
+	CustomerID       int64
 	CategoryID   int
 	CityID       int
 	Title        string
@@ -37,9 +37,9 @@ type AdService interface {
 	Create(ctx context.Context, in CreateAdInput) (*model.Ad, error)
 	GetPublic(ctx context.Context, adID int64) (*model.PublicAd, error)
 	GetPublicContact(ctx context.Context, adID int64) (*model.PublicContact, error)
-	GetForOwner(ctx context.Context, userID, adID int64) (*model.Ad, error)
+	GetForOwner(ctx context.Context, customerID, adID int64) (*model.Ad, error)
 	Update(ctx context.Context, adID int64, in CreateAdInput) (*model.Ad, error)
-	ListByUser(ctx context.Context, userID int64) ([]model.UserAdItem, error)
-	ListStats(ctx context.Context, userID int64, from, to string) (*model.AdStatsResponse, error)
+	ListByCustomer(ctx context.Context, customerID int64) ([]model.CustomerAdItem, error)
+	ListStats(ctx context.Context, customerID int64, from, to string) (*model.AdStatsResponse, error)
 	PicturesUploadAvailable(ctx context.Context) bool
 }

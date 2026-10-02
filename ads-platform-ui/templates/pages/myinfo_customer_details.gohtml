@@ -1,0 +1,18 @@
+{{ define "myinfo_customer_details" }}
+{{ template "page_open" . }}
+<section class="section-stub container">
+  <h1 class="section-stub__title">{{ .T.Nav.CustomerDetails }}</h1>
+  {{ if .IsAuthenticated }}
+  {{ template "myinfo_nav" . }}
+  <dl class="customer-details">
+    <dt>{{ .T.Auth.MobileLabel }}</dt>
+    <dd>{{ .SessionCustomerMobile }}</dd>
+    <dt>{{ .T.Nav.CustomerDetails }}</dt>
+    <dd>{{ .SessionCustomerName }}</dd>
+  </dl>
+  {{ else }}
+  <p>{{ .T.Section.ComingSoon }}</p>
+  {{ end }}
+</section>
+{{ template "page_close" . }}
+{{ end }}

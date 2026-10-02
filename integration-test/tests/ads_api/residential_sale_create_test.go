@@ -22,12 +22,12 @@ const (
 	realEstateParentID        = 1
 )
 
-func residentialSalePayload(userID int64, attrs map[string]any) map[string]any {
+func residentialSalePayload(customerID int64, attrs map[string]any) map[string]any {
 	if attrs == nil {
 		attrs = map[string]any{"area_m2": 90, "rooms": 2}
 	}
 	return map[string]any{
-		"user_id":      userID,
+		"customer_id":      customerID,
 		"category_id":  residentialSaleCategoryID,
 		"city_id":      tehranCityID,
 		"title":        "آپارتمان ۹۰ متری سعادت‌آباد",
@@ -92,8 +92,8 @@ func TestCreateResidentialSaleJSON(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	status, ad, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(userID, fullResidentialAttrs()))
+	customerID := insertCustomer(t, ctx)
+	status, ad, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(customerID, fullResidentialAttrs()))
 	if err != nil {
 		t.Fatalf("request: %v", err)
 	}
@@ -143,8 +143,8 @@ func TestCreateResidentialSaleRequiredOnly(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	status, ad, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(userID, map[string]any{
+	customerID := insertCustomer(t, ctx)
+	status, ad, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(customerID, map[string]any{
 		"area_m2": 80, "rooms": 1,
 	}))
 	if err != nil {
@@ -163,8 +163,8 @@ func TestCreateResidentialSaleBooleans(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	status, ad, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(userID, map[string]any{
+	customerID := insertCustomer(t, ctx)
+	status, ad, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(customerID, map[string]any{
 		"area_m2": 70, "rooms": 1,
 		"parking": false, "elevator": false, "balcony": false, "has_storage": false, "carpeted": false,
 	}))
@@ -186,8 +186,8 @@ func TestCreateResidentialSaleBathroomSelects(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	status, ad, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(userID, map[string]any{
+	customerID := insertCustomer(t, ctx)
+	status, ad, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(customerID, map[string]any{
 		"area_m2": 100, "rooms": 3,
 		"toilets_iranian": 0, "toilets_western": 1, "bathrooms": 6,
 	}))
@@ -207,8 +207,8 @@ func TestCreateResidentialSaleDropsUnknownAttrs(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	status, ad, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(userID, map[string]any{
+	customerID := insertCustomer(t, ctx)
+	status, ad, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(customerID, map[string]any{
 		"area_m2": 90, "rooms": 2, "foo": "bar", "property_price": 1,
 	}))
 	if err != nil {
@@ -230,8 +230,8 @@ func TestCreateResidentialSaleWithPictures(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	status, ad, errResp, err := adsapi.PostMultipart(ctx, backURL, residentialSalePayload(userID, nil), map[string][]byte{
+	customerID := insertCustomer(t, ctx)
+	status, ad, errResp, err := adsapi.PostMultipart(ctx, backURL, residentialSalePayload(customerID, nil), map[string][]byte{
 		"cover.jpg": adsapi.JPEG1x1,
 	})
 	if err != nil {
@@ -259,7 +259,7 @@ func TestCreateResidentialSaleWithPictures(t *testing.T) {
 func TestCreateResidentialSaleValidationErrors(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
-	userID := insertUser(t, ctx)
+	customerID := insertCustomer(t, ctx)
 
 	cases := []struct {
 		name     string
@@ -306,7 +306,7 @@ func TestCreateResidentialSaleValidationErrors(t *testing.T) {
 
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			payload := residentialSalePayload(userID, map[string]any{"area_m2": 90, "rooms": 2})
+			payload := residentialSalePayload(customerID, map[string]any{"area_m2": 90, "rooms": 2})
 			tc.mutate(payload)
 			status, _, errResp, err := adsapi.PostJSON(ctx, backURL, payload)
 			if err != nil {
@@ -322,16 +322,16 @@ func TestCreateResidentialSaleValidationErrors(t *testing.T) {
 func TestCreateResidentialSaleRejectsNonObjectAttrs(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
-	userID := insertUser(t, ctx)
+	customerID := insertCustomer(t, ctx)
 
 	body := []byte(fmt.Sprintf(`{
-		"user_id": %d,
+		"customer_id": %d,
 		"category_id": %d,
 		"city_id": %d,
 		"title": "x",
 		"description": "y",
 		"attrs": "{"
-	}`, userID, residentialSaleCategoryID, tehranCityID))
+	}`, customerID, residentialSaleCategoryID, tehranCityID))
 	status, _, errResp, err := adsapi.PostRawJSON(ctx, backURL, body)
 	if err != nil {
 		t.Fatalf("request: %v", err)
@@ -344,9 +344,9 @@ func TestCreateResidentialSaleRejectsNonObjectAttrs(t *testing.T) {
 func TestCreateResidentialSaleLaptopAttrsNeedRequired(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
-	userID := insertUser(t, ctx)
+	customerID := insertCustomer(t, ctx)
 
-	status, _, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(userID, map[string]any{
+	status, _, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(customerID, map[string]any{
 		"brand": "lenovo", "ram_gb": 16,
 	}))
 	if err != nil {

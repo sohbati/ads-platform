@@ -21,8 +21,8 @@ type Page struct {
 	LocationSlugsCSV   string
 	CurrentPath        string
 	NextPath           string
-	SessionUserName    string
-	SessionUserMobile  string
+	SessionCustomerName   string
+	SessionCustomerMobile string
 	IsAuthenticated    bool
 	DefaultCountryCode string
 	// SearchQuery pre-fills the header search input on result pages.

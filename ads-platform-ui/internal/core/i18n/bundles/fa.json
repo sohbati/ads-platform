@@ -38,8 +38,8 @@
       "my_info": "حساب من",
       "new_ad": "آگهی جدید",
       "category": "دسته‌بندی",
-      "user_details": "اطلاعات کاربر",
-      "user_ads": "آگهی‌های من",
+      "customer_details": "اطلاعات حساب",
+      "customer_ads": "آگهی‌های من",
       "marked_ads": "نشان‌شده‌ها",
       "setting": "تنظیمات",
       "login": "ورود",
@@ -69,7 +69,7 @@
       "otp_sent": "کد ارسال شد",
       "resend_otp": "ارسال مجدد کد",
       "resend_wait": "اعتبار کد تا %s",
-      "welcome_user": "سلام %s"
+      "welcome_customer": "سلام %s"
     },
     "hero": {
       "title": "روی آب، در %s",
@@ -267,10 +267,11 @@
       "BACKEND_UNAVAILABLE": "سرویس موقتاً در دسترس نیست. بعداً تلاش کنید.",
       "NETWORK_ERROR": "خطای شبکه. اتصال خود را بررسی و دوباره تلاش کنید.",
       "AUTH_REQUIRED": "برای ثبت آگهی وارد شوید.",
-      "PROFILE_INVALID_USER": "شناسه کاربر معتبر نیست.",
+      "PROFILE_INVALID_CUSTOMER": "شناسه مشتری معتبر نیست.",
       "PROFILE_INVALID_LOCATION": "شهر انتخاب‌شده معتبر نیست.",
       "PROFILE_TOO_MANY_LOCATIONS": "تعداد شهرهای انتخاب‌شده بیش از حد مجاز است.",
-      "USER_NOT_FOUND": "کاربر یافت نشد.",
+      "CUSTOMER_NOT_FOUND": "مشتری یافت نشد.",
+      "STAFF_NOT_FOUND": "کارمند یافت نشد.",
       "AD_INVALID_TITLE": "عنوان آگهی معتبر نیست.",
       "AD_INVALID_DESCRIPTION": "توضیحات آگهی معتبر نیست.",
       "AD_INVALID_CATEGORY": "دسته معتبر نیست.",

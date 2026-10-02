@@ -24,7 +24,7 @@ func NewAdHandler(ads service.AdService) *AdHandler {
 }
 
 type createAdRequest struct {
-	UserID       int64           `json:"user_id"`
+	CustomerID       int64           `json:"customer_id"`
 	CategoryID   int             `json:"category_id"`
 	CityID       int             `json:"city_id"`
 	Title        string          `json:"title"`
@@ -52,7 +52,7 @@ func (h *AdHandler) Create(c *gin.Context) {
 	defer closePictures(pics)
 
 	ad, err := h.ads.Create(c.Request.Context(), service.CreateAdInput{
-		UserID:       req.UserID,
+		CustomerID:       req.CustomerID,
 		CategoryID:   req.CategoryID,
 		CityID:       req.CityID,
 		Title:        req.Title,
@@ -80,15 +80,15 @@ func (h *AdHandler) MediaStatus(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"pictures_upload": h.ads.PicturesUploadAvailable(c.Request.Context())})
 }
 
-// ListByUser handles GET /api/v1/self/:userId/ads
-func (h *AdHandler) ListByUser(c *gin.Context) {
-	userID, err := parseUserID(c.Param("userId"))
+// ListByCustomer handles GET /api/v1/self/:customerId/ads
+func (h *AdHandler) ListByCustomer(c *gin.Context) {
+	customerID, err := parseCustomerID(c.Param("customerId"))
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
 	}
 
-	items, err := h.ads.ListByUser(c.Request.Context(), userID)
+	items, err := h.ads.ListByCustomer(c.Request.Context(), customerID)
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
@@ -96,15 +96,15 @@ func (h *AdHandler) ListByUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"ads": items})
 }
 
-// ListStats handles GET /api/v1/self/:userId/ad-stats
+// ListStats handles GET /api/v1/self/:customerId/ad-stats
 func (h *AdHandler) ListStats(c *gin.Context) {
-	userID, err := parseUserID(c.Param("userId"))
+	customerID, err := parseCustomerID(c.Param("customerId"))
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
 	}
 
-	result, err := h.ads.ListStats(c.Request.Context(), userID, c.Query("from"), c.Query("to"))
+	result, err := h.ads.ListStats(c.Request.Context(), customerID, c.Query("from"), c.Query("to"))
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
@@ -142,14 +142,14 @@ func (h *AdHandler) GetPublicContact(c *gin.Context) {
 	c.JSON(http.StatusOK, contact)
 }
 
-// GetForOwner handles GET /api/v1/self/:userId/ads/:adId
+// GetForOwner handles GET /api/v1/self/:customerId/ads/:adId
 func (h *AdHandler) GetForOwner(c *gin.Context) {
-	userID, adID, err := parseOwnerIDs(c)
+	customerID, adID, err := parseOwnerIDs(c)
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
 	}
-	ad, err := h.ads.GetForOwner(c.Request.Context(), userID, adID)
+	ad, err := h.ads.GetForOwner(c.Request.Context(), customerID, adID)
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
@@ -157,9 +157,9 @@ func (h *AdHandler) GetForOwner(c *gin.Context) {
 	c.JSON(http.StatusOK, ad)
 }
 
-// Update handles PUT /api/v1/self/:userId/ads/:adId
+// Update handles PUT /api/v1/self/:customerId/ads/:adId
 func (h *AdHandler) Update(c *gin.Context) {
-	userID, adID, err := parseOwnerIDs(c)
+	customerID, adID, err := parseOwnerIDs(c)
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
@@ -173,7 +173,7 @@ func (h *AdHandler) Update(c *gin.Context) {
 	defer closePictures(pics)
 
 	ad, err := h.ads.Update(c.Request.Context(), adID, service.CreateAdInput{
-		UserID:       userID,
+		CustomerID:       customerID,
 		CategoryID:   req.CategoryID,
 		CityID:       req.CityID,
 		Title:        req.Title,
@@ -197,7 +197,7 @@ func (h *AdHandler) Update(c *gin.Context) {
 }
 
 func parseOwnerIDs(c *gin.Context) (int64, int64, error) {
-	userID, err := parseUserID(c.Param("userId"))
+	customerID, err := parseCustomerID(c.Param("customerId"))
 	if err != nil {
 		return 0, 0, err
 	}
@@ -205,7 +205,7 @@ func parseOwnerIDs(c *gin.Context) (int64, int64, error) {
 	if err != nil {
 		return 0, 0, err
 	}
-	return userID, adID, nil
+	return customerID, adID, nil
 }
 
 func parseAdID(raw string) (int64, error) {
@@ -216,10 +216,10 @@ func parseAdID(raw string) (int64, error) {
 	return id, nil
 }
 
-func parseUserID(raw string) (int64, error) {
+func parseCustomerID(raw string) (int64, error) {
 	id, err := strconv.ParseInt(raw, 10, 64)
 	if err != nil || id <= 0 {
-		return 0, exception.NewAppError(errorcode.ErrAdInvalidUser.Code, errorcode.ErrAdInvalidUser.HttpStatus, raw)
+		return 0, exception.NewAppError(errorcode.ErrAdInvalidCustomer.Code, errorcode.ErrAdInvalidCustomer.HttpStatus, raw)
 	}
 	return id, nil
 }

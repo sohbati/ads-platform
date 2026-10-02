@@ -17,18 +17,18 @@ func TestUpdateResidentialSaleAttrs(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	_, ad, _, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(userID, map[string]any{
+	customerID := insertCustomer(t, ctx)
+	_, ad, _, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(customerID, map[string]any{
 		"area_m2": 80, "rooms": 1, "orientation": "north", "bathrooms": 1,
 	}))
 	if err != nil {
 		t.Fatalf("create: %v", err)
 	}
 
-	payload := residentialSalePayload(userID, map[string]any{
+	payload := residentialSalePayload(customerID, map[string]any{
 		"area_m2": 95, "rooms": 2, "orientation": "south", "bathrooms": 2, "facade": "glass",
 	})
-	status, updated, errResp, err := adsapi.PutJSON(ctx, backURL, userID, ad.ID, payload)
+	status, updated, errResp, err := adsapi.PutJSON(ctx, backURL, customerID, ad.ID, payload)
 	if err != nil {
 		t.Fatalf("update: %v", err)
 	}
@@ -54,18 +54,18 @@ func TestUpdateResidentialSaleRejectsInvalidEnum(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	_, ad, _, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(userID, map[string]any{
+	customerID := insertCustomer(t, ctx)
+	_, ad, _, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(customerID, map[string]any{
 		"area_m2": 80, "rooms": 1, "deed_type": "single",
 	}))
 	if err != nil {
 		t.Fatalf("create: %v", err)
 	}
 
-	payload := residentialSalePayload(userID, map[string]any{
+	payload := residentialSalePayload(customerID, map[string]any{
 		"area_m2": 80, "rooms": 1, "deed_type": "not-a-deed",
 	})
-	status, _, errResp, err := adsapi.PutJSON(ctx, backURL, userID, ad.ID, payload)
+	status, _, errResp, err := adsapi.PutJSON(ctx, backURL, customerID, ad.ID, payload)
 	if err != nil {
 		t.Fatalf("update: %v", err)
 	}
@@ -88,12 +88,12 @@ func TestUpdateResidentialSaleRejectsInvalidEnum(t *testing.T) {
 	}
 }
 
-func TestUpdateResidentialSaleOtherUser(t *testing.T) {
+func TestUpdateResidentialSaleOtherCustomer(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	ownerID := insertUser(t, ctx)
-	otherID := insertUser(t, ctx)
+	ownerID := insertCustomer(t, ctx)
+	otherID := insertCustomer(t, ctx)
 	_, ad, _, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(ownerID, nil))
 	if err != nil {
 		t.Fatalf("create: %v", err)

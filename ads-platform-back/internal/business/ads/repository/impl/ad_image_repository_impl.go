@@ -33,9 +33,9 @@ func (r *adImageRepository) Update(ctx context.Context, image *model.AdImage) er
 	return r.db.WithContext(ctx).Save(image).Error
 }
 
-func (r *adImageRepository) NextObjectSeq(ctx context.Context, userID int64) (int64, error) {
+func (r *adImageRepository) NextObjectSeq(ctx context.Context, customerID int64) (int64, error) {
 	var n int64
-	err := r.db.WithContext(ctx).Model(&model.AdImage{}).Where("user_id = ?", userID).Count(&n).Error
+	err := r.db.WithContext(ctx).Model(&model.AdImage{}).Where("customer_id = ?", customerID).Count(&n).Error
 	if err != nil {
 		return 0, err
 	}

@@ -19,8 +19,8 @@ func TestGetPublicResidentialSaleReturnsAttrs(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	_, ad, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(userID, fullResidentialAttrs()))
+	customerID := insertCustomer(t, ctx)
+	_, ad, errResp, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(customerID, fullResidentialAttrs()))
 	if err != nil {
 		t.Fatalf("create: %v", err)
 	}
@@ -58,8 +58,8 @@ func TestGetPublicInactiveResidentialSaleNotFound(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	_, ad, _, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(userID, nil))
+	customerID := insertCustomer(t, ctx)
+	_, ad, _, err := adsapi.PostJSON(ctx, backURL, residentialSalePayload(customerID, nil))
 	if err != nil {
 		t.Fatalf("create: %v", err)
 	}
@@ -86,8 +86,8 @@ func TestSearchResidentialSaleCategory(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	payload := residentialSalePayload(userID, map[string]any{"area_m2": 95, "rooms": 2})
+	customerID := insertCustomer(t, ctx)
+	payload := residentialSalePayload(customerID, map[string]any{"area_m2": 95, "rooms": 2})
 	token := fmtToken()
 	payload["title"] = "IT-RS-" + token
 	_, ad, errResp, err := adsapi.PostJSON(ctx, backURL, payload)

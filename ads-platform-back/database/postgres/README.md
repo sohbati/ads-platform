@@ -6,7 +6,7 @@ This directory contains the PostgreSQL schema files for the ads platform service
 
 ### `0_init.sql`
 - Database initialization script
-- Creates database and user
+- Creates database and login role
 - Sets up permissions and schema privileges
 - **Must be run as postgres superuser**
  

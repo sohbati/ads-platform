@@ -117,8 +117,8 @@ func ListRoleActions(ctx context.Context, backURL string, roleID int64) (int, []
 	return ListNamed(ctx, backURL, panelRoot+"/roles/"+strconv.FormatInt(roleID, 10)+"/actions")
 }
 
-func PostUserRole(ctx context.Context, backURL string, userID, roleID int64) (int, []Named, ErrorResponse, error) {
-	path := backURL + panelRoot + "/users/" + strconv.FormatInt(userID, 10) + "/roles/" + strconv.FormatInt(roleID, 10)
+func PostStaffRole(ctx context.Context, backURL string, staffID, roleID int64) (int, []Named, ErrorResponse, error) {
+	path := backURL + panelRoot + "/staff/" + strconv.FormatInt(staffID, 10) + "/roles/" + strconv.FormatInt(roleID, 10)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, path, nil)
 	if err != nil {
 		return 0, nil, ErrorResponse{}, err
@@ -131,25 +131,25 @@ func PostUserRole(ctx context.Context, backURL string, userID, roleID int64) (in
 	return status, items, failure, err
 }
 
-func DeleteUserRole(ctx context.Context, backURL string, userID, roleID int64) (int, ErrorResponse, error) {
-	path := panelRoot + "/users/" + strconv.FormatInt(userID, 10) + "/roles/" + strconv.FormatInt(roleID, 10)
+func DeleteStaffRole(ctx context.Context, backURL string, staffID, roleID int64) (int, ErrorResponse, error) {
+	path := panelRoot + "/staff/" + strconv.FormatInt(staffID, 10) + "/roles/" + strconv.FormatInt(roleID, 10)
 	return Delete(ctx, backURL, path)
 }
 
-func ListUserRoles(ctx context.Context, backURL string, userID int64) (int, []Named, ErrorResponse, error) {
-	return ListNamed(ctx, backURL, panelRoot+"/users/"+strconv.FormatInt(userID, 10)+"/roles")
+func ListStaffRoles(ctx context.Context, backURL string, staffID int64) (int, []Named, ErrorResponse, error) {
+	return ListNamed(ctx, backURL, panelRoot+"/staff/"+strconv.FormatInt(staffID, 10)+"/roles")
 }
 
-func ListUserActions(ctx context.Context, backURL string, userID int64) (int, []Named, ErrorResponse, error) {
-	return ListNamed(ctx, backURL, panelRoot+"/users/"+strconv.FormatInt(userID, 10)+"/actions")
+func ListStaffActions(ctx context.Context, backURL string, staffID int64) (int, []Named, ErrorResponse, error) {
+	return ListNamed(ctx, backURL, panelRoot+"/staff/"+strconv.FormatInt(staffID, 10)+"/actions")
 }
 
-func ListUserGroups(ctx context.Context, backURL string, userID int64) (int, []Named, ErrorResponse, error) {
-	return ListNamed(ctx, backURL, panelRoot+"/users/"+strconv.FormatInt(userID, 10)+"/groups")
+func ListStaffGroups(ctx context.Context, backURL string, staffID int64) (int, []Named, ErrorResponse, error) {
+	return ListNamed(ctx, backURL, panelRoot+"/staff/"+strconv.FormatInt(staffID, 10)+"/groups")
 }
 
-func PostGroupUser(ctx context.Context, backURL string, groupID, userID int64) (int, ErrorResponse, error) {
-	path := backURL + panelRoot + "/user-groups/" + strconv.FormatInt(groupID, 10) + "/users/" + strconv.FormatInt(userID, 10)
+func PostGroupStaff(ctx context.Context, backURL string, groupID, staffID int64) (int, ErrorResponse, error) {
+	path := backURL + panelRoot + "/staff-groups/" + strconv.FormatInt(groupID, 10) + "/staff/" + strconv.FormatInt(staffID, 10)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, path, nil)
 	if err != nil {
 		return 0, ErrorResponse{}, err
@@ -158,19 +158,19 @@ func PostGroupUser(ctx context.Context, backURL string, groupID, userID int64) (
 	return status, failure, err
 }
 
-func ListGroupUsers(ctx context.Context, backURL string, groupID int64) (int, []int64, ErrorResponse, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, backURL+panelRoot+"/user-groups/"+strconv.FormatInt(groupID, 10)+"/users", nil)
+func ListGroupStaff(ctx context.Context, backURL string, groupID int64) (int, []int64, ErrorResponse, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, backURL+panelRoot+"/staff-groups/"+strconv.FormatInt(groupID, 10)+"/staff", nil)
 	if err != nil {
 		return 0, nil, ErrorResponse{}, err
 	}
 	var body struct {
-		UserIDs []int64 `json:"user_ids"`
+		StaffIDs []int64 `json:"staff_ids"`
 	}
 	status, failure, err := doJSON(req, http.StatusOK, &body)
-	if body.UserIDs == nil {
-		body.UserIDs = []int64{}
+	if body.StaffIDs == nil {
+		body.StaffIDs = []int64{}
 	}
-	return status, body.UserIDs, failure, err
+	return status, body.StaffIDs, failure, err
 }
 
 func newJSONRequest(ctx context.Context, method, url string, payload any) (*http.Request, error) {

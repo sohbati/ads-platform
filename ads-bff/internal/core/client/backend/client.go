@@ -45,7 +45,7 @@ type ErrorResponse struct {
 	StatusCode int    `json:"statusCode"`
 }
 
-type User struct {
+type Customer struct {
 	ID         int64  `json:"id"`
 	Name       string `json:"name"`
 	Mobile     string `json:"mobile"`
@@ -79,8 +79,8 @@ func (c *Client) VerifyOTP(ctx context.Context, mobile, otp string) (*VerifyOtpR
 	return &resp, status, respBody, nil
 }
 
-func (c *Client) GetUserByMobile(ctx context.Context, mobile string) (*User, int, []byte, error) {
-	url := fmt.Sprintf("%s/api/v1/users/mobile/%s", c.baseURL, mobile)
+func (c *Client) GetCustomerByMobile(ctx context.Context, mobile string) (*Customer, int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/customers/mobile/%s", c.baseURL, mobile)
 	status, respBody, err := c.get(ctx, url)
 	if err != nil {
 		return nil, status, respBody, err
@@ -89,15 +89,15 @@ func (c *Client) GetUserByMobile(ctx context.Context, mobile string) (*User, int
 		return nil, status, respBody, nil
 	}
 
-	var user User
-	if err := json.Unmarshal(respBody, &user); err != nil {
-		return nil, status, respBody, fmt.Errorf("parse user response: %w", err)
+	var customer Customer
+	if err := json.Unmarshal(respBody, &customer); err != nil {
+		return nil, status, respBody, fmt.Errorf("parse customer response: %w", err)
 	}
-	return &user, status, respBody, nil
+	return &customer, status, respBody, nil
 }
 
-func (c *Client) RegisterUserByMobile(ctx context.Context, mobile string) (*User, int, []byte, error) {
-	url := fmt.Sprintf("%s/api/v1/users/register-by-mobile/%s", c.baseURL, mobile)
+func (c *Client) RegisterCustomerByMobile(ctx context.Context, mobile string) (*Customer, int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/customers/register-by-mobile/%s", c.baseURL, mobile)
 	status, respBody, err := c.post(ctx, url, nil)
 	if err != nil {
 		return nil, status, respBody, err
@@ -106,11 +106,11 @@ func (c *Client) RegisterUserByMobile(ctx context.Context, mobile string) (*User
 		return nil, status, respBody, nil
 	}
 
-	var user User
-	if err := json.Unmarshal(respBody, &user); err != nil {
+	var customer Customer
+	if err := json.Unmarshal(respBody, &customer); err != nil {
 		return nil, status, respBody, fmt.Errorf("parse register response: %w", err)
 	}
-	return &user, status, respBody, nil
+	return &customer, status, respBody, nil
 }
 
 func (c *Client) GetAdContact(ctx context.Context, adID int64) (int, []byte, error) {
@@ -118,18 +118,18 @@ func (c *Client) GetAdContact(ctx context.Context, adID int64) (int, []byte, err
 	return c.get(ctx, url)
 }
 
-func (c *Client) GetUserProfile(ctx context.Context, userID int64) (int, []byte, error) {
-	url := fmt.Sprintf("%s/api/v1/self/%d/profile", c.baseURL, userID)
+func (c *Client) GetCustomerProfile(ctx context.Context, customerID int64) (int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/self/%d/profile", c.baseURL, customerID)
 	return c.get(ctx, url)
 }
 
-func (c *Client) GetUserAds(ctx context.Context, userID int64) (int, []byte, error) {
-	url := fmt.Sprintf("%s/api/v1/self/%d/ads", c.baseURL, userID)
+func (c *Client) GetCustomerAds(ctx context.Context, customerID int64) (int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/self/%d/ads", c.baseURL, customerID)
 	return c.get(ctx, url)
 }
 
-func (c *Client) GetUserAdStats(ctx context.Context, userID int64, from, to string) (int, []byte, error) {
-	u, err := url.Parse(fmt.Sprintf("%s/api/v1/self/%d/ad-stats", c.baseURL, userID))
+func (c *Client) GetCustomerAdStats(ctx context.Context, customerID int64, from, to string) (int, []byte, error) {
+	u, err := url.Parse(fmt.Sprintf("%s/api/v1/self/%d/ad-stats", c.baseURL, customerID))
 	if err != nil {
 		return 0, nil, err
 	}
@@ -144,13 +144,13 @@ func (c *Client) GetUserAdStats(ctx context.Context, userID int64, from, to stri
 	return c.get(ctx, u.String())
 }
 
-func (c *Client) GetUserAd(ctx context.Context, userID, adID int64) (int, []byte, error) {
-	url := fmt.Sprintf("%s/api/v1/self/%d/ads/%d", c.baseURL, userID, adID)
+func (c *Client) GetCustomerAd(ctx context.Context, customerID, adID int64) (int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/self/%d/ads/%d", c.baseURL, customerID, adID)
 	return c.get(ctx, url)
 }
 
-func (c *Client) UpdateUserAd(ctx context.Context, userID, adID int64, body []byte, contentType string) (int, []byte, error) {
-	url := fmt.Sprintf("%s/api/v1/self/%d/ads/%d", c.baseURL, userID, adID)
+func (c *Client) UpdateCustomerAd(ctx context.Context, customerID, adID int64, body []byte, contentType string) (int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/self/%d/ads/%d", c.baseURL, customerID, adID)
 	reader := bytes.NewReader(body)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPut, url, reader)
 	if err != nil {
@@ -174,8 +174,8 @@ func (c *Client) UpdateUserAd(ctx context.Context, userID, adID int64, body []by
 	return resp.StatusCode, data, nil
 }
 
-func (c *Client) PutUserProfile(ctx context.Context, userID int64, body []byte) (int, []byte, error) {
-	url := fmt.Sprintf("%s/api/v1/self/%d/profile", c.baseURL, userID)
+func (c *Client) PutCustomerProfile(ctx context.Context, customerID int64, body []byte) (int, []byte, error) {
+	url := fmt.Sprintf("%s/api/v1/self/%d/profile", c.baseURL, customerID)
 	return c.put(ctx, url, body)
 }
 

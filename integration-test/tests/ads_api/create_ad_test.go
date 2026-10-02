@@ -24,7 +24,7 @@ const (
 	tehranCityID     = 1
 )
 
-func insertUser(t *testing.T, ctx context.Context) int64 {
+func insertCustomer(t *testing.T, ctx context.Context) int64 {
 	t.Helper()
 	conn, err := pgx.Connect(ctx, pgHostDSN)
 	if err != nil {
@@ -35,19 +35,19 @@ func insertUser(t *testing.T, ctx context.Context) int64 {
 	suffix := fmt.Sprintf("%d", time.Now().UnixNano())
 	var id int64
 	err = conn.QueryRow(ctx, `
-		INSERT INTO ads_platform_schema."user" (name, mobile, national_id)
+		INSERT INTO ads_platform_schema.customer (name, mobile, national_id)
 		VALUES ($1, $2, $3)
 		RETURNING id
 	`, "Seller "+suffix, "09"+suffix[len(suffix)-9:], suffix).Scan(&id)
 	if err != nil {
-		t.Fatalf("insert user: %v", err)
+		t.Fatalf("insert customer: %v", err)
 	}
 	return id
 }
 
-func validPayload(userID int64) map[string]any {
+func validPayload(customerID int64) map[string]any {
 	return map[string]any{
-		"user_id":      userID,
+		"customer_id":      customerID,
 		"category_id":  leafCategoryID,
 		"city_id":      tehranCityID,
 		"title":        "Used laptop",
@@ -67,15 +67,15 @@ func TestCreateAdJSON(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	status, ad, errResp, err := adsapi.PostJSON(ctx, backURL, validPayload(userID))
+	customerID := insertCustomer(t, ctx)
+	status, ad, errResp, err := adsapi.PostJSON(ctx, backURL, validPayload(customerID))
 	if err != nil {
 		t.Fatalf("request: %v", err)
 	}
 	if status != http.StatusCreated {
 		t.Fatalf("status=%d error=%+v", status, errResp)
 	}
-	if ad.ID <= 0 || ad.UserID != userID {
+	if ad.ID <= 0 || ad.CustomerID != customerID {
 		t.Fatalf("ad identity: %+v", ad)
 	}
 	if ad.Status != "active" {
@@ -102,8 +102,8 @@ func TestCreateAdWithPicturesUploadsToMinio(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	status, ad, errResp, err := adsapi.PostMultipart(ctx, backURL, validPayload(userID), map[string][]byte{
+	customerID := insertCustomer(t, ctx)
+	status, ad, errResp, err := adsapi.PostMultipart(ctx, backURL, validPayload(customerID), map[string][]byte{
 		"cover.jpg": adsapi.JPEG1x1,
 	})
 	if err != nil {
@@ -121,8 +121,8 @@ func TestCreateAdWithPicturesUploadsToMinio(t *testing.T) {
 		t.Fatalf("expected 1 media item, got %d (%s)", len(items), ad.Media)
 	}
 	item := items[0]
-	wantKey := fmt.Sprintf("ads/%d/%d_1.webp", userID, userID)
-	wantThumb := fmt.Sprintf("ads/%d/%d_1-t.webp", userID, userID)
+	wantKey := fmt.Sprintf("ads/%d/%d_1.webp", customerID, customerID)
+	wantThumb := fmt.Sprintf("ads/%d/%d_1-t.webp", customerID, customerID)
 	if item.ObjectKey != wantKey || item.URL != "/ads-media/"+wantKey || item.Thumb != "/ads-media/"+wantThumb || !item.IsCover || item.ContentType != "image/webp" {
 		t.Fatalf("media item: %+v", item)
 	}
@@ -176,8 +176,8 @@ func TestCreateAdRejectsParentCategory(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	payload := validPayload(userID)
+	customerID := insertCustomer(t, ctx)
+	payload := validPayload(customerID)
 	payload["category_id"] = parentCategoryID
 
 	status, _, errResp, err := adsapi.PostJSON(ctx, backURL, payload)
@@ -193,8 +193,8 @@ func TestCreateAdTooManyPictures(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	userID := insertUser(t, ctx)
-	status, _, errResp, err := adsapi.PostMultipart(ctx, backURL, validPayload(userID), map[string][]byte{
+	customerID := insertCustomer(t, ctx)
+	status, _, errResp, err := adsapi.PostMultipart(ctx, backURL, validPayload(customerID), map[string][]byte{
 		"a.jpg": adsapi.JPEG1x1,
 		"b.jpg": adsapi.JPEG1x1,
 		"c.jpg": adsapi.JPEG1x1,
@@ -210,7 +210,7 @@ func TestCreateAdTooManyPictures(t *testing.T) {
 func TestCreateAdValidationErrors(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
-	userID := insertUser(t, ctx)
+	customerID := insertCustomer(t, ctx)
 
 	cases := []struct {
 		name     string
@@ -224,7 +224,7 @@ func TestCreateAdValidationErrors(t *testing.T) {
 
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			payload := validPayload(userID)
+			payload := validPayload(customerID)
 			tc.mutate(payload)
 			status, _, errResp, err := adsapi.PostJSON(ctx, backURL, payload)
 			if err != nil {

@@ -70,8 +70,8 @@ func (r *Router) SetupRoutes() *gin.Engine {
 	router.GET("/login", r.container.Auth.PageHandler.Login)
 
 	router.GET("/my-info", r.container.MyInfo.PageHandler.Index)
-	router.GET("/my-info/user-details", r.container.MyInfo.PageHandler.UserDetails)
-	router.GET("/my-info/user-ads", r.container.MyInfo.PageHandler.UserAds)
+	router.GET("/my-info/customer-details", r.container.MyInfo.PageHandler.CustomerDetails)
+	router.GET("/my-info/customer-ads", r.container.MyInfo.PageHandler.CustomerAds)
 	router.GET("/my-info/marked-ads", r.container.MyInfo.PageHandler.MarkedAds)
 	router.GET("/my-info/setting", r.container.MyInfo.PageHandler.Setting)
 

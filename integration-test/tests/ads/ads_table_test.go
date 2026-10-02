@@ -43,14 +43,14 @@ func TestAdsTableInsertAndJSONBQuery(t *testing.T) {
 	}
 	defer conn.Close(ctx)
 
-	var userID int64
+	var customerID int64
 	err = conn.QueryRow(ctx, `
-		INSERT INTO ads_platform_schema."user" (name, mobile, national_id)
+		INSERT INTO ads_platform_schema.customer (name, mobile, national_id)
 		VALUES ($1, $2, $3)
 		RETURNING id
-	`, "Test Seller", "09120000000", "0012345678").Scan(&userID)
+	`, "Test Seller", "09120000000", "0012345678").Scan(&customerID)
 	if err != nil {
-		t.Fatalf("insert user: %v", err)
+		t.Fatalf("insert customer: %v", err)
 	}
 
 	attrs := map[string]any{
@@ -73,7 +73,7 @@ func TestAdsTableInsertAndJSONBQuery(t *testing.T) {
 	var adID int64
 	err = conn.QueryRow(ctx, `
 		INSERT INTO ads_platform_schema.ads (
-			user_id, category_id, city_id, title, description, status,
+			customer_id, category_id, city_id, title, description, status,
 			price_amount, price_type, currency, attrs, media, contact, location, slug
 		) VALUES (
 			$1, $2, $3, $4, $5, $6,
@@ -81,7 +81,7 @@ func TestAdsTableInsertAndJSONBQuery(t *testing.T) {
 		)
 		RETURNING id
 	`,
-		userID, 2, 1, "Peugeot 206", "Clean car, one owner", "active",
+		customerID, 2, 1, "Peugeot 206", "Clean car, one owner", "active",
 		450000000, "fixed", "IRR", attrsJSON, mediaJSON, contactJSON, locationJSON, "peugeot-206",
 	).Scan(&adID)
 	if err != nil {

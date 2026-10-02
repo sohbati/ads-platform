@@ -40,7 +40,7 @@ func (s *statsService) Apply(ctx context.Context, ev model.Event) error {
 	if !ok {
 		return nil
 	}
-	if ev.SessionUserID != nil && *ev.SessionUserID == ownerID {
+	if ev.SessionCustomerID != nil && *ev.SessionCustomerID == ownerID {
 		return nil
 	}
 

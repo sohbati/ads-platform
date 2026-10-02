@@ -13,7 +13,7 @@ const (
 // AdImage maps to ads_platform_schema.ad_images
 type AdImage struct {
 	ID               int64      `json:"id" gorm:"primaryKey;autoIncrement"`
-	UserID           int64      `json:"user_id" gorm:"not null"`
+	CustomerID           int64      `json:"customer_id" gorm:"not null"`
 	AdID             *int64     `json:"ad_id"`
 	ObjectKey        string     `json:"object_key" gorm:"type:varchar(255);not null;unique"`
 	OriginalFilename string     `json:"original_filename" gorm:"type:varchar(255);not null"`

@@ -32,7 +32,7 @@ func TestApplyDropsOwnerViews(t *testing.T) {
 	uid := int64(7)
 	err := svc.Apply(context.Background(), model.Event{
 		AdID: 55, Event: model.EventView, ViewerID: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-		SessionUserID: &uid, OccurredAt: time.Now(),
+		SessionCustomerID: &uid, OccurredAt: time.Now(),
 	})
 	if err != nil {
 		t.Fatal(err)

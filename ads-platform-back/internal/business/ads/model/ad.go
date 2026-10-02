@@ -8,7 +8,7 @@ import (
 // Ad maps to ads_platform_schema.ads
 type Ad struct {
 	ID          int64           `json:"id" gorm:"primaryKey;autoIncrement"`
-	UserID      int64           `json:"user_id" gorm:"not null"`
+	CustomerID      int64           `json:"customer_id" gorm:"not null"`
 	CategoryID  int             `json:"category_id" gorm:"not null"`
 	CityID      int             `json:"city_id" gorm:"not null"`
 	Title       string          `json:"title" gorm:"type:varchar(120);not null"`
@@ -43,8 +43,8 @@ func (Ad) TableName() string {
 	return "ads"
 }
 
-// UserAdItem is a list-card projection of an ad owned by the current user.
-type UserAdItem struct {
+// CustomerAdItem is a list-card projection of an ad owned by the current customer.
+type CustomerAdItem struct {
 	ID           int64   `json:"id"`
 	Title        string  `json:"title"`
 	PriceAmount  *int64  `json:"price_amount"`
@@ -96,7 +96,7 @@ type AdStatsItem struct {
 	Calls          int   `json:"calls"`
 }
 
-// AdStatsResponse is GET /api/v1/self/:userId/ad-stats.
+// AdStatsResponse is GET /api/v1/self/:customerId/ad-stats.
 type AdStatsResponse struct {
 	From string        `json:"from"`
 	To   string        `json:"to"`

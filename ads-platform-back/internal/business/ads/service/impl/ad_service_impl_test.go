@@ -29,7 +29,7 @@ type fakeAdRepo struct {
 }
 
 type fakeStatRow struct {
-	userID int64
+	customerID int64
 	day    time.Time
 	item   model.AdStatsItem
 }
@@ -72,10 +72,10 @@ func (f *fakeAdRepo) UpdateMedia(_ context.Context, id int64, media json.RawMess
 	return nil
 }
 
-func (f *fakeAdRepo) ListByUserID(_ context.Context, userID int64, limit int) ([]model.Ad, error) {
+func (f *fakeAdRepo) ListByCustomerID(_ context.Context, customerID int64, limit int) ([]model.Ad, error) {
 	out := make([]model.Ad, 0)
 	for _, ad := range f.ads {
-		if ad.UserID != userID || ad.Status == model.AdStatusDeleted {
+		if ad.CustomerID != customerID || ad.Status == model.AdStatusDeleted {
 			continue
 		}
 		out = append(out, ad)
@@ -86,10 +86,10 @@ func (f *fakeAdRepo) ListByUserID(_ context.Context, userID int64, limit int) ([
 	return out, nil
 }
 
-func (f *fakeAdRepo) ListStats(_ context.Context, userID int64, from, to time.Time) ([]model.AdStatsItem, error) {
+func (f *fakeAdRepo) ListStats(_ context.Context, customerID int64, from, to time.Time) ([]model.AdStatsItem, error) {
 	out := make([]model.AdStatsItem, 0)
 	for _, row := range f.stats {
-		if row.userID != userID {
+		if row.customerID != customerID {
 			continue
 		}
 		if row.day.Before(from) || row.day.After(to) {
@@ -123,10 +123,10 @@ func (f *fakeImageRepo) Update(context.Context, *model.AdImage) error {
 	return errors.New("unused")
 }
 
-func (f *fakeImageRepo) NextObjectSeq(_ context.Context, userID int64) (int64, error) {
+func (f *fakeImageRepo) NextObjectSeq(_ context.Context, customerID int64) (int64, error) {
 	var n int64
 	for i := range f.rows {
-		if f.rows[i].UserID == userID {
+		if f.rows[i].CustomerID == customerID {
 			n++
 		}
 	}
@@ -212,7 +212,7 @@ func validInput() service.CreateAdInput {
 	lat, lng := 35.6892, 51.3890
 	price := int64(1_500_000)
 	return service.CreateAdInput{
-		UserID:       7,
+		CustomerID:       7,
 		CategoryID:   13,
 		CityID:       1,
 		Title:        "Two-bedroom apartment",
@@ -299,7 +299,7 @@ func TestCreateAdHappyPath(t *testing.T) {
 	}
 }
 
-func TestCreateAdPictureKeysFollowUserSequence(t *testing.T) {
+func TestCreateAdPictureKeysFollowCustomerSequence(t *testing.T) {
 	ads := newFakeAdRepo()
 	images := &fakeImageRepo{}
 	store := &fakeStorage{}
@@ -319,10 +319,10 @@ func TestCreateAdPictureKeysFollowUserSequence(t *testing.T) {
 	}
 
 	other := validInput()
-	other.UserID = 99
+	other.CustomerID = 99
 	other.Pictures = []service.PictureInput{jpegPic("d.jpg")}
 	if _, err := svc.Create(context.Background(), other); err != nil {
-		t.Fatalf("other user: %v", err)
+		t.Fatalf("other customer: %v", err)
 	}
 
 	want := []string{
@@ -370,7 +370,7 @@ func TestCreateAdValidation(t *testing.T) {
 		mutate   func(*service.CreateAdInput)
 		wantCode string
 	}{
-		{"missing user", func(in *service.CreateAdInput) { in.UserID = 0 }, "AD_INVALID_USER"},
+		{"missing customer", func(in *service.CreateAdInput) { in.CustomerID = 0 }, "AD_INVALID_CUSTOMER"},
 		{"empty title", func(in *service.CreateAdInput) { in.Title = "  " }, "AD_INVALID_TITLE"},
 		{"empty description", func(in *service.CreateAdInput) { in.Description = "" }, "AD_INVALID_DESCRIPTION"},
 		{"lat without lng", func(in *service.CreateAdInput) { in.Longitude = nil }, "AD_INVALID_LOCATION"},
@@ -475,7 +475,7 @@ func TestUpdateRejectsNewPicturesWhenStorageUnavailable(t *testing.T) {
 	assertAppErrorCode(t, err, "AD_STORAGE_UNAVAILABLE")
 }
 
-func TestListByUserReturnsOnlyOwnerAds(t *testing.T) {
+func TestListByCustomerReturnsOnlyOwnerAds(t *testing.T) {
 	ads := newFakeAdRepo()
 	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
 
@@ -484,7 +484,7 @@ func TestListByUserReturnsOnlyOwnerAds(t *testing.T) {
 		t.Fatal(err)
 	}
 	other := validInput()
-	other.UserID = 99
+	other.CustomerID = 99
 	if _, err := svc.Create(context.Background(), other); err != nil {
 		t.Fatal(err)
 	}
@@ -499,7 +499,7 @@ func TestListByUserReturnsOnlyOwnerAds(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	items, err := svc.ListByUser(context.Background(), 7)
+	items, err := svc.ListByCustomer(context.Background(), 7)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -511,10 +511,10 @@ func TestListByUserReturnsOnlyOwnerAds(t *testing.T) {
 	}
 }
 
-func TestListByUserRejectsInvalidUser(t *testing.T) {
+func TestListByCustomerRejectsInvalidCustomer(t *testing.T) {
 	svc := NewAdService(newFakeAdRepo(), &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
-	_, err := svc.ListByUser(context.Background(), 0)
-	assertAppErrorCode(t, err, "AD_INVALID_USER")
+	_, err := svc.ListByCustomer(context.Background(), 0)
+	assertAppErrorCode(t, err, "AD_INVALID_CUSTOMER")
 }
 
 func TestCreateAdPreservesMultilineDescription(t *testing.T) {
@@ -752,7 +752,7 @@ func TestUpdateIgnoresKeepMediaFromOtherAd(t *testing.T) {
 	}
 }
 
-func TestUpdateAdRejectsOtherUser(t *testing.T) {
+func TestUpdateAdRejectsOtherCustomer(t *testing.T) {
 	ads := newFakeAdRepo()
 	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
 	ad, err := svc.Create(context.Background(), validInput())
@@ -760,7 +760,7 @@ func TestUpdateAdRejectsOtherUser(t *testing.T) {
 		t.Fatal(err)
 	}
 	in := validInput()
-	in.UserID = 99
+	in.CustomerID = 99
 	in.Title = "Hack"
 	_, err = svc.Update(context.Background(), ad.ID, in)
 	assertAppErrorCode(t, err, "AD_NOT_FOUND")
@@ -770,8 +770,8 @@ func TestListStatsDefaultsRangeAndFiltersOwner(t *testing.T) {
 	ads := newFakeAdRepo()
 	day := time.Date(2026, 8, 15, 0, 0, 0, 0, time.UTC)
 	ads.stats = []fakeStatRow{
-		{userID: 1, day: day, item: model.AdStatsItem{AdID: 9, Views: 4, UniqueViewers: 2, Calls: 1}},
-		{userID: 2, day: day, item: model.AdStatsItem{AdID: 8, Views: 99}},
+		{customerID: 1, day: day, item: model.AdStatsItem{AdID: 9, Views: 4, UniqueViewers: 2, Calls: 1}},
+		{customerID: 2, day: day, item: model.AdStatsItem{AdID: 8, Views: 99}},
 	}
 	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
 

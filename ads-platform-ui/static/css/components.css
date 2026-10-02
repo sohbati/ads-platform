@@ -609,16 +609,16 @@
   background: var(--color-danger-soft);
 }
 
-.user-ads {
+.customer-ads {
   padding: var(--space-2xl) 0;
 }
 
-.user-ads .search-results__empty,
-.user-ads .ad-grid {
+.customer-ads .search-results__empty,
+.customer-ads .ad-grid {
   margin-top: var(--space-xl);
 }
 
-.user-ads__empty-cta {
+.customer-ads__empty-cta {
   display: inline-block;
   margin-top: var(--space-md);
   font-weight: 600;
@@ -1007,7 +1007,7 @@ body.location-modal-open .login-modal__backdrop {
   pointer-events: none;
 }
 
-.user-details {
+.customer-details {
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: var(--space-sm) var(--space-md);

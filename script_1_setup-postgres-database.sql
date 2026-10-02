@@ -5,7 +5,7 @@ CREATE SCHEMA ads_platform_schema AUTHORIZATION ads_platform_user;
 SET search_path TO ads_platform_schema;
 
 
-CREATE TABLE ads_platform_schema."user" (
+CREATE TABLE ads_platform_schema.customer (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     mobile VARCHAR(100) NOT NULL UNIQUE,
@@ -14,18 +14,29 @@ CREATE TABLE ads_platform_schema."user" (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-COMMENT ON TABLE ads_platform_schema."user" IS 'کاربران ثبت‌نام‌شدهٔ پلتفرم آگهی';
-COMMENT ON COLUMN ads_platform_schema."user".id IS 'شناسه یکتای کاربر';
-COMMENT ON COLUMN ads_platform_schema."user".name IS 'نام نمایشی کاربر';
-COMMENT ON COLUMN ads_platform_schema."user".mobile IS 'شماره موبایل کاربر (یکتا؛ برای ورود و احراز هویت)';
-COMMENT ON COLUMN ads_platform_schema."user".national_id IS 'کد ملی کاربر (یکتا)';
-COMMENT ON COLUMN ads_platform_schema."user".created_at IS 'زمان ایجاد رکورد کاربر';
-COMMENT ON COLUMN ads_platform_schema."user".updated_at IS 'زمان آخرین به‌روزرسانی رکورد کاربر';
+COMMENT ON TABLE ads_platform_schema.customer IS 'ناشران آگهی (ورود OTP و مالکیت آگهی)';
+COMMENT ON COLUMN ads_platform_schema.customer.id IS 'شناسه یکتای مشتری';
+COMMENT ON COLUMN ads_platform_schema.customer.name IS 'نام نمایشی مشتری';
+COMMENT ON COLUMN ads_platform_schema.customer.mobile IS 'شماره موبایل مشتری (یکتا؛ برای ورود و احراز هویت)';
+COMMENT ON COLUMN ads_platform_schema.customer.national_id IS 'کد ملی مشتری (یکتا)';
+COMMENT ON COLUMN ads_platform_schema.customer.created_at IS 'زمان ایجاد رکورد مشتری';
+COMMENT ON COLUMN ads_platform_schema.customer.updated_at IS 'زمان آخرین به‌روزرسانی رکورد مشتری';
+
+CREATE TABLE ads_platform_schema.staff (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    mobile VARCHAR(100) NOT NULL UNIQUE,
+    national_id VARCHAR(100) NOT NULL UNIQUE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+COMMENT ON TABLE ads_platform_schema.staff IS 'کارکنان پنل CRM؛ دسترسی فقط از طریق نقش';
 
 -- فیلدهای اصلی فیلترپذیر به‌صورت ستون؛ ویژگی‌های وابسته به دسته‌بندی در JSONB
 CREATE TABLE ads_platform_schema.ads (
     id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES ads_platform_schema."user"(id),
+    customer_id BIGINT NOT NULL REFERENCES ads_platform_schema.customer(id),
     category_id INTEGER NOT NULL,
     city_id INTEGER NOT NULL,
     title VARCHAR(120) NOT NULL,
@@ -47,7 +58,7 @@ CREATE TABLE ads_platform_schema.ads (
 
 COMMENT ON TABLE ads_platform_schema.ads IS 'آگهی‌های ثبت‌شده در پلتفرم (منبع اصلی داده؛ جستجوی پیشرفته می‌تواند در Elastic هم ایندکس شود)';
 COMMENT ON COLUMN ads_platform_schema.ads.id IS 'شناسه یکتای آگهی';
-COMMENT ON COLUMN ads_platform_schema.ads.user_id IS 'شناسه فروشنده / ثبت‌کننده آگهی (ارجاع به جدول user)';
+COMMENT ON COLUMN ads_platform_schema.ads.customer_id IS 'شناسه ناشر آگهی (ارجاع به جدول customer)';
 COMMENT ON COLUMN ads_platform_schema.ads.category_id IS 'شناسه دسته‌بندی برگ (مثلاً فروش مسکونی، خودرو)';
 COMMENT ON COLUMN ads_platform_schema.ads.city_id IS 'شناسه شهر محل آگهی';
 COMMENT ON COLUMN ads_platform_schema.ads.title IS 'عنوان کوتاه آگهی برای نمایش در لیست و جزئیات';
@@ -66,7 +77,7 @@ COMMENT ON COLUMN ads_platform_schema.ads.expires_at IS 'زمان انقضای �
 COMMENT ON COLUMN ads_platform_schema.ads.created_at IS 'زمان ایجاد رکورد آگهی';
 COMMENT ON COLUMN ads_platform_schema.ads.updated_at IS 'زمان آخرین به‌روزرسانی رکورد آگهی';
 
-CREATE INDEX ads_user_id_idx ON ads_platform_schema.ads (user_id);
+CREATE INDEX ads_customer_id_idx ON ads_platform_schema.ads (customer_id);
 CREATE INDEX ads_category_id_idx ON ads_platform_schema.ads (category_id);
 CREATE INDEX ads_city_status_idx ON ads_platform_schema.ads (city_id, status);
 CREATE INDEX ads_price_idx ON ads_platform_schema.ads (price_amount) WHERE status = 'active';

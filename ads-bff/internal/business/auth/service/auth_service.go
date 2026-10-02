@@ -17,7 +17,7 @@ import (
 type AuthService interface {
 	SendOTP(ctx context.Context, mobile string) (int, []byte, error)
 	LoginWithOTP(ctx context.Context, mobile, otp string) (*model.LoginResponse, string, int, []byte, error)
-	GetCurrentUser(ctx context.Context, sessionID string) (*model.SessionUser, error)
+	GetCurrentCustomer(ctx context.Context, sessionID string) (*model.SessionCustomer, error)
 	Logout(ctx context.Context, sessionID string) error
 }
 
@@ -47,31 +47,31 @@ func (s *authService) LoginWithOTP(ctx context.Context, mobile, otp string) (*mo
 		return nil, "", http.StatusUnauthorized, body, nil
 	}
 
-	user, userStatus, userBody, err := s.backend.GetUserByMobile(ctx, mobile)
+	customer, customerStatus, customerBody, err := s.backend.GetCustomerByMobile(ctx, mobile)
 	if err != nil {
 		return nil, "", http.StatusBadGateway, nil, err
 	}
-	if userStatus == http.StatusNotFound {
-		user, userStatus, userBody, err = s.backend.RegisterUserByMobile(ctx, mobile)
+	if customerStatus == http.StatusNotFound {
+		customer, customerStatus, customerBody, err = s.backend.RegisterCustomerByMobile(ctx, mobile)
 		if err != nil {
 			return nil, "", http.StatusBadGateway, nil, err
 		}
 	}
-	if userStatus != http.StatusOK {
-		return nil, "", userStatus, userBody, nil
+	if customerStatus != http.StatusOK {
+		return nil, "", customerStatus, customerBody, nil
 	}
-	if user == nil {
-		return nil, "", http.StatusBadGateway, nil, fmt.Errorf("user missing after register")
-	}
-
-	sessionUser := model.SessionUser{
-		ID:         user.ID,
-		Name:       user.Name,
-		Mobile:     user.Mobile,
-		NationalId: user.NationalId,
+	if customer == nil {
+		return nil, "", http.StatusBadGateway, nil, fmt.Errorf("customer missing after register")
 	}
 
-	sessionData, err := json.Marshal(sessionUser)
+	sessionCustomer := model.SessionCustomer{
+		ID:         customer.ID,
+		Name:       customer.Name,
+		Mobile:     customer.Mobile,
+		NationalId: customer.NationalId,
+	}
+
+	sessionData, err := json.Marshal(sessionCustomer)
 	if err != nil {
 		return nil, "", http.StatusInternalServerError, nil, err
 	}
@@ -84,11 +84,11 @@ func (s *authService) LoginWithOTP(ctx context.Context, mobile, otp string) (*mo
 
 	return &model.LoginResponse{
 		Authenticated: true,
-		User:          sessionUser,
+		Customer:      sessionCustomer,
 	}, sessionID, http.StatusOK, nil, nil
 }
 
-func (s *authService) GetCurrentUser(ctx context.Context, sessionID string) (*model.SessionUser, error) {
+func (s *authService) GetCurrentCustomer(ctx context.Context, sessionID string) (*model.SessionCustomer, error) {
 	if sessionID == "" {
 		return nil, cacheclient.ErrSessionNotFound
 	}
@@ -98,11 +98,11 @@ func (s *authService) GetCurrentUser(ctx context.Context, sessionID string) (*mo
 		return nil, err
 	}
 
-	var user model.SessionUser
-	if err := json.Unmarshal([]byte(data), &user); err != nil {
-		return nil, fmt.Errorf("parse session user: %w", err)
+	var customer model.SessionCustomer
+	if err := json.Unmarshal([]byte(data), &customer); err != nil {
+		return nil, fmt.Errorf("parse session customer: %w", err)
 	}
-	return &user, nil
+	return &customer, nil
 }
 
 func (s *authService) Logout(ctx context.Context, sessionID string) error {

@@ -10,7 +10,7 @@
     categories: [],
     schemas: [],
     enums: {},
-    successHref: "/my-info/user-ads",
+    successHref: "/my-info/customer-ads",
     picturesUnavailable: false,
   };
   try {
@@ -43,7 +43,7 @@
   let pinLng = null;
   let adMap = null;
   let adMarker = null;
-  let userEditedNeighborhood = false;
+  let customerEditedNeighborhood = false;
   let reverseTimer = 0;
   let publishWithoutPhotos = false;
 
@@ -415,7 +415,7 @@
         return;
       }
 
-      window.location.assign(boot.successHref || "/my-info/user-ads");
+      window.location.assign(boot.successHref || "/my-info/customer-ads");
     } catch (_err) {
       setMessage(resolveError("NETWORK_ERROR", [], ""), true);
     } finally {
@@ -442,7 +442,7 @@
           boot.citySlug = city.slug;
           boot.cityName = city.name;
           if (cityNameEl) cityNameEl.textContent = city.name;
-          userEditedNeighborhood = false;
+          customerEditedNeighborhood = false;
           const neighborhoodEl = document.getElementById("new-ad-neighborhood");
           if (neighborhoodEl) neighborhoodEl.value = "";
           centerMapOnCity(true);
@@ -501,7 +501,7 @@
     const neighborhoodEl = document.getElementById("new-ad-neighborhood");
     if (neighborhoodEl) {
       neighborhoodEl.addEventListener("input", function () {
-        userEditedNeighborhood = true;
+        customerEditedNeighborhood = true;
       });
     }
     window.setTimeout(function () {
@@ -581,7 +581,7 @@
           if (!data) return;
           const neighborhoodEl = document.getElementById("new-ad-neighborhood");
           if (!neighborhoodEl) return;
-          if (userEditedNeighborhood && neighborhoodEl.value.trim()) return;
+          if (customerEditedNeighborhood && neighborhoodEl.value.trim()) return;
           if (data.neighborhood) neighborhoodEl.value = data.neighborhood;
         })
         .catch(function () {});

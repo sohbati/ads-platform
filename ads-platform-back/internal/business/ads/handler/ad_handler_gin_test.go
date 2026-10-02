@@ -22,7 +22,7 @@ type fakeAdService struct {
 	got              service.CreateAdInput
 	ad               *model.Ad
 	err              error
-	list             []model.UserAdItem
+	list             []model.CustomerAdItem
 	listErr          error
 	listID           int64
 	gotID            int64
@@ -64,8 +64,8 @@ func (f *fakeAdService) GetPublicContact(_ context.Context, adID int64) (*model.
 	return &model.PublicContact{Phone: "09121110001"}, nil
 }
 
-func (f *fakeAdService) GetForOwner(_ context.Context, userID, adID int64) (*model.Ad, error) {
-	f.gotUID = userID
+func (f *fakeAdService) GetForOwner(_ context.Context, customerID, adID int64) (*model.Ad, error) {
+	f.gotUID = customerID
 	f.gotID = adID
 	return f.ad, f.err
 }
@@ -83,13 +83,13 @@ func (f *fakeAdService) Update(_ context.Context, adID int64, in service.CreateA
 	return f.ad, f.err
 }
 
-func (f *fakeAdService) ListByUser(_ context.Context, userID int64) ([]model.UserAdItem, error) {
-	f.listID = userID
+func (f *fakeAdService) ListByCustomer(_ context.Context, customerID int64) ([]model.CustomerAdItem, error) {
+	f.listID = customerID
 	return f.list, f.listErr
 }
 
-func (f *fakeAdService) ListStats(_ context.Context, userID int64, from, to string) (*model.AdStatsResponse, error) {
-	f.listID = userID
+func (f *fakeAdService) ListStats(_ context.Context, customerID int64, from, to string) (*model.AdStatsResponse, error) {
+	f.listID = customerID
 	f.statsFrom, f.statsTo = from, to
 	if f.err != nil {
 		return nil, f.err
@@ -113,10 +113,10 @@ func testRouter(h *AdHandler) *gin.Engine {
 	r.POST("/api/v1/self/ads", h.Create)
 	r.GET("/api/v1/ads/:id", h.GetPublic)
 	r.GET("/api/v1/ads/:id/contact", h.GetPublicContact)
-	r.GET("/api/v1/self/:userId/ads", h.ListByUser)
-	r.GET("/api/v1/self/:userId/ad-stats", h.ListStats)
-	r.GET("/api/v1/self/:userId/ads/:adId", h.GetForOwner)
-	r.PUT("/api/v1/self/:userId/ads/:adId", h.Update)
+	r.GET("/api/v1/self/:customerId/ads", h.ListByCustomer)
+	r.GET("/api/v1/self/:customerId/ad-stats", h.ListStats)
+	r.GET("/api/v1/self/:customerId/ads/:adId", h.GetForOwner)
+	r.PUT("/api/v1/self/:customerId/ads/:adId", h.Update)
 	return r
 }
 
@@ -125,7 +125,7 @@ func TestCreateAdJSONHandler(t *testing.T) {
 	r := testRouter(NewAdHandler(fake))
 
 	body := []byte(`{
-		"user_id":1,"category_id":16,"city_id":1,
+		"customer_id":1,"category_id":16,"city_id":1,
 		"title":"Used laptop","description":"line1\nline2",
 		"latitude":35.6,"longitude":51.4,
 		"attrs":{"brand":"lenovo"}
@@ -138,7 +138,7 @@ func TestCreateAdJSONHandler(t *testing.T) {
 	if rec.Code != http.StatusCreated {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
-	if fake.got.UserID != 1 || fake.got.CategoryID != 16 || fake.got.Title != "Used laptop" {
+	if fake.got.CustomerID != 1 || fake.got.CategoryID != 16 || fake.got.Title != "Used laptop" {
 		t.Fatalf("input: %+v", fake.got)
 	}
 	if fake.got.Description != "line1\nline2" {
@@ -160,7 +160,7 @@ func TestCreateAdMultipartHandler(t *testing.T) {
 	r := testRouter(NewAdHandler(fake))
 
 	payload, _ := json.Marshal(map[string]any{
-		"user_id": 7, "category_id": 16, "city_id": 1,
+		"customer_id": 7, "category_id": 16, "city_id": 1,
 		"title": "x", "description": "y",
 	})
 	var buf bytes.Buffer
@@ -181,8 +181,8 @@ func TestCreateAdMultipartHandler(t *testing.T) {
 	if rec.Code != http.StatusCreated {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
-	if fake.got.UserID != 7 {
-		t.Fatalf("user_id=%d", fake.got.UserID)
+	if fake.got.CustomerID != 7 {
+		t.Fatalf("customer_id=%d", fake.got.CustomerID)
 	}
 	if len(fake.got.Pictures) != 1 || fake.got.Pictures[0].Filename != "cover.jpg" {
 		t.Fatalf("pictures: %+v", fake.got.Pictures)
@@ -196,7 +196,7 @@ func TestCreateAdHandlerServiceError(t *testing.T) {
 	fake := &fakeAdService{err: exception.NewAppError("AD_INVALID_TITLE", http.StatusBadRequest)}
 	r := testRouter(NewAdHandler(fake))
 
-	req := httptest.NewRequest(http.MethodPost, "/api/v1/self/ads", bytes.NewReader([]byte(`{"user_id":1,"title":"x"}`)))
+	req := httptest.NewRequest(http.MethodPost, "/api/v1/self/ads", bytes.NewReader([]byte(`{"customer_id":1,"title":"x"}`)))
 	req.Header.Set("Content-Type", "application/json")
 	rec := httptest.NewRecorder()
 	r.ServeHTTP(rec, req)
@@ -209,8 +209,8 @@ func TestCreateAdHandlerServiceError(t *testing.T) {
 	}
 }
 
-func TestListByUserHandler(t *testing.T) {
-	fake := &fakeAdService{list: []model.UserAdItem{{ID: 3, Title: "Mine"}}}
+func TestListByCustomerHandler(t *testing.T) {
+	fake := &fakeAdService{list: []model.CustomerAdItem{{ID: 3, Title: "Mine"}}}
 	r := testRouter(NewAdHandler(fake))
 
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/self/42/ads", nil)
@@ -221,14 +221,14 @@ func TestListByUserHandler(t *testing.T) {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
 	if fake.listID != 42 {
-		t.Fatalf("userID=%d", fake.listID)
+		t.Fatalf("customerID=%d", fake.listID)
 	}
 	if !bytes.Contains(rec.Body.Bytes(), []byte(`"Mine"`)) {
 		t.Fatalf("body=%s", rec.Body.String())
 	}
 }
 
-func TestListByUserHandlerInvalidID(t *testing.T) {
+func TestListByCustomerHandlerInvalidID(t *testing.T) {
 	r := testRouter(NewAdHandler(&fakeAdService{}))
 
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/self/abc/ads", nil)
@@ -252,7 +252,7 @@ func TestListStatsHandler(t *testing.T) {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
 	if fake.listID != 42 || fake.statsFrom != "2026-08-01" || fake.statsTo != "2026-08-31" {
-		t.Fatalf("user=%d from=%s to=%s", fake.listID, fake.statsFrom, fake.statsTo)
+		t.Fatalf("customer=%d from=%s to=%s", fake.listID, fake.statsFrom, fake.statsTo)
 	}
 	if !bytes.Contains(rec.Body.Bytes(), []byte(`"ad_id":9`)) {
 		t.Fatalf("body=%s", rec.Body.String())
@@ -309,15 +309,15 @@ func TestGetForOwnerHandler(t *testing.T) {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
 	if fake.gotUID != 42 || fake.gotID != 9 {
-		t.Fatalf("ids user=%d ad=%d", fake.gotUID, fake.gotID)
+		t.Fatalf("ids customer=%d ad=%d", fake.gotUID, fake.gotID)
 	}
 }
 
-func TestUpdateHandlerUsesPathUser(t *testing.T) {
+func TestUpdateHandlerUsesPathCustomer(t *testing.T) {
 	fake := &fakeAdService{ad: &model.Ad{ID: 9, Title: "Updated"}}
 	r := testRouter(NewAdHandler(fake))
 
-	body := []byte(`{"user_id":99,"category_id":13,"city_id":1,"title":"Updated","description":"ok"}`)
+	body := []byte(`{"customer_id":99,"category_id":13,"city_id":1,"title":"Updated","description":"ok"}`)
 	req := httptest.NewRequest(http.MethodPut, "/api/v1/self/42/ads/9", bytes.NewReader(body))
 	req.Header.Set("Content-Type", "application/json")
 	rec := httptest.NewRecorder()
@@ -326,7 +326,7 @@ func TestUpdateHandlerUsesPathUser(t *testing.T) {
 	if rec.Code != http.StatusOK {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
-	if fake.got.UserID != 42 || fake.gotID != 9 || fake.got.Title != "Updated" {
+	if fake.got.CustomerID != 42 || fake.gotID != 9 || fake.got.Title != "Updated" {
 		t.Fatalf("input: %+v id=%d", fake.got, fake.gotID)
 	}
 }

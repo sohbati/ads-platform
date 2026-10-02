@@ -86,7 +86,7 @@ func (h *AuthHandler) Me(c *gin.Context) {
 		return
 	}
 
-	user, err := h.service.GetCurrentUser(c.Request.Context(), sessionID)
+	customer, err := h.service.GetCurrentCustomer(c.Request.Context(), sessionID)
 	if err != nil {
 		if cacheclient.IsSessionNotFound(err) {
 			h.clearSessionCookie(c)
@@ -97,7 +97,7 @@ func (h *AuthHandler) Me(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, model.MeResponse{Authenticated: true, User: user})
+	c.JSON(http.StatusOK, model.MeResponse{Authenticated: true, Customer: customer})
 }
 
 func (h *AuthHandler) Logout(c *gin.Context) {

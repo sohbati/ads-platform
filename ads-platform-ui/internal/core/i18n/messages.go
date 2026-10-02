@@ -30,8 +30,8 @@ type NavMessages struct {
 	MyInfo      string `json:"my_info"`
 	NewAd       string `json:"new_ad"`
 	Category    string `json:"category"`
-	UserDetails string `json:"user_details"`
-	UserAds     string `json:"user_ads"`
+	CustomerDetails string `json:"customer_details"`
+	CustomerAds     string `json:"customer_ads"`
 	MarkedAds   string `json:"marked_ads"`
 	Setting     string `json:"setting"`
 	Login       string `json:"login"`
@@ -62,7 +62,7 @@ type AuthMessages struct {
 	OtpSent           string `json:"otp_sent"`
 	ResendOtp         string `json:"resend_otp"`
 	ResendWait        string `json:"resend_wait"`
-	WelcomeUser       string `json:"welcome_user"`
+	WelcomeCustomer   string `json:"welcome_customer"`
 }
 
 type SectionMessages struct {

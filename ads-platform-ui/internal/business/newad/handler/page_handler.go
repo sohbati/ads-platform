@@ -32,7 +32,7 @@ func NewPageHandler(cfg *config.Config, reg *i18n.Registry, catalog *cities.Cata
 }
 
 func (h *PageHandler) Index(c *gin.Context) {
-	if _, ok := h.currentUser(c); !ok {
+	if _, ok := h.currentCustomer(c); !ok {
 		target := "/query-ads?login=1&next=" + url.QueryEscape("/new-ad")
 		c.Redirect(http.StatusFound, target)
 		return
@@ -68,7 +68,7 @@ func (h *PageHandler) Index(c *gin.Context) {
 		CitySlug:          pageData.CitySlug,
 		CityName:          i18n.CityDisplayName(h.i18n, h.cities, loc, pageData.CitySlug),
 		MaxPictures:       maxAdPictures,
-		SuccessHref:       "/my-info/user-ads",
+		SuccessHref:       "/my-info/customer-ads",
 		TitlePlaceholder:  t.NewAd.TitlePlaceholder,
 		TitlePlaceholders: t.NewAd.TitlePlaceholders,
 		Categories:        categories,
@@ -82,12 +82,12 @@ func (h *PageHandler) Index(c *gin.Context) {
 func (h *PageHandler) Edit(c *gin.Context) {
 	adID, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil || adID <= 0 {
-		c.Redirect(http.StatusFound, "/my-info/user-ads")
+		c.Redirect(http.StatusFound, "/my-info/customer-ads")
 		return
 	}
 
 	editPath := "/edit-ad/" + strconv.FormatInt(adID, 10)
-	if _, ok := h.currentUser(c); !ok {
+	if _, ok := h.currentCustomer(c); !ok {
 		target := "/query-ads?login=1&next=" + url.QueryEscape(editPath)
 		c.Redirect(http.StatusFound, target)
 		return
@@ -155,7 +155,7 @@ func (h *PageHandler) Edit(c *gin.Context) {
 		CitySlug:          citySlug,
 		CityName:          cityName,
 		MaxPictures:       maxAdPictures,
-		SuccessHref:       "/my-info/user-ads",
+		SuccessHref:       "/my-info/customer-ads",
 		TitlePlaceholder:  t.NewAd.TitlePlaceholder,
 		TitlePlaceholders: t.NewAd.TitlePlaceholders,
 		Prefill:           adToPrefill(ad, h.config.MediaCDNURL),
@@ -266,25 +266,25 @@ func mediaFromJSON(raw json.RawMessage, mediaCDN string) []viewmodel.PrefillMedi
 	return out
 }
 
-func (h *PageHandler) currentUser(c *gin.Context) (*sessionUser, bool) {
+func (h *PageHandler) currentCustomer(c *gin.Context) (*sessionCustomer, bool) {
 	result, err := h.bff.Get(c.Request.Context(), "/api/v1/auth/me", bff.RequestCookies(c.Request))
 	if err != nil || result.StatusCode != http.StatusOK {
 		return nil, false
 	}
 
 	var resp meResponse
-	if err := json.Unmarshal(result.Body, &resp); err != nil || !resp.Authenticated || resp.User == nil {
+	if err := json.Unmarshal(result.Body, &resp); err != nil || !resp.Authenticated || resp.Customer == nil {
 		return nil, false
 	}
-	return resp.User, true
+	return resp.Customer, true
 }
 
 type meResponse struct {
-	Authenticated bool         `json:"authenticated"`
-	User          *sessionUser `json:"user"`
+	Authenticated bool             `json:"authenticated"`
+	Customer      *sessionCustomer `json:"customer"`
 }
 
-type sessionUser struct {
+type sessionCustomer struct {
 	ID     int64  `json:"id"`
 	Name   string `json:"name"`
 	Mobile string `json:"mobile"`

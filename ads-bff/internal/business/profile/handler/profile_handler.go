@@ -27,13 +27,13 @@ func NewProfileHandler(cfg *config.Config, auth service.AuthService, backend *ba
 }
 
 func (h *ProfileHandler) Get(c *gin.Context) {
-	userID, err := h.sessionUserID(c)
+	customerID, err := h.sessionCustomerID(c)
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
 	}
 
-	status, body, err := h.backend.GetUserProfile(c.Request.Context(), userID)
+	status, body, err := h.backend.GetCustomerProfile(c.Request.Context(), customerID)
 	if err != nil {
 		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE", "statusCode": http.StatusBadGateway})
 		return
@@ -42,7 +42,7 @@ func (h *ProfileHandler) Get(c *gin.Context) {
 }
 
 func (h *ProfileHandler) Put(c *gin.Context) {
-	userID, err := h.sessionUserID(c)
+	customerID, err := h.sessionCustomerID(c)
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return
@@ -54,7 +54,7 @@ func (h *ProfileHandler) Put(c *gin.Context) {
 		return
 	}
 
-	status, body, err := h.backend.PutUserProfile(c.Request.Context(), userID, raw)
+	status, body, err := h.backend.PutCustomerProfile(c.Request.Context(), customerID, raw)
 	if err != nil {
 		c.JSON(http.StatusBadGateway, gin.H{"error": "BACKEND_UNAVAILABLE", "statusCode": http.StatusBadGateway})
 		return
@@ -62,21 +62,21 @@ func (h *ProfileHandler) Put(c *gin.Context) {
 	c.Data(status, "application/json", body)
 }
 
-func (h *ProfileHandler) sessionUserID(c *gin.Context) (int64, error) {
+func (h *ProfileHandler) sessionCustomerID(c *gin.Context) (int64, error) {
 	sessionID, err := c.Cookie(h.cfg.SessionCookieName)
 	if err != nil || sessionID == "" {
 		return 0, exception.NewAppError("AUTH_REQUIRED", http.StatusUnauthorized)
 	}
 
-	user, err := h.auth.GetCurrentUser(c.Request.Context(), sessionID)
+	customer, err := h.auth.GetCurrentCustomer(c.Request.Context(), sessionID)
 	if err != nil {
 		if cacheclient.IsSessionNotFound(err) {
 			return 0, exception.NewAppError("AUTH_REQUIRED", http.StatusUnauthorized)
 		}
 		return 0, exception.NewAppError("SESSION_LOOKUP_FAILED", http.StatusBadGateway).WithCause(err)
 	}
-	if user == nil || user.ID <= 0 {
+	if customer == nil || customer.ID <= 0 {
 		return 0, exception.NewAppError("AUTH_REQUIRED", http.StatusUnauthorized)
 	}
-	return user.ID, nil
+	return customer.ID, nil
 }

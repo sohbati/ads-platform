@@ -30,21 +30,21 @@ func NewPageHandler(cfg *config.Config, reg *i18n.Registry, catalog *cities.Cata
 	return &PageHandler{config: cfg, i18n: reg, cities: catalog, bff: client}
 }
 
-func (h *PageHandler) currentUser(c *gin.Context) (*sessionUser, bool) {
+func (h *PageHandler) currentCustomer(c *gin.Context) (*sessionCustomer, bool) {
 	result, err := h.bff.Get(c.Request.Context(), "/api/v1/auth/me", bff.RequestCookies(c.Request))
 	if err != nil || result.StatusCode != http.StatusOK {
 		return nil, false
 	}
 
 	var resp meResponse
-	if err := json.Unmarshal(result.Body, &resp); err != nil || !resp.Authenticated || resp.User == nil {
+	if err := json.Unmarshal(result.Body, &resp); err != nil || !resp.Authenticated || resp.Customer == nil {
 		return nil, false
 	}
-	return resp.User, true
+	return resp.Customer, true
 }
 
 func (h *PageHandler) protectedPage(c *gin.Context, heading string) (i18n.Page, bool) {
-	user, ok := h.currentUser(c)
+	customer, ok := h.currentCustomer(c)
 	if !ok {
 		target := "/query-ads?login=1&next=" + url.QueryEscape(c.Request.URL.Path)
 		c.Redirect(http.StatusFound, target)
@@ -56,8 +56,8 @@ func (h *PageHandler) protectedPage(c *gin.Context, heading string) (i18n.Page, 
 	pageData.Title = h.config.AppName + " — " + heading
 	pageData.Heading = heading
 	pageData.IsAuthenticated = true
-	pageData.SessionUserName = user.Name
-	pageData.SessionUserMobile = user.Mobile
+	pageData.SessionCustomerName = customer.Name
+	pageData.SessionCustomerMobile = customer.Mobile
 	return pageData, true
 }
 
@@ -73,37 +73,37 @@ func (h *PageHandler) Index(c *gin.Context) {
 	h.renderProtected(c, "myinfo", h.i18n.MessagesFor(i18n.FromContext(c)).Nav.MyInfo)
 }
 
-func (h *PageHandler) UserDetails(c *gin.Context) {
-	h.renderProtected(c, "myinfo_user_details", h.i18n.MessagesFor(i18n.FromContext(c)).Nav.UserDetails)
+func (h *PageHandler) CustomerDetails(c *gin.Context) {
+	h.renderProtected(c, "myinfo_customer_details", h.i18n.MessagesFor(i18n.FromContext(c)).Nav.CustomerDetails)
 }
 
-func (h *PageHandler) UserAds(c *gin.Context) {
+func (h *PageHandler) CustomerAds(c *gin.Context) {
 	t := h.i18n.MessagesFor(i18n.FromContext(c))
-	pageData, ok := h.protectedPage(c, t.Nav.UserAds)
+	pageData, ok := h.protectedPage(c, t.Nav.CustomerAds)
 	if !ok {
 		return
 	}
 
-	ads, unavailable := h.fetchUserAds(c, t)
-	c.HTML(http.StatusOK, "myinfo_user_ads", viewmodel.UserAdsPage{
+	ads, unavailable := h.fetchCustomerAds(c, t)
+	c.HTML(http.StatusOK, "myinfo_customer_ads", viewmodel.CustomerAdsPage{
 		Page:        pageData,
 		Ads:         ads,
 		Unavailable: unavailable,
 	})
 }
 
-func (h *PageHandler) fetchUserAds(c *gin.Context, t i18n.Messages) ([]queryadsvm.SearchAd, bool) {
+func (h *PageHandler) fetchCustomerAds(c *gin.Context, t i18n.Messages) ([]queryadsvm.SearchAd, bool) {
 	result, err := h.bff.Get(c.Request.Context(), "/api/v1/me/ads", bff.RequestCookies(c.Request))
 	if err != nil || result.StatusCode != http.StatusOK {
 		return nil, true
 	}
 
-	var resp userAdsResponse
+	var resp customerAdsResponse
 	if err := json.Unmarshal(result.Body, &resp); err != nil {
 		return nil, true
 	}
 
-	statsByID := h.fetchUserAdStats(c)
+	statsByID := h.fetchCustomerAdStats(c)
 	out := make([]queryadsvm.SearchAd, 0, len(resp.Ads))
 	for _, ad := range resp.Ads {
 		item := toSearchAd(ad, t, h.config.MediaCDNURL)
@@ -116,12 +116,12 @@ func (h *PageHandler) fetchUserAds(c *gin.Context, t i18n.Messages) ([]queryadsv
 	return out, false
 }
 
-func (h *PageHandler) fetchUserAdStats(c *gin.Context) map[int64]adStatsJSON {
+func (h *PageHandler) fetchCustomerAdStats(c *gin.Context) map[int64]adStatsJSON {
 	result, err := h.bff.Get(c.Request.Context(), "/api/v1/me/ads/stats", bff.RequestCookies(c.Request))
 	if err != nil || result.StatusCode != http.StatusOK {
 		return nil
 	}
-	var resp userAdsStatsResponse
+	var resp customerAdsStatsResponse
 	if err := json.Unmarshal(result.Body, &resp); err != nil {
 		return nil
 	}
@@ -132,7 +132,7 @@ func (h *PageHandler) fetchUserAdStats(c *gin.Context) map[int64]adStatsJSON {
 	return out
 }
 
-func toSearchAd(ad userAdJSON, t i18n.Messages, mediaCDN string) queryadsvm.SearchAd {
+func toSearchAd(ad customerAdJSON, t i18n.Messages, mediaCDN string) queryadsvm.SearchAd {
 	out := queryadsvm.SearchAd{
 		ID:        ad.ID,
 		Title:     ad.Title,
@@ -192,10 +192,10 @@ func (h *PageHandler) Setting(c *gin.Context) {
 	pageData.DefaultCountryCode = h.config.DefaultCountryCode
 	pageData.Title = h.config.AppName + " — " + t.Appearance.Title
 	pageData.Heading = t.Appearance.Title
-	if user, ok := h.currentUser(c); ok {
+	if customer, ok := h.currentCustomer(c); ok {
 		pageData.IsAuthenticated = true
-		pageData.SessionUserName = user.Name
-		pageData.SessionUserMobile = user.Mobile
+		pageData.SessionCustomerName = customer.Name
+		pageData.SessionCustomerMobile = customer.Mobile
 	}
 	c.HTML(http.StatusOK, "myinfo_setting", viewmodel.SettingPage{
 		Page:   pageData,
@@ -204,22 +204,22 @@ func (h *PageHandler) Setting(c *gin.Context) {
 }
 
 type meResponse struct {
-	Authenticated bool         `json:"authenticated"`
-	User          *sessionUser `json:"user"`
+	Authenticated bool              `json:"authenticated"`
+	Customer      *sessionCustomer  `json:"customer"`
 }
 
-type sessionUser struct {
+type sessionCustomer struct {
 	ID         int64  `json:"id"`
 	Name       string `json:"name"`
 	Mobile     string `json:"mobile"`
 	NationalId string `json:"national_id"`
 }
 
-type userAdsResponse struct {
-	Ads []userAdJSON `json:"ads"`
+type customerAdsResponse struct {
+	Ads []customerAdJSON `json:"ads"`
 }
 
-type userAdsStatsResponse struct {
+type customerAdsStatsResponse struct {
 	Ads []adStatsJSON `json:"ads"`
 }
 
@@ -229,7 +229,7 @@ type adStatsJSON struct {
 	Calls int   `json:"calls"`
 }
 
-type userAdJSON struct {
+type customerAdJSON struct {
 	ID           int64   `json:"id"`
 	Title        string  `json:"title"`
 	PriceAmount  *int64  `json:"price_amount"`

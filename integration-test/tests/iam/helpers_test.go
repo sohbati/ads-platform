@@ -17,7 +17,7 @@ func uniqueCode(prefix string) string {
 	return fmt.Sprintf("%s-%d", prefix, time.Now().UnixNano())
 }
 
-func insertUser(t *testing.T, ctx context.Context) int64 {
+func insertStaff(t *testing.T, ctx context.Context) int64 {
 	t.Helper()
 	conn, err := pgx.Connect(ctx, pgHostDSN)
 	if err != nil {
@@ -28,12 +28,12 @@ func insertUser(t *testing.T, ctx context.Context) int64 {
 	suffix := fmt.Sprintf("%d", time.Now().UnixNano())
 	var id int64
 	err = conn.QueryRow(ctx, `
-		INSERT INTO ads_platform_schema."user" (name, mobile, national_id)
+		INSERT INTO ads_platform_schema.staff (name, mobile, national_id)
 		VALUES ($1, $2, $3)
 		RETURNING id
 	`, "Staff "+suffix, "09"+suffix[len(suffix)-9:], suffix).Scan(&id)
 	if err != nil {
-		t.Fatalf("insert user: %v", err)
+		t.Fatalf("insert staff: %v", err)
 	}
 	return id
 }

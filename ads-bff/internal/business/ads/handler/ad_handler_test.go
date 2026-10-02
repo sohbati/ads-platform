@@ -20,7 +20,7 @@ import (
 )
 
 type fakeAuth struct {
-	user *model.SessionUser
+	customer *model.SessionCustomer
 	err  error
 }
 
@@ -30,8 +30,8 @@ func (f *fakeAuth) SendOTP(context.Context, string) (int, []byte, error) {
 func (f *fakeAuth) LoginWithOTP(context.Context, string, string) (*model.LoginResponse, string, int, []byte, error) {
 	return nil, "", 0, nil, nil
 }
-func (f *fakeAuth) GetCurrentUser(context.Context, string) (*model.SessionUser, error) {
-	return f.user, f.err
+func (f *fakeAuth) GetCurrentCustomer(context.Context, string) (*model.SessionCustomer, error) {
+	return f.customer, f.err
 }
 func (f *fakeAuth) Logout(context.Context, string) error { return nil }
 
@@ -79,21 +79,21 @@ func TestCreateAdRequiresAuth(t *testing.T) {
 	}
 }
 
-func TestCreateAdJSONInjectsSessionUserID(t *testing.T) {
+func TestCreateAdJSONInjectsSessionCustomerID(t *testing.T) {
 	var got map[string]any
-	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
+	h := newHandler(t, &fakeAuth{customer: &model.SessionCustomer{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
 		body, _ := io.ReadAll(r.Body)
 		if err := json.Unmarshal(body, &got); err != nil {
 			t.Errorf("backend body: %v", err)
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
-		_, _ = w.Write([]byte(`{"id":9,"user_id":42}`))
+		_, _ = w.Write([]byte(`{"id":9,"customer_id":42}`))
 	})
 	r := testAdsRouter(h)
 
 	req := httptest.NewRequest(http.MethodPost, "/api/v1/ads", bytes.NewReader([]byte(`{
-		"user_id":99,"category_id":16,"city_id":1,"title":"Used laptop","description":"ok"
+		"customer_id":99,"category_id":16,"city_id":1,"title":"Used laptop","description":"ok"
 	}`)))
 	req.Header.Set("Content-Type", "application/json")
 	withSession(req)
@@ -103,18 +103,18 @@ func TestCreateAdJSONInjectsSessionUserID(t *testing.T) {
 	if rec.Code != http.StatusCreated {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
-	if got["user_id"] != float64(42) {
-		t.Fatalf("backend user_id=%v, want 42 (not client 99)", got["user_id"])
+	if got["customer_id"] != float64(42) {
+		t.Fatalf("backend customer_id=%v, want 42 (not client 99)", got["customer_id"])
 	}
 	if got["title"] != "Used laptop" || got["category_id"] != float64(16) {
 		t.Fatalf("payload: %+v", got)
 	}
 }
 
-func TestCreateAdMultipartInjectsSessionUserID(t *testing.T) {
+func TestCreateAdMultipartInjectsSessionCustomerID(t *testing.T) {
 	var got map[string]any
 	var pictures int
-	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 7}}, func(w http.ResponseWriter, r *http.Request) {
+	h := newHandler(t, &fakeAuth{customer: &model.SessionCustomer{ID: 7}}, func(w http.ResponseWriter, r *http.Request) {
 		if err := r.ParseMultipartForm(1 << 20); err != nil {
 			t.Errorf("parse: %v", err)
 			w.WriteHeader(http.StatusBadRequest)
@@ -131,7 +131,7 @@ func TestCreateAdMultipartInjectsSessionUserID(t *testing.T) {
 
 	var buf bytes.Buffer
 	mw := multipart.NewWriter(&buf)
-	_ = mw.WriteField("payload", `{"user_id":1,"category_id":16,"city_id":1,"title":"pic","description":"d"}`)
+	_ = mw.WriteField("payload", `{"customer_id":1,"category_id":16,"city_id":1,"title":"pic","description":"d"}`)
 	part, err := mw.CreateFormFile("pictures", "cover.jpg")
 	if err != nil {
 		t.Fatal(err)
@@ -148,8 +148,8 @@ func TestCreateAdMultipartInjectsSessionUserID(t *testing.T) {
 	if rec.Code != http.StatusCreated {
 		t.Fatalf("status=%d body=%s", rec.Code, rec.Body.String())
 	}
-	if got["user_id"] != float64(7) {
-		t.Fatalf("backend user_id=%v", got["user_id"])
+	if got["customer_id"] != float64(7) {
+		t.Fatalf("backend customer_id=%v", got["customer_id"])
 	}
 	if pictures != 1 {
 		t.Fatalf("pictures=%d", pictures)
@@ -171,9 +171,9 @@ func TestListMineRequiresAuth(t *testing.T) {
 	}
 }
 
-func TestListMineUsesSessionUserID(t *testing.T) {
+func TestListMineUsesSessionCustomerID(t *testing.T) {
 	var gotPath string
-	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
+	h := newHandler(t, &fakeAuth{customer: &model.SessionCustomer{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
 		gotPath = r.URL.Path
 		w.Header().Set("Content-Type", "application/json")
 		_, _ = w.Write([]byte(`{"ads":[{"id":9,"title":"Mine"}]}`))
@@ -211,9 +211,9 @@ func TestListMineStatsRequiresAuth(t *testing.T) {
 	}
 }
 
-func TestListMineStatsUsesSessionUserID(t *testing.T) {
+func TestListMineStatsUsesSessionCustomerID(t *testing.T) {
 	var gotPath string
-	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
+	h := newHandler(t, &fakeAuth{customer: &model.SessionCustomer{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
 		gotPath = r.URL.Path
 		w.Header().Set("Content-Type", "application/json")
 		_, _ = w.Write([]byte(`{"from":"2026-08-01","to":"2026-08-31","ads":[{"ad_id":9,"views":4}]}`))
@@ -236,9 +236,9 @@ func TestListMineStatsUsesSessionUserID(t *testing.T) {
 	}
 }
 
-func TestGetMineUsesSessionUserID(t *testing.T) {
+func TestGetMineUsesSessionCustomerID(t *testing.T) {
 	var gotPath string
-	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
+	h := newHandler(t, &fakeAuth{customer: &model.SessionCustomer{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
 		gotPath = r.URL.Path
 		_, _ = w.Write([]byte(`{"id":9,"title":"Mine"}`))
 	})
@@ -257,10 +257,10 @@ func TestGetMineUsesSessionUserID(t *testing.T) {
 	}
 }
 
-func TestUpdateMineUsesSessionUserID(t *testing.T) {
+func TestUpdateMineUsesSessionCustomerID(t *testing.T) {
 	var gotPath string
 	var got map[string]any
-	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
+	h := newHandler(t, &fakeAuth{customer: &model.SessionCustomer{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
 		gotPath = r.URL.Path
 		if r.Method != http.MethodPut {
 			t.Errorf("method=%s", r.Method)
@@ -271,7 +271,7 @@ func TestUpdateMineUsesSessionUserID(t *testing.T) {
 	})
 	r := testAdsRouter(h)
 
-	req := httptest.NewRequest(http.MethodPut, "/api/v1/me/ads/9", bytes.NewReader([]byte(`{"user_id":99,"title":"Edited","description":"ok","category_id":13,"city_id":1}`)))
+	req := httptest.NewRequest(http.MethodPut, "/api/v1/me/ads/9", bytes.NewReader([]byte(`{"customer_id":99,"title":"Edited","description":"ok","category_id":13,"city_id":1}`)))
 	req.Header.Set("Content-Type", "application/json")
 	withSession(req)
 	rec := httptest.NewRecorder()
@@ -283,8 +283,8 @@ func TestUpdateMineUsesSessionUserID(t *testing.T) {
 	if gotPath != "/api/v1/self/42/ads/9" {
 		t.Fatalf("backend path=%s", gotPath)
 	}
-	if got["user_id"] != float64(42) {
-		t.Fatalf("backend user_id=%v", got["user_id"])
+	if got["customer_id"] != float64(42) {
+		t.Fatalf("backend customer_id=%v", got["customer_id"])
 	}
 }
 
@@ -308,7 +308,7 @@ func TestGetContactRequiresAuth(t *testing.T) {
 
 func TestGetContactProxiesWhenAuthenticated(t *testing.T) {
 	var gotPath string
-	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
+	h := newHandler(t, &fakeAuth{customer: &model.SessionCustomer{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
 		gotPath = r.URL.Path
 		w.Header().Set("Content-Type", "application/json")
 		_, _ = w.Write([]byte(`{"phone":"09121110001"}`))
@@ -333,14 +333,14 @@ func TestGetContactProxiesWhenAuthenticated(t *testing.T) {
 
 func TestCreateAdJSONInjectsSessionMobileWhenContactPhoneMissing(t *testing.T) {
 	var got map[string]any
-	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42, Mobile: "+989121110001"}}, func(w http.ResponseWriter, r *http.Request) {
+	h := newHandler(t, &fakeAuth{customer: &model.SessionCustomer{ID: 42, Mobile: "+989121110001"}}, func(w http.ResponseWriter, r *http.Request) {
 		body, _ := io.ReadAll(r.Body)
 		if err := json.Unmarshal(body, &got); err != nil {
 			t.Errorf("backend body: %v", err)
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
-		_, _ = w.Write([]byte(`{"id":9,"user_id":42}`))
+		_, _ = w.Write([]byte(`{"id":9,"customer_id":42}`))
 	})
 	r := testAdsRouter(h)
 

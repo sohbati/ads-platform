@@ -19,7 +19,7 @@ import (
 )
 
 type fakeAuth struct {
-	user *model.SessionUser
+	customer *model.SessionCustomer
 	err  error
 }
 
@@ -29,8 +29,8 @@ func (f *fakeAuth) SendOTP(context.Context, string) (int, []byte, error) {
 func (f *fakeAuth) LoginWithOTP(context.Context, string, string) (*model.LoginResponse, string, int, []byte, error) {
 	return nil, "", 0, nil, nil
 }
-func (f *fakeAuth) GetCurrentUser(context.Context, string) (*model.SessionUser, error) {
-	return f.user, f.err
+func (f *fakeAuth) GetCurrentCustomer(context.Context, string) (*model.SessionCustomer, error) {
+	return f.customer, f.err
 }
 func (f *fakeAuth) Logout(context.Context, string) error { return nil }
 
@@ -68,12 +68,12 @@ func TestGetProfileRequiresAuth(t *testing.T) {
 	}
 }
 
-func TestGetProfileUsesSessionUserID(t *testing.T) {
+func TestGetProfileUsesSessionCustomerID(t *testing.T) {
 	var path string
-	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
+	h := newHandler(t, &fakeAuth{customer: &model.SessionCustomer{ID: 42}}, func(w http.ResponseWriter, r *http.Request) {
 		path = r.URL.Path
 		w.Header().Set("Content-Type", "application/json")
-		w.Write([]byte(`{"user_id":42,"location_slugs":["tehran"]}`))
+		w.Write([]byte(`{"customer_id":42,"location_slugs":["tehran"]}`))
 	})
 	r := testRouter(h)
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/me/profile", nil)
@@ -91,15 +91,15 @@ func TestGetProfileUsesSessionUserID(t *testing.T) {
 	}
 }
 
-func TestPutProfileForwardsBodyToSessionUser(t *testing.T) {
+func TestPutProfileForwardsBodyToSessionCustomer(t *testing.T) {
 	var path, method string
 	var body []byte
-	h := newHandler(t, &fakeAuth{user: &model.SessionUser{ID: 7}}, func(w http.ResponseWriter, r *http.Request) {
+	h := newHandler(t, &fakeAuth{customer: &model.SessionCustomer{ID: 7}}, func(w http.ResponseWriter, r *http.Request) {
 		method = r.Method
 		path = r.URL.Path
 		body, _ = io.ReadAll(r.Body)
 		w.Header().Set("Content-Type", "application/json")
-		w.Write([]byte(`{"user_id":7,"location_slugs":["karaj"]}`))
+		w.Write([]byte(`{"customer_id":7,"location_slugs":["karaj"]}`))
 	})
 	r := testRouter(h)
 	req := httptest.NewRequest(http.MethodPut, "/api/v1/me/profile", strings.NewReader(`{"location_slugs":["karaj"]}`))

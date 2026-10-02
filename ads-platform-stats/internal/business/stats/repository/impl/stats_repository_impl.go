@@ -20,27 +20,27 @@ func NewStatsRepository(db *gorm.DB) repository.StatsRepository {
 }
 
 func (r *statsRepository) AdOwnerID(ctx context.Context, adID int64) (int64, bool, error) {
-	var userID int64
+	var customerID int64
 	err := r.db.WithContext(ctx).
 		Table("ads").
-		Select("user_id").
+		Select("customer_id").
 		Where("id = ? AND status <> ?", adID, "deleted").
-		Take(&userID).Error
+		Take(&customerID).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return 0, false, nil
 	}
 	if err != nil {
 		return 0, false, err
 	}
-	return userID, true, nil
+	return customerID, true, nil
 }
 
 func (r *statsRepository) Record(ctx context.Context, ev model.Event, day time.Time) error {
 	return r.db.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		if err := tx.Exec(
-			`INSERT INTO ad_events (ad_id, event, viewer_id, session_user_id, occurred_at)
+			`INSERT INTO ad_events (ad_id, event, viewer_id, session_customer_id, occurred_at)
 			 VALUES (?, ?, ?, ?, ?)`,
-			ev.AdID, ev.Event, ev.ViewerID, ev.SessionUserID, ev.OccurredAt,
+			ev.AdID, ev.Event, ev.ViewerID, ev.SessionCustomerID, ev.OccurredAt,
 		).Error; err != nil {
 			return err
 		}

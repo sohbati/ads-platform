@@ -21,7 +21,7 @@ type ErrorResponse struct {
 
 type Ad struct {
 	ID          int64           `json:"id"`
-	UserID      int64           `json:"user_id"`
+	CustomerID      int64           `json:"customer_id"`
 	CategoryID  int             `json:"category_id"`
 	CityID      int             `json:"city_id"`
 	Title       string          `json:"title"`
@@ -111,8 +111,8 @@ func PostRawJSON(ctx context.Context, backURL string, body []byte) (int, Ad, Err
 	return status, ad, failure, err
 }
 
-func PutJSON(ctx context.Context, backURL string, userID, adID int64, payload any) (int, Ad, ErrorResponse, error) {
-	path := backURL + "/api/v1/self/" + strconv.FormatInt(userID, 10) + "/ads/" + strconv.FormatInt(adID, 10)
+func PutJSON(ctx context.Context, backURL string, customerID, adID int64, payload any) (int, Ad, ErrorResponse, error) {
+	path := backURL + "/api/v1/self/" + strconv.FormatInt(customerID, 10) + "/ads/" + strconv.FormatInt(adID, 10)
 	req, err := newJSONRequest(ctx, http.MethodPut, path, payload)
 	if err != nil {
 		return 0, Ad{}, ErrorResponse{}, err

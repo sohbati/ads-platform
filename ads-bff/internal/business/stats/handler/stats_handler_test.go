@@ -18,7 +18,7 @@ import (
 )
 
 type fakeAuth struct {
-	user *model.SessionUser
+	customer *model.SessionCustomer
 	err  error
 }
 
@@ -26,8 +26,8 @@ func (f *fakeAuth) SendOTP(context.Context, string) (int, []byte, error) { retur
 func (f *fakeAuth) LoginWithOTP(context.Context, string, string) (*model.LoginResponse, string, int, []byte, error) {
 	return nil, "", 0, nil, nil
 }
-func (f *fakeAuth) GetCurrentUser(context.Context, string) (*model.SessionUser, error) {
-	return f.user, f.err
+func (f *fakeAuth) GetCurrentCustomer(context.Context, string) (*model.SessionCustomer, error) {
+	return f.customer, f.err
 }
 func (f *fakeAuth) Logout(context.Context, string) error { return nil }
 
@@ -98,14 +98,14 @@ func TestIngestReturns204AndPublishes(t *testing.T) {
 	if got["ad_id"] != float64(55) || got["event"] != "view" {
 		t.Fatalf("payload=%s", pub.payloads[0])
 	}
-	if _, ok := got["session_user_id"]; ok {
-		t.Fatalf("guest should omit session_user_id: %s", pub.payloads[0])
+	if _, ok := got["session_customer_id"]; ok {
+		t.Fatalf("guest should omit session_customer_id: %s", pub.payloads[0])
 	}
 }
 
-func TestIngestAttachesSessionUserID(t *testing.T) {
+func TestIngestAttachesSessionCustomerID(t *testing.T) {
 	pub := &fakePub{}
-	h := NewStatsHandler(&config.Config{SessionCookieName: "ads_session"}, &fakeAuth{user: &model.SessionUser{ID: 42}}, pub, ratelimit.New(0, 1000))
+	h := NewStatsHandler(&config.Config{SessionCookieName: "ads_session"}, &fakeAuth{customer: &model.SessionCustomer{ID: 42}}, pub, ratelimit.New(0, 1000))
 	r := testStatsRouter(h)
 
 	req := httptest.NewRequest(http.MethodPost, "/api/v1/stats/events", bytes.NewReader(validBody()))
@@ -117,7 +117,7 @@ func TestIngestAttachesSessionUserID(t *testing.T) {
 	if rec.Code != http.StatusNoContent {
 		t.Fatalf("status=%d", rec.Code)
 	}
-	if !bytes.Contains(pub.payloads[0], []byte(`"session_user_id":42`)) {
+	if !bytes.Contains(pub.payloads[0], []byte(`"session_customer_id":42`)) {
 		t.Fatalf("payload=%s", pub.payloads[0])
 	}
 }

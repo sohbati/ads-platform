@@ -30,7 +30,7 @@ const (
 	maxTitleLen       = 120
 	maxDescriptionLen = 10000
 	maxFilenameLen    = 255
-	maxUserAdsList    = 200
+	maxCustomerAdsList    = 200
 )
 
 var allowedPriceTypes = map[string]struct{}{
@@ -93,7 +93,7 @@ func (s *adService) Create(ctx context.Context, in service.CreateAdInput) (*mode
 
 	now := time.Now().UTC()
 	ad := &model.Ad{
-		UserID:      in.UserID,
+		CustomerID:      in.CustomerID,
 		CategoryID:  in.CategoryID,
 		CityID:      in.CityID,
 		Title:       strings.TrimSpace(in.Title),
@@ -143,8 +143,8 @@ func (s *adService) PicturesUploadAvailable(ctx context.Context) bool {
 	return s.objects.Available(pingCtx)
 }
 
-func (s *adService) GetForOwner(ctx context.Context, userID, adID int64) (*model.Ad, error) {
-	return s.loadOwned(ctx, userID, adID)
+func (s *adService) GetForOwner(ctx context.Context, customerID, adID int64) (*model.Ad, error) {
+	return s.loadOwned(ctx, customerID, adID)
 }
 
 func (s *adService) GetPublic(ctx context.Context, adID int64) (*model.PublicAd, error) {
@@ -185,7 +185,7 @@ func (s *adService) loadActive(ctx context.Context, adID int64) (*model.Ad, erro
 }
 
 func (s *adService) Update(ctx context.Context, adID int64, in service.CreateAdInput) (*model.Ad, error) {
-	existing, err := s.loadOwned(ctx, in.UserID, adID)
+	existing, err := s.loadOwned(ctx, in.CustomerID, adID)
 	if err != nil {
 		return nil, err
 	}
@@ -254,9 +254,9 @@ func (s *adService) Update(ctx context.Context, adID int64, in service.CreateAdI
 	return existing, nil
 }
 
-func (s *adService) loadOwned(ctx context.Context, userID, adID int64) (*model.Ad, error) {
-	if userID <= 0 {
-		return nil, exception.NewAppError(errorcode.ErrAdInvalidUser.Code, errorcode.ErrAdInvalidUser.HttpStatus)
+func (s *adService) loadOwned(ctx context.Context, customerID, adID int64) (*model.Ad, error) {
+	if customerID <= 0 {
+		return nil, exception.NewAppError(errorcode.ErrAdInvalidCustomer.Code, errorcode.ErrAdInvalidCustomer.HttpStatus)
 	}
 	if adID <= 0 {
 		return nil, exception.NewAppError(errorcode.ErrAdNotFound.Code, errorcode.ErrAdNotFound.HttpStatus)
@@ -269,7 +269,7 @@ func (s *adService) loadOwned(ctx context.Context, userID, adID int64) (*model.A
 		}
 		return nil, err
 	}
-	if ad == nil || ad.UserID != userID || ad.Status == model.AdStatusDeleted {
+	if ad == nil || ad.CustomerID != customerID || ad.Status == model.AdStatusDeleted {
 		return nil, exception.NewAppError(errorcode.ErrAdNotFound.Code, errorcode.ErrAdNotFound.HttpStatus)
 	}
 	return ad, nil
@@ -300,31 +300,31 @@ func jsonNumber(v any) (float64, bool) {
 	}
 }
 
-func (s *adService) ListByUser(ctx context.Context, userID int64) ([]model.UserAdItem, error) {
-	if userID <= 0 {
-		return nil, exception.NewAppError(errorcode.ErrAdInvalidUser.Code, errorcode.ErrAdInvalidUser.HttpStatus)
+func (s *adService) ListByCustomer(ctx context.Context, customerID int64) ([]model.CustomerAdItem, error) {
+	if customerID <= 0 {
+		return nil, exception.NewAppError(errorcode.ErrAdInvalidCustomer.Code, errorcode.ErrAdInvalidCustomer.HttpStatus)
 	}
 
-	ads, err := s.ads.ListByUserID(ctx, userID, maxUserAdsList)
+	ads, err := s.ads.ListByCustomerID(ctx, customerID, maxCustomerAdsList)
 	if err != nil {
 		return nil, err
 	}
 
 	cityNames := s.cityNames(ctx, ads)
-	items := make([]model.UserAdItem, 0, len(ads))
+	items := make([]model.CustomerAdItem, 0, len(ads))
 	for _, ad := range ads {
-		items = append(items, toUserAdItem(ad, cityNames))
+		items = append(items, toCustomerAdItem(ad, cityNames))
 	}
 	return items, nil
 }
 
-func (s *adService) ListStats(ctx context.Context, userID int64, fromStr, toStr string) (*model.AdStatsResponse, error) {
-	if userID <= 0 {
-		return nil, exception.NewAppError(errorcode.ErrAdInvalidUser.Code, errorcode.ErrAdInvalidUser.HttpStatus)
+func (s *adService) ListStats(ctx context.Context, customerID int64, fromStr, toStr string) (*model.AdStatsResponse, error) {
+	if customerID <= 0 {
+		return nil, exception.NewAppError(errorcode.ErrAdInvalidCustomer.Code, errorcode.ErrAdInvalidCustomer.HttpStatus)
 	}
 
 	from, to := parseStatsRange(fromStr, toStr)
-	items, err := s.ads.ListStats(ctx, userID, from, to)
+	items, err := s.ads.ListStats(ctx, customerID, from, to)
 	if err != nil {
 		return nil, err
 	}
@@ -395,8 +395,8 @@ func uniqueCityIDs(ads []model.Ad) []int {
 	return ids
 }
 
-func toUserAdItem(ad model.Ad, cityNames map[int]string) model.UserAdItem {
-	item := model.UserAdItem{
+func toCustomerAdItem(ad model.Ad, cityNames map[int]string) model.CustomerAdItem {
+	item := model.CustomerAdItem{
 		ID:          ad.ID,
 		Title:       ad.Title,
 		PriceAmount: ad.PriceAmount,
@@ -507,8 +507,8 @@ func publicMedia(raw json.RawMessage) []model.PublicMedia {
 }
 
 func (s *adService) validate(ctx context.Context, in service.CreateAdInput) error {
-	if in.UserID <= 0 {
-		return exception.NewAppError(errorcode.ErrAdInvalidUser.Code, errorcode.ErrAdInvalidUser.HttpStatus)
+	if in.CustomerID <= 0 {
+		return exception.NewAppError(errorcode.ErrAdInvalidCustomer.Code, errorcode.ErrAdInvalidCustomer.HttpStatus)
 	}
 
 	title := strings.TrimSpace(in.Title)
@@ -703,7 +703,7 @@ func (s *adService) storePictures(ctx context.Context, ad *model.Ad, pics []serv
 	out := make([]mediaItem, 0, len(pics))
 	now := time.Now().UTC()
 
-	seq, err := s.images.NextObjectSeq(ctx, ad.UserID)
+	seq, err := s.images.NextObjectSeq(ctx, ad.CustomerID)
 	if err != nil {
 		return nil, err
 	}
@@ -722,8 +722,8 @@ func (s *adService) storePictures(ctx context.Context, ad *model.Ad, pics []serv
 		}
 
 		n := seq + int64(i)
-		fullKey := buildObjectKey(ad.UserID, n, ".webp")
-		thumbKey := buildObjectKey(ad.UserID, n, "-t.webp")
+		fullKey := buildObjectKey(ad.CustomerID, n, ".webp")
+		thumbKey := buildObjectKey(ad.CustomerID, n, "-t.webp")
 
 		url, err := s.objects.Put(ctx, fullKey, "image/webp", bytes.NewReader(variants.Full), int64(len(variants.Full)))
 		if err != nil {
@@ -740,7 +740,7 @@ func (s *adService) storePictures(ctx context.Context, ad *model.Ad, pics []serv
 		checksum := hex.EncodeToString(sum[:])
 		adID := ad.ID
 		image := &model.AdImage{
-			UserID:           ad.UserID,
+			CustomerID:           ad.CustomerID,
 			AdID:             &adID,
 			ObjectKey:        fullKey,
 			OriginalFilename: strings.TrimSpace(pic.Filename),
@@ -824,6 +824,6 @@ func normalizeContentType(ct, filename string) string {
 	}
 }
 
-func buildObjectKey(userID, seq int64, ext string) string {
-	return fmt.Sprintf("ads/%d/%d_%d%s", userID, userID, seq, ext)
+func buildObjectKey(customerID, seq int64, ext string) string {
+	return fmt.Sprintf("ads/%d/%d_%d%s", customerID, customerID, seq, ext)
 }

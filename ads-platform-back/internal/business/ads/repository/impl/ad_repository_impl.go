@@ -43,13 +43,13 @@ func (r *adRepository) UpdateMedia(ctx context.Context, id int64, media json.Raw
 	return r.db.WithContext(ctx).Model(&model.Ad{}).Where("id = ?", id).Update("media", media).Error
 }
 
-func (r *adRepository) ListByUserID(ctx context.Context, userID int64, limit int) ([]model.Ad, error) {
+func (r *adRepository) ListByCustomerID(ctx context.Context, customerID int64, limit int) ([]model.Ad, error) {
 	if limit < 1 {
 		limit = 200
 	}
 	var ads []model.Ad
 	err := r.db.WithContext(ctx).
-		Where("user_id = ?", userID).
+		Where("customer_id = ?", customerID).
 		Where("status <> ?", model.AdStatusDeleted).
 		Order("published_at DESC NULLS LAST").
 		Order("created_at DESC").
@@ -59,7 +59,7 @@ func (r *adRepository) ListByUserID(ctx context.Context, userID int64, limit int
 	return ads, err
 }
 
-func (r *adRepository) ListStats(ctx context.Context, userID int64, from, to time.Time) ([]model.AdStatsItem, error) {
+func (r *adRepository) ListStats(ctx context.Context, customerID int64, from, to time.Time) ([]model.AdStatsItem, error) {
 	var items []model.AdStatsItem
 	err := r.db.WithContext(ctx).Raw(
 		`SELECT d.ad_id,
@@ -69,12 +69,12 @@ func (r *adRepository) ListStats(ctx context.Context, userID int64, from, to tim
 		        COALESCE(SUM(d.calls), 0) AS calls
 		 FROM ad_stats_daily d
 		 INNER JOIN ads a ON a.id = d.ad_id
-		 WHERE a.user_id = ?
+		 WHERE a.customer_id = ?
 		   AND a.status <> ?
 		   AND d.day >= ?
 		   AND d.day <= ?
 		 GROUP BY d.ad_id`,
-		userID, model.AdStatusDeleted, from, to,
+		customerID, model.AdStatusDeleted, from, to,
 	).Scan(&items).Error
 	if err != nil {
 		return nil, err

@@ -1,0 +1,45 @@
+{{ define "myinfo_customer_ads" }}
+{{ template "page_open" . }}
+<section class="customer-ads container" aria-label="{{ .Heading }}">
+  <h1 class="section-stub__title">{{ .Heading }}</h1>
+  {{ if .IsAuthenticated }}{{ template "myinfo_nav" . }}{{ end }}
+
+  {{ if .Unavailable }}
+  <p class="search-results__empty">{{ .T.MyAds.Unavailable }}</p>
+  {{ else if not .Ads }}
+  <p class="search-results__empty">
+    {{ .T.MyAds.Empty }}
+    <a class="customer-ads__empty-cta" href="/new-ad">{{ .T.MyAds.PostCta }}</a>
+  </p>
+  {{ else }}
+  <ul class="ad-grid">
+    {{ range .Ads }}
+    <li>
+      {{ if .Href }}<a class="ad-card" href="{{ .Href }}">{{ else }}<div class="ad-card">{{ end }}
+        <div class="ad-card__media">
+          {{ if .Thumbnail }}
+          <img class="ad-card__img" src="{{ .Thumbnail }}" alt="" loading="lazy" />
+          {{ else }}
+          <svg class="icon ad-card__placeholder" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="9" cy="10" r="1.75" stroke="currentColor" stroke-width="1.5"/>
+            <path d="m5 17 4.5-4 3.5 3 2.5-2 3.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          {{ end }}
+          {{ if .Price }}<p class="ad-card__price">{{ .Price }}</p>{{ end }}
+        </div>
+        <div class="ad-card__body">
+          <h2 class="ad-card__title">{{ .Title }}</h2>
+          <p class="ad-card__meta">
+            {{- .Location }}{{ if and .Location .PublishedAt }} · {{ end }}{{ .PublishedAt -}}
+          </p>
+          <p class="ad-card__stats">{{ format $.T.MyAds.Stats .Views .Calls }}</p>
+        </div>
+      {{ if .Href }}</a>{{ else }}</div>{{ end }}
+    </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+</section>
+{{ template "page_close" . }}
+{{ end }}

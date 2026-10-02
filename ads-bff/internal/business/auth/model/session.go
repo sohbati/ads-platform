@@ -1,6 +1,6 @@
 package model
 
-type SessionUser struct {
+type SessionCustomer struct {
 	ID         int64  `json:"id"`
 	Name       string `json:"name"`
 	Mobile     string `json:"mobile"`
@@ -12,11 +12,11 @@ type VerifyOtpRequest struct {
 }
 
 type LoginResponse struct {
-	Authenticated bool        `json:"authenticated"`
-	User          SessionUser `json:"user"`
+	Authenticated bool             `json:"authenticated"`
+	Customer      SessionCustomer  `json:"customer"`
 }
 
 type MeResponse struct {
-	Authenticated bool         `json:"authenticated"`
-	User          *SessionUser `json:"user,omitempty"`
+	Authenticated bool              `json:"authenticated"`
+	Customer      *SessionCustomer  `json:"customer,omitempty"`
 }

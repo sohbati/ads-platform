@@ -13,7 +13,7 @@ type Event struct {
 	Event         string    `json:"event"`
 	ViewerID      string    `json:"viewer_id"`
 	OccurredAt    time.Time `json:"occurred_at"`
-	SessionUserID *int64    `json:"session_user_id,omitempty"`
+	SessionCustomerID *int64    `json:"session_customer_id,omitempty"`
 }
 
 func ValidEvent(name string) bool {

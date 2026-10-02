@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS ads_platform_schema.ad_events (
     ad_id            BIGINT NOT NULL REFERENCES ads_platform_schema.ads(id),
     event            VARCHAR(32) NOT NULL,
     viewer_id        UUID NOT NULL,
-    session_user_id  BIGINT,
+    session_customer_id  BIGINT,
     occurred_at      TIMESTAMPTZ NOT NULL,
     created_at       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

@@ -16,7 +16,7 @@ func (e *ErrorCode) Error() string {
 }
 
 var (
-	ErrAdInvalidUser        = New("AD_INVALID_USER", http.StatusBadRequest)
+	ErrAdInvalidCustomer        = New("AD_INVALID_CUSTOMER", http.StatusBadRequest)
 	ErrAdInvalidTitle       = New("AD_INVALID_TITLE", http.StatusBadRequest)
 	ErrAdInvalidDescription = New("AD_INVALID_DESCRIPTION", http.StatusBadRequest)
 	ErrAdInvalidCategory    = New("AD_INVALID_CATEGORY", http.StatusBadRequest)

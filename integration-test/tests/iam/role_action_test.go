@@ -65,7 +65,7 @@ func TestAddRoleActionIdempotent(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	_, action, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/actions", uniqueCode("user.read"), "Read user")
+	_, action, _, err := iamapi.PostNamed(ctx, backURL, "/api/v1/panel/actions", uniqueCode("staff.read"), "Read staff")
 	if err != nil {
 		t.Fatal(err)
 	}
