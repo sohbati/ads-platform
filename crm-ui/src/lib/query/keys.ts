@@ -1,0 +1,15 @@
+export const queryKeys = {
+  me: ["auth", "me"] as const,
+  dashboard: ["dashboard", "stats"] as const,
+  customers: (params: unknown) => ["customers", params] as const,
+  advertisements: (params: unknown) => ["advertisements", params] as const,
+  staff: (params: unknown) => ["staff", params] as const,
+  actions: ["access", "actions"] as const,
+  roles: ["access", "roles"] as const,
+  groups: ["access", "groups"] as const,
+  categories: (params: unknown) => ["categories", params] as const,
+  locations: (params: unknown) => ["locations", params] as const,
+  reports: (params: unknown) => ["reports", params] as const,
+  content: (params: unknown) => ["content", params] as const,
+  notifications: (params: unknown) => ["notifications", params] as const,
+};

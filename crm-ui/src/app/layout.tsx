@@ -1,19 +1,32 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { Providers } from "./providers";
+import { localeMeta, resolveLocale, LOCALE_COOKIE } from "@/lib/i18n/locale";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "crm-ui",
-  description: "ruab CRM and admin",
+  title: "Ruab Admin",
+  description: "Ruab classifieds administration",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const store = await cookies();
+  const locale = resolveLocale(store.get(LOCALE_COOKIE)?.value);
+  const { lang, dir } = localeMeta(locale);
+
   return (
-    <html lang="en">
-      <body>
+    <html lang={lang} dir={dir}>
+      <body
+        style={{
+          fontFamily:
+            locale === "fa"
+              ? '"Vazirmatn Variable", sans-serif'
+              : '"Inter Variable", sans-serif',
+        }}
+      >
         <AntdRegistry>
-          <Providers>{children}</Providers>
+          <Providers locale={locale}>{children}</Providers>
         </AntdRegistry>
       </body>
     </html>
