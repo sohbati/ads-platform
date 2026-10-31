@@ -27,11 +27,17 @@ CREATE TABLE ads_platform_schema.staff (
     name VARCHAR(100) NOT NULL,
     mobile VARCHAR(100) NOT NULL UNIQUE,
     national_id VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL DEFAULT '',
+    is_super_admin BOOLEAN NOT NULL DEFAULT FALSE,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON TABLE ads_platform_schema.staff IS 'کارکنان پنل CRM؛ دسترسی فقط از طریق نقش';
+COMMENT ON COLUMN ads_platform_schema.staff.password_hash IS 'هش bcrypt رمز عبور؛ خالی یعنی امکان ورود ندارد';
+COMMENT ON COLUMN ads_platform_schema.staff.is_super_admin IS 'مدیر کل؛ همه عملیات پنل را بدون نقش دارد';
+COMMENT ON COLUMN ads_platform_schema.staff.is_active IS 'کارمند غیرفعال نمی‌تواند وارد پنل شود';
 
 -- فیلدهای اصلی فیلترپذیر به‌صورت ستون؛ ویژگی‌های وابسته به دسته‌بندی در JSONB
 CREATE TABLE ads_platform_schema.ads (

@@ -17,10 +17,13 @@ export function ActionsScreen() {
       loading={query.isLoading}
       error={query.error}
       writePermission={Permission.actionUpdate}
-      creating={mutations.create.isPending}
+      saving={mutations.create.isPending || mutations.update.isPending}
       deleting={mutations.remove.isPending}
       onRetry={() => void query.refetch()}
-      onCreate={(input) => mutations.create.mutate(input)}
+      onCreate={(input, done) => mutations.create.mutate(input, { onSuccess: done })}
+      onUpdate={(id, input, done) =>
+        mutations.update.mutate({ id, input }, { onSuccess: done })
+      }
       onDelete={(id) => mutations.remove.mutate(id)}
     />
   );

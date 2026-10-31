@@ -62,13 +62,6 @@ export const navigation: NavItem[] = [
     permission: Permission.customerRead,
   },
   {
-    key: "admin-users",
-    href: "/admin-users",
-    labelKey: "adminUsers",
-    icon: TeamOutlined,
-    permission: Permission.staffRead,
-  },
-  {
     key: "reports",
     href: "/reports",
     labelKey: "reports",
@@ -110,6 +103,13 @@ export const navigation: NavItem[] = [
     icon: SettingOutlined,
     permission: Permission.settingsRead,
     children: [
+      {
+        key: "settings-staff",
+        href: "/settings/staff",
+        labelKey: "adminUsers",
+        icon: TeamOutlined,
+        permission: Permission.staffRead,
+      },
       {
         key: "settings-roles",
         href: "/settings/roles",

@@ -25,7 +25,8 @@ type namedRequest struct {
 	Name string `json:"name"`
 }
 
-type renameRequest struct {
+type updateRequest struct {
+	Code string `json:"code"`
 	Name string `json:"name"`
 }
 
@@ -72,12 +73,12 @@ func (h *RoleHandler) Update(c *gin.Context) {
 		middleware.HandleError(c, err, 0)
 		return
 	}
-	var req renameRequest
+	var req updateRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		middleware.HandleError(c, exception.NewAppError(errorcode.ErrInvalidBody.Code, errorcode.ErrInvalidBody.HttpStatus), 0)
 		return
 	}
-	item, err := h.svc.Update(c.Request.Context(), id, req.Name)
+	item, err := h.svc.Update(c.Request.Context(), id, req.Code, req.Name)
 	if err != nil {
 		middleware.HandleError(c, err, 0)
 		return

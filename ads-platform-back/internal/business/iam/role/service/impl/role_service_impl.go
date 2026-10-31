@@ -3,6 +3,7 @@ package impl
 import (
 	"context"
 	"errors"
+	"strings"
 
 	"ads-platform/internal/business/iam/internal/named"
 	"ads-platform/internal/business/iam/internal/pgerr"
@@ -60,7 +61,7 @@ func (s *roleService) List(ctx context.Context) ([]model.Role, error) {
 	return s.repo.List(ctx)
 }
 
-func (s *roleService) Update(ctx context.Context, id int64, name string) (*model.Role, error) {
+func (s *roleService) Update(ctx context.Context, id int64, code, name string) (*model.Role, error) {
 	role, err := s.Get(ctx, id)
 	if err != nil {
 		return nil, err
@@ -69,8 +70,18 @@ func (s *roleService) Update(ctx context.Context, id int64, name string) (*model
 	if !ok {
 		return nil, exception.NewAppError(errorcode.ErrInvalidName.Code, errorcode.ErrInvalidName.HttpStatus)
 	}
+	if strings.TrimSpace(code) != "" {
+		normalized, ok := named.Code(code)
+		if !ok {
+			return nil, exception.NewAppError(errorcode.ErrInvalidCode.Code, errorcode.ErrInvalidCode.HttpStatus, code)
+		}
+		role.Code = normalized
+	}
 	role.Name = name
 	if err := s.repo.Update(ctx, role); err != nil {
+		if pgerr.IsUniqueViolation(err) {
+			return nil, exception.NewAppError(errorcode.ErrDuplicateCode.Code, errorcode.ErrDuplicateCode.HttpStatus)
+		}
 		return nil, err
 	}
 	return s.repo.GetByID(ctx, id)

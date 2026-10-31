@@ -1,11 +1,4 @@
-import type { PermissionCode } from "@/lib/permissions/codes";
-
-export interface SessionStaff {
-  staffId: number;
-  name: string;
-  mobile: string;
-  permissions: PermissionCode[];
-}
+export type { AdminSession as SessionStaff } from "@/lib/auth/session.types";
 
 export interface LoginInput {
   mobile: string;

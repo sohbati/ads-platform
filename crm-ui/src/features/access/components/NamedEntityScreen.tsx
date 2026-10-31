@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { ColumnsType } from "antd/es/table";
-import { Button } from "antd";
+import { Button, Space } from "antd";
 import { AppPageHeader } from "@/components/ui/AppPageHeader";
 import { AppError } from "@/components/ui/AppError";
 import { AppTable } from "@/components/ui/AppTable";
@@ -21,11 +21,16 @@ interface NamedEntityScreenProps {
   loading: boolean;
   error: unknown;
   writePermission: PermissionCode;
-  creating?: boolean;
+  saving?: boolean;
   deleting?: boolean;
   onRetry: () => void;
-  onCreate: (input: NamedEntityInput) => void;
+  onCreate: (input: NamedEntityInput, done: () => void) => void;
+  onUpdate: (id: number, input: NamedEntityInput, done: () => void) => void;
+  /** Whether codes may change after creation. */
+  codeEditable?: boolean;
   onDelete: (id: number) => void;
+  /** Extra per-row buttons shown before Edit/Delete. */
+  rowActions?: (item: NamedEntity) => React.ReactNode;
 }
 
 export function NamedEntityScreen({
@@ -34,19 +39,28 @@ export function NamedEntityScreen({
   loading,
   error,
   writePermission,
-  creating,
+  saving,
   deleting,
   onRetry,
   onCreate,
+  onUpdate,
+  codeEditable,
   onDelete,
+  rowActions,
 }: NamedEntityScreenProps) {
   const { t, locale } = useI18n();
   const session = useSession();
-  const [creatingOpen, setCreatingOpen] = useState(false);
+  // `undefined` = closed, `null` = creating, item = editing.
+  const [editing, setEditing] = useState<NamedEntity | null | undefined>(undefined);
   const [deletingId, setDeletingId] = useState<number | null>(null);
+  const close = () => setEditing(undefined);
 
   const columns: ColumnsType<NamedEntity> = [
-    { title: t("code"), dataIndex: "code" },
+    {
+      title: t("code"),
+      dataIndex: "code",
+      render: (code: string) => <span dir="ltr">{code}</span>,
+    },
     { title: t("name"), dataIndex: "name" },
     {
       title: t("createdAt"),
@@ -57,11 +71,17 @@ export function NamedEntityScreen({
       title: t("actionsColumn"),
       key: "actions",
       render: (_, item) => (
-        <PermissionGuard permission={writePermission} permissions={session.permissions}>
-          <Button danger size="small" onClick={() => setDeletingId(item.id)}>
-            {t("delete")}
-          </Button>
-        </PermissionGuard>
+        <Space size="small" wrap>
+          {rowActions?.(item)}
+          <PermissionGuard permission={writePermission} permissions={session.permissions}>
+            <Button size="small" onClick={() => setEditing(item)}>
+              {t("edit")}
+            </Button>
+            <Button danger size="small" onClick={() => setDeletingId(item.id)}>
+              {t("delete")}
+            </Button>
+          </PermissionGuard>
+        </Space>
       ),
     },
   ];
@@ -72,7 +92,7 @@ export function NamedEntityScreen({
         title={title}
         extra={
           <PermissionGuard permission={writePermission} permissions={session.permissions}>
-            <Button type="primary" onClick={() => setCreatingOpen(true)}>
+            <Button type="primary" onClick={() => setEditing(null)}>
               {t("create")}
             </Button>
           </PermissionGuard>
@@ -87,12 +107,17 @@ export function NamedEntityScreen({
         pagination={false}
       />
       <NamedEntityForm
-        open={creatingOpen}
-        loading={creating}
-        onCancel={() => setCreatingOpen(false)}
+        open={editing !== undefined}
+        item={editing}
+        codeEditable={codeEditable}
+        loading={saving}
+        onCancel={close}
         onSubmit={(values) => {
-          onCreate(values);
-          setCreatingOpen(false);
+          if (editing) {
+            onUpdate(editing.id, values, close);
+          } else {
+            onCreate(values, close);
+          }
         }}
       />
       <ConfirmDialog

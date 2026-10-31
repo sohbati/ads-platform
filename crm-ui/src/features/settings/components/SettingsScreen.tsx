@@ -12,6 +12,13 @@ export function SettingsScreen() {
       <AppPageHeader title={t("settings")} description={t("access")} />
       <Row gutter={[16, 16]}>
         <Col xs={24} md={8}>
+          <Link href="/settings/staff">
+            <Card hoverable>
+              <Typography.Title level={4}>{t("adminUsers")}</Typography.Title>
+            </Card>
+          </Link>
+        </Col>
+        <Col xs={24} md={8}>
           <Link href="/settings/roles">
             <Card hoverable>
               <Typography.Title level={4}>{t("roles")}</Typography.Title>

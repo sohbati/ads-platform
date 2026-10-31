@@ -29,18 +29,40 @@ func (r *staffRepository) GetStaffByID(ctx context.Context, id int64) (*model.St
 	return &staff, nil
 }
 
-func (r *staffRepository) GetStaffList(ctx context.Context, limit, offset int) ([]*model.Staff, error) {
-	var items []*model.Staff
-	err := r.db.WithContext(ctx).Limit(limit).Offset(offset).Find(&items).Error
-	return items, err
+func (r *staffRepository) ListStaff(ctx context.Context, search []string, limit, offset int) ([]model.Staff, int64, error) {
+	query := r.db.WithContext(ctx).Model(&model.Staff{})
+	if len(search) > 0 {
+		cond := r.db
+		for _, term := range search {
+			like := "%" + term + "%"
+			cond = cond.Or("name ILIKE ? OR mobile LIKE ? OR national_id LIKE ?", like, like, like)
+		}
+		query = query.Where(cond)
+	}
+
+	var total int64
+	if err := query.Count(&total).Error; err != nil {
+		return nil, 0, err
+	}
+
+	items := []model.Staff{}
+	err := query.Order("id DESC").Limit(limit).Offset(offset).Find(&items).Error
+	return items, total, err
 }
 
 func (r *staffRepository) UpdateStaff(ctx context.Context, staff *model.Staff) error {
-	return r.db.WithContext(ctx).Save(staff).Error
+	return r.db.WithContext(ctx).Model(staff).Select("name", "mobile", "national_id", "password_hash", "is_super_admin", "is_active").Updates(staff).Error
 }
 
 func (r *staffRepository) DeleteStaff(ctx context.Context, id int64) error {
-	return r.db.WithContext(ctx).Delete(&model.Staff{}, id).Error
+	res := r.db.WithContext(ctx).Delete(&model.Staff{}, id)
+	if res.Error != nil {
+		return res.Error
+	}
+	if res.RowsAffected == 0 {
+		return gorm.ErrRecordNotFound
+	}
+	return nil
 }
 
 func (r *staffRepository) GetStaffByMobile(ctx context.Context, mobile string) (*model.Staff, error) {

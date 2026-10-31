@@ -71,6 +71,18 @@ body {
   margin-bottom: 16px;
 }
 
+.app-checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.app-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 .app-loading {
   display: flex;
   justify-content: center;
@@ -82,9 +94,7 @@ body {
   display: grid;
   place-items: center;
   padding: 24px;
-  background:
-    radial-gradient(circle at top, #ccfbf1 0%, transparent 45%),
-    var(--ruab-bg);
+  background: radial-gradient(circle at top, #ccfbf1 0%, transparent 45%), var(--ruab-bg);
 }
 
 .login-card {

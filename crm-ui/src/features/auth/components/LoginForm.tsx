@@ -22,7 +22,6 @@ export function LoginForm() {
         {t("appName")}
       </Typography.Title>
       <Typography.Paragraph type="secondary">{t("loginHint")}</Typography.Paragraph>
-      <Typography.Paragraph>{t("loginDemo")}</Typography.Paragraph>
       {loginMutation.error ? (
         <Alert
           type="error"
@@ -31,7 +30,10 @@ export function LoginForm() {
           title={userMessageForError(toApiError(loginMutation.error, t("error")), locale)}
         />
       ) : null}
-      <Form layout="vertical" onFinish={handleSubmit((values) => loginMutation.mutate(values))}>
+      <Form
+        layout="vertical"
+        onFinish={handleSubmit((values) => loginMutation.mutate(values))}
+      >
         <Controller
           name="mobile"
           control={control}

@@ -149,3 +149,8 @@ func validateMobile(normalized, ccDigits string) error {
 	}
 	return nil
 }
+
+// ToLatinDigits converts Persian and Arabic-Indic digits to ASCII digits.
+func ToLatinDigits(s string) string {
+	return convertDigits(s)
+}

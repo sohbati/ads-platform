@@ -14,7 +14,9 @@ function isPublic(pathname: string): boolean {
   );
 }
 
-export function middleware(request: NextRequest) {
+// Only checks that a cookie exists; the server validates it. A stale cookie therefore must not
+// bounce /login to /dashboard here, or it would loop. The login page redirects valid sessions.
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const hasSession = Boolean(request.cookies.get(SESSION_COOKIE)?.value);
 
@@ -27,12 +29,6 @@ export function middleware(request: NextRequest) {
   if (!hasSession && !isPublic(pathname)) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
-    return NextResponse.redirect(url);
-  }
-
-  if (hasSession && pathname === "/login") {
-    const url = request.nextUrl.clone();
-    url.pathname = "/dashboard";
     return NextResponse.redirect(url);
   }
 

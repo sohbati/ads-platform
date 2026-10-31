@@ -1,80 +1,58 @@
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { cache } from "react";
 import { cookies } from "next/headers";
 import { env } from "@/config/env";
-import { toLatinDigits } from "@/lib/formatters/digits";
-import { ALL_PERMISSIONS } from "@/lib/permissions/codes";
+import { backendFetch } from "@/lib/api/backend";
+import { AppApiError } from "@/lib/api/errors";
 import { SESSION_COOKIE } from "./constants";
-import type { AdminSession } from "./session.types";
+import { decodeToken, encodeToken, SESSION_TTL_SECONDS } from "./token";
+import type { AdminSession, BackendStaffSession } from "./session.types";
 
 export { SESSION_COOKIE };
 export type { AdminSession };
 
-const DEMO_SESSION: AdminSession = {
-  staffId: 1,
-  name: "مدیر روآب",
-  mobile: "09120000000",
-  permissions: ALL_PERMISSIONS,
-};
-
-export function isDemoCredentials(mobile: string, password: string): boolean {
-  const normalized = toLatinDigits(mobile).replace(/\D/g, "");
-  return (
-    (normalized === "09120000000" || normalized === "9120000000") &&
-    password === "admin"
-  );
+export function toAdminSession(data: BackendStaffSession): AdminSession {
+  return {
+    staffId: data.staff.id,
+    name: data.staff.name,
+    mobile: data.staff.mobile,
+    isSuperAdmin: data.staff.is_super_admin,
+    permissions: data.permissions,
+  };
 }
 
-export function demoSession(): AdminSession {
-  return DEMO_SESSION;
-}
-
-function sign(payload: string): string {
-  return createHmac("sha256", env.sessionSecret).update(payload).digest("base64url");
-}
-
-export function encodeSession(session: AdminSession): string {
-  const payload = Buffer.from(JSON.stringify(session), "utf8").toString("base64url");
-  return `${payload}.${sign(payload)}`;
-}
-
-export function decodeSession(value: string | undefined): AdminSession | null {
-  if (!value) {
-    return null;
-  }
-  const [payload, signature] = value.split(".");
-  if (!payload || !signature) {
-    return null;
-  }
-  const expected = sign(payload);
-  const left = Buffer.from(signature);
-  const right = Buffer.from(expected);
-  if (left.length !== right.length || !timingSafeEqual(left, right)) {
+/**
+ * Resolves the signed-in staff member, reloading their permissions from the backend so that
+ * deactivation and role changes apply on the next request. Cached per request.
+ * Returns null when there is no valid session; throws if the backend is unreachable.
+ */
+export const getSession = cache(async (): Promise<AdminSession | null> => {
+  const store = await cookies();
+  const token = decodeToken(store.get(SESSION_COOKIE)?.value, env.sessionSecret);
+  if (!token) {
     return null;
   }
   try {
-    const parsed = JSON.parse(Buffer.from(payload, "base64url").toString("utf8")) as AdminSession;
-    if (!parsed.staffId || !Array.isArray(parsed.permissions)) {
+    const data = await backendFetch<BackendStaffSession>({
+      path: `/api/v1/panel/auth/session/${token.sid}`,
+    });
+    return toAdminSession(data);
+  } catch (error) {
+    if (error instanceof AppApiError && error.status === 401) {
       return null;
     }
-    return parsed;
-  } catch {
-    return null;
+    throw error;
   }
-}
+});
 
-export async function getSession(): Promise<AdminSession | null> {
+export async function setSessionCookie(staffId: number): Promise<void> {
   const store = await cookies();
-  return decodeSession(store.get(SESSION_COOKIE)?.value);
-}
-
-export async function setSessionCookie(session: AdminSession): Promise<void> {
-  const store = await cookies();
-  store.set(SESSION_COOKIE, encodeSession(session), {
+  const exp = Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS;
+  store.set(SESSION_COOKIE, encodeToken({ sid: staffId, exp }, env.sessionSecret), {
     httpOnly: true,
     sameSite: "lax",
     path: "/",
     secure: process.env.NODE_ENV === "production",
-    maxAge: 60 * 60 * 12,
+    maxAge: SESSION_TTL_SECONDS,
   });
 }
 

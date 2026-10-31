@@ -39,7 +39,7 @@ func (r *staffGroupRepository) List(ctx context.Context) ([]model.StaffGroup, er
 }
 
 func (r *staffGroupRepository) Update(ctx context.Context, group *model.StaffGroup) error {
-	return r.db.WithContext(ctx).Model(group).Select("name").Updates(group).Error
+	return r.db.WithContext(ctx).Model(group).Select("code", "name").Updates(group).Error
 }
 
 func (r *staffGroupRepository) Delete(ctx context.Context, id int64) error {

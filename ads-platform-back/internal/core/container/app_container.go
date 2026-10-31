@@ -7,6 +7,8 @@ import (
 	actionContainer "ads-platform/internal/business/iam/action/container"
 	roleContainer "ads-platform/internal/business/iam/role/container"
 	roleActionContainer "ads-platform/internal/business/iam/role_action/container"
+	staffContainer "ads-platform/internal/business/iam/staff/container"
+	staffAuthContainer "ads-platform/internal/business/iam/staff_auth/container"
 	staffGroupContainer "ads-platform/internal/business/iam/staff_group/container"
 	staffRoleContainer "ads-platform/internal/business/iam/staff_role/container"
 	otpContainer "ads-platform/internal/business/otp/container"
@@ -25,6 +27,8 @@ type AppContainer struct {
 	Action          *actionContainer.ActionContainer
 	Role            *roleContainer.RoleContainer
 	RoleAction      *roleActionContainer.RoleActionContainer
+	Staff           *staffContainer.StaffContainer
+	StaffAuth       *staffAuthContainer.StaffAuthContainer
 	StaffRole       *staffRoleContainer.StaffRoleContainer
 	StaffGroup      *staffGroupContainer.StaffGroupContainer
 }
@@ -39,6 +43,8 @@ func NewAppContainer(db *gorm.DB, cfg *config.Config) *AppContainer {
 		Action:          actionContainer.NewActionContainer(db),
 		Role:            roleContainer.NewRoleContainer(db),
 		RoleAction:      roleActionContainer.NewRoleActionContainer(db),
+		Staff:           staffContainer.NewStaffContainer(db, cfg.DefaultCountryCode),
+		StaffAuth:       staffAuthContainer.NewStaffAuthContainer(db, cfg.DefaultCountryCode),
 		StaffRole:       staffRoleContainer.NewStaffRoleContainer(db),
 		StaffGroup:      staffGroupContainer.NewStaffGroupContainer(db),
 	}

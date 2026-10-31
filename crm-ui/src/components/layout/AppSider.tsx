@@ -28,7 +28,9 @@ export function AppSider() {
 
   const selected = pathname.startsWith("/advertisements/review")
     ? "advertisements-review"
-    : pathname.startsWith("/settings/roles")
+    : pathname.startsWith("/settings/staff")
+      ? "settings-staff"
+      : pathname.startsWith("/settings/roles")
       ? "settings-roles"
       : pathname.startsWith("/settings/actions")
         ? "settings-actions"

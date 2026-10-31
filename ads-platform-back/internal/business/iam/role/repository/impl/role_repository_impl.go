@@ -39,7 +39,7 @@ func (r *roleRepository) List(ctx context.Context) ([]model.Role, error) {
 }
 
 func (r *roleRepository) Update(ctx context.Context, role *model.Role) error {
-	return r.db.WithContext(ctx).Model(role).Select("name").Updates(role).Error
+	return r.db.WithContext(ctx).Model(role).Select("code", "name").Updates(role).Error
 }
 
 func (r *roleRepository) Delete(ctx context.Context, id int64) error {

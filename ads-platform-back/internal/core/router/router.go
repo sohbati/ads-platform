@@ -96,8 +96,20 @@ func (r *Router) SetupRoutes() *gin.Engine {
 
 		panel := api.Group("/panel")
 		{
+			panelAuth := panel.Group("/auth")
+			{
+				panelAuth.POST("/login", r.container.StaffAuth.Handler.Login)
+				panelAuth.GET("/session/:staffId", r.container.StaffAuth.Handler.Session)
+			}
+
 			panelStaff := panel.Group("/staff")
 			{
+				panelStaff.GET("", r.container.Staff.Handler.List)
+				panelStaff.POST("", r.container.Staff.Handler.Create)
+				panelStaff.GET("/:staffId", r.container.Staff.Handler.Get)
+				panelStaff.PUT("/:staffId", r.container.Staff.Handler.Update)
+				panelStaff.DELETE("/:staffId", r.container.Staff.Handler.Delete)
+				panelStaff.PUT("/:staffId/password", r.container.Staff.Handler.SetPassword)
 				panelStaff.GET("/:staffId/roles", r.container.StaffRole.Handler.ListRoles)
 				panelStaff.POST("/:staffId/roles/:roleId", r.container.StaffRole.Handler.Add)
 				panelStaff.DELETE("/:staffId/roles/:roleId", r.container.StaffRole.Handler.Remove)

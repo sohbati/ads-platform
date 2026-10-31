@@ -3,6 +3,7 @@ package impl
 import (
 	"context"
 	"errors"
+	"strings"
 
 	"ads-platform/internal/business/iam/internal/named"
 	"ads-platform/internal/business/iam/internal/pgerr"
@@ -66,7 +67,7 @@ func (s *staffGroupService) List(ctx context.Context) ([]model.StaffGroup, error
 	return s.repo.List(ctx)
 }
 
-func (s *staffGroupService) Update(ctx context.Context, id int64, name string) (*model.StaffGroup, error) {
+func (s *staffGroupService) Update(ctx context.Context, id int64, code, name string) (*model.StaffGroup, error) {
 	group, err := s.Get(ctx, id)
 	if err != nil {
 		return nil, err
@@ -75,8 +76,18 @@ func (s *staffGroupService) Update(ctx context.Context, id int64, name string) (
 	if !ok {
 		return nil, exception.NewAppError(errorcode.ErrInvalidName.Code, errorcode.ErrInvalidName.HttpStatus)
 	}
+	if strings.TrimSpace(code) != "" {
+		normalized, ok := named.Code(code)
+		if !ok {
+			return nil, exception.NewAppError(errorcode.ErrInvalidCode.Code, errorcode.ErrInvalidCode.HttpStatus, code)
+		}
+		group.Code = normalized
+	}
 	group.Name = name
 	if err := s.repo.Update(ctx, group); err != nil {
+		if pgerr.IsUniqueViolation(err) {
+			return nil, exception.NewAppError(errorcode.ErrDuplicateCode.Code, errorcode.ErrDuplicateCode.HttpStatus)
+		}
 		return nil, err
 	}
 	return s.repo.GetByID(ctx, id)

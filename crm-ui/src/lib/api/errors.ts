@@ -56,11 +56,53 @@ export function toApiError(error: unknown, fallbackMessage: string): ApiError {
   };
 }
 
+const CODE_MESSAGES: Record<string, { fa: string; en: string }> = {
+  AUTH_INVALID_CREDENTIALS: {
+    fa: "شماره موبایل یا رمز عبور نادرست است.",
+    en: "Invalid mobile number or password.",
+  },
+  AUTH_TOO_MANY_ATTEMPTS: {
+    fa: "تلاش‌های ناموفق زیادی انجام شد. چند دقیقه دیگر دوباره تلاش کنید.",
+    en: "Too many failed attempts. Try again in a few minutes.",
+  },
+  STAFF_INVALID_PASSWORD: {
+    fa: "رمز عبور باید دست‌کم ۸ نویسه باشد.",
+    en: "Password must be at least 8 characters.",
+  },
+  STAFF_SUPER_ADMIN_PROTECTED: {
+    fa: "مدیر کل را نمی‌توان حذف یا غیرفعال کرد.",
+    en: "A super admin cannot be deleted or deactivated.",
+  },
+  ROLE_DUPLICATE_CODE: {
+    fa: "نقشی با این کد وجود دارد.",
+    en: "A role with this code already exists.",
+  },
+  STAFF_GROUP_DUPLICATE_CODE: {
+    fa: "گروهی با این کد وجود دارد.",
+    en: "A group with this code already exists.",
+  },
+  STAFF_DUPLICATE_MOBILE: {
+    fa: "کارمندی با این شماره موبایل وجود دارد.",
+    en: "A staff member with this mobile number already exists.",
+  },
+  STAFF_DUPLICATE_NATIONAL_ID: {
+    fa: "کارمندی با این کد ملی وجود دارد.",
+    en: "A staff member with this national ID already exists.",
+  },
+  STAFF_INVALID_MOBILE: {
+    fa: "شماره موبایل معتبر نیست.",
+    en: "Mobile number is not valid.",
+  },
+  STAFF_INVALID_NATIONAL_ID: {
+    fa: "کد ملی باید ۱۰ رقم باشد.",
+    en: "National ID must be 10 digits.",
+  },
+};
+
 export function userMessageForError(error: ApiError, locale: "fa" | "en"): string {
-  if (error.code === "AUTH_INVALID_CREDENTIALS") {
-    return locale === "fa"
-      ? "شماره موبایل یا رمز عبور نادرست است."
-      : "Invalid mobile number or password.";
+  const known = CODE_MESSAGES[error.code];
+  if (known) {
+    return known[locale];
   }
 
   const fa: Record<ApiErrorKind, string> = {
