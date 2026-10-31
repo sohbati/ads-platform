@@ -57,7 +57,7 @@ func validPayload(customerID int64) map[string]any {
 		"neighborhood": "Vanak",
 		"price_amount": 12_000_000,
 		"price_type":   "fixed",
-		"currency":     "IRR",
+		"currency":     "IRT",
 		"attrs":        map[string]any{"brand": "lenovo", "ram_gb": 16},
 		"contact":      map[string]any{"chat_enabled": true},
 	}

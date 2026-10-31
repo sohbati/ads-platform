@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS ads_platform_schema.ads (
     status VARCHAR(20) NOT NULL DEFAULT 'draft',
     price_amount BIGINT,
     price_type VARCHAR(20) NOT NULL DEFAULT 'fixed',
-    currency CHAR(3) NOT NULL DEFAULT 'IRR',
+    currency CHAR(3) NOT NULL DEFAULT 'IRT',
     attrs JSONB NOT NULL DEFAULT '{}'::jsonb,
     media JSONB NOT NULL DEFAULT '[]'::jsonb,
     contact JSONB NOT NULL DEFAULT '{}'::jsonb,
@@ -52,6 +52,11 @@ CREATE TABLE IF NOT EXISTS ads_platform_schema.ads (
     slug VARCHAR(160),
     published_at TIMESTAMP,
     expires_at TIMESTAMP,
+    pending_since TIMESTAMP,
+    rejection_reason_customer TEXT,
+    rejection_reason_internal TEXT,
+    reviewed_by_staff_id BIGINT REFERENCES ads_platform_schema.staff(id) ON DELETE SET NULL,
+    reviewed_at TIMESTAMP,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -64,9 +69,9 @@ COMMENT ON COLUMN ads_platform_schema.ads.city_id IS 'شناسه شهر محل �
 COMMENT ON COLUMN ads_platform_schema.ads.title IS 'عنوان کوتاه آگهی برای نمایش در لیست و جزئیات';
 COMMENT ON COLUMN ads_platform_schema.ads.description IS 'توضیحات کامل آگهی';
 COMMENT ON COLUMN ads_platform_schema.ads.status IS 'وضعیت آگهی: draft، pending، active، rejected، expired، deleted';
-COMMENT ON COLUMN ads_platform_schema.ads.price_amount IS 'مبلغ قیمت به کوچک‌ترین واحد پول (مثلاً ریال)';
+COMMENT ON COLUMN ads_platform_schema.ads.price_amount IS 'مبلغ قیمت به تومان (عدد صحیح)';
 COMMENT ON COLUMN ads_platform_schema.ads.price_type IS 'نوع قیمت: fixed (قطعی)، negotiable (توافقی)، free (رایگان)، salary (حقوق)';
-COMMENT ON COLUMN ads_platform_schema.ads.currency IS 'کد ارز سه‌حرفی ISO (پیش‌فرض IRR)';
+COMMENT ON COLUMN ads_platform_schema.ads.currency IS 'واحد قیمت؛ همیشه IRT (تومان)';
 COMMENT ON COLUMN ads_platform_schema.ads.attrs IS 'ویژگی‌های وابسته به دسته به‌صورت JSONB (مثلاً متراژ، اتاق، برند، کارکرد)';
 COMMENT ON COLUMN ads_platform_schema.ads.media IS 'آرایه JSON تصاویر/رسانه آگهی (آدرس، بندانگشتی، ترتیب، تصویر اصلی)';
 COMMENT ON COLUMN ads_platform_schema.ads.contact IS 'اطلاعات تماس قابل‌نمایش (شماره، چت، نمایش/مخفی بودن تلفن)';

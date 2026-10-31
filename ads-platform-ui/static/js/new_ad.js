@@ -362,7 +362,7 @@
       title: title,
       description: description,
       price_type: document.getElementById("new-ad-price-type").value || "fixed",
-      currency: "IRR",
+      currency: "IRT",
       neighborhood: (document.getElementById("new-ad-neighborhood").value || "").trim(),
       attrs: collectAttrs(selectedSchema()),
     };

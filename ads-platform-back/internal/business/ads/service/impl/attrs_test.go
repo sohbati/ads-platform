@@ -117,7 +117,8 @@ func TestFilterAttrsBySchemaRejectsInvalidAndMissingRequired(t *testing.T) {
 }
 
 func TestCreateStoresResidentialSaleAttrs(t *testing.T) {
-	svc := NewAdService(newFakeAdRepo(), &fakeImageRepo{}, residentialSaleCatalog(), nil, 8, 10<<20)
+	repo := newFakeAdRepo()
+	svc := NewAdService(repo, &fakeImageRepo{}, residentialSaleCatalog(), nil, 8, 10<<20)
 	in := validInput()
 	in.CategoryID = 11
 	in.Attrs = json.RawMessage(`{
@@ -157,6 +158,7 @@ func TestCreateStoresResidentialSaleAttrs(t *testing.T) {
 		t.Fatalf("dropped field stored: %s", body)
 	}
 
+	activate(repo, ad.ID)
 	got, err := svc.GetPublic(context.Background(), ad.ID)
 	if err != nil {
 		t.Fatal(err)

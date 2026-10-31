@@ -222,7 +222,7 @@ func validInput() service.CreateAdInput {
 		Neighborhood: "Vanak",
 		PriceAmount:  &price,
 		PriceType:    "fixed",
-		Currency:     "IRR",
+		Currency:     "IRT",
 		Attrs:        attrs,
 	}
 }
@@ -273,8 +273,8 @@ func TestCreateAdHappyPath(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if ad.ID == 0 || ad.Status != model.AdStatusActive || ad.PublishedAt == nil {
-		t.Errorf("ad not persisted as active: %+v", ad)
+	if ad.ID == 0 || ad.Status != model.AdStatusPending || ad.PendingSince == nil || ad.PublishedAt != nil {
+		t.Errorf("new ad should wait for review: %+v", ad)
 	}
 	if !bytes.Contains(ad.Location, []byte(`"lat":35.6892`)) || !bytes.Contains(ad.Location, []byte("Vanak")) {
 		t.Errorf("location = %s", ad.Location)
@@ -538,6 +538,7 @@ func TestGetPublicReturnsActiveWithFullMedia(t *testing.T) {
 		t.Fatal(err)
 	}
 	ad.Media = json.RawMessage(`[{"url":"/ads-media/ads/7/7_1.webp","thumb":"/ads-media/ads/7/7_1-t.webp","is_cover":true},{"url":"/ads-media/ads/7/7_2.webp","thumb":"/ads-media/ads/7/7_2-t.webp"}]`)
+	ad.Status = model.AdStatusActive
 	ads.ads[ad.ID] = *ad
 
 	got, err := svc.GetPublic(context.Background(), ad.ID)
@@ -584,6 +585,7 @@ func TestGetPublicMasksPhoneAndHidesFullNumber(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	activate(ads, ad.ID)
 
 	got, err := svc.GetPublic(context.Background(), ad.ID)
 	if err != nil {
@@ -619,6 +621,7 @@ func TestGetPublicHidesPhoneWhenShowPhoneFalse(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	activate(ads, ad.ID)
 
 	got, err := svc.GetPublic(context.Background(), ad.ID)
 	if err != nil {
@@ -692,6 +695,7 @@ func TestUpdateKeepsAndDropsExistingMedia(t *testing.T) {
 		t.Fatal(err)
 	}
 	ad.Media = json.RawMessage(`[{"url":"/ads-media/ads/7/7_1.webp","thumb":"/ads-media/ads/7/7_1-t.webp","is_cover":true},{"url":"/ads-media/ads/7/7_2.webp","thumb":"/ads-media/ads/7/7_2-t.webp"}]`)
+	ad.Status = model.AdStatusActive
 	ads.ads[ad.ID] = *ad
 
 	keep := []string{"/ads-media/ads/7/7_2.webp"}
@@ -792,5 +796,48 @@ func TestListStatsDefaultsRangeAndFiltersOwner(t *testing.T) {
 	}
 	if empty.From == "" || empty.To == "" {
 		t.Fatalf("default range missing: %+v", empty)
+	}
+}
+
+// activate marks an ad approved, as a reviewer would, so public reads can see it.
+func activate(repo *fakeAdRepo, id int64) {
+	ad := repo.ads[id]
+	ad.Status = model.AdStatusActive
+	repo.ads[id] = ad
+}
+
+func TestNewAdIsHiddenUntilApproved(t *testing.T) {
+	ads := newFakeAdRepo()
+	svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+	ad, err := svc.Create(context.Background(), validInput())
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = svc.GetPublic(context.Background(), ad.ID)
+	assertAppErrorCode(t, err, "AD_NOT_FOUND")
+}
+
+func TestEditSendsAdBackToReview(t *testing.T) {
+	for _, from := range []string{model.AdStatusActive, model.AdStatusDraft} {
+		ads := newFakeAdRepo()
+		svc := NewAdService(ads, &fakeImageRepo{}, leafCatalog(), nil, 8, 10<<20)
+		in := validInput()
+		ad, err := svc.Create(context.Background(), in)
+		if err != nil {
+			t.Fatal(err)
+		}
+		stored := ads.ads[ad.ID]
+		stored.Status = from
+		stored.PendingSince = nil
+		ads.ads[ad.ID] = stored
+
+		in.Title = "Edited title"
+		got, err := svc.Update(context.Background(), ad.ID, in)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got.Status != model.AdStatusPending || got.PendingSince == nil {
+			t.Fatalf("from %s: got status %s pending_since %v", from, got.Status, got.PendingSince)
+		}
 	}
 }

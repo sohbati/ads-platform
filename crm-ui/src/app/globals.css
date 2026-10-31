@@ -77,6 +77,10 @@ body {
   gap: 10px;
 }
 
+.app-pre-wrap {
+  white-space: pre-wrap;
+}
+
 .app-form-actions {
   display: flex;
   justify-content: flex-end;

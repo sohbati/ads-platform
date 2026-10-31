@@ -57,6 +57,27 @@ const RULES: Rule[] = [
     pattern: new RegExp(`^actions(/${ID})?$`),
     permission: Permission.actionUpdate,
   },
+  {
+    methods: READ,
+    pattern: new RegExp(`^ads(/${ID})?$`),
+    permission: Permission.advertisementRead,
+  },
+  {
+    methods: ["POST"],
+    pattern: new RegExp(`^ads/${ID}/approve$`),
+    permission: Permission.advertisementApprove,
+  },
+  {
+    methods: ["POST"],
+    pattern: new RegExp(`^ads/${ID}/reject$`),
+    permission: Permission.advertisementReject,
+  },
+  { methods: READ, pattern: /^settings$/, permission: Permission.settingsRead },
+  {
+    methods: ["PUT"],
+    pattern: /^settings\/[a-z][a-z0-9_.]*$/,
+    permission: Permission.settingsUpdate,
+  },
 ];
 
 /** The permission needed to call a panel path, or null if the path may not be proxied at all. */

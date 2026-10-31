@@ -81,6 +81,22 @@ const CODE_MESSAGES: Record<string, { fa: string; en: string }> = {
     fa: "گروهی با این کد وجود دارد.",
     en: "A group with this code already exists.",
   },
+  AD_REVIEW_NOT_PENDING: {
+    fa: "این آگهی دیگر در انتظار بررسی نیست؛ احتمالاً کارمند دیگری آن را بررسی کرده است.",
+    en: "This ad is no longer pending; another staff member may have reviewed it.",
+  },
+  AD_REVIEW_REASON_REQUIRED: {
+    fa: "دلیل رد برای مشتری را بنویسید.",
+    en: "Enter the rejection reason for the customer.",
+  },
+  AD_REVIEW_REASON_TOO_LONG: {
+    fa: "هر دلیل رد حداکثر ۱۰۰۰ نویسه است.",
+    en: "Each rejection reason is limited to 1000 characters.",
+  },
+  SETTING_INVALID_VALUE: {
+    fa: "مقدار واردشده در بازه مجاز نیست.",
+    en: "The value is outside the allowed range.",
+  },
   STAFF_DUPLICATE_MOBILE: {
     fa: "کارمندی با این شماره موبایل وجود دارد.",
     en: "A staff member with this mobile number already exists.",

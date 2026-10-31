@@ -45,6 +45,9 @@ async function proxy(request: Request, context: { params: Promise<{ path: string
       method: request.method,
       body,
       search: new URL(request.url).searchParams,
+      // The backend records who approved, rejected, or changed settings. It is always taken
+      // from the session; a header sent by the browser never reaches the backend.
+      headers: { "X-Staff-Id": String(session.staffId) },
     });
     return data === undefined
       ? new NextResponse(null, { status: 204 })

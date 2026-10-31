@@ -42,7 +42,7 @@ func TestQueryAdsTemplateRenders(t *testing.T) {
 			TotalPages: 2,
 			NextURL:    "/query-ads?q=bike&page=2",
 			Ads: []viewmodel.SearchAd{
-				{Title: "Bike", Price: "1,000 IRR", Location: "Tehran", Thumbnail: "/t.jpg", HasPhoto: true, PublishedAt: "2026-08-01", Href: "/ad/1"},
+				{Title: "Bike", Price: "1,000 Toman", Location: "Tehran", Thumbnail: "/t.jpg", HasPhoto: true, PublishedAt: "2026-08-01", Href: "/ad/1"},
 				{Title: "Old bike", Price: "Negotiable"},
 			},
 		},
@@ -156,7 +156,7 @@ func TestMyInfoCustomerAdsTemplateRenders(t *testing.T) {
 			},
 		},
 		Ads: []viewmodel.SearchAd{
-			{ID: 9, Href: "/edit-ad/9", Title: "Bike", Price: "1,000 IRR", Location: "Tehran", Thumbnail: "/t.jpg", PublishedAt: "2026-08-01", Views: 4, Calls: 1},
+			{ID: 9, Href: "/edit-ad/9", Title: "Bike", Price: "1,000 Toman", Location: "Tehran", Thumbnail: "/t.jpg", PublishedAt: "2026-08-01", Views: 4, Calls: 1},
 		},
 	}
 	unavailable := myinfovm.CustomerAdsPage{
@@ -244,7 +244,7 @@ func TestAdDetailTemplateRenders(t *testing.T) {
 		Ad: &viewmodel.AdDetail{
 			ID:          55,
 			Title:       "Bike",
-			Price:       "1,000 IRR",
+			Price:       "1,000 Toman",
 			Location:    "Tehran",
 			PublishedAt: "2026-08-01",
 			Description: "Nice bike",

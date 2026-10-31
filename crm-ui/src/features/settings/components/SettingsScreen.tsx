@@ -39,6 +39,13 @@ export function SettingsScreen() {
             </Card>
           </Link>
         </Col>
+        <Col xs={24} md={8}>
+          <Link href="/settings/general">
+            <Card hoverable>
+              <Typography.Title level={4}>{t("generalSettings")}</Typography.Title>
+            </Card>
+          </Link>
+        </Col>
       </Row>
     </div>
   );

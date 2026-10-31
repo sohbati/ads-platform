@@ -33,6 +33,8 @@
           <p class="ad-card__meta">
             {{- .Location }}{{ if and .Location .PublishedAt }} · {{ end }}{{ .PublishedAt -}}
           </p>
+          {{ if .StatusLabel }}<p class="ad-card__status ad-card__status--{{ .StatusTone }}">{{ .StatusLabel }}</p>{{ end }}
+          {{ if .RejectionReason }}<p class="ad-card__rejection">{{ format $.T.MyAds.RejectionReason .RejectionReason }}</p>{{ end }}
           <p class="ad-card__stats">{{ format $.T.MyAds.Stats .Views .Calls }}</p>
         </div>
       {{ if .Href }}</a>{{ else }}</div>{{ end }}

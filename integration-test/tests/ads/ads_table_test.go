@@ -82,7 +82,7 @@ func TestAdsTableInsertAndJSONBQuery(t *testing.T) {
 		RETURNING id
 	`,
 		customerID, 2, 1, "Peugeot 206", "Clean car, one owner", "active",
-		450000000, "fixed", "IRR", attrsJSON, mediaJSON, contactJSON, locationJSON, "peugeot-206",
+		450000000, "fixed", "IRT", attrsJSON, mediaJSON, contactJSON, locationJSON, "peugeot-206",
 	).Scan(&adID)
 	if err != nil {
 		t.Fatalf("insert ad: %v", err)

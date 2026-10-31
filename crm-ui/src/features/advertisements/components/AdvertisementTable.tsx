@@ -1,16 +1,16 @@
 "use client";
 
 import type { ColumnsType } from "antd/es/table";
-import { Button, Space } from "antd";
+import { Button, Typography } from "antd";
 import { AppTable } from "@/components/ui/AppTable";
-import { AppStatusTag } from "@/components/ui/AppStatusTag";
-import { PermissionGuard } from "@/components/shared/PermissionGuard";
-import { Permission } from "@/lib/permissions/codes";
-import { formatDate } from "@/lib/formatters/date";
+import { formatDateTime } from "@/lib/formatters/date";
+import { formatDigits } from "@/lib/formatters/digits";
 import { formatNumber } from "@/lib/formatters/number";
+import { formatMobile } from "@/lib/formatters/phone";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import type { AdvertisementListItem } from "../types/advertisement.types";
-import { AdvertisementStatus } from "../constants/advertisement.constants";
+import { AdvertisementStatusTag } from "./AdvertisementStatusTag";
+import { formatPrice } from "./formatPrice";
 
 interface AdvertisementTableProps {
   advertisements: AdvertisementListItem[];
@@ -18,23 +18,10 @@ interface AdvertisementTableProps {
   page: number;
   pageSize: number;
   total: number;
-  permissions: readonly string[] | undefined;
+  /** Review queue: show how long each ad has waited instead of when it last changed. */
+  queue?: boolean;
   onPageChange: (page: number, pageSize: number) => void;
-  onApprove: (item: AdvertisementListItem) => void;
-  onReject: (item: AdvertisementListItem) => void;
-}
-
-function toneForStatus(status: AdvertisementListItem["status"]) {
-  if (status === AdvertisementStatus.active) {
-    return "success" as const;
-  }
-  if (status === AdvertisementStatus.pending) {
-    return "processing" as const;
-  }
-  if (status === AdvertisementStatus.rejected || status === AdvertisementStatus.deleted) {
-    return "error" as const;
-  }
-  return "default" as const;
+  onOpen: (item: AdvertisementListItem) => void;
 }
 
 export function AdvertisementTable({
@@ -43,43 +30,75 @@ export function AdvertisementTable({
   page,
   pageSize,
   total,
-  permissions,
+  queue,
   onPageChange,
-  onApprove,
-  onReject,
+  onOpen,
 }: AdvertisementTableProps) {
   const { t, locale } = useI18n();
 
   const columns: ColumnsType<AdvertisementListItem> = [
-    { title: t("name"), dataIndex: "title" },
     {
-      title: t("status"),
-      dataIndex: "status",
-      render: (status: AdvertisementListItem["status"]) => (
-        <AppStatusTag label={status} tone={toneForStatus(status)} />
+      title: t("adId"),
+      dataIndex: "id",
+      render: (id: number) => formatDigits(id, locale),
+    },
+    {
+      title: t("title"),
+      dataIndex: "title",
+      render: (title: string, item) => (
+        <Typography.Link onClick={() => onOpen(item)}>{title}</Typography.Link>
       ),
     },
     {
-      title: t("createdAt"),
-      dataIndex: "createdAt",
-      render: (value: string) => formatDate(value, locale),
+      title: t("category"),
+      key: "category",
+      render: (_, item) => item.category_title || formatDigits(item.category_id, locale),
     },
+    {
+      title: t("city"),
+      key: "city",
+      render: (_, item) => item.city_name || formatDigits(item.city_id, locale),
+    },
+    {
+      title: t("customer"),
+      key: "customer",
+      render: (_, item) => (
+        <div>
+          <div>{item.customer_name}</div>
+          <Typography.Text type="secondary" dir="ltr">
+            {formatMobile(item.customer_mobile, locale)}
+          </Typography.Text>
+        </div>
+      ),
+    },
+    {
+      title: t("price"),
+      key: "price",
+      render: (_, item) => formatPrice(item, locale, t),
+    },
+    {
+      title: t("status"),
+      key: "status",
+      render: (_, item) => <AdvertisementStatusTag ad={item} />,
+    },
+    queue
+      ? {
+          title: t("waitingSince"),
+          dataIndex: "pending_since",
+          render: (value: string | null) => formatDateTime(value, locale),
+        }
+      : {
+          title: t("updatedAt"),
+          dataIndex: "updated_at",
+          render: (value: string) => formatDateTime(value, locale),
+        },
     {
       title: t("actionsColumn"),
       key: "actions",
       render: (_, item) => (
-        <Space>
-          <PermissionGuard permission={Permission.advertisementApprove} permissions={permissions}>
-            <Button size="small" type="primary" onClick={() => onApprove(item)}>
-              {t("approve")}
-            </Button>
-          </PermissionGuard>
-          <PermissionGuard permission={Permission.advertisementReject} permissions={permissions}>
-            <Button size="small" danger onClick={() => onReject(item)}>
-              {t("reject")}
-            </Button>
-          </PermissionGuard>
-        </Space>
+        <Button size="small" onClick={() => onOpen(item)}>
+          {t("view")}
+        </Button>
       ),
     },
   ];
@@ -90,7 +109,6 @@ export function AdvertisementTable({
       columns={columns}
       dataSource={advertisements}
       loading={loading}
-      emptyText={t("backendMissing")}
       pagination={{
         current: page,
         pageSize,

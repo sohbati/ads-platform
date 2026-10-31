@@ -9,7 +9,10 @@ import { can } from "@/lib/auth/permissions";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { useSession } from "@/lib/auth/SessionProvider";
 
-function visibleItems(items: NavItem[], permissions: readonly string[] | undefined): NavItem[] {
+function visibleItems(
+  items: NavItem[],
+  permissions: readonly string[] | undefined,
+): NavItem[] {
   return items
     .filter((item) => !item.permission || can(permissions, item.permission))
     .map((item) => ({
@@ -28,16 +31,20 @@ export function AppSider() {
 
   const selected = pathname.startsWith("/advertisements/review")
     ? "advertisements-review"
-    : pathname.startsWith("/settings/staff")
-      ? "settings-staff"
-      : pathname.startsWith("/settings/roles")
-      ? "settings-roles"
-      : pathname.startsWith("/settings/actions")
-        ? "settings-actions"
-        : pathname.startsWith("/settings/groups")
-          ? "settings-groups"
-          : items.find((item) => pathname === item.href || pathname.startsWith(`${item.href}/`))
-              ?.key ?? "dashboard";
+    : pathname.startsWith("/settings/general")
+      ? "settings-general"
+      : pathname.startsWith("/settings/staff")
+        ? "settings-staff"
+        : pathname.startsWith("/settings/roles")
+          ? "settings-roles"
+          : pathname.startsWith("/settings/actions")
+            ? "settings-actions"
+            : pathname.startsWith("/settings/groups")
+              ? "settings-groups"
+              : (items.find(
+                  (item) =>
+                    pathname === item.href || pathname.startsWith(`${item.href}/`),
+                )?.key ?? "dashboard");
 
   return (
     <Layout.Sider

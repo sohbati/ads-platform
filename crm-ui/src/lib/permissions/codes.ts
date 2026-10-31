@@ -25,6 +25,7 @@ export const Permission = {
   staffGroupRead: "staff_group.read",
   staffGroupUpdate: "staff_group.update",
   settingsRead: "settings.read",
+  settingsUpdate: "settings.update",
 } as const;
 
 export type PermissionCode = (typeof Permission)[keyof typeof Permission];

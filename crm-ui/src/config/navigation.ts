@@ -131,6 +131,13 @@ export const navigation: NavItem[] = [
         icon: TeamOutlined,
         permission: Permission.staffGroupRead,
       },
+      {
+        key: "settings-general",
+        href: "/settings/general",
+        labelKey: "general",
+        icon: SettingOutlined,
+        permission: Permission.settingsRead,
+      },
     ],
   },
 ];

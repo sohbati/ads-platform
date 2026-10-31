@@ -35,6 +35,10 @@ type SearchAd struct {
 	PublishedAt string `json:"published_at"`
 	Views       int    `json:"views,omitempty"`
 	Calls       int    `json:"calls,omitempty"`
+	// Owner-only fields for the my-ads list.
+	StatusLabel     string `json:"status_label,omitempty"`
+	StatusTone      string `json:"status_tone,omitempty"`
+	RejectionReason string `json:"rejection_reason,omitempty"`
 }
 
 // AdDetailPage is the public listing details page.

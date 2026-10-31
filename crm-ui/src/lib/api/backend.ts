@@ -6,6 +6,7 @@ interface BackendRequest {
   method?: string;
   body?: unknown;
   search?: URLSearchParams;
+  headers?: Record<string, string>;
 }
 
 export async function backendFetch<T>(request: BackendRequest): Promise<T> {
@@ -18,6 +19,7 @@ export async function backendFetch<T>(request: BackendRequest): Promise<T> {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      ...request.headers,
     },
     body: request.body === undefined ? undefined : JSON.stringify(request.body),
     cache: "no-store",

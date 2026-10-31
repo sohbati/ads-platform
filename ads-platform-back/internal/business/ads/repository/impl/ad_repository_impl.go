@@ -36,6 +36,7 @@ func (r *adRepository) Update(ctx context.Context, ad *model.Ad) error {
 		"category_id", "city_id", "title", "description",
 		"price_amount", "price_type", "currency",
 		"attrs", "contact", "location", "media",
+		"status", "pending_since",
 	).Updates(ad).Error
 }
 
@@ -51,7 +52,7 @@ func (r *adRepository) ListByCustomerID(ctx context.Context, customerID int64, l
 	err := r.db.WithContext(ctx).
 		Where("customer_id = ?", customerID).
 		Where("status <> ?", model.AdStatusDeleted).
-		Order("published_at DESC NULLS LAST").
+		// Newest first. Ads waiting for review have no publish date, so sorting by it would bury them.
 		Order("created_at DESC").
 		Order("id DESC").
 		Limit(limit).

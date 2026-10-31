@@ -37,7 +37,7 @@ func residentialSalePayload(customerID int64, attrs map[string]any) map[string]a
 		"neighborhood": "Saadat Abad",
 		"price_amount": 12_000_000_000,
 		"price_type":   "fixed",
-		"currency":     "IRR",
+		"currency":     "IRT",
 		"attrs":        attrs,
 		"contact":      map[string]any{"phone": "09121110001", "chat_enabled": true},
 	}

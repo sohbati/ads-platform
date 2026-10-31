@@ -8,7 +8,7 @@ import (
 // Ad maps to ads_platform_schema.ads
 type Ad struct {
 	ID          int64           `json:"id" gorm:"primaryKey;autoIncrement"`
-	CustomerID      int64           `json:"customer_id" gorm:"not null"`
+	CustomerID  int64           `json:"customer_id" gorm:"not null"`
 	CategoryID  int             `json:"category_id" gorm:"not null"`
 	CityID      int             `json:"city_id" gorm:"not null"`
 	Title       string          `json:"title" gorm:"type:varchar(120);not null"`
@@ -16,7 +16,7 @@ type Ad struct {
 	Status      string          `json:"status" gorm:"type:varchar(20);not null;default:draft"`
 	PriceAmount *int64          `json:"price_amount"`
 	PriceType   string          `json:"price_type" gorm:"type:varchar(20);not null;default:fixed"`
-	Currency    string          `json:"currency" gorm:"type:char(3);not null;default:IRR"`
+	Currency    string          `json:"currency" gorm:"type:char(3);not null;default:IRT"`
 	Attrs       json.RawMessage `json:"attrs" gorm:"type:jsonb;not null"`
 	Media       json.RawMessage `json:"media" gorm:"type:jsonb;not null"`
 	Contact     json.RawMessage `json:"contact" gorm:"type:jsonb;not null"`
@@ -24,13 +24,22 @@ type Ad struct {
 	Slug        *string         `json:"slug" gorm:"type:varchar(160)"`
 	PublishedAt *time.Time      `json:"published_at"`
 	ExpiresAt   *time.Time      `json:"expires_at"`
-	CreatedAt   time.Time       `json:"created_at" gorm:"autoCreateTime"`
-	UpdatedAt   time.Time       `json:"updated_at" gorm:"autoUpdateTime"`
+	// PendingSince is when the ad last entered review; the pending-timeout job measures from it.
+	PendingSince *time.Time `json:"-"`
+	// RejectionReasonCustomer is shown to the owner while the ad is back in draft after a rejection.
+	RejectionReasonCustomer *string `json:"rejection_reason,omitempty"`
+	// Review fields below are internal to staff and never sent to customers.
+	RejectionReasonInternal *string    `json:"-"`
+	ReviewedByStaffID       *int64     `json:"-"`
+	ReviewedAt              *time.Time `json:"-"`
+	CreatedAt               time.Time  `json:"created_at" gorm:"autoCreateTime"`
+	UpdatedAt               time.Time  `json:"updated_at" gorm:"autoUpdateTime"`
 	// PhotosSkipped is set on create/update when pictures were sent but not stored.
 	PhotosSkipped bool `json:"photos_skipped,omitempty" gorm:"-"`
 }
 
 const (
+	// AdStatusDraft is also where a rejected ad returns; RejectionReasonCustomer tells the owner why.
 	AdStatusDraft    = "draft"
 	AdStatusPending  = "pending"
 	AdStatusActive   = "active"
@@ -59,6 +68,8 @@ type CustomerAdItem struct {
 	Slug         string  `json:"slug,omitempty"`
 	Status       string  `json:"status"`
 	PublishedAt  *string `json:"published_at,omitempty"`
+	// RejectionReason is set only while a rejected ad waits in draft for the owner to fix it.
+	RejectionReason string `json:"rejection_reason,omitempty"`
 }
 
 // PublicAd is the public details view of an active listing.

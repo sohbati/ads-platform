@@ -214,10 +214,16 @@ type NewAdMessages struct {
 }
 
 type MyAdsMessages struct {
-	Empty       string `json:"empty"`
-	Unavailable string `json:"unavailable"`
-	PostCta     string `json:"post_cta"`
-	Stats       string `json:"stats"`
+	Empty           string `json:"empty"`
+	Unavailable     string `json:"unavailable"`
+	PostCta         string `json:"post_cta"`
+	Stats           string `json:"stats"`
+	StatusPending   string `json:"status_pending"`
+	StatusActive    string `json:"status_active"`
+	StatusDraft     string `json:"status_draft"`
+	StatusRejected  string `json:"status_rejected"`
+	StatusExpired   string `json:"status_expired"`
+	RejectionReason string `json:"rejection_reason"`
 }
 
 type AdDetailMessages struct {

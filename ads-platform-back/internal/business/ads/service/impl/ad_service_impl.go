@@ -98,15 +98,16 @@ func (s *adService) Create(ctx context.Context, in service.CreateAdInput) (*mode
 		CityID:      in.CityID,
 		Title:       strings.TrimSpace(in.Title),
 		Description: strings.TrimSpace(in.Description),
-		Status:      model.AdStatusActive,
+		Status:      model.AdStatusPending,
 		PriceAmount: in.PriceAmount,
 		PriceType:   normalizePriceType(in.PriceType),
-		Currency:    normalizeCurrency(in.Currency),
+		Currency:    CurrencyToman,
 		Attrs:       attrs,
 		Media:       json.RawMessage("[]"),
 		Contact:     normalizeJSONObject(in.Contact),
 		Location:    buildLocation(in.Latitude, in.Longitude, in.Neighborhood),
-		PublishedAt: &now,
+		// New ads wait for staff review; PublishedAt is set on first approval.
+		PendingSince: &now,
 	}
 
 	if err := s.ads.Create(ctx, ad); err != nil {
@@ -217,12 +218,16 @@ func (s *adService) Update(ctx context.Context, adID int64, in service.CreateAdI
 	existing.Description = strings.TrimSpace(in.Description)
 	existing.PriceAmount = in.PriceAmount
 	existing.PriceType = normalizePriceType(in.PriceType)
-	existing.Currency = normalizeCurrency(in.Currency)
+	existing.Currency = CurrencyToman
 	existing.Attrs = attrs
 	if len(in.Contact) > 0 {
 		existing.Contact = normalizeJSONObject(in.Contact)
 	}
 	existing.Location = buildLocation(lat, lng, in.Neighborhood)
+	// Any edit, including fixing a rejected draft, sends the ad back for review.
+	now := time.Now().UTC()
+	existing.Status = model.AdStatusPending
+	existing.PendingSince = &now
 
 	if in.KeepMedia != nil {
 		media, err := s.mergeMedia(ctx, existing, *in.KeepMedia, in.Pictures)
@@ -406,6 +411,9 @@ func toCustomerAdItem(ad model.Ad, cityNames map[int]string) model.CustomerAdIte
 		CategoryID:  ad.CategoryID,
 		Status:      ad.Status,
 		HasPhoto:    false,
+	}
+	if ad.Status == model.AdStatusDraft && ad.RejectionReasonCustomer != nil {
+		item.RejectionReason = *ad.RejectionReasonCustomer
 	}
 	if name, ok := cityNames[ad.CityID]; ok {
 		item.CityName = name
@@ -799,13 +807,9 @@ func normalizePriceType(v string) string {
 	return "fixed"
 }
 
-func normalizeCurrency(v string) string {
-	v = strings.ToUpper(strings.TrimSpace(v))
-	if len(v) != 3 {
-		return "IRR"
-	}
-	return v
-}
+// CurrencyToman is the only price unit: amounts are whole tomans, whatever currency a client sends.
+// "IRT" is the common unofficial code for toman; ISO 4217 only defines IRR (rial).
+const CurrencyToman = "IRT"
 
 func normalizeContentType(ct, filename string) string {
 	ct = strings.ToLower(strings.TrimSpace(ct))

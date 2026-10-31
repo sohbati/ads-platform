@@ -117,6 +117,20 @@ func (r *Router) SetupRoutes() *gin.Engine {
 				panelStaff.GET("/:staffId/actions", r.container.StaffRole.Handler.ListActions)
 			}
 
+			panelAds := panel.Group("/ads")
+			{
+				panelAds.GET("", r.container.AdReview.Handler.List)
+				panelAds.GET("/:adId", r.container.AdReview.Handler.Get)
+				panelAds.POST("/:adId/approve", r.container.AdReview.Handler.Approve)
+				panelAds.POST("/:adId/reject", r.container.AdReview.Handler.Reject)
+			}
+
+			settings := panel.Group("/settings")
+			{
+				settings.GET("", r.container.Setting.Handler.List)
+				settings.PUT("/:key", r.container.Setting.Handler.Update)
+			}
+
 			actions := panel.Group("/actions")
 			{
 				actions.GET("", r.container.Action.Handler.List)

@@ -140,6 +140,10 @@ func toSearchAd(ad customerAdJSON, t i18n.Messages, mediaCDN string) queryadsvm.
 		Thumbnail: media.PublicURL(mediaCDN, ad.Thumbnail),
 		HasPhoto:  ad.HasPhoto,
 	}
+	out.StatusLabel, out.StatusTone = adStatus(ad, t)
+	if ad.Status == "draft" {
+		out.RejectionReason = ad.RejectionReason
+	}
 	if ad.ID > 0 {
 		out.Href = "/edit-ad/" + strconv.FormatInt(ad.ID, 10)
 	}
@@ -161,6 +165,25 @@ func toSearchAd(ad customerAdJSON, t i18n.Messages, mediaCDN string) queryadsvm.
 		}
 	}
 	return out
+}
+
+// adStatus labels an owner's ad. A draft with a rejection reason was sent back by a reviewer.
+func adStatus(ad customerAdJSON, t i18n.Messages) (label, tone string) {
+	switch ad.Status {
+	case "pending":
+		return t.MyAds.StatusPending, "pending"
+	case "active":
+		return t.MyAds.StatusActive, "active"
+	case "draft":
+		if ad.RejectionReason != "" {
+			return t.MyAds.StatusRejected, "rejected"
+		}
+		return t.MyAds.StatusDraft, "draft"
+	case "expired":
+		return t.MyAds.StatusExpired, "draft"
+	default:
+		return "", ""
+	}
 }
 
 func formatAmount(v int64) string {
@@ -239,5 +262,7 @@ type customerAdJSON struct {
 	Neighborhood string  `json:"neighborhood"`
 	Thumbnail    string  `json:"thumbnail"`
 	HasPhoto     bool    `json:"has_photo"`
-	PublishedAt  *string `json:"published_at"`
+	PublishedAt     *string `json:"published_at"`
+	Status          string  `json:"status"`
+	RejectionReason string  `json:"rejection_reason"`
 }

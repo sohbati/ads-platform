@@ -85,7 +85,7 @@ func TestSearchHappyPath(t *testing.T) {
 				Title:       "Bike for sale",
 				PriceAmount: i64(500000),
 				PriceType:   "fixed",
-				Currency:    "IRR",
+				Currency:    "IRT",
 				Media:       json.RawMessage(`[{"thumb":"t.jpg","url":"u.jpg"}]`),
 				Location:    json.RawMessage(`{"neighborhood":"Vanak"}`),
 				Slug:        &slug,
