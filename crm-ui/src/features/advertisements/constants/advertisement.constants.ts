@@ -31,3 +31,8 @@ export const STATUS_LABEL: Record<AdvertisementStatus, MessageKey> = {
 };
 
 export const REASON_MAX_LENGTH = 1000;
+
+/** How often an open ad renews the reviewer's claim; the backend lease is 10 minutes. */
+export const CLAIM_HEARTBEAT_MS = 60_000;
+/** Warn the reviewer this long before their claim ends. */
+export const CLAIM_WARNING_MS = 60_000;

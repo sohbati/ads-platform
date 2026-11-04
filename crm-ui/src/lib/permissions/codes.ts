@@ -6,6 +6,8 @@ export const Permission = {
   advertisementApprove: "advertisement.approve",
   advertisementReject: "advertisement.reject",
   advertisementDelete: "advertisement.delete",
+  advertisementReview: "advertisement.review",
+  advertisementReviewManage: "advertisement.review_manage",
   categoryRead: "category.read",
   categoryCreate: "category.create",
   categoryUpdate: "category.update",

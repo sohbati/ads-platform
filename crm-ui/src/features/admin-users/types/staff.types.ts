@@ -5,6 +5,8 @@ export interface StaffListItem {
   national_id: string;
   is_super_admin: boolean;
   is_active: boolean;
+  /** One of their roles lets them take ads from the review queue. */
+  is_reviewer: boolean;
   created_at: string;
   updated_at: string;
 }

@@ -8,6 +8,9 @@ import (
 	"gorm.io/gorm"
 )
 
+// reviewerAction marks staff who can take ads from the review queue.
+const reviewerAction = "advertisement.review"
+
 type staffRepository struct {
 	db *gorm.DB
 }
@@ -46,7 +49,13 @@ func (r *staffRepository) ListStaff(ctx context.Context, search []string, limit,
 	}
 
 	items := []model.Staff{}
-	err := query.Order("id DESC").Limit(limit).Offset(offset).Find(&items).Error
+	err := query.Select(`staff.*, EXISTS (
+			SELECT 1 FROM staff_role sr
+			JOIN role_action ra ON ra.role_id = sr.role_id
+			JOIN action a ON a.id = ra.action_id
+			WHERE sr.staff_id = staff.id AND a.code = ?
+		) AS is_reviewer`, reviewerAction).
+		Order("id DESC").Limit(limit).Offset(offset).Find(&items).Error
 	return items, total, err
 }
 

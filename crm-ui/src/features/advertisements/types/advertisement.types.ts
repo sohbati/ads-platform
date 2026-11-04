@@ -19,6 +19,11 @@ export interface AdvertisementListItem {
   reviewed_at: string | null;
   /** The last review was a rejection: the ad is back in draft, or was resubmitted. */
   was_rejected: boolean;
+  /** The reviewer working on the ad now; all null when nobody holds it. */
+  claimed_by_staff_id: number | null;
+  claimed_by_name: string | null;
+  claimed_at: string | null;
+  claim_expires_at: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -42,10 +47,31 @@ export interface AdvertisementDetail extends AdvertisementListItem {
 }
 
 export interface AdvertisementFiltersState {
-  page: number;
   pageSize: number;
+  /** An ad ID, a customer mobile, or part of a title (3+ letters). */
   search?: string;
   status?: AdvertisementStatus;
+  /** Includes the category's subcategories. */
+  category_id?: number;
+  city_id?: number;
+  /** Continues from a previous page's `next_cursor`. */
+  cursor?: string;
+}
+
+export interface AdvertisementPage {
+  items: AdvertisementListItem[];
+  /** Matches counted up to 1000; `total_capped` means there are more. */
+  total: number;
+  total_capped: boolean;
+  next_cursor?: string;
+  pageSize: number;
+}
+
+export interface ReviewerStats {
+  staff_id: number;
+  name: string;
+  approved: number;
+  rejected: number;
 }
 
 export interface RejectInput {

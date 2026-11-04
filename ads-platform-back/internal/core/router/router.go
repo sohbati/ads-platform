@@ -123,6 +123,13 @@ func (r *Router) SetupRoutes() *gin.Engine {
 				panelAds.GET("/:adId", r.container.AdReview.Handler.Get)
 				panelAds.POST("/:adId/approve", r.container.AdReview.Handler.Approve)
 				panelAds.POST("/:adId/reject", r.container.AdReview.Handler.Reject)
+				panelAds.POST("/:adId/claim", r.container.AdReview.Handler.Claim)
+				panelAds.POST("/:adId/extend", r.container.AdReview.Handler.Extend)
+				panelAds.POST("/:adId/release", r.container.AdReview.Handler.Release)
+				panelAds.POST("/:adId/force-release", r.container.AdReview.Handler.ForceRelease)
+				panelAds.POST("/review/next", r.container.AdReview.Handler.Next)
+				panelAds.POST("/review/release-all", r.container.AdReview.Handler.ReleaseAll)
+				panelAds.GET("/review/stats", r.container.AdReview.Handler.TodayStats)
 			}
 
 			settings := panel.Group("/settings")

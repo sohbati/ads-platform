@@ -72,6 +72,17 @@ const RULES: Rule[] = [
     pattern: new RegExp(`^ads/${ID}/reject$`),
     permission: Permission.advertisementReject,
   },
+  {
+    methods: ["POST"],
+    pattern: new RegExp(`^ads/(review/next|${ID}/(claim|extend|release))$`),
+    permission: Permission.advertisementReview,
+  },
+  {
+    methods: ["POST"],
+    pattern: new RegExp(`^ads/${ID}/force-release$`),
+    permission: Permission.advertisementReviewManage,
+  },
+  { methods: READ, pattern: /^ads\/review\/stats$/, permission: Permission.advertisementRead },
   { methods: READ, pattern: /^settings$/, permission: Permission.settingsRead },
   {
     methods: ["PUT"],

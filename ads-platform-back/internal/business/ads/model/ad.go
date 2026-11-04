@@ -32,8 +32,12 @@ type Ad struct {
 	RejectionReasonInternal *string    `json:"-"`
 	ReviewedByStaffID       *int64     `json:"-"`
 	ReviewedAt              *time.Time `json:"-"`
-	CreatedAt               time.Time  `json:"created_at" gorm:"autoCreateTime"`
-	UpdatedAt               time.Time  `json:"updated_at" gorm:"autoUpdateTime"`
+	// A reviewer's claim on a pending ad; it no longer counts once ClaimExpiresAt passes.
+	ClaimedByStaffID *int64     `json:"-"`
+	ClaimedAt        *time.Time `json:"-"`
+	ClaimExpiresAt   *time.Time `json:"-"`
+	CreatedAt        time.Time  `json:"created_at" gorm:"autoCreateTime"`
+	UpdatedAt        time.Time  `json:"updated_at" gorm:"autoUpdateTime"`
 	// PhotosSkipped is set on create/update when pictures were sent but not stored.
 	PhotosSkipped bool `json:"photos_skipped,omitempty" gorm:"-"`
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import type { ColumnsType } from "antd/es/table";
-import { Button, Typography } from "antd";
+import { Button, Space, Tag, Typography } from "antd";
 import { AppTable } from "@/components/ui/AppTable";
 import { formatDateTime } from "@/lib/formatters/date";
 import { formatDigits } from "@/lib/formatters/digits";
@@ -15,23 +15,19 @@ import { formatPrice } from "./formatPrice";
 interface AdvertisementTableProps {
   advertisements: AdvertisementListItem[];
   loading?: boolean;
-  page: number;
-  pageSize: number;
-  total: number;
   /** Review queue: show how long each ad has waited instead of when it last changed. */
   queue?: boolean;
-  onPageChange: (page: number, pageSize: number) => void;
   onOpen: (item: AdvertisementListItem) => void;
+}
+
+function minutesSince(iso: string): number {
+  return Math.max(0, Math.floor((Date.now() - Date.parse(iso)) / 60_000));
 }
 
 export function AdvertisementTable({
   advertisements,
   loading,
-  page,
-  pageSize,
-  total,
   queue,
-  onPageChange,
   onOpen,
 }: AdvertisementTableProps) {
   const { t, locale } = useI18n();
@@ -79,7 +75,19 @@ export function AdvertisementTable({
     {
       title: t("status"),
       key: "status",
-      render: (_, item) => <AdvertisementStatusTag ad={item} />,
+      render: (_, item) => (
+        <Space size={4} wrap>
+          <AdvertisementStatusTag ad={item} />
+          {item.claimed_by_name && item.claimed_at ? (
+            <Tag color="purple">
+              {`${t("reviewing")}: ${item.claimed_by_name} · ${formatNumber(
+                minutesSince(item.claimed_at),
+                locale,
+              )} ${t("minutesShort")}`}
+            </Tag>
+          ) : null}
+        </Space>
+      ),
     },
     queue
       ? {
@@ -109,13 +117,7 @@ export function AdvertisementTable({
       columns={columns}
       dataSource={advertisements}
       loading={loading}
-      pagination={{
-        current: page,
-        pageSize,
-        total,
-        showTotal: (count) => formatNumber(count, locale),
-        onChange: onPageChange,
-      }}
+      pagination={false}
     />
   );
 }

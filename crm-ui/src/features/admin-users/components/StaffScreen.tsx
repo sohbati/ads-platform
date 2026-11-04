@@ -83,6 +83,7 @@ export function StaffScreen() {
             {item.is_active ? t("active") : t("inactive")}
           </Tag>
           {item.is_super_admin ? <Tag color="gold">{t("superAdmin")}</Tag> : null}
+          {item.is_reviewer ? <Tag color="purple">{t("reviewer")}</Tag> : null}
         </Space>
       ),
     },

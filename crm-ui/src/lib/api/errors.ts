@@ -85,6 +85,34 @@ const CODE_MESSAGES: Record<string, { fa: string; en: string }> = {
     fa: "این آگهی دیگر در انتظار بررسی نیست؛ احتمالاً کارمند دیگری آن را بررسی کرده است.",
     en: "This ad is no longer pending; another staff member may have reviewed it.",
   },
+  AD_REVIEW_NOT_CLAIMED: {
+    fa: "ابتدا این آگهی را برای بررسی بردارید.",
+    en: "Take this ad for review first.",
+  },
+  AD_REVIEW_CLAIM_EXPIRED: {
+    fa: "مهلت بررسی شما تمام شد و آگهی به صف برگشت. برای ادامه، دوباره آن را بردارید.",
+    en: "Your hold on this ad ended and it went back to the queue. Take it again to continue.",
+  },
+  AD_REVIEW_CLAIMED_BY_OTHER: {
+    fa: "کارمند دیگری در حال بررسی این آگهی است.",
+    en: "Another reviewer is working on this ad.",
+  },
+  AD_REVIEW_FILTER_REQUIRED: {
+    fa: "برای دیدن آگهی‌ها جستجو کنید یا یک فیلتر انتخاب کنید.",
+    en: "Search or choose a filter to see ads.",
+  },
+  AD_REVIEW_SEARCH_TOO_SHORT: {
+    fa: "برای جستجوی عنوان دست‌کم ۳ حرف بنویسید، یا شناسه آگهی یا موبایل مشتری را وارد کنید.",
+    en: "Enter at least 3 letters of the title, or an ad ID or customer mobile.",
+  },
+  AD_REVIEW_INVALID_CURSOR: {
+    fa: "این صفحه دیگر معتبر نیست؛ از صفحه اول دوباره شروع کنید.",
+    en: "This page is no longer valid; start again from the first page.",
+  },
+  AD_REVIEW_CATALOG_UNAVAILABLE: {
+    fa: "فهرست دسته‌بندی‌ها در دسترس نیست؛ کمی بعد دوباره امتحان کنید.",
+    en: "The category list is unavailable; try again shortly.",
+  },
   AD_REVIEW_REASON_REQUIRED: {
     fa: "دلیل رد برای مشتری را بنویسید.",
     en: "Enter the rejection reason for the customer.",

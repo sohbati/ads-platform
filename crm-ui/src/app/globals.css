@@ -71,6 +71,12 @@ body {
   margin-bottom: 16px;
 }
 
+.app-pager {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
 .app-checkbox-list {
   display: flex;
   flex-direction: column;

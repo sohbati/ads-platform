@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { DescriptionsProps } from "antd";
 import {
   Alert,
+  App,
   Button,
   Descriptions,
   Drawer,
@@ -23,8 +24,16 @@ import { formatDigits } from "@/lib/formatters/digits";
 import { formatMobile } from "@/lib/formatters/phone";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { Permission } from "@/lib/permissions/codes";
-import { AdvertisementStatus } from "../constants/advertisement.constants";
-import { useAdvertisement, useReviewMutations } from "../hooks/useAdvertisements";
+import {
+  AdvertisementStatus,
+  CLAIM_HEARTBEAT_MS,
+  CLAIM_WARNING_MS,
+} from "../constants/advertisement.constants";
+import {
+  useAdvertisement,
+  useClaimActions,
+  useReviewMutations,
+} from "../hooks/useAdvertisements";
 import type { AdvertisementDetail } from "../types/advertisement.types";
 import { AdvertisementStatusTag } from "./AdvertisementStatusTag";
 import { formatPrice } from "./formatPrice";
@@ -33,6 +42,8 @@ import { RejectDialog } from "./RejectDialog";
 interface AdvertisementDrawerProps {
   adId: number | null;
   onClose: () => void;
+  /** Called after the reviewer approves or rejects, e.g. to open the next ad. */
+  onDecided?: () => void;
 }
 
 function displayValue(value: unknown): string {
@@ -48,45 +59,144 @@ function displayValue(value: unknown): string {
   return String(value);
 }
 
-export function AdvertisementDrawer({ adId, onClose }: AdvertisementDrawerProps) {
+/** The current time, refreshed every `intervalMs` while enabled. */
+function useNow(intervalMs: number, enabled: boolean) {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!enabled) {
+      return;
+    }
+    const timer = setInterval(() => setNow(Date.now()), intervalMs);
+    return () => clearInterval(timer);
+  }, [intervalMs, enabled]);
+  return now;
+}
+
+export function AdvertisementDrawer({ adId, onClose, onDecided }: AdvertisementDrawerProps) {
   const { t, locale } = useI18n();
+  const { message } = App.useApp();
   const session = useSession();
   const query = useAdvertisement(adId);
   const { approve, reject } = useReviewMutations();
+  const { claim, extend, release, forceRelease } = useClaimActions();
   const [approving, setApproving] = useState(false);
   const [rejecting, setRejecting] = useState(false);
+  const [freeing, setFreeing] = useState(false);
   const ad = query.data;
 
   const pending = ad?.status === AdvertisementStatus.pending;
-  const canApprove = pending && can(session.permissions, Permission.advertisementApprove);
-  const canReject = pending && can(session.permissions, Permission.advertisementReject);
+  const claimedByMe = pending && ad?.claimed_by_staff_id === session.staffId;
+  const now = useNow(5_000, claimedByMe);
+  const remaining = ad?.claim_expires_at ? Date.parse(ad.claim_expires_at) - now : 0;
+  const mine = claimedByMe && remaining > 0;
+  const heldByOther = pending && ad?.claimed_by_staff_id != null && !claimedByMe;
+
+  const canReview = pending && can(session.permissions, Permission.advertisementReview);
+  const canApprove = mine && can(session.permissions, Permission.advertisementApprove);
+  const canReject = mine && can(session.permissions, Permission.advertisementReject);
+  const canFree =
+    heldByOther && can(session.permissions, Permission.advertisementReviewManage);
+
+  // Keep the claim alive while the reviewer has the ad open.
+  const adIdHeld = mine ? ad?.id : undefined;
+  const { mutate: extendClaim } = extend;
+  useEffect(() => {
+    if (adIdHeld === undefined) {
+      return;
+    }
+    const timer = setInterval(() => extendClaim(adIdHeld), CLAIM_HEARTBEAT_MS);
+    return () => clearInterval(timer);
+  }, [adIdHeld, extendClaim]);
+
+  // The claim ran out (idle too long): say so once and show the ad as it is now.
+  const expiredClaim = claimedByMe && remaining <= 0 ? ad?.claim_expires_at : null;
+  const { refetch } = query;
+  useEffect(() => {
+    if (expiredClaim) {
+      message.warning(t("claimExpired"));
+      void refetch();
+    }
+  }, [expiredClaim, message, refetch, t]);
+
+  const close = () => {
+    // Closing the ad hands it back, so the next reviewer does not wait for the claim to expire.
+    if (mine && ad) {
+      release.mutate(ad.id);
+    }
+    onClose();
+  };
+
+  const decided = () => {
+    setApproving(false);
+    setRejecting(false);
+    onDecided?.();
+  };
 
   return (
     <Drawer
       open={adId !== null}
       title={ad ? ad.title : t("adDetails")}
       size="large"
-      onClose={onClose}
+      onClose={close}
       extra={
-        canApprove || canReject ? (
-          <Space>
-            {canReject ? (
-              <Button danger onClick={() => setRejecting(true)}>
-                {t("reject")}
-              </Button>
-            ) : null}
-            {canApprove ? (
-              <Button type="primary" onClick={() => setApproving(true)}>
-                {t("approve")}
-              </Button>
-            ) : null}
-          </Space>
-        ) : null
+        <Space>
+          {mine ? <Button onClick={close}>{t("returnToQueue")}</Button> : null}
+          {canReject ? (
+            <Button danger onClick={() => setRejecting(true)}>
+              {t("reject")}
+            </Button>
+          ) : null}
+          {canApprove ? (
+            <Button type="primary" onClick={() => setApproving(true)}>
+              {t("approve")}
+            </Button>
+          ) : null}
+          {canReview && !mine && !heldByOther ? (
+            <Button
+              type="primary"
+              loading={claim.isPending}
+              onClick={() => ad && claim.mutate(ad.id)}
+            >
+              {t("reviewThisAd")}
+            </Button>
+          ) : null}
+          {canFree ? (
+            <Button danger onClick={() => setFreeing(true)}>
+              {t("forceRelease")}
+            </Button>
+          ) : null}
+        </Space>
       }
     >
       {query.isLoading ? <AppLoading /> : null}
       {query.error ? (
         <AppError error={query.error} onRetry={() => void query.refetch()} />
+      ) : null}
+      {mine && remaining <= CLAIM_WARNING_MS ? (
+        <Alert
+          type="warning"
+          showIcon
+          style={{ marginBottom: 16 }}
+          title={t("claimExpiresSoon")}
+          action={
+            <Button
+              size="small"
+              loading={claim.isPending}
+              onClick={() => ad && claim.mutate(ad.id)}
+            >
+              {t("keepReviewing")}
+            </Button>
+          }
+        />
+      ) : mine ? (
+        <Alert type="info" showIcon style={{ marginBottom: 16 }} title={t("reviewingByYou")} />
+      ) : heldByOther && ad ? (
+        <Alert
+          type="info"
+          showIcon
+          style={{ marginBottom: 16 }}
+          title={`${t("reviewing")}: ${ad.claimed_by_name ?? "—"} · ${formatDateTime(ad.claimed_at, locale)}`}
+        />
       ) : null}
       {ad ? <Details ad={ad} locale={locale} t={t} /> : null}
 
@@ -97,7 +207,10 @@ export function AdvertisementDrawer({ adId, onClose }: AdvertisementDrawerProps)
         onCancel={() => setApproving(false)}
         onConfirm={() => {
           if (ad) {
-            approve.mutate(ad.id, { onSettled: () => setApproving(false) });
+            approve.mutate(ad.id, {
+              onSuccess: decided,
+              onError: () => setApproving(false),
+            });
           }
         }}
       />
@@ -107,7 +220,21 @@ export function AdvertisementDrawer({ adId, onClose }: AdvertisementDrawerProps)
         onCancel={() => setRejecting(false)}
         onSubmit={(input) => {
           if (ad) {
-            reject.mutate({ id: ad.id, input }, { onSettled: () => setRejecting(false) });
+            reject.mutate(
+              { id: ad.id, input },
+              { onSuccess: decided, onError: () => setRejecting(false) },
+            );
+          }
+        }}
+      />
+      <ConfirmDialog
+        open={freeing}
+        title={t("confirmForceRelease")}
+        loading={forceRelease.isPending}
+        onCancel={() => setFreeing(false)}
+        onConfirm={() => {
+          if (ad) {
+            forceRelease.mutate(ad.id, { onSettled: () => setFreeing(false) });
           }
         }}
       />

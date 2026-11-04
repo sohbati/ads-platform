@@ -17,6 +17,12 @@ describe("requiredPermission", () => {
     ["GET", "ads/12", "advertisement.read"],
     ["POST", "ads/12/approve", "advertisement.approve"],
     ["POST", "ads/12/reject", "advertisement.reject"],
+    ["POST", "ads/review/next", "advertisement.review"],
+    ["POST", "ads/12/claim", "advertisement.review"],
+    ["POST", "ads/12/extend", "advertisement.review"],
+    ["POST", "ads/12/release", "advertisement.review"],
+    ["POST", "ads/12/force-release", "advertisement.review_manage"],
+    ["GET", "ads/review/stats", "advertisement.read"],
     ["GET", "settings", "settings.read"],
     ["PUT", "settings/ads.pending_max_days", "settings.update"],
   ])("%s %s needs %s", (method, path, permission) => {
@@ -32,6 +38,8 @@ describe("requiredPermission", () => {
     ["GET", "ads/12/approve"],
     ["PUT", "ads/12"],
     ["DELETE", "ads/12"],
+    ["POST", "ads/review/release-all"],
+    ["GET", "ads/review/next"],
     ["PUT", "settings"],
     ["PUT", "settings/Bad Key"],
   ])("denies %s %s", (method, path) => {
