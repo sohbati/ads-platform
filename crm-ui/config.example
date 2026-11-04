@@ -1,4 +1,5 @@
 PORT=8100
 BACKEND_API_BASE_URL=http://localhost:8092
+CDN_BASE_URL=http://localhost:4000
 SESSION_SECRET=dev-only-change-me
 NEXT_PUBLIC_MEDIA_BASE_URL=http://localhost:8098

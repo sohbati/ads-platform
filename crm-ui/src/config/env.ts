@@ -1,4 +1,5 @@
 const DEFAULT_BACKEND_URL = "http://localhost:8092";
+const DEFAULT_CDN_URL = "http://localhost:4000";
 const DEV_SESSION_SECRET = "dev-only-change-me";
 const MIN_SECRET_LENGTH = 32;
 
@@ -26,6 +27,7 @@ function sessionSecret(): string {
 
 export const env = {
   backendApiBaseUrl: read("BACKEND_API_BASE_URL", DEFAULT_BACKEND_URL).replace(/\/$/, ""),
+  cdnBaseUrl: read("CDN_BASE_URL", DEFAULT_CDN_URL).replace(/\/$/, ""),
   get sessionSecret() {
     return sessionSecret();
   },
