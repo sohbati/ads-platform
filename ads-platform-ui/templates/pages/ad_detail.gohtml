@@ -53,7 +53,7 @@
     <h1 class="ad-detail__title">{{ .Ad.Title }}</h1>
     <p class="ad-detail__price">{{ .Ad.Price }}</p>
     <p class="ad-detail__meta">
-      {{- .Ad.Location }}{{ if and .Ad.Location .Ad.PublishedAt }} · {{ end }}{{ .Ad.PublishedAt -}}
+      {{- .Ad.Location }}{{ if and .Ad.Location .Ad.PublishedAt }} · {{ end }}{{ if .Ad.PublishedAt }}<time datetime="{{ .Ad.PublishedAtISO }}" data-local-date>{{ .Ad.PublishedAt }}</time>{{ end -}}
     </p>
     {{ if .Ad.Description }}
     <p class="ad-detail__desc">{{ .Ad.Description }}</p>

@@ -27,7 +27,10 @@ func Connect(databaseURL, databaseType string) (*gorm.DB, error) {
 		return nil, fmt.Errorf("unsupported database type %q (expected mysql or postgres)", databaseType)
 	}
 
-	database, err := gorm.Open(dialector, &gorm.Config{})
+	database, err := gorm.Open(dialector, &gorm.Config{
+		// created_at/updated_at in UTC, like every timestamp the backend sets itself.
+		NowFunc: func() time.Time { return time.Now().UTC() },
+	})
 	if err != nil {
 		return nil, fmt.Errorf("open database: %w", err)
 	}

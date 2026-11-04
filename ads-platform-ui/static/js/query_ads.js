@@ -47,7 +47,11 @@
       ? '<a class="ad-card is-appended" href="' + escapeHtml(href) + '">'
       : '<div class="ad-card is-appended">';
     const close = href ? "</a>" : "</div>";
-    const meta = [ad.location, ad.published_at].filter(Boolean).join(" · ");
+    // Show the publish date in the visitor's zone and language, like server-rendered cards.
+    const published =
+      (ad.published_at_iso && window.LocalTime && window.LocalTime.format(ad.published_at_iso)) ||
+      ad.published_at;
+    const meta = [ad.location, published].filter(Boolean).join(" · ");
     const price = ad.price
       ? '<p class="ad-card__price">' + escapeHtml(ad.price) + "</p>"
       : "";

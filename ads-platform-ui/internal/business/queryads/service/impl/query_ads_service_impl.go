@@ -156,7 +156,8 @@ func toAdDetail(ad *searchclient.PublicAd, t i18n.Messages, mediaCDN string) *vi
 	}
 	if ad.PublishedAt != nil {
 		if ts, err := time.Parse(time.RFC3339, *ad.PublishedAt); err == nil {
-			out.PublishedAt = ts.Format("2006-01-02")
+			out.PublishedAt = ts.UTC().Format("2006-01-02")
+			out.PublishedAtISO = ts.UTC().Format(time.RFC3339)
 		}
 	}
 	for _, m := range ad.Media {
@@ -211,7 +212,8 @@ func toSearchAd(ad searchclient.Ad, t i18n.Messages, mediaCDN string) viewmodel.
 	}
 	if ad.PublishedAt != nil {
 		if ts, err := time.Parse(time.RFC3339, *ad.PublishedAt); err == nil {
-			out.PublishedAt = ts.Format("2006-01-02")
+			out.PublishedAt = ts.UTC().Format("2006-01-02")
+			out.PublishedAtISO = ts.UTC().Format(time.RFC3339)
 		}
 	}
 	return out

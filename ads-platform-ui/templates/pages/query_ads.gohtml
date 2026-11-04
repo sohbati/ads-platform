@@ -40,7 +40,7 @@
         <div class="ad-card__body">
           <h2 class="ad-card__title">{{ .Title }}</h2>
           <p class="ad-card__meta">
-            {{- .Location }}{{ if and .Location .PublishedAt }} · {{ end }}{{ .PublishedAt -}}
+            {{- .Location }}{{ if and .Location .PublishedAt }} · {{ end }}{{ if .PublishedAt }}<time datetime="{{ .PublishedAtISO }}" data-local-date>{{ .PublishedAt }}</time>{{ end -}}
           </p>
         </div>
         {{ if .Href }}</a>{{ else }}</div>{{ end }}

@@ -32,8 +32,11 @@ type SearchAd struct {
 	Location    string `json:"location"`
 	Thumbnail   string `json:"thumbnail"`
 	HasPhoto    bool   `json:"has_photo"`
-	PublishedAt string `json:"published_at"`
-	Views       int    `json:"views,omitempty"`
+	// PublishedAt is a UTC date for pages without JavaScript; local_time.js replaces it with
+	// PublishedAtISO shown in the visitor's own time zone and language.
+	PublishedAt    string `json:"published_at"`
+	PublishedAtISO string `json:"published_at_iso,omitempty"`
+	Views          int    `json:"views,omitempty"`
 	Calls       int    `json:"calls,omitempty"`
 	// Owner-only fields for the my-ads list.
 	StatusLabel     string `json:"status_label,omitempty"`
@@ -56,7 +59,9 @@ type AdDetail struct {
 	Price       string
 	Location    string
 	PublishedAt string
-	Description string
+	// PublishedAtISO is the exact moment, shown in the visitor's zone (see SearchAd).
+	PublishedAtISO string
+	Description    string
 	Images      []string
 	HasPhone    bool
 	PhoneMasked string

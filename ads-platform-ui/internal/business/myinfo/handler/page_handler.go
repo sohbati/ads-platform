@@ -161,7 +161,8 @@ func toSearchAd(ad customerAdJSON, t i18n.Messages, mediaCDN string) queryadsvm.
 	}
 	if ad.PublishedAt != nil {
 		if ts, err := time.Parse(time.RFC3339, *ad.PublishedAt); err == nil {
-			out.PublishedAt = ts.Format("2006-01-02")
+			out.PublishedAt = ts.UTC().Format("2006-01-02")
+			out.PublishedAtISO = ts.UTC().Format(time.RFC3339)
 		}
 	}
 	return out
