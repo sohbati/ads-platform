@@ -1,4 +1,23 @@
+# local (default) | uat | production. Only "production" sends SMS to every number.
+APP_ENV=local
+
 PORT=8096
 BROKER_URL=nats://127.0.0.1:4222
 BROKER_HTTP_URL=http://localhost:8095
 OTP_SUBJECT=notifications.otp.send
+
+# SMS provider: log (only logs) | smsir
+SMS_PROVIDER=log
+
+# Outside production, ONLY these numbers receive SMS (comma separated). Empty = nobody.
+# Ignored when APP_ENV=production.
+SMS_ALLOWLIST=
+
+# sms.ir API key. A "Sandbox" key gets simulated responses; a live key sends real SMS.
+SMSIR_API_KEY=
+SMSIR_BASE_URL=https://api.sms.ir
+# 123456 / Code is the sandbox default template. With a live key use your approved template.
+SMSIR_OTP_TEMPLATE_ID=123456
+SMSIR_OTP_CODE_PARAM=Code
+# Sender line, only needed for free-text messages
+SMSIR_LINE_NUMBER=

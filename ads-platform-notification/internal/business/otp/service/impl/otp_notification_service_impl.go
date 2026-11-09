@@ -7,15 +7,15 @@ import (
 
 	"ads-platform-notification/internal/business/otp/model"
 	"ads-platform-notification/internal/business/otp/service"
-	"ads-platform-notification/internal/business/otp/sms"
+	"ads-platform-notification/internal/core/sms"
 )
 
 type otpNotificationService struct {
-	smsProvider sms.Provider
+	sender sms.Sender
 }
 
-func NewOtpNotificationService(smsProvider sms.Provider) service.OtpNotificationService {
-	return &otpNotificationService{smsProvider: smsProvider}
+func NewOtpNotificationService(sender sms.Sender) service.OtpNotificationService {
+	return &otpNotificationService{sender: sender}
 }
 
 func (s *otpNotificationService) HandleOtpEvent(ctx context.Context, event *model.OtpEvent) error {
@@ -26,8 +26,14 @@ func (s *otpNotificationService) HandleOtpEvent(ctx context.Context, event *mode
 		return fmt.Errorf("otp event: otp is required")
 	}
 
-	log.Printf("[OTP] received mobile=%s otp=%s", event.Mobile, event.Otp)
-
-	message := fmt.Sprintf("Your verification code is: %s", event.Otp)
-	return s.smsProvider.SendSMS(ctx, event.Mobile, message)
+	res, err := s.sender.SendTemplate(ctx, sms.TemplateMessage{
+		Mobile:   event.Mobile,
+		Template: sms.TemplateOTP,
+		Params:   map[string]string{sms.ParamCode: event.Otp},
+	})
+	if err != nil {
+		return err
+	}
+	log.Printf("[OTP] sent mobile=%s provider=%s messageId=%s", event.Mobile, res.Provider, res.MessageID)
+	return nil
 }
